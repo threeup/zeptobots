@@ -7,7 +7,7 @@ public class Sector : MonoBehaviour {
 	public int sx;
 	public int sy;
 	string[] map;
-	public int mapWidth = 10;
+	int mapWidth = 10;
 	World world;
 
 	bool isInit = false;
@@ -39,9 +39,9 @@ public class Sector : MonoBehaviour {
 	public void Mod(string blob)
 	{
 		string[] blobArray = blob.Split(',');
-		mapWidth = blobArray.Length;
+		mapWidth = blobArray.Length-1;
 		map = new string[mapWidth];
-		for(int i=0; i< blobArray.Length; ++i)
+		for(int i=0; i< mapWidth; ++i)
 		{
 			map[i] = blobArray[i];
 		}
@@ -97,6 +97,43 @@ public class Sector : MonoBehaviour {
 					t.gameObject.transform.parent = this.transform;
 					t.Init(ltx,lty,rtx,rty);
 					tiles[ltx,lty] = t;
+				}
+			}
+		}
+		for(int lty=0; lty<mapWidth; ++lty)
+		{
+			for(int ltx=0; ltx<mapWidth; ++ltx)	
+			{
+				Tile t = tiles[ltx,lty];
+				if( t )
+				{
+					if( ltx < mapWidth-1 )
+					{
+						t.AddNbor(tiles[ltx+1,lty]);
+					}
+					if( lty < mapWidth -1 )
+					{
+						t.AddNbor(tiles[ltx,lty+1]);
+					}
+					if( ltx < mapWidth-1 && lty < mapWidth-1)
+					{
+						t.AddNbor(tiles[ltx+1,lty+1]);
+					}
+					if( ltx > 0 && lty < mapWidth-1 )
+					{
+						t.AddNbor(tiles[ltx-1,lty+1]);
+					}
+				}
+			}
+		}
+		for(int lty=0; lty<mapWidth; ++lty)
+		{
+			for(int ltx=0; ltx<mapWidth; ++ltx)	
+			{
+				Tile t = tiles[ltx,lty];
+				if( t )
+				{
+					t.RefreshSprite();
 				}
 			}
 		}

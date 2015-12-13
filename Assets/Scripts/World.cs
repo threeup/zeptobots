@@ -7,6 +7,8 @@ public class World : MonoBehaviour {
 	public Sector[,] sectors = new Sector[10,10];
 
 
+	public TileMaterial wallMaterial;
+
 	public GameObject protoSector;
 	public GameObject protoTileFloor;
 	public GameObject protoTileWall;
@@ -90,6 +92,7 @@ public class World : MonoBehaviour {
 			go.name = tname;
 			go.SetActive(true);
 			tile = go.GetComponent<Tile>();
+			tile.tileMat = wallMaterial;
 		}
 		return tile;
 	}

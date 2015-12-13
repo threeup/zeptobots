@@ -65,13 +65,6 @@ public class Director : MonoBehaviour {
 			GameObject go = GameObject.Instantiate(prototype, pos, prototype.transform.rotation) as GameObject;
 			go.SetActive(true);
 			actor = go.GetComponent<Actor>();
-			actor.spriter = go.GetComponentInChildren<Spriter>();
-			actor.engine = go.GetComponent<Engine>();
-			actor.engine.actor = actor;
-			actor.hero = go.GetComponent<Hero>();
-			actor.hero.actor = actor;
-			actor.hero.engine = actor.engine;
-			actor.hero.spriter = actor.spriter;
 			actor.hero.actions = go.GetComponents<GameAction>();
 			actor.hero.Init();
 		}

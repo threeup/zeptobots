@@ -8,6 +8,7 @@ public class Hero : MonoBehaviour {
 	public GameAction[] actions;
 
 	public Spriter spriter = null;
+	public Light spotLight = null;
 
 	public Vector2 inputVec = Vector2.zero;
 	public bool inputA = false;
@@ -39,6 +40,8 @@ public class Hero : MonoBehaviour {
 		{
 			spriter.SpriteUpdate(deltaTime, engine.facingVec, engine.currentStep);
 		}
+		float rot_y = Mathf.Atan2(engine.facingVec.y, -engine.facingVec.x) * Mathf.Rad2Deg;
+        spotLight.transform.rotation = Quaternion.Euler(0f, rot_y - 90, 0f);
 	}
 
 	public void Select()
