@@ -41,7 +41,7 @@ public class Hero : MonoBehaviour {
 			spriter.SpriteUpdate(deltaTime, engine.facingVec, engine.currentStep);
 		}
 		float rot_y = Mathf.Atan2(engine.facingVec.y, -engine.facingVec.x) * Mathf.Rad2Deg;
-        spotLight.transform.rotation = Quaternion.Euler(0f, rot_y - 90, 0f);
+        spotLight.transform.rotation = Quaternion.Euler(30f, rot_y - 90, 0f);
 	}
 
 	public void Select()
