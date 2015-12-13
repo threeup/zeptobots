@@ -1,0 +1,27 @@
+{
+	"folders":
+	[
+		{
+			"file_exclude_patterns":
+			[
+				"*.meta"
+			],
+			"path": "Assets"
+		},
+		{
+			"file_exclude_patterns":
+			[
+				"*.meta"
+			],
+			"path": "server"
+		},
+		{
+			"file_exclude_patterns":
+			[
+				"*.meta"
+			],
+			"path": "target"
+		}
+	],
+	"solution_file": "./smooth.sln"
+}
