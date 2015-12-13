@@ -1,14 +1,14 @@
 var ws           = require('ws').Server;
 var server       = new ws({ port: 3000 });
 var world 		 = require('./world');
-var fps          = 20;
+var fps          = 4;
 
 
 server.broadcast = function(data) {
 	var self = this;
 	this.clients.forEach(function(client, index) {
-		var info = index;
-		var message = info + '\n' + data;
+		//var info = index;
+		var message = data;
 		client.send(message, function(err) {
 			if (err) console.error(err);
 		});
@@ -33,11 +33,13 @@ server.on('connection', function(socket) {
 		
 		if( cmd == "requestactoradd" )
 		{
-			world.addActor(chunks[0], chunks[1], chunks[2], chunks[3], chunks[4]);
+			//oid, x, y, sprite
+			world.addActor(chunks[0], chunks[1], chunks[2], chunks[3]);
 		}
 		if( cmd == "requestactormod" )
 		{
-			world.modActor(chunks[0], chunks[1], chunks[2], chunks[3], chunks[4], chunks[5]);
+			//uid, oid, tx, ty, rx, ry, sprite, hp, speed
+			world.modActor(chunks);
 		}
 	});
 
@@ -49,7 +51,8 @@ server.on('connection', function(socket) {
 
 	setInterval(function() {
 		if (world.hasDirty()) {
-			server.broadcast(world.getDirty());
+			var dirtyData = world.getDirty();
+			server.broadcast(dirtyData);
 		}
 	}, 1000 / fps);
 });

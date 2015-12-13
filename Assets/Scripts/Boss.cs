@@ -10,7 +10,7 @@ public class Boss : MonoBehaviour {
 	public List<Actor> localActors = new List<Actor>();
 	public Actor selectedActor = null;
 
-	private float sendUpdateTimer = 1f;
+	private float sendUpdateTimer = 0.25f;
 
 	void Awake()
 	{
@@ -34,7 +34,12 @@ public class Boss : MonoBehaviour {
 		int len = localActors.Count;
 		if( len > 0 )
 		{
+			if( selectedActor != null )
+			{
+				selectedActor.Deselect();
+			}
 			selectedActor = localActors[Random.Range(0,len)];
+			selectedActor.Select();
 			CamControl.Instance.FollowObject(selectedActor.transform);
 		}
 	}
@@ -44,28 +49,31 @@ public class Boss : MonoBehaviour {
 		if( selectedTile != null )
 		{
 			int localOID = NetMan.Instance.localOID;
-			int tx = selectedTile.tx;
-			int ty = selectedTile.ty;
-			//oid, x, y, sprite, hp
+			int rtx = selectedTile.rtx;
+			int rty = selectedTile.rty;
+			//oid, x, y, sprite
 
 			string sprite = NetMan.Instance.localIsRed ? "R" : "B";
-			NetMan.Instance.Send("requestactoradd|"+localOID+"|"+tx+"|"+ty+"|"+sprite+"|"+10);
+			NetMan.Instance.Send("requestactoradd|"+localOID+"|"+rtx+"|"+rty+"|"+sprite);
 		}
 	}
 
 	public void SendUpdate()
 	{
-		if( selectedActor != null )
+		int localOID = NetMan.Instance.localOID;
+		Director.Instance.GetLocalActors(ref localActors);
+		for(int i=0; i<localActors.Count; ++i)
 		{
-			int uid = selectedActor.uid;
-			int localOID = NetMan.Instance.localOID;
-			int tx = selectedActor.tx;
-			int ty = selectedActor.ty;
-			int rx = selectedActor.rx;
-			int ry = selectedActor.ry;
-			string sprite = selectedActor.sprite;
-			int hp = selectedActor.hp;
-			NetMan.Instance.Send("requestactormod|"+uid+"|"+localOID+"|"+tx+"|"+ty+"|"+rx+"|"+ry+"|"+sprite+"|"+hp);
+			Actor actor = localActors[i];
+			int uid = actor.uid;
+			int tx = actor.tx;
+			int ty = actor.ty;
+			int rx = actor.rx;
+			int ry = actor.ry;
+			string sprite = actor.sprite;
+			int hp = actor.hp;
+			int speed = actor.speed;
+			NetMan.Instance.Send("requestactormod|"+uid+"|"+localOID+"|"+tx+"|"+ty+"|"+rx+"|"+ry+"|"+sprite+"|"+hp+"|"+speed+"\n");
 		}
 	}
 
@@ -110,7 +118,7 @@ public class Boss : MonoBehaviour {
 		if( sendUpdateTimer < 0f )
 		{
 			SendUpdate();
-			sendUpdateTimer = 0.1f;
+			sendUpdateTimer = 0.25f;
 		}
 
 	}

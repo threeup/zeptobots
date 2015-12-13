@@ -58,18 +58,20 @@ public class Sector : MonoBehaviour {
 
 	public void InitMap	()
 	{		
-		for(int ty=0; ty<mapWidth; ++ty)
+		for(int lty=0; lty<mapWidth; ++lty)
 		{
-			for(int tx=0; tx<mapWidth; ++tx)	
+			for(int ltx=0; ltx<mapWidth; ++ltx)	
 			{
-				string line = map[ty];
+				string line = map[lty];
 				char c = ' ';
-				if( line.Length > tx )
+				if( line.Length > ltx )
 				{
-					c = line[tx];
+					c = line[ltx];
 				}
-				string tileName = "Tile "+tx+","+ty;
-				Vector3 tilePos = new Vector3((tx+sx*10)*10, 0, (ty+sy*10)*10);
+				string tileName = "Tile "+ltx+","+lty;
+				int rtx = ltx+sx*10;
+				int rty = lty+sy*10;
+				Vector3 tilePos = new Vector3(rtx*10, 0, rty*10);
 				tilePos.x += 5;
 				tilePos.z += 5;
 				Tile t = world.MakeTile(c, tilePos, tileName);
@@ -80,8 +82,8 @@ public class Sector : MonoBehaviour {
 						break;
 				}
 				t.gameObject.transform.parent = this.transform;
-				t.Init(tx,ty);
-				tiles[tx,ty] = t;
+				t.Init(ltx,lty,rtx,rty);
+				tiles[ltx,lty] = t;
 			}
 		}
 		isInit = true;
@@ -90,12 +92,12 @@ public class Sector : MonoBehaviour {
 	public Tile GetTileAt(Vector3 pos)
 	{
 		float localX = pos.x - sx*100;
-		float localY = pos.z - sx*100;
-		int tx = (int)Mathf.Floor(localX/10f);
-		int ty = (int)Mathf.Floor(localY/10f);
-		if( tx >= 0 && tx < 10 && ty >= 0 && ty < 10 )
+		float localY = pos.z - sy*100;
+		int ltx = (int)Mathf.Floor(localX/10f);
+		int lty = (int)Mathf.Floor(localY/10f);
+		if( ltx >= 0 && ltx < 10 && lty >= 0 && lty < 10 )
 		{
-			return tiles[tx,ty];
+			return tiles[ltx,lty];
 		}
 		return null;
 	}

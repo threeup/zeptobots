@@ -97,6 +97,16 @@ public class World : MonoBehaviour {
 		return sectors[Random.Range(0,10),Random.Range(0,10)];
 	}
 
+	public Sector GetSectorAt(Vector3 pos)
+	{
+		int sx = (int)Mathf.Floor(pos.x/100f);
+		int sy = (int)Mathf.Floor(pos.z/100f);
+		if( sx >= 0 && sx < 10 && sy >= 0 && sy < 10 )
+		{
+			return sectors[sx,sy];
+		}
+		return null;
+	}
 	public Tile GetTileAt(Vector3 pos)
 	{
 		int sx = (int)Mathf.Floor(pos.x/100f);

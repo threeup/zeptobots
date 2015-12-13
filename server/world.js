@@ -9,7 +9,7 @@ var World = {
 	sectors: [],
 	actors: [],
 	dirtySectors: [],
-	majorDirtyActors: [],
+	dirtyActors: [],
 	minorDirtyActors: [],
 	nextUID: 1000,
 
@@ -73,7 +73,6 @@ var World = {
 					if( chunks.length > 3)
 					{
 						var uid = chunks.shift();
-						var oid = chunks.shift();
 						var actor = self.actors[uid-1000];
 						actor.readChunks(chunks);
 						count++;
@@ -118,7 +117,7 @@ var World = {
 	},
 	
 
-	addActor: function(oid, tx, ty, sprite, hp) {
+	addActor: function(oid, tx, ty, sprite) {
 		var self = this;
 		var actor = self.actors[self.nextUID-1000];
 		if( self.nextUID == 2000 )
@@ -130,23 +129,29 @@ var World = {
 		{
 			self.nextUID++;
 		}
-		actor.mod(oid, tx, ty, tx*10, ty*10, sprite, hp);
-		self.majorDirtyActors.push(actor);
+		actor.oid = oid;
+		actor.tx = tx;
+		actor.ty = ty;
+		actor.rx = tx*10+5;
+		actor.ry = ty*10+5;
+		actor.sprite = sprite;
+		actor.hp = 10;
+		actor.speed = 30;
+		self.dirtyActors.push(actor);
 	},
 
-	modActor: function(uid, oid, tx, ty, rx, ry, sprite, hp) {
+	modActor: function(chunks) {
 		var self = this;
+		var uid = chunks.shift();
+		
 		var actor = self.actors[uid-1000];
 		if( actor != null )
 		{
-			var major = actor.mod(oid, tx, ty, sprite, hp);
-			if( major )
+			var dirty = actor.readChunks(chunks);
+			if( dirty )
 			{
-				self.majorDirtyActors.push(actor);
-			}
-			else
-			{
-				self.minorDirtyActors.push(actor);	
+				self.dirtyActors.push(actor);
+				//self.minorDirtyActors.push(actor);	
 			}
 		}
 	},
@@ -156,8 +161,8 @@ var World = {
 		self.actors.forEach(function(actor) {
 			if( actor.oid == oid )
 			{
-				actor.modhp(-1);
-				self.majorDirtyActors.push(actor);
+				actor.erase();
+				self.dirtyActors.push(actor);
 			}
 		});
 	},
@@ -184,17 +189,17 @@ var World = {
 	getDirty: function() {
 		var self = this;
 		var messages = '';
-		self.majorDirtyActors.forEach(function(actor) {
+		self.dirtyActors.forEach(function(actor) {
 			messages += 'actormod|';
 			messages += actor.writeChunks();
 			messages += '\n';
 		});
-		self.majorDirtyActors.length = 0;
-		self.minorDirtyActors.forEach(function(actor) {
+		self.dirtyActors.length = 0;
+		/*self.minorDirtyActors.forEach(function(actor) {
 			messages += 'actormod|';
 			messages += actor.writeChunks();
 			messages += '\n';
-		});
+		});*/
 		self.minorDirtyActors.length = 0;
 		self.dirtySectors.forEach(function(sector) {
 			messages += 'sectormod|';
@@ -207,7 +212,7 @@ var World = {
 
 	hasDirty: function() {
 		var self = this;
-		return self.majorDirtyActors.length > 0 || self.minorDirtyActors.length > 0 || self.dirtySectors.length > 0;
+		return self.dirtyActors.length > 0 || self.minorDirtyActors.length > 0 || self.dirtySectors.length > 0;
 	}
 
 };

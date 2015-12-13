@@ -48,7 +48,7 @@ public class Director : MonoBehaviour {
 	}
 
 
-	public Actor AddActor(int tx, int ty, string sprite)
+	public Actor AddActor(int rx, int ry, string sprite)
 	{
 		GameObject prototype = null;
 		Actor actor = null;
@@ -60,7 +60,7 @@ public class Director : MonoBehaviour {
 		}
 		if( prototype )
 		{
-			Vector3 pos = new Vector3(tx*10, 1f, ty*10);
+			Vector3 pos = new Vector3(rx, 1f, ry);
 			GameObject go = GameObject.Instantiate(prototype, pos, prototype.transform.rotation) as GameObject;
 			go.SetActive(true);
 			actor = go.GetComponent<Actor>();
@@ -74,14 +74,17 @@ public class Director : MonoBehaviour {
 		int oid = Utils.IntParseFast(chunks[2]);
 		int tx = Utils.IntParseFast(chunks[3]);
 		int ty = Utils.IntParseFast(chunks[4]);
-		string sprite = chunks[5];
-		int hp = Utils.IntParseFast(chunks[6]);
+		int rx = Utils.IntParseFast(chunks[5]);
+		int ry = Utils.IntParseFast(chunks[6]);
+		string sprite = chunks[7];
+		int hp = Utils.IntParseFast(chunks[8]);
+		int speed = Utils.IntParseFast(chunks[9]);
 		if( !actorDict.ContainsKey(uid) )
 		{
-			Actor a = AddActor(tx,ty,sprite);
+			Actor a = AddActor(rx,ry,sprite);
 			if( a != null )
 			{
-				a.Mod(true, uid,oid,tx,ty,sprite,hp);
+				a.Mod(true, uid,oid,tx,ty,rx,ry,sprite,hp,speed);
 				actorDict[uid] = a;
 				actorList.Add(a);
 			}
@@ -89,8 +92,14 @@ public class Director : MonoBehaviour {
 		else
 		{
 			Actor a = actorDict[uid];
-			bool authoritative = oid != NetMan.Instance.localOID;
-			a.Mod(authoritative, uid,oid,tx,ty,sprite,hp);	
+			if( oid != NetMan.Instance.localOID )
+			{
+				a.Mod(true, uid,oid,tx,ty,rx,ry,sprite,hp,speed);	
+			}
+			else
+			{
+				a.Mod(false, uid,oid,tx,ty,rx,ry,sprite,hp,speed);		
+			}
 		}
 	}
 

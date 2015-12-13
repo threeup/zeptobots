@@ -11,6 +11,7 @@ public class Actor : MonoBehaviour {
 	public int ry = -1;
 	public string sprite = "R";
 	public int hp = -1;
+	public int speed = 30;
 
 	private Vector3 desiredPosition = Vector3.zero;
 	public Vector2 inputVec = Vector2.zero;
@@ -20,9 +21,13 @@ public class Actor : MonoBehaviour {
 	public bool inputB = false;
 	public GameAction[] actions;
 
+	public bool localInput = false;
 	private bool moveLock = false;
 	private bool facingLock = false;
-	private float speed = 30f;
+
+	public Sector lastSector = null;
+	public Tile lastTile = null;
+	
 
 	void Awake()
 	{
@@ -42,30 +47,7 @@ public class Actor : MonoBehaviour {
 
 	}
 
-	public void Mod(bool authoritative, int uid, int oid,int tx,int ty,string sprite,int hp)
-	{
-		if( this.uid != uid )
-		{
-			this.uid = uid;
-		}
-		if( this.oid != oid )
-		{
-			this.oid = oid;
-		}
-		if( authoritative )
-		{
-			if( this.tx != tx || this.ty != ty )
-			{
-				this.tx = tx;
-				this.ty = ty;
-				this.desiredPosition = new Vector3(tx*10, 1f, ty*10);
-			}
-		}
-		if( this.hp != hp )
-		{
-			this.hp = hp;
-		}
-	}
+
 	
 	void Update () 
 	{
@@ -78,7 +60,7 @@ public class Actor : MonoBehaviour {
 				facingVec = inputVec;
 			}
 		}
-		if( !moveLock )
+		if( !moveLock && localInput )
 		{
 			this.desiredPosition = this.transform.position + new Vector3(inputVec.x, 0, inputVec.y);
 		}
@@ -98,15 +80,18 @@ public class Actor : MonoBehaviour {
 				this.transform.position = this.desiredPosition;	
 			}
 		}
-		Tile t = World.Instance.GetTileAt(this.transform.position);
+		Sector sec = World.Instance.GetSectorAt(this.transform.position);
+		lastSector = sec;
+		Tile t = sec.GetTileAt(this.transform.position);
+		lastTile = t;
 		if( t == null || !t.Passable(this) )
 		{
 			this.transform.position = originalPosition;
 		}
 		else
 		{
-			this.tx = t.tx;
-			this.ty = t.ty;
+			this.tx = t.rtx;
+			this.ty = t.rty;
 			this.rx = (int)Mathf.Round(this.transform.position.x);
 			this.ry = (int)Mathf.Round(this.transform.position.z);
 		}
@@ -115,19 +100,57 @@ public class Actor : MonoBehaviour {
 	}
 
 
+
+	public void Mod(bool authoritative, int uid, int oid,int tx,int ty,int rx,int ry,string sprite,int hp, int speed)
+	{
+		if( this.uid != uid )
+		{
+			this.uid = uid;
+		}
+		if( this.oid != oid )
+		{
+			this.oid = oid;
+		}
+		if( authoritative )
+		{
+			this.tx = tx;
+			this.ty = ty;
+			this.rx = rx;
+			this.ry = ry;
+			this.desiredPosition = new Vector3(rx, 1f, ry);
+			this.sprite = sprite;
+			this.speed = speed;
+		}
+		if( this.hp != hp )
+		{
+			this.hp = hp;
+		}
+	}
+
+	public void Select()
+	{
+		localInput = true;
+	}
+
+	public void Deselect()
+	{
+		localInput = false;
+	}
+
+
 	public static void DashActivate(GameAction ga, Actor actor)
 	{
 		float dashDistance = 40f;
 		Vector3 delta = new Vector3(actor.facingVec.x, 0, actor.facingVec.y)*dashDistance;
 		actor.desiredPosition = actor.transform.position + delta;
-		actor.speed = 240f;
+		actor.speed = 240;
 		actor.moveLock = true;
 		ga.lockTime = 0.6f;
 	}
 
 	public static void DashRecover(GameAction ga, Actor actor)
 	{
-		actor.speed = 20f;
+		actor.speed = 20;
 		actor.moveLock = false;
 		ga.lockTime = 1f;
 	}
@@ -135,7 +158,7 @@ public class Actor : MonoBehaviour {
 
 	public static void DashCooldown(GameAction ga, Actor actor)
 	{
-		actor.speed = 30f;
+		actor.speed = 30;
 		actor.moveLock = false;
 		ga.lockTime = 0f;
 	}

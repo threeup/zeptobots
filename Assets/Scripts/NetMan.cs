@@ -42,9 +42,14 @@ public class NetMan : MonoBehaviour {
     public void BlobReceive(string blob)
     {
     	string[] chunks = blob.Split('\n');
+    	//Debug.Log("blob["+chunks.Length+"] "+blob);
         for(int i=0; i<chunks.Length; ++i)
         {
-        	OnMessage(chunks[i]);
+        	string chunk = chunks[i];
+        	if( !string.IsNullOrEmpty(chunk) )
+        	{
+        		OnMessage(chunk);
+        	}
         }
     }
 

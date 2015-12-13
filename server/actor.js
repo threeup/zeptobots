@@ -4,35 +4,50 @@ var Actor = function(uid,oid) {
 	this.oid = oid;
 	this.tx = 0;
 	this.ty = 0;
+	this.rx = 0;
+	this.ry = 0;
 	this.sprite = " ";
+	this.hp = -1;
+	this.speed = 30;
+};
+
+Actor.prototype.erase = function() {
+	this.oid = -1;
 	this.hp = -1;
 };
 
-Actor.prototype.mod = function(oid,tx,ty,rx,ry,sprite,hp) {
-	var majorDirty = false;
-	this.oid = oid;
-	if( this.tx != tx || this.ty != ty )
+
+Actor.prototype.readChunks = function(chunks) {
+	
+	var oid = chunks.shift();
+	var tx = chunks.shift();
+	var ty = chunks.shift();
+	var rx = chunks.shift();
+	var ry = chunks.shift();
+	var sprite = chunks.shift();
+	var hp = chunks.shift();
+	var speed = chunks.shift();
+
+	var posDirty = false;
+	if( this.rx != rx || this.ry != ry )
 	{
-		majorDirty = true;
+		posDirty = true;
 	}
 	this.tx = tx;
 	this.ty = ty;
 	this.rx = rx;
 	this.ry = ry;
+
+	var stateDirty = false;
+	if( this.oid != oid || this.sprite != sprite || this.hp != hp || this.speed != speed)
+	{
+		stateDirty = true;
+	}
+	this.oid = oid;
 	this.sprite = sprite;
 	this.hp = hp;
-	return majorDirty;
-};
-
-Actor.prototype.modhp = function(hp) {
-	this.hp = hp;
-};
-
-Actor.prototype.readChunks = function(chunks) {
-	this.tx = chunks[0];
-	this.ty = chunks[1];
-	this.sprite = chunks[2];
-	this.hp = chunks[3];
+	this.speed = speed;
+	return posDirty || stateDirty;
 };
 
 Actor.prototype.writeChunks = function() {
@@ -45,9 +60,15 @@ Actor.prototype.writeChunks = function() {
 	chunks += '|';
 	chunks += this.ty;
 	chunks += '|';
+	chunks += this.rx;
+	chunks += '|';
+	chunks += this.ry;
+	chunks += '|';
 	chunks += this.sprite;
 	chunks += '|';
 	chunks += this.hp;
+	chunks += '|';
+	chunks += this.speed;
 	return chunks;
 };
 

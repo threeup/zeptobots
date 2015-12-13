@@ -11,18 +11,22 @@ public class Tile : MonoBehaviour {
 	}
 
 	public TileType tileType = TileType.NONE;
-	public int tx;
-	public int ty;
+	public int ltx;
+	public int lty;
+	public int rtx;
+	public int rty;
 
-	public void Init(int tx, int ty)
+	public void Init(int ltx, int lty, int rtx, int rty)
 	{
-		this.tx = tx;
-		this.ty = ty;
+		this.ltx = ltx;
+		this.lty = lty;
+		this.rtx = rtx;
+		this.rty = rty;
 	}
 
 	public bool Passable(Actor actor)
 	{
-		return tileType != TileType.SOLID;
+		return tileType != TileType.SOLID || !actor.localInput;
 	}
 	
 	// Update is called once per frame
