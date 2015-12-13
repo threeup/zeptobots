@@ -8,8 +8,6 @@ public class NetMan : MonoBehaviour {
 
 	public static NetMan Instance;
 
-	public int localOID = -1;
-	public bool localIsRed = true;
 
 	void Awake()
 	{
@@ -59,14 +57,14 @@ public class NetMan : MonoBehaviour {
 		switch(chunks[0])
 		{
 			case "setupclient":
-				if( localOID > 0 )
+				if( Boss.Instance.localOID > 0 )
 				{
 					Debug.LogError("Double setup");
 					return;
 				}
-				localOID = Utils.IntParseFast(chunks[1]);
-				Debug.LogError("LocalOID"+localOID);
-				localIsRed = chunks[2].StartsWith("true");
+				Boss.Instance.localOID = Utils.IntParseFast(chunks[1]);
+				Debug.LogError("LocalOID"+Boss.Instance.localOID);
+				Boss.Instance.localIsRed = chunks[2].StartsWith("true");
 				break;
 			default:
 				break;

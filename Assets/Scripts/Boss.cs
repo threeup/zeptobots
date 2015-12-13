@@ -6,8 +6,12 @@ public class Boss : MonoBehaviour {
 
 	public static Boss Instance;
 
+	public int localOID = -1;
+	public bool localIsRed = true;
+	public List<Actor> localActors = new List<Actor>();
+	public List<Hero> localHeroes = new List<Hero>();
 	public Tile selectedTile = null;
-	public Actor selectedActor = null;
+	public Hero selectedHero = null;
 
 	private float sendUpdateTimer = 0.1f;
 
@@ -34,18 +38,18 @@ public class Boss : MonoBehaviour {
 		}
 	}
 
-	public void SelectRandomLocalActor()
+	public void SelectRandomLocalHero()
 	{
-		int len = Director.Instance.localActors.Count;
+		int len = localHeroes.Count;
 		if( len > 0 )
 		{
-			if( selectedActor != null )
+			if( selectedHero != null )
 			{
-				selectedActor.Deselect();
+				selectedHero.Deselect();
 			}
-			selectedActor = Director.Instance.localActors[Random.Range(0,len)];
-			selectedActor.Select();
-			CamControl.Instance.FollowObject(selectedActor.transform);
+			selectedHero = localHeroes[Random.Range(0,len)];
+			selectedHero.Select();
+			CamControl.Instance.FollowObject(selectedHero.transform);
 		}
 	}
 
@@ -53,57 +57,85 @@ public class Boss : MonoBehaviour {
 	{
 		if( selectedTile != null )
 		{
-			int localOID = NetMan.Instance.localOID;
 			int rtx = selectedTile.rtx;
 			int rty = selectedTile.rty;
 			//oid, x, y, sprite
 
-			string sprite = NetMan.Instance.localIsRed ? "Rd1" : "Bd1";
+			string sprite = localIsRed ? "Rd1" : "Bd1";
 			NetMan.Instance.Send("requestactoradd|"+localOID+"|"+rtx+"|"+rty+"|"+sprite);
+			Debug.Log("request spawn"+rtx+" "+rty+" "+sprite);
 		}
 	}
 
 	public void SendUpdate()
 	{
-		Director.Instance.SendUpdate();
-		
+		for(int i=0; i<localActors.Count; ++i)
+		{
+			Actor actor = localActors[i];
+			string str = actor.GetOutString(localOID);
+			NetMan.Instance.Send(str);
+		}
+	}
+
+	public void ScanLocalActors()
+	{
+		localHeroes.Clear();
+		localActors.Clear();
+		List<Actor> actorList = Director.Instance.ActorList;
+		for(int i = 0; i<actorList.Count; ++i)
+		{
+			Actor a = actorList[i];
+			if( a.oid == localOID )
+			{
+				localActors.Add(a);
+				if( a.hero != null )
+				{
+					localHeroes.Add(a.hero);
+				}
+				a.SetLocal(true);
+			}
+			else
+			{
+				a.SetLocal(false);
+			}
+		}
 	}
 
 	public void Update()
 	{
 		float deltaTime = Time.deltaTime;
-		if( selectedActor == null )
+		if( selectedHero == null )
 		{
-			SelectRandomLocalActor();
+			SelectRandomLocalHero();
 		}
 		else
 		{
-			selectedActor.inputVec = Vector2.zero;
-			selectedActor.inputA = false;
-			selectedActor.inputB = false;
+			selectedHero.inputVec = Vector2.zero;
+			selectedHero.inputA = false;
+			selectedHero.inputB = false;
 			if (Input.GetKey("up"))
 			{
-				selectedActor.inputVec.y += 1;
+				selectedHero.inputVec.y += 1;
 			}
 			if (Input.GetKey("down"))
 			{
-				selectedActor.inputVec.y -= 1;
+				selectedHero.inputVec.y -= 1;
 			}
 			if (Input.GetKey("left"))
 			{
-				selectedActor.inputVec.x -= 1;
+				selectedHero.inputVec.x -= 1;
 			}
 			if (Input.GetKey("right"))
 			{
-				selectedActor.inputVec.x += 1;
+				selectedHero.inputVec.x += 1;
 			}
 			if (Input.GetButton("Fire1"))
 			{
-				selectedActor.inputA = true;
+				selectedHero.inputA = true;
 			}
 			if (Input.GetButton("Jump"))
 			{
-				selectedActor.inputB = true;
+				selectedHero.inputB = true;
 			}
 		}
 		sendUpdateTimer -= deltaTime;

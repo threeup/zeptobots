@@ -20,6 +20,7 @@ public class Spriter : MonoBehaviour {
 	private float timer = 1f;
 	public SpriteRenderer sr = null;
 	public string spriteString = "RD0";
+	public bool localUpdate = false;
 
 	public void SpriteUpdate(float deltaTime, Vector2 facing, float speed)
 	{

@@ -68,7 +68,7 @@ public class Sector : MonoBehaviour {
 				{
 					c = line[ltx];
 				}
-				string tileName = "Tile "+ltx+","+lty;
+				string tileName = "Tile "+ltx+","+lty+" of "+this.gameObject.name;
 				int rtx = ltx+sx*10;
 				int rty = lty+sy*10;
 				Vector3 tilePos = new Vector3(rtx*10, 0, rty*10);

@@ -11,7 +11,7 @@ public class Director : MonoBehaviour {
 
 	private Dictionary<int,Actor> actorDict = new Dictionary<int,Actor>();
 	private List<Actor> actorList = new List<Actor>();
-	public List<Actor> localActors = new List<Actor>();
+	public List<Actor> ActorList { get { return actorList; } }
 
 
 	void Awake()
@@ -65,6 +65,15 @@ public class Director : MonoBehaviour {
 			GameObject go = GameObject.Instantiate(prototype, pos, prototype.transform.rotation) as GameObject;
 			go.SetActive(true);
 			actor = go.GetComponent<Actor>();
+			actor.spriter = go.GetComponentInChildren<Spriter>();
+			actor.engine = go.GetComponent<Engine>();
+			actor.engine.actor = actor;
+			actor.hero = go.GetComponent<Hero>();
+			actor.hero.actor = actor;
+			actor.hero.engine = actor.engine;
+			actor.hero.spriter = actor.spriter;
+			actor.hero.actions = go.GetComponents<GameAction>();
+			actor.hero.Init();
 		}
 		return actor;
 	}
@@ -88,13 +97,13 @@ public class Director : MonoBehaviour {
 				a.Mod(true, uid,oid,tx,ty,rx,ry,sprite,hp,speed);
 				actorDict[uid] = a;
 				actorList.Add(a);
-				ScanLocalActors();
+				Boss.Instance.ScanLocalActors();
 			}
 		}
 		else
 		{
 			Actor a = actorDict[uid];
-			if( oid != NetMan.Instance.localOID )
+			if( oid != Boss.Instance.localOID )
 			{
 				a.Mod(true, uid,oid,tx,ty,rx,ry,sprite,hp,speed);	
 			}
@@ -105,35 +114,6 @@ public class Director : MonoBehaviour {
 		}
 	}
 
-	public void ScanLocalActors()
-	{
-		localActors.Clear();
-		int localOID = NetMan.Instance.localOID;
-		for(int i = 0; i<actorList.Count; ++i)
-		{
-			Actor a = actorList[i];
-			if( a.oid == localOID )
-			{
-				localActors.Add(a);
-			}
-		}
-	} 
+	 
 
-	public void SendUpdate()
-	{
-		int localOID = NetMan.Instance.localOID;
-		for(int i=0; i<localActors.Count; ++i)
-		{
-			Actor actor = localActors[i];
-			int uid = actor.uid;
-			int tx = actor.tx;
-			int ty = actor.ty;
-			int rx = actor.rx;
-			int ry = actor.ry;
-			string sprite = actor.spriter.spriteString;
-			int hp = actor.hp;
-			int speed = actor.speed;
-			NetMan.Instance.Send("requestactormod|"+uid+"|"+localOID+"|"+tx+"|"+ty+"|"+rx+"|"+ry+"|"+sprite+"|"+hp+"|"+speed+"\n");
-		}
-	}
 }

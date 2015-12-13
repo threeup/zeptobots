@@ -33,7 +33,7 @@ public class World : MonoBehaviour {
 			{
 				Vector3 pos = new Vector3(sx*100, 0, sy*100);
 				GameObject go = GameObject.Instantiate(protoSector, pos, protoSector.transform.rotation) as GameObject;
-				go.name = "Sector"+sx+","+sy;
+				go.name = "Sector "+sx+","+sy;
 				go.transform.parent = this.transform;
 				Sector s = go.GetComponent<Sector>();
 				s.Init(sx,sy);
