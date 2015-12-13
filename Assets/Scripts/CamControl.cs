@@ -9,11 +9,13 @@ public class CamControl : MonoBehaviour {
 	public Transform target;
 	private float nearSpeed = 60f;
 	private float farSpeed = 6000f;
+	private float currentSpeed = 0f;
 	private Vector3 desiredPosition = Vector3.zero;
 	
 	void Awake()
 	{
 		Instance = this;
+		desiredPosition = this.transform.position;
 	}
 
 	void Update()
@@ -28,11 +30,12 @@ public class CamControl : MonoBehaviour {
 		float speed = dist > 100 ? farSpeed : nearSpeed;
 		if( dist > 0.1f )
 		{	
-			float maxDist = speed*deltaTime;
-			if( dist > maxDist )
+			float maxSpeed = speed*deltaTime;
+			if( dist > maxSpeed )
 			{
+				currentSpeed = maxSpeed;
 				Vector3 dir = diff/dist;
-				this.transform.position = this.transform.position + dir*maxDist;
+				this.transform.position = this.transform.position + dir*currentSpeed;
 			}
 			else
 			{

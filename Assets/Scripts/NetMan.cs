@@ -59,7 +59,13 @@ public class NetMan : MonoBehaviour {
 		switch(chunks[0])
 		{
 			case "setupclient":
+				if( localOID > 0 )
+				{
+					Debug.Log("I should ignore");
+					return;
+				}
 				localOID = Utils.IntParseFast(chunks[1]);
+				Debug.LogError("LocalOID"+localOID);
 				localIsRed = chunks[2].StartsWith("true");
 				break;
 			default:

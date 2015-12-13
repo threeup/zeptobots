@@ -10,7 +10,7 @@ public class Boss : MonoBehaviour {
 	public List<Actor> localActors = new List<Actor>();
 	public Actor selectedActor = null;
 
-	private float sendUpdateTimer = 0.25f;
+	private float sendUpdateTimer = 0.1f;
 
 	void Awake()
 	{
@@ -19,13 +19,15 @@ public class Boss : MonoBehaviour {
 	
 	public void SelectRandomSpawn()
 	{
-		List<Tile> spawnTiles = World.Instance.GetRandomSector().spawnTiles;
-		int len = spawnTiles.Count;
-		if( len > 0 )
+		int len = 0;
+		List<Tile> spawnTiles = null;
+		while(len == 0)
 		{
-			selectedTile = spawnTiles[Random.Range(0,len)];
-			CamControl.Instance.LookAt(selectedTile.transform.position);
+			spawnTiles = World.Instance.GetRandomSector().spawnTiles;
+			len = spawnTiles.Count;
 		}
+		selectedTile = spawnTiles[Random.Range(0,len)];
+		CamControl.Instance.LookAt(selectedTile.transform.position);
 	}
 
 	public void SelectRandomLocalActor()

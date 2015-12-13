@@ -1,7 +1,7 @@
 var ws           = require('ws').Server;
 var server       = new ws({ port: 3000 });
 var world 		 = require('./world');
-var fps          = 4;
+var fps          = 10;
 
 
 server.broadcast = function(data) {
@@ -18,6 +18,7 @@ var clientNum = 0;
 var nextIsRed = true;
 server.on('connection', function(socket) {
 	console.log('connected');
+	//console.log(socket);
 
 	clientNum = server.clients.length;
 	var oid = 100+clientNum;

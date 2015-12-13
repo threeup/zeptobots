@@ -8,9 +8,11 @@ public class World : MonoBehaviour {
 
 
 	public GameObject protoSector;
-	public GameObject protoTileF;
-	public GameObject protoTileW;
-	public GameObject protoTileS;
+	public GameObject protoTileFloor;
+	public GameObject protoTileWall;
+	public GameObject protoTileTree;
+	public GameObject protoTileRedHouse;
+	public GameObject protoTileBlueHouse;
 
 
 	void Awake()
@@ -77,10 +79,12 @@ public class World : MonoBehaviour {
 		Tile tile = null;
 		switch(c)
 		{
-			case 'F': prototype = protoTileF; break;
-			case 'W': prototype = protoTileW; break;
-			case 'S': prototype = protoTileS; break;
-			default: break;
+			case 'F': prototype = protoTileFloor; break;
+			case 'W': prototype = protoTileWall; break;
+			case 'T': prototype = protoTileTree; break;
+			case 'R': prototype = protoTileRedHouse; break;
+			case 'B': prototype = protoTileBlueHouse; break;
+			default:  break;
 		}
 		if( prototype )
 		{

@@ -74,16 +74,30 @@ public class Sector : MonoBehaviour {
 				Vector3 tilePos = new Vector3(rtx*10, 0, rty*10);
 				tilePos.x += 5;
 				tilePos.z += 5;
-				Tile t = world.MakeTile(c, tilePos, tileName);
-				switch(t.tileType)
+				if( c == 'S')
 				{
-					case Tile.TileType.SPAWN:
-						spawnTiles.Add(t);
-						break;
+					if( sy > 5 )
+					{
+						c = 'R';
+					}
+					else
+					{
+						c = 'B';
+					}
 				}
-				t.gameObject.transform.parent = this.transform;
-				t.Init(ltx,lty,rtx,rty);
-				tiles[ltx,lty] = t;
+				Tile t = world.MakeTile(c, tilePos, tileName);
+				if( t != null )
+				{
+					switch(t.tileType)
+					{
+						case Tile.TileType.SPAWN:
+							spawnTiles.Add(t);
+							break;
+					}
+					t.gameObject.transform.parent = this.transform;
+					t.Init(ltx,lty,rtx,rty);
+					tiles[ltx,lty] = t;
+				}
 			}
 		}
 		isInit = true;

@@ -20,7 +20,7 @@
 			[
 				"*.meta"
 			],
-			"path": "target"
+			"path": "targetweb"
 		}
 	],
 	"solution_file": "./smooth.sln"

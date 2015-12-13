@@ -13,6 +13,8 @@ public class Actor : MonoBehaviour {
 	public int hp = -1;
 	public int speed = 30;
 
+	public float currentSpeed = 0f;
+
 	private Vector3 desiredPosition = Vector3.zero;
 	public Vector2 inputVec = Vector2.zero;
 	public Vector2 facingVec = Vector2.zero;
@@ -28,6 +30,7 @@ public class Actor : MonoBehaviour {
 	public Sector lastSector = null;
 	public Tile lastTile = null;
 	
+	public Spriter spriter = null;
 
 	void Awake()
 	{
@@ -52,6 +55,7 @@ public class Actor : MonoBehaviour {
 	void Update () 
 	{
 		float deltaTime = Time.deltaTime;
+		
 		Vector3 originalPosition = this.transform.position;
 		if( !facingLock )
 		{
@@ -69,16 +73,22 @@ public class Actor : MonoBehaviour {
 		float dist = diff.magnitude;
 		if( dist > 0.1f )
 		{	
-			float maxDist = speed*deltaTime;
-			if( dist > maxDist )
+			float maxSpeed = speed*deltaTime;
+			if( dist > maxSpeed )
 			{
+				currentSpeed = maxSpeed;
 				Vector3 dir = diff/dist;
-				this.transform.position = this.transform.position + dir*maxDist;
+				this.transform.position = this.transform.position + dir*currentSpeed;
 			}
 			else
 			{
+				currentSpeed = dist;
 				this.transform.position = this.desiredPosition;	
 			}
+		}
+		else
+		{
+			currentSpeed = 0f;
 		}
 		Sector sec = World.Instance.GetSectorAt(this.transform.position);
 		lastSector = sec;
@@ -87,6 +97,7 @@ public class Actor : MonoBehaviour {
 		if( t == null || !t.Passable(this) )
 		{
 			this.transform.position = originalPosition;
+			currentSpeed = 0f; 
 		}
 		else
 		{
@@ -97,6 +108,8 @@ public class Actor : MonoBehaviour {
 		}
 		actions[0].ActionUpdate(deltaTime, this, inputA);
 		actions[1].ActionUpdate(deltaTime, this, inputB);
+
+		spriter.SpriteUpdate(deltaTime, facingVec, currentSpeed);
 	}
 
 
@@ -117,7 +130,7 @@ public class Actor : MonoBehaviour {
 			this.ty = ty;
 			this.rx = rx;
 			this.ry = ry;
-			this.desiredPosition = new Vector3(rx, 1f, ry);
+			this.desiredPosition = new Vector3(rx, 0f, ry);
 			this.sprite = sprite;
 			this.speed = speed;
 		}
