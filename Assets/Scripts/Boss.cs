@@ -7,7 +7,6 @@ public class Boss : MonoBehaviour {
 	public static Boss Instance;
 
 	public Tile selectedTile = null;
-	public List<Actor> localActors = new List<Actor>();
 	public Actor selectedActor = null;
 
 	private float sendUpdateTimer = 0.1f;
@@ -20,27 +19,31 @@ public class Boss : MonoBehaviour {
 	public void SelectRandomSpawn()
 	{
 		int len = 0;
+		int attempt = 0;;
 		List<Tile> spawnTiles = null;
-		while(len == 0)
+		while(len == 0 && attempt < 100)
 		{
+			attempt++;
 			spawnTiles = World.Instance.GetRandomSector().spawnTiles;
 			len = spawnTiles.Count;
 		}
-		selectedTile = spawnTiles[Random.Range(0,len)];
-		CamControl.Instance.LookAt(selectedTile.transform.position);
+		if( len > 0 )
+		{
+			selectedTile = spawnTiles[Random.Range(0,len)];
+			CamControl.Instance.LookAt(selectedTile.transform.position);
+		}
 	}
 
 	public void SelectRandomLocalActor()
 	{
-		Director.Instance.GetLocalActors(ref localActors);
-		int len = localActors.Count;
+		int len = Director.Instance.localActors.Count;
 		if( len > 0 )
 		{
 			if( selectedActor != null )
 			{
 				selectedActor.Deselect();
 			}
-			selectedActor = localActors[Random.Range(0,len)];
+			selectedActor = Director.Instance.localActors[Random.Range(0,len)];
 			selectedActor.Select();
 			CamControl.Instance.FollowObject(selectedActor.transform);
 		}
@@ -55,28 +58,15 @@ public class Boss : MonoBehaviour {
 			int rty = selectedTile.rty;
 			//oid, x, y, sprite
 
-			string sprite = NetMan.Instance.localIsRed ? "R" : "B";
+			string sprite = NetMan.Instance.localIsRed ? "Rd1" : "Bd1";
 			NetMan.Instance.Send("requestactoradd|"+localOID+"|"+rtx+"|"+rty+"|"+sprite);
 		}
 	}
 
 	public void SendUpdate()
 	{
-		int localOID = NetMan.Instance.localOID;
-		Director.Instance.GetLocalActors(ref localActors);
-		for(int i=0; i<localActors.Count; ++i)
-		{
-			Actor actor = localActors[i];
-			int uid = actor.uid;
-			int tx = actor.tx;
-			int ty = actor.ty;
-			int rx = actor.rx;
-			int ry = actor.ry;
-			string sprite = actor.sprite;
-			int hp = actor.hp;
-			int speed = actor.speed;
-			NetMan.Instance.Send("requestactormod|"+uid+"|"+localOID+"|"+tx+"|"+ty+"|"+rx+"|"+ry+"|"+sprite+"|"+hp+"|"+speed+"\n");
-		}
+		Director.Instance.SendUpdate();
+		
 	}
 
 	public void Update()

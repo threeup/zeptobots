@@ -1,0 +1,25 @@
+{
+  "name": "zeptoserver",
+  "version": "0.2.0",
+  "description": "A zeptoserver",
+  "main": "s.js",
+  "scripts": {
+    "start": "node s.js"
+  },
+  "dependencies": {
+    "ws": "^0.8.0"
+  },
+  "engines": {
+    "node": "4.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/threeup/zeptobots"
+  },
+  "keywords": [
+    "threeup",
+    "zeptobots"
+  ],
+  "author": "Sheridan Thirsk",
+  "license": "MIT"
+}

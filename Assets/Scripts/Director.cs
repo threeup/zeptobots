@@ -11,6 +11,7 @@ public class Director : MonoBehaviour {
 
 	private Dictionary<int,Actor> actorDict = new Dictionary<int,Actor>();
 	private List<Actor> actorList = new List<Actor>();
+	public List<Actor> localActors = new List<Actor>();
 
 
 	void Awake()
@@ -87,6 +88,7 @@ public class Director : MonoBehaviour {
 				a.Mod(true, uid,oid,tx,ty,rx,ry,sprite,hp,speed);
 				actorDict[uid] = a;
 				actorList.Add(a);
+				ScanLocalActors();
 			}
 		}
 		else
@@ -103,7 +105,7 @@ public class Director : MonoBehaviour {
 		}
 	}
 
-	public void GetLocalActors(ref List<Actor> localActors)
+	public void ScanLocalActors()
 	{
 		localActors.Clear();
 		int localOID = NetMan.Instance.localOID;
@@ -116,4 +118,22 @@ public class Director : MonoBehaviour {
 			}
 		}
 	} 
+
+	public void SendUpdate()
+	{
+		int localOID = NetMan.Instance.localOID;
+		for(int i=0; i<localActors.Count; ++i)
+		{
+			Actor actor = localActors[i];
+			int uid = actor.uid;
+			int tx = actor.tx;
+			int ty = actor.ty;
+			int rx = actor.rx;
+			int ry = actor.ry;
+			string sprite = actor.spriter.spriteString;
+			int hp = actor.hp;
+			int speed = actor.speed;
+			NetMan.Instance.Send("requestactormod|"+uid+"|"+localOID+"|"+tx+"|"+ty+"|"+rx+"|"+ry+"|"+sprite+"|"+hp+"|"+speed+"\n");
+		}
+	}
 }

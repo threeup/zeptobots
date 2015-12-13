@@ -9,7 +9,6 @@ public class Actor : MonoBehaviour {
 	public int ty = -1;
 	public int rx = -1;
 	public int ry = -1;
-	public string sprite = "R";
 	public int hp = -1;
 	public int speed = 30;
 
@@ -109,7 +108,10 @@ public class Actor : MonoBehaviour {
 		actions[0].ActionUpdate(deltaTime, this, inputA);
 		actions[1].ActionUpdate(deltaTime, this, inputB);
 
-		spriter.SpriteUpdate(deltaTime, facingVec, currentSpeed);
+		if( localInput )
+		{
+			spriter.SpriteUpdate(deltaTime, facingVec, currentSpeed);
+		}
 	}
 
 
@@ -131,7 +133,7 @@ public class Actor : MonoBehaviour {
 			this.rx = rx;
 			this.ry = ry;
 			this.desiredPosition = new Vector3(rx, 0f, ry);
-			this.sprite = sprite;
+			this.spriter.SetSprite(sprite);
 			this.speed = speed;
 		}
 		if( this.hp != hp )

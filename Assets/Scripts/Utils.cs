@@ -18,4 +18,16 @@ public class Utils : MonoBehaviour {
 		return result;
     }
 
+    public static int IntParseFast(char letter)
+    {
+		int result = (letter - 48);
+		return result;
+    }
+
+    public static char CharParseFast(int num)
+    {
+		char result = (char)(num + 48);
+		return result;
+    }
+
 }

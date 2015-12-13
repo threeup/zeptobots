@@ -56,8 +56,6 @@ public class World : MonoBehaviour {
 		{
 			case "sectormod":
 				ModSector(chunks);
-				//SetMap(chunks[1]);
-				//MakeMap();
 				break;
 			default:
 				break;

@@ -33,6 +33,22 @@ var World = {
 		return this.sectors[sy*10+sx];
 	},
 
+	activateSector: function(radius) {
+		var self = this;
+		var startX = 5-radius;
+		var endX = 5+radius;
+		var startY = 5-radius;
+		var endY = 5+radius;
+		for( var sy = startY; sy<= endY; ++sy)
+		{
+			for( var sx = startX; sx<= endX; ++sx)
+			{
+				self.getSector(sx, sy).active = true;
+			}	
+		}
+	},
+
+
 	loadGround: function(callback) {
 		var self = this;
 		fs.exists(savedGroundPath, function(exists) {
@@ -41,7 +57,7 @@ var World = {
 				if (err) throw err;
 				body.toString().split('\n').forEach(function(line) {
 					var chunks = line.toString().split('|');
-					if( chunks.length > 2)
+					if( chunks.length > 2 )
 					{
 						var sx = chunks.shift();
 						var sy = chunks.shift();

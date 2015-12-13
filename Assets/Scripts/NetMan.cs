@@ -61,7 +61,7 @@ public class NetMan : MonoBehaviour {
 			case "setupclient":
 				if( localOID > 0 )
 				{
-					Debug.Log("I should ignore");
+					Debug.LogError("Double setup");
 					return;
 				}
 				localOID = Utils.IntParseFast(chunks[1]);

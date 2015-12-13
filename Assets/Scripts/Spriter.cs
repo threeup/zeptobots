@@ -19,6 +19,7 @@ public class Spriter : MonoBehaviour {
 	private int setIndex = 1;
 	private float timer = 1f;
 	public SpriteRenderer sr = null;
+	public string spriteString = "RD0";
 
 	public void SpriteUpdate(float deltaTime, Vector2 facing, float speed)
 	{
@@ -74,12 +75,29 @@ public class Spriter : MonoBehaviour {
 
 	void SetSprite(SpriteSet s, int idx)
 	{
+		char[] charArr = spriteString.ToCharArray();
+		charArr[2] = Utils.CharParseFast(idx);
 		switch(s)
 		{
-			case SpriteSet.LEFT: sr.sprite = runLeft[idx]; break;
-			case SpriteSet.RIGHT: sr.sprite = runRight[idx]; break;
-			case SpriteSet.UP: sr.sprite = runUp[idx]; break;
-			case SpriteSet.DOWN: sr.sprite = runDown[idx]; break;
+			case SpriteSet.LEFT: 	charArr[1] = 'l'; sr.sprite = runLeft[idx]; break;
+			case SpriteSet.RIGHT: 	charArr[1] = 'r'; sr.sprite = runRight[idx]; break;
+			case SpriteSet.UP: 		charArr[1] = 'u'; sr.sprite = runUp[idx]; break;
+			case SpriteSet.DOWN: 	charArr[1] = 'd'; sr.sprite = runDown[idx]; break;
+		}
+		spriteString = new string(charArr);
+	}
+
+	public void SetSprite(string s)
+	{
+		spriteString = s;
+		char setchar = s[1];
+		int idx = Utils.IntParseFast(s[2]);
+		switch(setchar)
+		{
+			case 'l': lastSet = SpriteSet.LEFT; 	sr.sprite = runLeft[idx]; break;
+			case 'r': lastSet = SpriteSet.RIGHT; 	sr.sprite = runRight[idx]; break;
+			case 'u': lastSet = SpriteSet.UP; 		sr.sprite = runUp[idx]; break;
+			case 'd': lastSet = SpriteSet.DOWN; 	sr.sprite = runDown[idx]; break;
 		}
 	}
 }

@@ -35,7 +35,7 @@ var Sector = function(sx,sy) {
 		this.contents += "WFFFFFTTFW,";
 	}
 	this.contents += "WWWWFFWWWW,";	
-
+	this.active = false;
 	this.sx = sx;
 	this.sy = sy;
 };
@@ -50,7 +50,10 @@ Sector.prototype.writeChunks = function() {
 	chunks += '|';
 	chunks += this.sy;
 	chunks += '|';
-	chunks += this.contents;
+	if( this.active )
+	{
+		chunks += this.contents;
+	}
 	return chunks;
 }
 

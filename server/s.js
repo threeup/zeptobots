@@ -23,6 +23,19 @@ server.on('connection', function(socket) {
 	clientNum = server.clients.length;
 	var oid = 100+clientNum;
 
+	if( clientNum == 1 )
+	{
+		world.activateSector(2);
+	}
+	else if( clientNum == 3 )
+	{
+		world.activateSector(3);
+	}
+	else if( clientNum == 6 )
+	{
+		world.activateSector(5);
+	}
+
 	socket.send('setupclient|'+oid+"|"+nextIsRed);
 	var allData = world.getAll(0)
 	socket.send(allData);
