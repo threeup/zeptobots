@@ -21,6 +21,7 @@ public class Actor : MonoBehaviour {
 	public Hero hero = null;
 	public Creature creature = null;
 	public Spriter spriter = null;
+	public HealthBar healthBar = null;
 
 	private System.Text.StringBuilder sb = new System.Text.StringBuilder();
 
@@ -39,6 +40,10 @@ public class Actor : MonoBehaviour {
 		{
 			ttlTimer -= deltaTime;
 			ttl = (int)Mathf.Ceil(ttlTimer);
+		}
+		if( healthBar != null )
+		{
+			healthBar.SetHP(this.hp);
 		}
 	}
 	public void Mod(bool authoritative, int uid, int oid, 

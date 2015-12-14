@@ -158,7 +158,7 @@ var World = {
 		actor.sprite = chunks.shift();
 		actor.hp = 10;
 
-		console.log("addActor"+actor.sprite);
+		//console.log("addActor"+actor.sprite);
 		self.dirtyActors.push(actor);
 	},
 

@@ -4,6 +4,50 @@
 		"selected_items":
 		[
 			[
+				"da",
+				"damageOverride"
+			],
+			[
+				"conq",
+				"conquerList"
+			],
+			[
+				"con",
+				"conquerTimer"
+			],
+			[
+				"conque",
+				"conquerList"
+			],
+			[
+				"loc",
+				"localIsRed"
+			],
+			[
+				"conten",
+				"contentList"
+			],
+			[
+				"sele",
+				"selectedKingdom"
+			],
+			[
+				"sel",
+				"selectedKingdom"
+			],
+			[
+				"tar",
+				"targetVec"
+			],
+			[
+				"soli",
+				"solidImageIndex"
+			],
+			[
+				"Ac",
+				"Activate"
+			],
+			[
 				"Coo",
 				"CooldownA"
 			],
@@ -166,10 +210,6 @@
 			[
 				"ret",
 				"retargetTimer	BasicTimer"
-			],
-			[
-				"tar",
-				"targetPosition	Vector3"
 			],
 			[
 				"ta",
@@ -474,64 +514,40 @@
 			[
 				"we",
 				"weaponPartIdx"
-			],
-			[
-				"Thro",
-				"ThrowPhase"
-			],
-			[
-				"Thor",
-				"ThrowPhase"
-			],
-			[
-				"canW",
-				"canWalkNormal"
-			],
-			[
-				"local",
-				"localScale"
-			],
-			[
-				"Actor",
-				"ActorBodyPart"
-			],
-			[
-				"Body",
-				"BodyPartType"
-			],
-			[
-				"ve",
-				"Vector3"
-			],
-			[
-				"desired",
-				"desiredPosition"
-			],
-			[
-				"desi",
-				"desiredPosition"
-			],
-			[
-				"de",
-				"desiredPosition"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "Assets/Scripts/Actor.cs",
+			"file": "Assets/Scripts/Sector.cs",
 			"settings":
 			{
-				"buffer_size": 3743,
+				"buffer_size": 3209,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "Assets/Scripts/CamControl.cs",
+			"file": "Assets/Scripts/Kingdom.cs",
 			"settings":
 			{
-				"buffer_size": 983,
+				"buffer_size": 2087,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "server/actor.js",
+			"settings":
+			{
+				"buffer_size": 1750,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Scripts/NetMan.cs",
+			"settings":
+			{
+				"buffer_size": 3174,
 				"line_ending": "Unix"
 			}
 		},
@@ -539,15 +555,31 @@
 			"file": "Assets/Scripts/Boss.cs",
 			"settings":
 			{
-				"buffer_size": 1816,
+				"buffer_size": 3147,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "server/world.js",
+			"file": "targetweb/index.html",
 			"settings":
 			{
-				"buffer_size": 4124,
+				"buffer_size": 1476,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "server/sector.js",
+			"settings":
+			{
+				"buffer_size": 1522,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Scripts/World.cs",
+			"settings":
+			{
+				"buffer_size": 3032,
 				"line_ending": "Unix"
 			}
 		},
@@ -555,7 +587,145 @@
 			"file": "server/s.js",
 			"settings":
 			{
-				"buffer_size": 1643,
+				"buffer_size": 1998,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Scripts/TileContents.cs",
+			"settings":
+			{
+				"buffer_size": 181,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Scripts/Tile.cs",
+			"settings":
+			{
+				"buffer_size": 8494,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Scripts/Utils.cs",
+			"settings":
+			{
+				"buffer_size": 1247,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Scripts/Actor.cs",
+			"settings":
+			{
+				"buffer_size": 2497,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "Searching 61 files for \"TileType\"\n\nI:\\w\\zeptobots\\Assets\\Prefabs\\tile-bluehouse.prefab:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Prefabs\\tile-floor.prefab:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Prefabs\\tile-redhouse.prefab:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Prefabs\\tile-tree.prefab:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Prefabs\\tile-wall.prefab:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Sector.cs:\n   89  				if( t != null )\n   90  				{\n   91: 					switch(t.tileType)\n   92  					{\n   93: 						case Tile.TileType.SPAWN:\n   94  							spawnTiles.Add(t);\n   95  							break;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Tile.cs:\n    5  public class Tile : MonoBehaviour {\n    6  \n    7: 	public enum TileType\n    8  	{\n    9  		NONE = 0,\n   ..\n   26  	}\n   27  \n   28: 	public TileType tileType = TileType.NONE;\n   29  	public int ltx;\n   30  	public int lty;\n   ..\n   71  	public void RefreshSprite()\n   72  	{\n   73: 		bool solid = tileType == TileType.SOLID;\n   74  		solidImageIndex = GetTileImageIndex();\n   75  		desiredImageIndex = solid?solidImageIndex:defaultImageIndex;\n   ..\n   88  	char GetSolid(Tile t)\n   89  	{\n   90: 		if(t == null || t.tileType == this.tileType)\n   91  		{\n   92  			return '1';\n   ..\n  208  	public bool Passable(Actor actor)\n  209  	{\n  210: 		return tileType != TileType.SOLID || !actor.localInput;\n  211  	}\n  212  	\n\nI:\\w\\zeptobots\\targetweb\\Development\\targetweb.data:\n    <binary>\n\n19 matches across 8 files\n\n\nSearching 61 files for \"'R'\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Director.cs:\n   56  		switch(sprite[0])\n   57  		{\n   58: 			case 'R': prototype = protoActorR; break;\n   59  			case 'B': prototype = protoActorB; break;\n   60  			default: break;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Sector.cs:\n   79  					if( sy > 5 )\n   80  					{\n   81: 						c = 'R';\n   82  					}\n   83  					else\n\nI:\\w\\zeptobots\\Assets\\Scripts\\SpriterHero.cs:\n   79  		{\n   80  			case SpriteSet.LEFT: 	charArr[1] = 'l'; sr.sprite = runLeft[idx]; break;\n   81: 			case SpriteSet.RIGHT: 	charArr[1] = 'r'; sr.sprite = runRight[idx]; break;\n   82  			case SpriteSet.UP: 		charArr[1] = 'u'; sr.sprite = runUp[idx]; break;\n   83  			case SpriteSet.DOWN: 	charArr[1] = 'd'; sr.sprite = runDown[idx]; break;\n   ..\n   94  		{\n   95  			case 'l': lastSet = SpriteSet.LEFT; 	sr.sprite = runLeft[idx]; break;\n   96: 			case 'r': lastSet = SpriteSet.RIGHT; 	sr.sprite = runRight[idx]; break;\n   97  			case 'u': lastSet = SpriteSet.UP; 		sr.sprite = runUp[idx]; break;\n   98  			case 'd': lastSet = SpriteSet.DOWN; 	sr.sprite = runDown[idx]; break;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\World.cs:\n   84  			case 'T': prototype = protoTileTree; break;\n   85  			case 'S': prototype = protoTileEmptyHouse; break;\n   86: 			case 'R': prototype = protoTileRedHouse; break;\n   87  			case 'B': prototype = protoTileBlueHouse; break;\n   88  			default:  break;\n\n5 matches across 4 files\n\n\nSearching 62 files for \"sectormod\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\World.cs:\n   58  		switch(chunks[0])\n   59  		{\n   60: 			case \"sectormod\":\n   61  				ModSector(chunks);\n   62  				break;\n\nI:\\w\\zeptobots\\server\\world.js:\n  211  		});\n  212  		self.sectors.forEach(function(sector) {\n  213: 			messages += 'sectormod|';\n  214  			messages += sector.writeChunks();\n  215  			messages += '\\n';\n  ...\n  234  		self.minorDirtyActors.length = 0;\n  235  		self.dirtySectors.forEach(function(sector) {\n  236: 			messages += 'sectormod|';\n  237  			messages += sector.writeChunks();\n  238  			messages += '\\n';\n\nI:\\w\\zeptobots\\targetweb\\Development\\targetweb.data:\n    <binary>\n\n4 matches across 3 files\n\n\nSearching 62 files for \"requestworldmod\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Kingdom.cs:\n   23  		NetMan.Instance.Send(\"requestactoradd|\"+ownerOID+\"|\"+tile.rtx+\"|\"+tile.rty+\"|\"+actorSprite);\n   24  		string worldSprite = localIsRed ? \"R\" : \"B\";\n   25: 		NetMan.Instance.Send(\"requestworldmod|\"+tile.sx+\"|\"+tile.sy+\"|\"+tile.ltx+\"|\"+tile.lty+\"|\"+worldSprite);\n   26  	}\n   27  \n   ..\n   30  		ownerOID = localOID;\n   31  		string worldSprite = localIsRed ? \"R\" : \"B\";\n   32: 		NetMan.Instance.Send(\"requestworldmod|\"+ownerOID+\"|\"+tile.rtx+\"|\"+tile.rty+\"|\"+worldSprite);\n   33  	}\n   34  \n\nI:\\w\\zeptobots\\server\\s.js:\n   56  			world.modActor(chunks);\n   57  		}\n   58: 		if( cmd == \"requestworldmod\" )\n   59  		{\n   60  			//sx, sy, ltx, lty, c\n\n3 matches across 2 files\n\n\nSearching 62 files for \"GetTileAt\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Engine.cs:\n   60  		if( sec != null )\n   61  		{\n   62: 			t = sec.GetTileAt(this.transform.position);\n   63  		}\n   64  		if( t == null && engineTile != null )\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Sector.cs:\n  131  	}\n  132  \n  133: 	public Tile GetTileAt(Vector3 pos)\n  134  	{\n  135  		float localX = pos.x - sx*100;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\World.cs:\n  115  		return null;\n  116  	}\n  117: 	public Tile GetTileAt(Vector3 pos)\n  118  	{\n  119  		int sx = (int)Mathf.Floor(pos.x/100f);\n  ...\n  121  		if( sx >= 0 && sx < 10 && sy >= 0 && sy < 10 )\n  122  		{\n  123: 			return sectors[sx,sy].GetTileAt(pos);\n  124  		}\n  125  		return null;\n\nI:\\w\\zeptobots\\targetweb\\Development\\targetweb.data:\n    <binary>\n\n5 matches across 4 files\n\n\nSearching 62 files for \"+5\"\n\nI:\\w\\zeptobots\\Assets\\Prefabs\\actor-dog.prefab:\n    <binary>\n\nI:\\w\\zeptobots\\server\\world.js:\n  149  		actor.tx = tx;\n  150  		actor.ty = ty;\n  151: 		actor.rx = tx*10+5;\n  152: 		actor.ry = ty*10+5;\n  153  		actor.sprite = sprite;\n  154  		actor.hp = 10;\n\nI:\\w\\zeptobots\\targetweb\\Development\\targetweb.data:\n    <binary>\n\nI:\\w\\zeptobots\\targetweb\\Development\\targetweb.mem:\n    <binary>\n\nI:\\w\\zeptobots\\targetweb\\Release\\targetweb.datagz:\n    <binary>\n\nI:\\w\\zeptobots\\targetweb\\Release\\targetweb.jsgz:\n    <binary>\n\nI:\\w\\zeptobots\\targetweb\\Release\\targetweb.memgz:\n    <binary>\n\n155 matches across 7 files\n\n\nSearching 62 files for \"+5\"\n\nI:\\w\\zeptobots\\Assets\\Prefabs\\actor-dog.prefab:\n    <binary>\n\nI:\\w\\zeptobots\\server\\world.js:\n  149  		actor.tx = tx;\n  150  		actor.ty = ty;\n  151: 		actor.rx = tx*10+5;\n  152  		actor.ry = ty*10-5;\n  153  		actor.sprite = sprite;\n\nI:\\w\\zeptobots\\targetweb\\Development\\targetweb.data:\n    <binary>\n\nI:\\w\\zeptobots\\targetweb\\Development\\targetweb.mem:\n    <binary>\n\nI:\\w\\zeptobots\\targetweb\\Release\\targetweb.datagz:\n    <binary>\n\nI:\\w\\zeptobots\\targetweb\\Release\\targetweb.jsgz:\n    <binary>\n\nI:\\w\\zeptobots\\targetweb\\Release\\targetweb.memgz:\n    <binary>\n\n154 matches across 7 files\n\n\nSearching 62 files for \"getGround\"\n\nI:\\w\\zeptobots\\server\\sector.js:\n   54  }\n   55  \n   56: Sector.prototype.getGround = function(sx,sy) {\n   57  	return this.contents.charAt(sy*11+sx);\n   58  };\n\nI:\\w\\zeptobots\\server\\world.js:\n   23  		}\n   24  		var sec = this.getSector(5,5);\n   25: 		var c = sec.getGround(1,8);\n   26  		\n   27  		for( var q = 0; q<1000; ++q)\n   ..\n  196  		if( sec != null )\n  197  		{\n  198: 			var old = sec.getGround(ltx,lty);\n  199  			console.log(\"modTile\");\n  200  			console.log(old);\n\n3 matches across 2 files\n\n\nSearching 62 files for \"GetTileAt\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Engine.cs:\n   60  		if( sec != null )\n   61  		{\n   62: 			t = sec.GetTileAt(this.transform.position);\n   63  		}\n   64  		if( t == null && engineTile != null )\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Sector.cs:\n  146  	}\n  147  \n  148: 	public Tile GetTileAt(Vector3 pos)\n  149  	{\n  150  		float localX = pos.x - sx*100;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\World.cs:\n  120  		return null;\n  121  	}\n  122: 	public Tile GetTileAt(Vector3 pos)\n  123  	{\n  124  		int sx = (int)Mathf.Floor(pos.x/100f);\n  ...\n  126  		if( sx >= 0 && sx < 10 && sy >= 0 && sy < 10 )\n  127  		{\n  128: 			return sectors[sx,sy].GetTileAt(pos);\n  129  		}\n  130  		return null;\n\nI:\\w\\zeptobots\\targetweb\\Development\\targetweb.data:\n    <binary>\n\n5 matches across 4 files\n\n\nSearching 62 files for \"GetTileAt\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Engine.cs:\n   60  		if( sec != null )\n   61  		{\n   62: 			t = sec.GetTileAt(this.transform.position);\n   63  		}\n   64  		if( t == null && engineTile != null )\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Sector.cs:\n  146  	}\n  147  \n  148: 	public Tile GetTileAt(Vector3 pos)\n  149  	{\n  150  		float localX = pos.x - sx*100;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\World.cs:\n  120  		return null;\n  121  	}\n  122: 	public Tile GetTileAt(Vector3 pos)\n  123  	{\n  124  		int sx = (int)Mathf.Floor(pos.x/100f);\n  ...\n  126  		if( sx >= 0 && sx < 10 && sy >= 0 && sy < 10 )\n  127  		{\n  128: 			return sectors[sx,sy].GetTileAt(pos);\n  129  		}\n  130  		return null;\n\nI:\\w\\zeptobots\\targetweb\\Development\\targetweb.data:\n    <binary>\n\n5 matches across 4 files\n\n\nSearching 63 files for \"kingdoms.add\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Sector.cs:\n  114  					if( (t.tFlags & Tile.TileFlags.KINGDOM) != 0 )\n  115  					{\n  116: 						kingdoms.Add(t.GetComponent<Kingdom>());\n  117  					}\n  118  					t.gameObject.transform.parent = this.transform;\n\n1 match in 1 file\n\n\nSearching 63 files for \"nowhere\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Boss.cs:\n   70  		if( selectedKingdom == null )\n   71  		{\n   72: 			Debug.Log(\"nowhere to spawn\");\n   73  			return;\n   74  		}\n\n1 match in 1 file\n\n\nSearching 63 files for \"LookAt\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\CamControl.cs:\n   24  		if( target != null )\n   25  		{\n   26: 			LookAt(target.position);\n   27  		}\n   28  		Vector3 diff = this.desiredPosition - this.transform.position;\n   ..\n   45  	}\n   46  \n   47: 	public void LookAt(Vector3 pos)\n   48  	{\n   49  		pos.y = camHeight;\n\nI:\\w\\zeptobots\\targetweb\\Development\\targetweb.data:\n    <binary>\n\nI:\\w\\zeptobots\\targetweb\\Development\\targetweb.mem:\n    <binary>\n\n4 matches across 3 files\n\n\nSearching 63 files for \"console.log\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\NetMan.cs:\n  136  	{\n  137  		Debug.Log(message);\n  138: 		Application.ExternalCall(\"console.log\", message);\n  139  	}\n  140  	\n\nI:\\w\\zeptobots\\server\\s.js:\n   18  var nextIsRed = true;\n   19  server.on('connection', function(socket) {\n   20: 	console.log('connected: '+clientNum);\n   21: 	//console.log(socket);\n   22  \n   23  	clientNum = server.clients.length;\n   ..\n   65  \n   66  	socket.on('close', function() {\n   67: 		console.log('disconnected...');\n   68  		world.delActors(oid);\n   69  		clientNum = server.clients.length;\n   ..\n   80  world.loadGround(function(count) {\n   81  	\n   82: 	console.log('loaded World '+count);\n   83  });\n   84  /*world.loadActor(function(count) {\n   85  	\n   86: 	console.log('loaded Actor '+count);\n   87  });*/\n   88  \n\nI:\\w\\zeptobots\\server\\sector.js:\n   54  	//11 for commas\n   55  	this.contents = this.replaceAt(this.contents, sy*11+sx, c);\n   56: 	console.log(this.contents);\n   57  };\n   58  \n\nI:\\w\\zeptobots\\server\\world.js:\n   40  		var startY = 5-radius;\n   41  		var endY = 5+radius;\n   42: 		console.log('radius'+radius);\n   43  		for( var sy = startY; sy<= endY; ++sy)\n   44  		{\n   ..\n  140  		if( self.nextUID == 2000 )\n  141  		{\n  142: 			console.log(\"reuse actors\");\n  143  			self.nextUID = 1000;\n  144  		}\n  ...\n  200  				sec.setGround(ltx,lty,c);\n  201  				self.dirtySectors.push(sec);\n  202: 				//console.log(sx+\",\"+sy+\" \"+ltx+\",\"+lty+\" \"+old+\" ->\"+c);\n  203  			}\n  204  		}\n\nI:\\w\\zeptobots\\targetweb\\Development\\targetweb.data:\n    <binary>\n\nI:\\w\\zeptobots\\targetweb\\Development\\UnityLoader.js:\n   14  	if (!Math.fround || browser.indexOf(\"Chrome\") != -1)\n   15  	{\n   16: 		console.log('optimizing out Math.fround calls');\n   17  		var f = new FileReader();\n   18  		f.onload = function(e) {\n   ..\n   63  		var decompressed = pako.inflate(byteArray);\n   64  		var end = new Date().getTime();\n   65: 		console.log (\"Decompressed \" + url + \" in \" + (end-start) + \"ms. You can remove this delay if you configure your web server to host files using gzip compression.\");\n   66     		onload(decompressed);\n   67  	};\n   ..\n 2947   * if (inflate.err) { throw new Error(inflate.err); }\n 2948   *\n 2949:  * console.log(inflate.result);\n 2950   * ```\n 2951   **/\n ....\n 3193   *   output = pako.inflate(input);\n 3194   * } catch (err)\n 3195:  *   console.log(err);\n 3196   * }\n 3197   * ```\n ....\n 3323              return;\n 3324          }\n 3325:         console.log (\"Invoking error handler due to\\n\"+err);\n 3326          if (typeof dump == 'function')\n 3327              dump (\"Invoking error handler due to\\n\"+err);\n ....\n 3368      if (typeof JSEvents === 'undefined')\n 3369      {\n 3370:         console.log (\"Player not loaded yet.\");\n 3371          return;\n 3372      }\n ....\n 3380  Module.print = (function() {\n 3381  	return function(text) {\n 3382: 		console.log (text);\n 3383  	};\n 3384  })();\n\nI:\\w\\zeptobots\\targetweb\\Release\\UnityLoader.js:\n    1: function LoadJSCodeBlob(e,t){var n=document.createElement(\"script\");n.src=URL.createObjectURL(e),n.onload=t,document.body.appendChild(n)}function LoadJSCode(e,t){var n=new Blob([e],{type:\"text/javascript\"});if(Math.fround&&-1==browser.indexOf(\"Chrome\"))LoadJSCodeBlob(n,t);else{console.log(\"optimizing out Math.fround calls\");var o=new FileReader;o.onload=function(e){var n=e.target.result.replace(/Math_fround\\(/g,\"(\"),o=new Blob([n],{type:\"text/javascript\"});LoadJSCodeBlob(o,t)},o.readAsText(n)}}function DecompressAndLoadFile(e,t,n){tryServerCompression=!1,e+=\"gz\";var o=new XMLHttpRequest;o.open(\"GET\",e,!0),o.onprogress=n,o.responseType=\"arraybuffer\",o.onload=function(){var n=new Uint8Array(o.response),i=(new Date).getTime(),a=pako.inflate(n),r=(new Date).getTime();console.log(\"Decompressed \"+e+\" in \"+(r-i)+\"ms. You can remove this delay if you configure your web server to host files using gzip compression.\"),t(a)},o.send(null)}function LoadCompressedFile(e,t,n){if(CompressionState.current==CompressionState.Unsupported)return void DecompressAndLoadFile(e,t);if(CompressionState.current==CompressionState.Pending)return void CompressionState.pendingServerRequests.push(function(){LoadCompressedFile(e,t,n)});CompressionState.current==CompressionState.Uninitialized&&(CompressionState.current=CompressionState.Pending);var o=new XMLHttpRequest;o.open(\"GET\",e,!0),o.responseType=\"arraybuffer\",o.onprogress=function(e){n&&n(e),CompressionState.current==CompressionState.Pending&&(0==o.status||200==o.status?CompressionState.Set(CompressionState.Supported):CompressionState.Set(CompressionState.Unsupported))},o.onload=function(){if(0==o.status||200==o.status){CompressionState.Set(CompressionState.Supported);var i=new Uint8Array(o.response);t(i)}else CompressionState.Set(CompressionState.Unsupported),DecompressAndLoadFile(e,t,n)},o.onerror=function(){CompressionState.Set(CompressionState.Unsupported),DecompressAndLoadFile(e,t,n)};try{o.send(null)}catch(i){CompressionState.Set(CompressionState.Unsupported),DecompressAndLoadFile(e,t,n)}}function LoadCompressedJS(e,t){LoadCompressedFile(e,function(e){LoadJSCode(e,t)})}function fetchRemotePackageWrapper(e,t,n,o){LoadCompressedFile(e,n,function(n){var o=e,i=t;if(n.total&&(i=n.total),n.loaded){Module.dataFileDownloads||(Module.dataFileDownloads={}),Module.dataFileDownloads[o]={loaded:n.loaded,total:i};var a=0,r=0,s=0;for(var l in Module.dataFileDownloads){var d=Module.dataFileDownloads[l];a+=d.total,r+=d.loaded,s++}a=Math.ceil(a*Module.expectedDataFileDownloads/s),Module.setStatus&&Module.setStatus(\"Downloading data... (\"+r+\"/\"+a+\")\")}else Module.dataFileDownloads||Module.setStatus&&Module.setStatus(\"Downloading data...\")})}function CompatibilityCheck(){hasWebGL?mobile?confirm(\"Please note that Unity WebGL is not currently supported on mobiles. Press Ok if you wish to continue anyway.\")||window.history.back():-1==browser.indexOf(\"Firefox\")&&-1==browser.indexOf(\"Chrome\")&&-1==browser.indexOf(\"Safari\")&&(confirm(\"Please note that your browser is not currently supported for this Unity WebGL content. Try installing Firefox, or press Ok if you wish to continue anyway.\")||window.history.back()):(alert(\"You need a browser which supports WebGL to run this content. Try installing Firefox.\"),window.history.back())}function SetFullscreen(e){if(\"undefined\"==typeof JSEvents)return void console.log(\"Player not loaded yet.\");var t=JSEvents.canPerformEventHandlerRequests;JSEvents.canPerformEventHandlerRequests=function(){return 1},Module.cwrap(\"SetFullscreen\",\"void\",[\"number\"])(e),JSEvents.canPerformEventHandlerRequests=t}var CompressionState={Uninitialized:0,Pending:1,Unsupported:2,Supported:3,current:0,pendingServerRequests:[],Set:function(e){if(CompressionState.current==CompressionState.Pending){CompressionState.current=e;for(var t=0;t<CompressionState.pendingServerRequests.length;t++)CompressionState.pendingServerRequests[t]()}}};Module.memoryInitializerRequest={response:null,callback:null,addEventListener:function(e,t){if(\"load\"!=e)throw\"Unexpected type \"+e;this.callback=t}},LoadCompressedJS(Module.codeUrl),LoadCompressedFile(Module.memUrl,function(e){Module.memoryInitializerRequest.response=e,Module.memoryInitializerRequest.callback&&Module.memoryInitializerRequest.callback()}),function(e){if(\"object\"==typeof exports&&\"undefined\"!=typeof module)module.exports=e();else if(\"function\"==typeof define&&define.amd)define([],e);else{var t;t=\"undefined\"!=typeof window?window:\"undefined\"!=typeof global?global:\"undefined\"!=typeof self?self:this,t.pako=e()}}(function(){return function e(t,n,o){function i(r,s){if(!n[r]){if(!t[r]){var l=\"function\"==typeof require&&require;if(!s&&l)return l(r,!0);if(a)return a(r,!0);var d=new Error(\"Cannot find module '\"+r+\"'\");throw d.code=\"MODULE_NOT_FOUND\",d}var u=n[r]={exports:{}};t[r][0].call(u.exports,function(e){var n=t[r][1][e];return i(n?n:e)},u,u.exports,e,t,n,o)}return n[r].exports}for(var a=\"function\"==typeof require&&require,r=0;r<o.length;r++)i(o[r]);return i}({1:[function(e,t,n){\"use strict\";var o=\"undefined\"!=typeof Uint8Array&&\"undefined\"!=typeof Uint16Array&&\"undefined\"!=typeof Int32Array;n.assign=function(e){for(var t=Array.prototype.slice.call(arguments,1);t.length;){var n=t.shift();if(n){if(\"object\"!=typeof n)throw new TypeError(n+\"must be non-object\");for(var o in n)n.hasOwnProperty(o)&&(e[o]=n[o])}}return e},n.shrinkBuf=function(e,t){return e.length===t?e:e.subarray?e.subarray(0,t):(e.length=t,e)};var i={arraySet:function(e,t,n,o,i){if(t.subarray&&e.subarray)return void e.set(t.subarray(n,n+o),i);for(var a=0;o>a;a++)e[i+a]=t[n+a]},flattenChunks:function(e){var t,n,o,i,a,r;for(o=0,t=0,n=e.length;n>t;t++)o+=e[t].length;for(r=new Uint8Array(o),i=0,t=0,n=e.length;n>t;t++)a=e[t],r.set(a,i),i+=a.length;return r}},a={arraySet:function(e,t,n,o,i){for(var a=0;o>a;a++)e[i+a]=t[n+a]},flattenChunks:function(e){return[].concat.apply([],e)}};n.setTyped=function(e){e?(n.Buf8=Uint8Array,n.Buf16=Uint16Array,n.Buf32=Int32Array,n.assign(n,i)):(n.Buf8=Array,n.Buf16=Array,n.Buf32=Array,n.assign(n,a))},n.setTyped(o)},{}],2:[function(e,t,n){\"use strict\";function o(e,t){if(65537>t&&(e.subarray&&r||!e.subarray&&a))return String.fromCharCode.apply(null,i.shrinkBuf(e,t));for(var n=\"\",o=0;t>o;o++)n+=String.fromCharCode(e[o]);return n}var i=e(\"./common\"),a=!0,r=!0;try{String.fromCharCode.apply(null,[0])}catch(s){a=!1}try{String.fromCharCode.apply(null,new Uint8Array(1))}catch(s){r=!1}for(var l=new i.Buf8(256),d=0;256>d;d++)l[d]=d>=252?6:d>=248?5:d>=240?4:d>=224?3:d>=192?2:1;l[254]=l[254]=1,n.string2buf=function(e){var t,n,o,a,r,s=e.length,l=0;for(a=0;s>a;a++)n=e.charCodeAt(a),55296===(64512&n)&&s>a+1&&(o=e.charCodeAt(a+1),56320===(64512&o)&&(n=65536+(n-55296<<10)+(o-56320),a++)),l+=128>n?1:2048>n?2:65536>n?3:4;for(t=new i.Buf8(l),r=0,a=0;l>r;a++)n=e.charCodeAt(a),55296===(64512&n)&&s>a+1&&(o=e.charCodeAt(a+1),56320===(64512&o)&&(n=65536+(n-55296<<10)+(o-56320),a++)),128>n?t[r++]=n:2048>n?(t[r++]=192|n>>>6,t[r++]=128|63&n):65536>n?(t[r++]=224|n>>>12,t[r++]=128|n>>>6&63,t[r++]=128|63&n):(t[r++]=240|n>>>18,t[r++]=128|n>>>12&63,t[r++]=128|n>>>6&63,t[r++]=128|63&n);return t},n.buf2binstring=function(e){return o(e,e.length)},n.binstring2buf=function(e){for(var t=new i.Buf8(e.length),n=0,o=t.length;o>n;n++)t[n]=e.charCodeAt(n);return t},n.buf2string=function(e,t){var n,i,a,r,s=t||e.length,d=new Array(2*s);for(i=0,n=0;s>n;)if(a=e[n++],128>a)d[i++]=a;else if(r=l[a],r>4)d[i++]=65533,n+=r-1;else{for(a&=2===r?31:3===r?15:7;r>1&&s>n;)a=a<<6|63&e[n++],r--;r>1?d[i++]=65533:65536>a?d[i++]=a:(a-=65536,d[i++]=55296|a>>10&1023,d[i++]=56320|1023&a)}return o(d,i)},n.utf8border=function(e,t){var n;for(t=t||e.length,t>e.length&&(t=e.length),n=t-1;n>=0&&128===(192&e[n]);)n--;return 0>n?t:0===n?t:n+l[e[n]]>t?n:t}},{\"./common\":1}],3:[function(e,t,n){\"use strict\";function o(e,t,n,o){for(var i=65535&e|0,a=e>>>16&65535|0,r=0;0!==n;){r=n>2e3?2e3:n,n-=r;do i=i+t[o++]|0,a=a+i|0;while(--r);i%=65521,a%=65521}return i|a<<16|0}t.exports=o},{}],4:[function(e,t,n){t.exports={Z_NO_FLUSH:0,Z_PARTIAL_FLUSH:1,Z_SYNC_FLUSH:2,Z_FULL_FLUSH:3,Z_FINISH:4,Z_BLOCK:5,Z_TREES:6,Z_OK:0,Z_STREAM_END:1,Z_NEED_DICT:2,Z_ERRNO:-1,Z_STREAM_ERROR:-2,Z_DATA_ERROR:-3,Z_BUF_ERROR:-5,Z_NO_COMPRESSION:0,Z_BEST_SPEED:1,Z_BEST_COMPRESSION:9,Z_DEFAULT_COMPRESSION:-1,Z_FILTERED:1,Z_HUFFMAN_ONLY:2,Z_RLE:3,Z_FIXED:4,Z_DEFAULT_STRATEGY:0,Z_BINARY:0,Z_TEXT:1,Z_UNKNOWN:2,Z_DEFLATED:8}},{}],5:[function(e,t,n){\"use strict\";function o(){for(var e,t=[],n=0;256>n;n++){e=n;for(var o=0;8>o;o++)e=1&e?3988292384^e>>>1:e>>>1;t[n]=e}return t}function i(e,t,n,o){var i=a,r=o+n;e=-1^e;for(var s=o;r>s;s++)e=e>>>8^i[255&(e^t[s])];return-1^e}var a=o();t.exports=i},{}],6:[function(e,t,n){\"use strict\";function o(){this.text=0,this.time=0,this.xflags=0,this.os=0,this.extra=null,this.extra_len=0,this.name=\"\",this.comment=\"\",this.hcrc=0,this.done=!1}t.exports=o},{}],7:[function(e,t,n){\"use strict\";var o=30,i=12;t.exports=function(e,t){var n,a,r,s,l,d,u,c,f,h,m,p,w,b,g,v,k,y,_,x,S,M,C,E,R;n=e.state,a=e.next_in,E=e.input,r=a+(e.avail_in-5),s=e.next_out,R=e.output,l=s-(t-e.avail_out),d=s+(e.avail_out-257),u=n.dmax,c=n.wsize,f=n.whave,h=n.wnext,m=n.window,p=n.hold,w=n.bits,b=n.lencode,g=n.distcode,v=(1<<n.lenbits)-1,k=(1<<n.distbits)-1;e:do{15>w&&(p+=E[a++]<<w,w+=8,p+=E[a++]<<w,w+=8),y=b[p&v];t:for(;;){if(_=y>>>24,p>>>=_,w-=_,_=y>>>16&255,0===_)R[s++]=65535&y;else{if(!(16&_)){if(0===(64&_)){y=b[(65535&y)+(p&(1<<_)-1)];continue t}if(32&_){n.mode=i;break e}e.msg=\"invalid literal/length code\",n.mode=o;break e}x=65535&y,_&=15,_&&(_>w&&(p+=E[a++]<<w,w+=8),x+=p&(1<<_)-1,p>>>=_,w-=_),15>w&&(p+=E[a++]<<w,w+=8,p+=E[a++]<<w,w+=8),y=g[p&k];n:for(;;){if(_=y>>>24,p>>>=_,w-=_,_=y>>>16&255,!(16&_)){if(0===(64&_)){y=g[(65535&y)+(p&(1<<_)-1)];continue n}e.msg=\"invalid distance code\",n.mode=o;break e}if(S=65535&y,_&=15,_>w&&(p+=E[a++]<<w,w+=8,_>w&&(p+=E[a++]<<w,w+=8)),S+=p&(1<<_)-1,S>u){e.msg=\"invalid distance too far back\",n.mode=o;break e}if(p>>>=_,w-=_,_=s-l,S>_){if(_=S-_,_>f&&n.sane){e.msg=\"invalid distance too far back\",n.mode=o;break e}if(M=0,C=m,0===h){if(M+=c-_,x>_){x-=_;do R[s++]=m[M++];while(--_);M=s-S,C=R}}else if(_>h){if(M+=c+h-_,_-=h,x>_){x-=_;do R[s++]=m[M++];while(--_);if(M=0,x>h){_=h,x-=_;do R[s++]=m[M++];while(--_);M=s-S,C=R}}}else if(M+=h-_,x>_){x-=_;do R[s++]=m[M++];while(--_);M=s-S,C=R}for(;x>2;)R[s++]=C[M++],R[s++]=C[M++],R[s++]=C[M++],x-=3;x&&(R[s++]=C[M++],x>1&&(R[s++]=C[M++]))}else{M=s-S;do R[s++]=R[M++],R[s++]=R[M++],R[s++]=R[M++],x-=3;while(x>2);x&&(R[s++]=R[M++],x>1&&(R[s++]=R[M++]))}break}}break}}while(r>a&&d>s);x=w>>3,a-=x,w-=x<<3,p&=(1<<w)-1,e.next_in=a,e.next_out=s,e.avail_in=r>a?5+(r-a):5-(a-r),e.avail_out=d>s?257+(d-s):257-(s-d),n.hold=p,n.bits=w}},{}],8:[function(e,t,n){\"use strict\";function o(e){return(e>>>24&255)+(e>>>8&65280)+((65280&e)<<8)+((255&e)<<24)}function i(){this.mode=0,this.last=!1,this.wrap=0,this.havedict=!1,this.flags=0,this.dmax=0,this.check=0,this.total=0,this.head=null,this.wbits=0,this.wsize=0,this.whave=0,this.wnext=0,this.window=null,this.hold=0,this.bits=0,this.length=0,this.offset=0,this.extra=0,this.lencode=null,this.distcode=null,this.lenbits=0,this.distbits=0,this.ncode=0,this.nlen=0,this.ndist=0,this.have=0,this.next=null,this.lens=new b.Buf16(320),this.work=new b.Buf16(288),this.lendyn=null,this.distdyn=null,this.sane=0,this.back=0,this.was=0}function a(e){var t;return e&&e.state?(t=e.state,e.total_in=e.total_out=t.total=0,e.msg=\"\",t.wrap&&(e.adler=1&t.wrap),t.mode=U,t.last=0,t.havedict=0,t.dmax=32768,t.head=null,t.hold=0,t.bits=0,t.lencode=t.lendyn=new b.Buf32(me),t.distcode=t.distdyn=new b.Buf32(pe),t.sane=1,t.back=-1,R):L}function r(e){var t;return e&&e.state?(t=e.state,t.wsize=0,t.whave=0,t.wnext=0,a(e)):L}function s(e,t){var n,o;return e&&e.state?(o=e.state,0>t?(n=0,t=-t):(n=(t>>4)+1,48>t&&(t&=15)),t&&(8>t||t>15)?L:(null!==o.window&&o.wbits!==t&&(o.window=null),o.wrap=n,o.wbits=t,r(e))):L}function l(e,t){var n,o;return e?(o=new i,e.state=o,o.window=null,n=s(e,t),n!==R&&(e.state=null),n):L}function d(e){return l(e,be)}function u(e){if(ge){var t;for(p=new b.Buf32(512),w=new b.Buf32(32),t=0;144>t;)e.lens[t++]=8;for(;256>t;)e.lens[t++]=9;for(;280>t;)e.lens[t++]=7;for(;288>t;)e.lens[t++]=8;for(y(x,e.lens,0,288,p,0,e.work,{bits:9}),t=0;32>t;)e.lens[t++]=5;y(S,e.lens,0,32,w,0,e.work,{bits:5}),ge=!1}e.lencode=p,e.lenbits=9,e.distcode=w,e.distbits=5}function c(e,t,n,o){var i,a=e.state;return null===a.window&&(a.wsize=1<<a.wbits,a.wnext=0,a.whave=0,a.window=new b.Buf8(a.wsize)),o>=a.wsize?(b.arraySet(a.window,t,n-a.wsize,a.wsize,0),a.wnext=0,a.whave=a.wsize):(i=a.wsize-a.wnext,i>o&&(i=o),b.arraySet(a.window,t,n-o,i,a.wnext),o-=i,o?(b.arraySet(a.window,t,n-o,o,0),a.wnext=o,a.whave=a.wsize):(a.wnext+=i,a.wnext===a.wsize&&(a.wnext=0),a.whave<a.wsize&&(a.whave+=i))),0}function f(e,t){var n,i,a,r,s,l,d,f,h,m,p,w,me,pe,we,be,ge,ve,ke,ye,_e,xe,Se,Me,Ce=0,Ee=new b.Buf8(4),Re=[16,17,18,0,8,7,9,6,10,5,11,4,12,3,13,2,14,1,15];if(!e||!e.state||!e.output||!e.input&&0!==e.avail_in)return L;n=e.state,n.mode===J&&(n.mode=K),s=e.next_out,a=e.output,d=e.avail_out,r=e.next_in,i=e.input,l=e.avail_in,f=n.hold,h=n.bits,m=l,p=d,xe=R;e:for(;;)switch(n.mode){case U:if(0===n.wrap){n.mode=K;break}for(;16>h;){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}if(2&n.wrap&&35615===f){n.check=0,Ee[0]=255&f,Ee[1]=f>>>8&255,n.check=v(n.check,Ee,2,0),f=0,h=0,n.mode=O;break}if(n.flags=0,n.head&&(n.head.done=!1),!(1&n.wrap)||(((255&f)<<8)+(f>>8))%31){e.msg=\"incorrect header check\",n.mode=ce;break}if((15&f)!==I){e.msg=\"unknown compression method\",n.mode=ce;break}if(f>>>=4,h-=4,_e=(15&f)+8,0===n.wbits)n.wbits=_e;else if(_e>n.wbits){e.msg=\"invalid window size\",n.mode=ce;break}n.dmax=1<<_e,e.adler=n.check=1,n.mode=512&f?H:J,f=0,h=0;break;case O:for(;16>h;){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}if(n.flags=f,(255&n.flags)!==I){e.msg=\"unknown compression method\",n.mode=ce;break}if(57344&n.flags){e.msg=\"unknown header flags set\",n.mode=ce;break}n.head&&(n.head.text=f>>8&1),512&n.flags&&(Ee[0]=255&f,Ee[1]=f>>>8&255,n.check=v(n.check,Ee,2,0)),f=0,h=0,n.mode=Z;case Z:for(;32>h;){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}n.head&&(n.head.time=f),512&n.flags&&(Ee[0]=255&f,Ee[1]=f>>>8&255,Ee[2]=f>>>16&255,Ee[3]=f>>>24&255,n.check=v(n.check,Ee,4,0)),f=0,h=0,n.mode=P;case P:for(;16>h;){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}n.head&&(n.head.xflags=255&f,n.head.os=f>>8),512&n.flags&&(Ee[0]=255&f,Ee[1]=f>>>8&255,n.check=v(n.check,Ee,2,0)),f=0,h=0,n.mode=T;case T:if(1024&n.flags){for(;16>h;){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}n.length=f,n.head&&(n.head.extra_len=f),512&n.flags&&(Ee[0]=255&f,Ee[1]=f>>>8&255,n.check=v(n.check,Ee,2,0)),f=0,h=0}else n.head&&(n.head.extra=null);n.mode=N;case N:if(1024&n.flags&&(w=n.length,w>l&&(w=l),w&&(n.head&&(_e=n.head.extra_len-n.length,n.head.extra||(n.head.extra=new Array(n.head.extra_len)),b.arraySet(n.head.extra,i,r,w,_e)),512&n.flags&&(n.check=v(n.check,i,w,r)),l-=w,r+=w,n.length-=w),n.length))break e;n.length=0,n.mode=q;case q:if(2048&n.flags){if(0===l)break e;w=0;do _e=i[r+w++],n.head&&_e&&n.length<65536&&(n.head.name+=String.fromCharCode(_e));while(_e&&l>w);if(512&n.flags&&(n.check=v(n.check,i,w,r)),l-=w,r+=w,_e)break e}else n.head&&(n.head.name=null);n.length=0,n.mode=G;case G:if(4096&n.flags){if(0===l)break e;w=0;do _e=i[r+w++],n.head&&_e&&n.length<65536&&(n.head.comment+=String.fromCharCode(_e));while(_e&&l>w);if(512&n.flags&&(n.check=v(n.check,i,w,r)),l-=w,r+=w,_e)break e}else n.head&&(n.head.comment=null);n.mode=j;case j:if(512&n.flags){for(;16>h;){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}if(f!==(65535&n.check)){e.msg=\"header crc mismatch\",n.mode=ce;break}f=0,h=0}n.head&&(n.head.hcrc=n.flags>>9&1,n.head.done=!0),e.adler=n.check=0,n.mode=J;break;case H:for(;32>h;){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}e.adler=n.check=o(f),f=0,h=0,n.mode=W;case W:if(0===n.havedict)return e.next_out=s,e.avail_out=d,e.next_in=r,e.avail_in=l,n.hold=f,n.bits=h,D;e.adler=n.check=1,n.mode=J;case J:if(t===C||t===E)break e;case K:if(n.last){f>>>=7&h,h-=7&h,n.mode=le;break}for(;3>h;){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}switch(n.last=1&f,f>>>=1,h-=1,3&f){case 0:n.mode=Y;break;case 1:if(u(n),n.mode=te,t===E){f>>>=2,h-=2;break e}break;case 2:n.mode=Q;break;case 3:e.msg=\"invalid block type\",n.mode=ce}f>>>=2,h-=2;break;case Y:for(f>>>=7&h,h-=7&h;32>h;){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}if((65535&f)!==(f>>>16^65535)){e.msg=\"invalid stored block lengths\",n.mode=ce;break}if(n.length=65535&f,f=0,h=0,n.mode=X,t===E)break e;case X:n.mode=V;case V:if(w=n.length){if(w>l&&(w=l),w>d&&(w=d),0===w)break e;b.arraySet(a,i,r,w,s),l-=w,r+=w,d-=w,s+=w,n.length-=w;break}n.mode=J;break;case Q:for(;14>h;){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}if(n.nlen=(31&f)+257,f>>>=5,h-=5,n.ndist=(31&f)+1,f>>>=5,h-=5,n.ncode=(15&f)+4,f>>>=4,h-=4,n.nlen>286||n.ndist>30){e.msg=\"too many length or distance symbols\",n.mode=ce;break}n.have=0,n.mode=$;case $:for(;n.have<n.ncode;){for(;3>h;){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}n.lens[Re[n.have++]]=7&f,f>>>=3,h-=3}for(;n.have<19;)n.lens[Re[n.have++]]=0;if(n.lencode=n.lendyn,n.lenbits=7,Se={bits:n.lenbits},xe=y(_,n.lens,0,19,n.lencode,0,n.work,Se),n.lenbits=Se.bits,xe){e.msg=\"invalid code lengths set\",n.mode=ce;break}n.have=0,n.mode=ee;case ee:for(;n.have<n.nlen+n.ndist;){for(;Ce=n.lencode[f&(1<<n.lenbits)-1],we=Ce>>>24,be=Ce>>>16&255,ge=65535&Ce,!(h>=we);){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}if(16>ge)f>>>=we,h-=we,n.lens[n.have++]=ge;else{if(16===ge){for(Me=we+2;Me>h;){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}if(f>>>=we,h-=we,0===n.have){e.msg=\"invalid bit length repeat\",n.mode=ce;break}_e=n.lens[n.have-1],w=3+(3&f),f>>>=2,h-=2}else if(17===ge){for(Me=we+3;Me>h;){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}f>>>=we,h-=we,_e=0,w=3+(7&f),f>>>=3,h-=3}else{for(Me=we+7;Me>h;){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}f>>>=we,h-=we,_e=0,w=11+(127&f),f>>>=7,h-=7}if(n.have+w>n.nlen+n.ndist){e.msg=\"invalid bit length repeat\",n.mode=ce;break}for(;w--;)n.lens[n.have++]=_e}}if(n.mode===ce)break;if(0===n.lens[256]){e.msg=\"invalid code -- missing end-of-block\",n.mode=ce;break}if(n.lenbits=9,Se={bits:n.lenbits},xe=y(x,n.lens,0,n.nlen,n.lencode,0,n.work,Se),n.lenbits=Se.bits,xe){e.msg=\"invalid literal/lengths set\",n.mode=ce;break}if(n.distbits=6,n.distcode=n.distdyn,Se={bits:n.distbits},xe=y(S,n.lens,n.nlen,n.ndist,n.distcode,0,n.work,Se),n.distbits=Se.bits,xe){e.msg=\"invalid distances set\",n.mode=ce;break}if(n.mode=te,t===E)break e;case te:n.mode=ne;case ne:if(l>=6&&d>=258){e.next_out=s,e.avail_out=d,e.next_in=r,e.avail_in=l,n.hold=f,n.bits=h,k(e,p),s=e.next_out,a=e.output,d=e.avail_out,r=e.next_in,i=e.input,l=e.avail_in,f=n.hold,h=n.bits,n.mode===J&&(n.back=-1);break}for(n.back=0;Ce=n.lencode[f&(1<<n.lenbits)-1],we=Ce>>>24,be=Ce>>>16&255,ge=65535&Ce,!(h>=we);){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}if(be&&0===(240&be)){for(ve=we,ke=be,ye=ge;Ce=n.lencode[ye+((f&(1<<ve+ke)-1)>>ve)],we=Ce>>>24,be=Ce>>>16&255,ge=65535&Ce,!(h>=ve+we);){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}f>>>=ve,h-=ve,n.back+=ve}if(f>>>=we,h-=we,n.back+=we,n.length=ge,0===be){n.mode=se;break}if(32&be){n.back=-1,n.mode=J;break}if(64&be){e.msg=\"invalid literal/length code\",n.mode=ce;break}n.extra=15&be,n.mode=oe;case oe:if(n.extra){for(Me=n.extra;Me>h;){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}n.length+=f&(1<<n.extra)-1,f>>>=n.extra,h-=n.extra,n.back+=n.extra}n.was=n.length,n.mode=ie;case ie:for(;Ce=n.distcode[f&(1<<n.distbits)-1],we=Ce>>>24,be=Ce>>>16&255,ge=65535&Ce,!(h>=we);){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}if(0===(240&be)){for(ve=we,ke=be,ye=ge;Ce=n.distcode[ye+((f&(1<<ve+ke)-1)>>ve)],we=Ce>>>24,be=Ce>>>16&255,ge=65535&Ce,!(h>=ve+we);){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}f>>>=ve,h-=ve,n.back+=ve}if(f>>>=we,h-=we,n.back+=we,64&be){e.msg=\"invalid distance code\",n.mode=ce;break}n.offset=ge,n.extra=15&be,n.mode=ae;case ae:if(n.extra){for(Me=n.extra;Me>h;){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}n.offset+=f&(1<<n.extra)-1,f>>>=n.extra,h-=n.extra,n.back+=n.extra}if(n.offset>n.dmax){e.msg=\"invalid distance too far back\",n.mode=ce;break}n.mode=re;case re:if(0===d)break e;if(w=p-d,n.offset>w){if(w=n.offset-w,w>n.whave&&n.sane){e.msg=\"invalid distance too far back\",n.mode=ce;break}w>n.wnext?(w-=n.wnext,me=n.wsize-w):me=n.wnext-w,w>n.length&&(w=n.length),pe=n.window}else pe=a,me=s-n.offset,w=n.length;w>d&&(w=d),d-=w,n.length-=w;do a[s++]=pe[me++];while(--w);0===n.length&&(n.mode=ne);break;case se:if(0===d)break e;a[s++]=n.length,d--,n.mode=ne;break;case le:if(n.wrap){for(;32>h;){if(0===l)break e;l--,f|=i[r++]<<h,h+=8}if(p-=d,e.total_out+=p,n.total+=p,p&&(e.adler=n.check=n.flags?v(n.check,a,p,s-p):g(n.check,a,p,s-p)),p=d,(n.flags?f:o(f))!==n.check){e.msg=\"incorrect data check\",n.mode=ce;break}f=0,h=0}n.mode=de;case de:if(n.wrap&&n.flags){for(;32>h;){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}if(f!==(4294967295&n.total)){e.msg=\"incorrect length check\",n.mode=ce;break}f=0,h=0}n.mode=ue;case ue:xe=F;break e;case ce:xe=A;break e;case fe:return z;case he:default:return L}return e.next_out=s,e.avail_out=d,e.next_in=r,e.avail_in=l,n.hold=f,n.bits=h,(n.wsize||p!==e.avail_out&&n.mode<ce&&(n.mode<le||t!==M))&&c(e,e.output,e.next_out,p-e.avail_out)?(n.mode=fe,z):(m-=e.avail_in,p-=e.avail_out,e.total_in+=m,e.total_out+=p,n.total+=p,n.wrap&&p&&(e.adler=n.check=n.flags?v(n.check,a,p,e.next_out-p):g(n.check,a,p,e.next_out-p)),e.data_type=n.bits+(n.last?64:0)+(n.mode===J?128:0)+(n.mode===te||n.mode===X?256:0),(0===m&&0===p||t===M)&&xe===R&&(xe=B),xe)}function h(e){if(!e||!e.state)return L;var t=e.state;return t.window&&(t.window=null),e.state=null,R}function m(e,t){var n;return e&&e.state?(n=e.state,0===(2&n.wrap)?L:(n.head=t,t.done=!1,R)):L}var p,w,b=e(\"../utils/common\"),g=e(\"./adler32\"),v=e(\"./crc32\"),k=e(\"./inffast\"),y=e(\"./inftrees\"),_=0,x=1,S=2,M=4,C=5,E=6,R=0,F=1,D=2,L=-2,A=-3,z=-4,B=-5,I=8,U=1,O=2,Z=3,P=4,T=5,N=6,q=7,G=8,j=9,H=10,W=11,J=12,K=13,Y=14,X=15,V=16,Q=17,$=18,ee=19,te=20,ne=21,oe=22,ie=23,ae=24,re=25,se=26,le=27,de=28,ue=29,ce=30,fe=31,he=32,me=852,pe=592,we=15,be=we,ge=!0;n.inflateReset=r,n.inflateReset2=s,n.inflateResetKeep=a,n.inflateInit=d,n.inflateInit2=l,n.inflate=f,n.inflateEnd=h,n.inflateGetHeader=m,n.inflateInfo=\"pako inflate (from Nodeca project)\"},{\"../utils/common\":1,\"./adler32\":3,\"./crc32\":5,\"./inffast\":7,\"./inftrees\":9}],9:[function(e,t,n){\"use strict\";var o=e(\"../utils/common\"),i=15,a=852,r=592,s=0,l=1,d=2,u=[3,4,5,6,7,8,9,10,11,13,15,17,19,23,27,31,35,43,51,59,67,83,99,115,131,163,195,227,258,0,0],c=[16,16,16,16,16,16,16,16,17,17,17,17,18,18,18,18,19,19,19,19,20,20,20,20,21,21,21,21,16,72,78],f=[1,2,3,4,5,7,9,13,17,25,33,49,65,97,129,193,257,385,513,769,1025,1537,2049,3073,4097,6145,8193,12289,16385,24577,0,0],h=[16,16,16,16,17,17,18,18,19,19,20,20,21,21,22,22,23,23,24,24,25,25,26,26,27,27,28,28,29,29,64,64];t.exports=function(e,t,n,m,p,w,b,g){var v,k,y,_,x,S,M,C,E,R=g.bits,F=0,D=0,L=0,A=0,z=0,B=0,I=0,U=0,O=0,Z=0,P=null,T=0,N=new o.Buf16(i+1),q=new o.Buf16(i+1),G=null,j=0;for(F=0;i>=F;F++)N[F]=0;for(D=0;m>D;D++)N[t[n+D]]++;for(z=R,A=i;A>=1&&0===N[A];A--);if(z>A&&(z=A),0===A)return p[w++]=20971520,p[w++]=20971520,g.bits=1,0;for(L=1;A>L&&0===N[L];L++);for(L>z&&(z=L),U=1,F=1;i>=F;F++)if(U<<=1,U-=N[F],0>U)return-1;if(U>0&&(e===s||1!==A))return-1;for(q[1]=0,F=1;i>F;F++)q[F+1]=q[F]+N[F];for(D=0;m>D;D++)0!==t[n+D]&&(b[q[t[n+D]]++]=D);if(e===s?(P=G=b,S=19):e===l?(P=u,T-=257,G=c,j-=257,S=256):(P=f,G=h,S=-1),Z=0,D=0,F=L,x=w,B=z,I=0,y=-1,O=1<<z,_=O-1,e===l&&O>a||e===d&&O>r)return 1;for(var H=0;;){H++,M=F-I,b[D]<S?(C=0,E=b[D]):b[D]>S?(C=G[j+b[D]],E=P[T+b[D]]):(C=96,E=0),v=1<<F-I,k=1<<B,L=k;do k-=v,p[x+(Z>>I)+k]=M<<24|C<<16|E|0;while(0!==k);for(v=1<<F-1;Z&v;)v>>=1;if(0!==v?(Z&=v-1,Z+=v):Z=0,D++,0===--N[F]){if(F===A)break;F=t[n+b[D]]}if(F>z&&(Z&_)!==y){for(0===I&&(I=z),x+=L,B=F-I,U=1<<B;A>B+I&&(U-=N[B+I],!(0>=U));)B++,U<<=1;if(O+=1<<B,e===l&&O>a||e===d&&O>r)return 1;y=Z&_,p[y]=z<<24|B<<16|x-w|0}}return 0!==Z&&(p[x+Z]=F-I<<24|64<<16|0),g.bits=z,0}},{\"../utils/common\":1}],10:[function(e,t,n){\"use strict\";t.exports={2:\"need dictionary\",1:\"stream end\",0:\"\",\"-1\":\"file error\",\"-2\":\"stream error\",\"-3\":\"data error\",\"-4\":\"insufficient memory\",\"-5\":\"buffer error\",\"-6\":\"incompatible version\"}},{}],11:[function(e,t,n){\"use strict\";function o(){this.input=null,this.next_in=0,this.avail_in=0,this.total_in=0,this.output=null,this.next_out=0,this.avail_out=0,this.total_out=0,this.msg=\"\",this.state=null,this.data_type=2,this.adler=0}t.exports=o},{}],\"/lib/inflate.js\":[function(e,t,n){\"use strict\";function o(e,t){var n=new h(t);if(n.push(e,!0),n.err)throw n.msg;return n.result}function i(e,t){return t=t||{},t.raw=!0,o(e,t)}var a=e(\"./zlib/inflate.js\"),r=e(\"./utils/common\"),s=e(\"./utils/strings\"),l=e(\"./zlib/constants\"),d=e(\"./zlib/messages\"),u=e(\"./zlib/zstream\"),c=e(\"./zlib/gzheader\"),f=Object.prototype.toString,h=function(e){this.options=r.assign({chunkSize:16384,windowBits:0,to:\"\"},e||{});var t=this.options;t.raw&&t.windowBits>=0&&t.windowBits<16&&(t.windowBits=-t.windowBits,0===t.windowBits&&(t.windowBits=-15)),!(t.windowBits>=0&&t.windowBits<16)||e&&e.windowBits||(t.windowBits+=32),t.windowBits>15&&t.windowBits<48&&0===(15&t.windowBits)&&(t.windowBits|=15),this.err=0,this.msg=\"\",this.ended=!1,this.chunks=[],this.strm=new u,this.strm.avail_out=0;var n=a.inflateInit2(this.strm,t.windowBits);if(n!==l.Z_OK)throw new Error(d[n]);this.header=new c,a.inflateGetHeader(this.strm,this.header)};h.prototype.push=function(e,t){var n,o,i,d,u,c=this.strm,h=this.options.chunkSize;if(this.ended)return!1;o=t===~~t?t:t===!0?l.Z_FINISH:l.Z_NO_FLUSH,\"string\"==typeof e?c.input=s.binstring2buf(e):\"[object ArrayBuffer]\"===f.call(e)?c.input=new Uint8Array(e):c.input=e,c.next_in=0,c.avail_in=c.input.length;do{if(0===c.avail_out&&(c.output=new r.Buf8(h),c.next_out=0,c.avail_out=h),n=a.inflate(c,l.Z_NO_FLUSH),n!==l.Z_STREAM_END&&n!==l.Z_OK)return this.onEnd(n),this.ended=!0,!1;c.next_out&&(0===c.avail_out||n===l.Z_STREAM_END||0===c.avail_in&&(o===l.Z_FINISH||o===l.Z_SYNC_FLUSH))&&(\"string\"===this.options.to?(i=s.utf8border(c.output,c.next_out),d=c.next_out-i,u=s.buf2string(c.output,i),c.next_out=d,c.avail_out=h-d,d&&r.arraySet(c.output,c.output,i,d,0),this.onData(u)):this.onData(r.shrinkBuf(c.output,c.next_out)))}while(c.avail_in>0&&n!==l.Z_STREAM_END);return n===l.Z_STREAM_END&&(o=l.Z_FINISH),o===l.Z_FINISH?(n=a.inflateEnd(this.strm),this.onEnd(n),this.ended=!0,n===l.Z_OK):o===l.Z_SYNC_FLUSH?(this.onEnd(l.Z_OK),c.avail_out=0,!0):!0},h.prototype.onData=function(e){this.chunks.push(e)},h.prototype.onEnd=function(e){e===l.Z_OK&&(\"string\"===this.options.to?this.result=this.chunks.join(\"\"):this.result=r.flattenChunks(this.chunks)),this.chunks=[],this.err=e,this.msg=this.strm.msg},n.Inflate=h,n.inflate=o,n.inflateRaw=i,n.ungzip=o},{\"./utils/common\":1,\"./utils/strings\":2,\"./zlib/constants\":4,\"./zlib/gzheader\":6,\"./zlib/inflate.js\":8,\"./zlib/messages\":10,\"./zlib/zstream\":11}]},{},[])(\"/lib/inflate.js\")});var browser=function(){var e,t=navigator.userAgent,n=t.match(/(opera|chrome|safari|firefox|msie|trident(?=\\/))\\/?\\s*(\\d+)/i)||[];return/trident/i.test(n[1])?(e=/\\brv[ :]+(\\d+)/g.exec(t)||[],\"IE \"+(e[1]||\"\")):\"Chrome\"===n[1]&&(e=t.match(/\\bOPR\\/(\\d+)/),null!=e)?\"Opera \"+e[1]:(n=n[2]?[n[1],n[2]]:[navigator.appName,navigator.appVersion,\"-?\"],null!=(e=t.match(/version\\/(\\d+)/i))&&n.splice(1,1,e[1]),n.join(\" \"))}(),hasWebGL=function(){if(!window.WebGLRenderingContext)return 0;var e=document.createElement(\"canvas\"),t=e.getContext(\"webgl\");return t||(t=e.getContext(\"experimental-webgl\"))?1:0}(),mobile=function(e){return/(android|bb\\d+|meego).+mobile|avantgo|bada\\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(e)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\\-(n|u)|c55\\/|capi|ccwa|cdm\\-|cell|chtm|cldc|cmd\\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\\-s|devi|dica|dmob|do(c|p)o|ds(12|\\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\\-|_)|g1 u|g560|gene|gf\\-5|g\\-mo|go(\\.w|od)|gr(ad|un)|haie|hcit|hd\\-(m|p|t)|hei\\-|hi(pt|ta)|hp( i|ip)|hs\\-c|ht(c(\\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\\-(20|go|ma)|i230|iac( |\\-|\\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\\/)|klon|kpt |kwc\\-|kyo(c|k)|le(no|xi)|lg( g|\\/(k|l|u)|50|54|\\-[a-w])|libw|lynx|m1\\-w|m3ga|m50\\/|ma(te|ui|xo)|mc(01|21|ca)|m\\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\\-2|po(ck|rt|se)|prox|psio|pt\\-g|qa\\-a|qc(07|12|21|32|60|\\-[2-7]|i\\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\\-|oo|p\\-)|sdk\\/|se(c(\\-|0|1)|47|mc|nd|ri)|sgh\\-|shar|sie(\\-|m)|sk\\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\\-|v\\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\\-|tdg\\-|tel(i|m)|tim\\-|t\\-mo|to(pl|sh)|ts(70|m\\-|m3|m5)|tx\\-9|up(\\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\\-|your|zeto|zte\\-/i.test(e.substr(0,4))}(navigator.userAgent||navigator.vendor||window.opera);Module.compatibilitycheck?Module.compatibilitycheck():CompatibilityCheck();var didShowErrorMessage=!1;\"function\"!=typeof window.onerror&&(window.onerror=function(e,t,n){return Module.errorhandler&&Module.errorhandler(e,t,n)||(console.log(\"Invoking error handler due to\\n\"+e),\"function\"==typeof dump&&dump(\"Invoking error handler due to\\n\"+e),didShowErrorMessage||-1!=e.indexOf(\"UnknownError\")||-1!=e.indexOf(\"Program terminated with exit(0)\"))?void 0:(didShowErrorMessage=!0,-1!=e.indexOf(\"DISABLE_EXCEPTION_CATCHING\")?void alert(\"An exception has occured, but exception handling has been disabled in this build. If you are the developer of this content, enable exceptions in your project's WebGL player settings to be able to catch the exception or see the stack trace.\"):-1!=e.indexOf(\"Cannot enlarge memory arrays\")?void alert(\"Out of memory. If you are the developer of this content, try allocating more memory to your WebGL build in the WebGL player settings.\"):-1!=e.indexOf(\"Invalid array buffer length\")||-1!=e.indexOf(\"out of memory\")?void alert(\"The browser could not allocate enough memory for the WebGL content. If you are the developer of this content, try allocating less memory to your WebGL build in the WebGL player settings.\"):-1!=e.indexOf(\"Script error.\")&&0==document.URL.indexOf(\"file:\")?void alert(\"It seems your browser does not support running Unity WebGL content from file:// urls. Please upload it to an http server, or try a different browser.\"):void alert(\"An error occured running the Unity content on this page. See your browser's JavaScript console for more info. The error was:\\n\"+e))}),Module.locateFile=function(e){return Module.dataUrl},Module.preRun=[],Module.postRun=[],Module.print=function(){return function(e){console.log(e)}}(),Module.printErr=function(e){console.error(e)},Module.canvas=document.getElementById(\"canvas\"),Module.progress=null,Module.setStatus=function(e){if(null==this.progress){if(\"function\"!=typeof UnityProgress)return;this.progress=new UnityProgress(canvas)}if(Module.setStatus.last||(Module.setStatus.last={time:Date.now(),text:\"\"}),e!==Module.setStatus.text){this.progress.SetMessage(e);var t=e.match(/([^(]+)\\((\\d+(\\.\\d+)?)\\/(\\d+)\\)/);t&&this.progress.SetProgress(parseInt(t[2])/parseInt(t[4])),\"\"===e&&this.progress.Clear()}},Module.totalDependencies=0,Module.monitorRunDependencies=function(e){this.totalDependencies=Math.max(this.totalDependencies,e),Module.setStatus(e?\"Preparing... (\"+(this.totalDependencies-e)+\"/\"+this.totalDependencies+\")\":\"All downloads complete.\");\n    2  },Module.setStatus(\"Downloading (0.0/1)\");var Module;\"undefined\"==typeof Module&&(Module=eval(\"(function() { try { return Module || {} } catch(e) { return {} } })()\")),Module.expectedDataFileDownloads||(Module.expectedDataFileDownloads=0,Module.finishedDataFileDownloads=0),Module.expectedDataFileDownloads++,function(){var e=function(e){function t(e){console.error(\"package error:\",e)}function n(){function e(e,t){if(!e)throw t+(new Error).stack}function t(e,t,n,o){this.start=e,this.end=t,this.crunched=n,this.audio=o}function n(n){Module.finishedDataFileDownloads++,e(n,\"Loading data file failed.\");var o=new Uint8Array(n);t.prototype.byteArray=o,t.prototype.requests[\"/data.unity3d\"].onload(),t.prototype.requests[\"/methods_pointedto_by_uievents.xml\"].onload(),t.prototype.requests[\"/Il2CppData/Metadata/global-metadata.dat\"].onload(),t.prototype.requests[\"/Resources/unity_default_resources\"].onload(),t.prototype.requests[\"/Managed/mono/2.0/machine.config\"].onload(),Module.removeRunDependency(\"datafile_targetweb.data\")}Module.FS_createPath(\"/\",\"Il2CppData\",!0,!0),Module.FS_createPath(\"/Il2CppData\",\"Metadata\",!0,!0),Module.FS_createPath(\"/\",\"Resources\",!0,!0),Module.FS_createPath(\"/\",\"Managed\",!0,!0),Module.FS_createPath(\"/Managed\",\"mono\",!0,!0),Module.FS_createPath(\"/Managed/mono\",\"2.0\",!0,!0),t.prototype={requests:{},open:function(e,t){this.name=t,this.requests[t]=this,Module.addRunDependency(\"fp \"+this.name)},send:function(){},onload:function(){var e=this.byteArray.subarray(this.start,this.end);this.finish(e)},finish:function(e){var t=this;Module.FS_createPreloadedFile(this.name,null,e,!0,!0,function(){Module.removeRunDependency(\"fp \"+t.name)},function(){t.audio?Module.removeRunDependency(\"fp \"+t.name):Module.printErr(\"Preloading file \"+t.name+\" failed\")},!1,!0),this.requests[this.name]=null}},new t(0,208816,0,0).open(\"GET\",\"/data.unity3d\"),new t(208816,209266,0,0).open(\"GET\",\"/methods_pointedto_by_uievents.xml\"),new t(209266,1752834,0,0).open(\"GET\",\"/Il2CppData/Metadata/global-metadata.dat\"),new t(1752834,3248134,0,0).open(\"GET\",\"/Resources/unity_default_resources\"),new t(3248134,3275760,0,0).open(\"GET\",\"/Managed/mono/2.0/machine.config\"),Module.addRunDependency(\"datafile_targetweb.data\"),Module.preloadResults||(Module.preloadResults={}),Module.preloadResults[i]={fromCache:!1},l?(n(l),l=null):d=n}var o;if(\"object\"==typeof window)o=window.encodeURIComponent(window.location.pathname.toString().substring(0,window.location.pathname.toString().lastIndexOf(\"/\"))+\"/\");else{if(\"undefined\"==typeof location)throw\"using preloaded data can only be done on a web page or in a web worker\";o=encodeURIComponent(location.pathname.toString().substring(0,location.pathname.toString().lastIndexOf(\"/\"))+\"/\")}var i=\"targetweb.data\",a=\"targetweb.data\";\"function\"!=typeof Module.locateFilePackage||Module.locateFile||(Module.locateFile=Module.locateFilePackage,Module.printErr(\"warning: you defined Module.locateFilePackage, that has been renamed to Module.locateFile (using your locateFilePackage for now)\"));var r=\"function\"==typeof Module.locateFile?Module.locateFile(a):(Module.filePackagePrefixURL||\"\")+a,s=3275760,l=null,d=null;fetchRemotePackageWrapper(r,s,function(e){d?(d(e),d=null):l=e},t),Module.calledRun?n():(Module.preRun||(Module.preRun=[]),Module.preRun.push(n))};e()}();\n\n23 matches across 7 files\n\n\nSearching 63 files for \"GetSectorAt\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Engine.cs:\n   56  			currentStep = 0f;\n   57  		}\n   58: 		Sector sec = World.Instance.GetSectorAt(this.transform.position);\n   59  		Tile t = null;\n   60  		if( sec != null )\n\nI:\\w\\zeptobots\\Assets\\Scripts\\World.cs:\n  127  	}\n  128  \n  129: 	public Sector GetSectorAt(Vector3 pos)\n  130  	{\n  131  		int sx = (int)Mathf.Floor(pos.x/100f);\n\nI:\\w\\zeptobots\\targetweb\\Development\\targetweb.data:\n    <binary>\n\n3 matches across 3 files\n\n\nSearching 63 files for \"GetTileAt\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Engine.cs:\n   60  		if( sec != null )\n   61  		{\n   62: 			t = sec.GetTileAt(this.transform.position);\n   63  		}\n   64  		if( t == null && engineTile != null )\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Sector.cs:\n  169  	}\n  170  \n  171: 	public Tile GetTileAt(Vector3 pos)\n  172  	{\n  173  		float localX = pos.x - sx*100;\n\nI:\\w\\zeptobots\\targetweb\\Development\\targetweb.data:\n    <binary>\n\n3 matches across 3 files\n\n\nSearching 63 files for \"requestactoradd\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Kingdom.cs:\n   24  \n   25  		string actorSprite = localIsRed ? \"Rd1\" : \"Bd1\";\n   26: 		NetMan.Instance.Send(\"requestactoradd|\"+ownerOID+\"|\"+tile.rtx+\"|\"+tile.rty+\"|\"+actorSprite);\n   27  		string worldSprite = localIsRed ? \"R\" : \"B\";\n   28  		NetMan.Instance.Send(\"requestworldmod|\"+tile.sx+\"|\"+tile.sy+\"|\"+tile.ltx+\"|\"+tile.lty+\"|\"+worldSprite);\n   ..\n   46  				spawnTimer = 20f;\n   47  				string actorSprite = \"H\";\n   48: 				NetMan.Instance.Send(\"requestactoradd|\"+ownerOID+\"|\"+tile.rtx+\"|\"+tile.rty+\"|\"+actorSprite);\n   49  			}\n   50  		}\n\nI:\\w\\zeptobots\\server\\s.js:\n   51  		var cmd = chunks.shift();\n   52  		\n   53: 		if( cmd == \"requestactoradd\" )\n   54  		{\n   55  			world.addActor(chunks);\n\nI:\\w\\zeptobots\\targetweb\\Development\\targetweb.data:\n    <binary>\n\n4 matches across 3 files\n\n\nSearching 63 files for \".speed\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Actor.cs:\n   57  			this.engine.desiredPosition = new Vector3(rx, 0f, ry);\n   58  			this.spriter.SetSprite(sprite);\n   59: 			this.engine.speedLimit = speed;\n   60  		}\n   61  		if( this.hp != hp )\n   ..\n   87  		sb.Append(this.hp);\n   88  		sb.Append(\"|\");\n   89: 		sb.Append(this.engine.speedLimit);\n   90  		sb.Append(\"\\n\");\n   91  		return sb.ToString();\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Hero.cs:\n   63  		Vector3 delta = new Vector3(engine.facingVec.x, 0, engine.facingVec.y)*dashDistance;\n   64  		engine.desiredPosition = engine.transform.position + delta;\n   65: 		engine.speedLimit = 240;\n   66  		actor.damage = 3;\n   67  		engine.moveLock = true;\n   ..\n   72  	{\n   73  		Engine engine = actor.engine;\n   74: 		engine.speedLimit = 20;\n   75  		actor.damage = 0;\n   76  		engine.moveLock = false;\n   ..\n   82  	{\n   83  		Engine engine = actor.engine;\n   84: 		engine.speedLimit = 30;\n   85  		actor.damage = 1;\n   86  		engine.moveLock = false;\n   ..\n   94  		Vector3 delta = new Vector3(engine.facingVec.x, 0, engine.facingVec.y)*dashDistance;\n   95  		engine.desiredPosition = engine.transform.position + delta;\n   96: 		engine.speedLimit = 120;\n   97  		actor.damage = 4;\n   98  		ga.lockTime = 0.30f;\n   ..\n  102  	{\n  103  		Engine engine = actor.engine;\n  104: 		engine.speedLimit = 30;\n  105  		actor.damage = 1;\n  106  		ga.lockTime = 0.7f;\n\nI:\\w\\zeptobots\\server\\actor.js:\n   10  	this.sprite = \" \";\n   11  	this.hp = -1;\n   12: 	this.speed = 30;\n   13  	this.damage = 1;\n   14  };\n   ..\n   49  		this.sprite != sprite || \n   50  		this.hp != hp || \n   51: 		this.speed != speed ||\n   52  		this.damage != damage)\n   53  	{\n   ..\n   58  	this.sprite = sprite;\n   59  	this.hp = hp;\n   60: 	this.speed = speed;\n   61  	this.damage = damage;\n   62  	return posDirty || stateDirty;\n   ..\n   83  	chunks += this.hp;\n   84  	chunks += '|';\n   85: 	chunks += this.speed;\n   86  	chunks += '|';\n   87  	chunks += this.damage;\n\nI:\\w\\zeptobots\\server\\world.js:\n  156  		actor.sprite = chunks.shift();\n  157  		actor.hp = 10;\n  158: 		actor.speed = 30;\n  159  		self.dirtyActors.push(actor);\n  160  	},\n\n12 matches across 4 files\n\n\nSearching 63 files for \".speedlimit\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Actor.cs:\n   59  			this.engine.desiredPosition = new Vector3(rx, 0f, ry);\n   60  			this.spriter.SetSprite(sprite);\n   61: 			this.engine.speedLimit = speed;\n   62  			this.damage = damage;\n   63  		}\n   ..\n   90  		sb.Append(this.hp);\n   91  		sb.Append(\"|\");\n   92: 		sb.Append(this.engine.speedLimit);\n   93  		sb.Append(\"|\");\n   94  		sb.Append(this.damage);\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Hero.cs:\n   63  		Vector3 delta = new Vector3(engine.facingVec.x, 0, engine.facingVec.y)*dashDistance;\n   64  		engine.desiredPosition = engine.transform.position + delta;\n   65: 		engine.speedLimit = 240;\n   66  		actor.damage = 3;\n   67  		engine.moveLock = true;\n   ..\n   72  	{\n   73  		Engine engine = actor.engine;\n   74: 		engine.speedLimit = 20;\n   75  		actor.damage = 0;\n   76  		engine.moveLock = false;\n   ..\n   82  	{\n   83  		Engine engine = actor.engine;\n   84: 		engine.speedLimit = 30;\n   85  		actor.damage = 1;\n   86  		engine.moveLock = false;\n   ..\n   94  		Vector3 delta = new Vector3(engine.facingVec.x, 0, engine.facingVec.y)*dashDistance;\n   95  		engine.desiredPosition = engine.transform.position + delta;\n   96: 		engine.speedLimit = 120;\n   97  		actor.damage = 4;\n   98  		ga.lockTime = 0.30f;\n   ..\n  102  	{\n  103  		Engine engine = actor.engine;\n  104: 		engine.speedLimit = 30;\n  105  		actor.damage = 1;\n  106  		ga.lockTime = 0.7f;\n\n7 matches across 2 files\n\n\nSearching 64 files for \"ord\"\n\nI:\\w\\zeptobots\\Assets\\main.unity:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\art\\rocktiles\\main_mat.mat:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Materials\\blackmat.mat:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Materials\\bluemat.mat:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Materials\\greenmat.mat:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Materials\\redmat.mat:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Materials\\yellowmat.mat:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Prefabs\\actor-bullet.prefab:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Prefabs\\actor-dog.prefab:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Prefabs\\actor-hero-blue.prefab:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Prefabs\\actor-hero-red.prefab:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Prefabs\\contents-bluehouse.prefab:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Prefabs\\contents-emptyhouse.prefab:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Prefabs\\contents-redhouse.prefab:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Prefabs\\contents-tree.prefab:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Prefabs\\proto-sector.prefab:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Prefabs\\tile-floor.prefab:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Prefabs\\tile-wall.prefab:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Director.cs:\n    9  	public GameObject protoActorRed;\n   10  	public GameObject protoActorBlue;\n   11: 	public GameObject protoActorDog;\n   12  	public GameObject protoActorBullet;\n   13  \n   14: 	private Dictionary<int,Actor> actorDict = new Dictionary<int,Actor>();\n   15  	private List<Actor> actorList = new List<Actor>();\n   16  	public List<Actor> ActorList { get { return actorList; } }\n   ..\n   60  			case 'R': prototype = protoActorRed; break;\n   61  			case 'B': prototype = protoActorBlue; break;\n   62: 			case 'H': prototype = protoActorDog; break;\n   63  			case '*': prototype = protoActorBullet; break;\n   64  			default: break;\n   ..\n   96  		int speedLimit = Utils.IntParseFast(chunks[10]);\n   97  		int damage = Utils.IntParseFast(chunks[10]);\n   98: 		if( !actorDict.ContainsKey(uid) )\n   99  		{\n  100  			Actor a = AddActor(rx,ry,sprite);\n  ...\n  102  			{\n  103  				a.Mod(true, uid,oid,team,tx,ty,rx,ry,sprite,hp,speedLimit,damage);\n  104: 				actorDict[uid] = a;\n  105  				actorList.Add(a);\n  106  				Boss.Instance.ScanLocalActors();\n  ...\n  109  		else\n  110  		{\n  111: 			Actor a = actorDict[uid];\n  112  			if( oid != Boss.Instance.localOID )\n  113  			{\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Tile.cs:\n   14  	}\n   15  \n   16: 	public enum Ord\n   17  	{\n   18  		NE = 0,\n   ..\n   89  		bool isUp = t.lty > this.lty;\n   90  		bool isDown = t.lty < this.lty;\n   91: 		if( isLeft && isUp ) { 		nbors[(int)Ord.NW] = t; t.nbors[(int)Ord.SE] = this; return; }\n   92: 		if( isRight && isUp ) { 	nbors[(int)Ord.NE] = t; t.nbors[(int)Ord.SW] = this; return; }\n   93: 		if( isLeft && isDown ) { 	nbors[(int)Ord.SW] = t; t.nbors[(int)Ord.NE] = this; return; }\n   94: 		if( isRight && isDown ) { 	nbors[(int)Ord.SE] = t; t.nbors[(int)Ord.NW] = this; return; }\n   95: 		if( isLeft ) { 				nbors[(int)Ord.W] = t; t.nbors[(int)Ord.E] = this; return; }\n   96: 		if( isRight ) { 			nbors[(int)Ord.E] = t; t.nbors[(int)Ord.W] = this; return; }\n   97: 		if( isUp ) { 				nbors[(int)Ord.N] = t; t.nbors[(int)Ord.S] = this; return; }\n   98: 		if( isDown ) { 				nbors[(int)Ord.S] = t; t.nbors[(int)Ord.N] = this; return; }\n   99  	}\n  100  \n  ...\n  151  		\n  152  		char[] sidesArray = { \n  153: 			GetSolid(nbors[(int)Ord.N]), \n  154: 			GetSolid(nbors[(int)Ord.E]), \n  155: 			GetSolid(nbors[(int)Ord.S]), \n  156: 			GetSolid(nbors[(int)Ord.W]) };\n  157  		char[] cornersArray = { \n  158: 			GetSolid(nbors[(int)Ord.NE]), \n  159: 			GetSolid(nbors[(int)Ord.NW]), \n  160: 			GetSolid(nbors[(int)Ord.SW]), \n  161: 			GetSolid(nbors[(int)Ord.SE]) };\n  162  		string sides = new string(sidesArray);\n  163  		string corners = new string(cornersArray);\n\nI:\\w\\zeptobots\\server\\package.json:\n   17      \"url\": \"https://github.com/threeup/zeptobots\"\n   18    },\n   19:   \"keywords\": [\n   20      \"threeup\",\n   21      \"zeptobots\"\n\nI:\\w\\zeptobots\\server\\world.js:\n   11  	dirtySectors: [],\n   12  	dirtyActors: [],\n   13: 	minorDirtyActors: [],\n   14  	nextUID: 1000,\n   15  \n   ..\n  121  	saveActor: function() {\n  122  		var self = this;\n  123: 		var actorData = '';\n  124  		self.actors.forEach(function(actor) {\n  125  			if( actor.oid > 0 )\n  126  			{\n  127: 				actorData += actor.writeChunks();\n  128: 				actorData += '\\n';\n  129  			}\n  130  		});\n  131: 		fs.writeFile(savedActorPath, actorData, function(err) {\n  132  			if (err) console.error(err);\n  133  		});\n  ...\n  172  			{\n  173  				self.dirtyActors.push(actor);\n  174: 				//self.minorDirtyActors.push(actor);	\n  175  			}\n  176  		}\n  ...\n  236  		});\n  237  		self.dirtyActors.length = 0;\n  238: 		/*self.minorDirtyActors.forEach(function(actor) {\n  239  			messages += 'actormod|';\n  240  			messages += actor.writeChunks();\n  241  			messages += '\\n';\n  242  		});*/\n  243: 		self.minorDirtyActors.length = 0;\n  244  		self.dirtySectors.forEach(function(sector) {\n  245  			messages += 'sectormod|';\n  ...\n  253  	hasDirty: function() {\n  254  		var self = this;\n  255: 		return self.dirtyActors.length > 0 || self.minorDirtyActors.length > 0 || self.dirtySectors.length > 0;\n  256  	}\n  257  \n\nI:\\w\\zeptobots\\targetweb\\Development\\targetweb.data:\n    <binary>\n\nI:\\w\\zeptobots\\targetweb\\Development\\targetweb.mem:\n    <binary>\n\nI:\\w\\zeptobots\\targetweb\\Development\\UnityLoader.js:\n  237        return;\n  238      }\n  239:     // Fallback to ordinary array\n  240      for (var i=0; i<len; i++) {\n  241        dest[dest_offs + i] = src[src_offs + i];\n  ...\n  418    var len = max || buf.length;\n  419  \n  420:   // Reserve max possible length (2 words per char)\n  421    // NB: by unknown reasons, Array is significantly faster for\n  422    //     String.fromCharCode.apply than Uint16Array.\n  ...\n  462  // buf[] - utf8 bytes array\n  463  // max   - length limit (mandatory);\n  464: exports.utf8border = function(buf, max) {\n  465    var pos;\n  466  \n  ...\n  574  \n  575  \n  576: // Use ordinary array, since untyped makes no boost here\n  577  function makeTable() {\n  578    var c, table = [];\n  ...\n 1364    var n; // temporary var for NEED_BITS\n 1365  \n 1366:   var order = /* permutation of code lengths */\n 1367      [16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15];\n 1368  \n ....\n 1880          }\n 1881          //===//\n 1882:         state.lens[order[state.have++]] = (hold & 0x07);//BITS(3);\n 1883          //--- DROPBITS(3) ---//\n 1884          hold >>>= 3;\n ....\n 1887        }\n 1888        while (state.have < 19) {\n 1889:         state.lens[order[state.have++]] = 0;\n 1890        }\n 1891        // We have separate tables & no pointers. 2 commented lines below not needed.\n ....\n 2554     code lengths are lens[0..codes-1].  Each length corresponds to the\n 2555     symbols 0..codes-1.  The Huffman code is generated by first sorting the\n 2556:    symbols by length from short to long, and retaining the symbol order\n 2557     for codes with equal lengths.  Then the code starts with all zero bits\n 2558     for the first code of the shortest length, and the codes are integer\n 2559     increments for the same length, and zeros are appended as the length\n 2560     increases.  For the deflate format, these bits are stored backwards\n 2561:    from their more natural integer increment ordering, and so when the\n 2562     decoding tables are built in the large loop below, the integer codes\n 2563     are incremented backwards.\n ....\n 2570     The codes are sorted by computing a count of codes for each length,\n 2571     creating from that a table of starting indices for each length in the\n 2572:    sorted table, and then entering the symbols in order in the sorted\n 2573     table.  The sorted table is work[], with that space being provided by\n 2574     the caller.\n ....\n 2638    }\n 2639  \n 2640:   /* sort symbols by length, by symbol order within each length */\n 2641    for (sym = 0; sym < codes; sym++) {\n 2642      if (lens[lens_index + sym] !== 0) {\n ....\n 3075          if (this.options.to === 'string') {\n 3076  \n 3077:           next_out_utf8 = strings.utf8border(strm.output, strm.next_out);\n 3078  \n 3079            tail = strm.next_out - next_out_utf8;\n\nI:\\w\\zeptobots\\targetweb\\Release\\targetweb.jsgz:\n    <binary>\n\nI:\\w\\zeptobots\\targetweb\\Release\\UnityLoader.js:\n    1: function LoadJSCodeBlob(e,t){var n=document.createElement(\"script\");n.src=URL.createObjectURL(e),n.onload=t,document.body.appendChild(n)}function LoadJSCode(e,t){var n=new Blob([e],{type:\"text/javascript\"});if(Math.fround&&-1==browser.indexOf(\"Chrome\"))LoadJSCodeBlob(n,t);else{console.log(\"optimizing out Math.fround calls\");var o=new FileReader;o.onload=function(e){var n=e.target.result.replace(/Math_fround\\(/g,\"(\"),o=new Blob([n],{type:\"text/javascript\"});LoadJSCodeBlob(o,t)},o.readAsText(n)}}function DecompressAndLoadFile(e,t,n){tryServerCompression=!1,e+=\"gz\";var o=new XMLHttpRequest;o.open(\"GET\",e,!0),o.onprogress=n,o.responseType=\"arraybuffer\",o.onload=function(){var n=new Uint8Array(o.response),i=(new Date).getTime(),a=pako.inflate(n),r=(new Date).getTime();console.log(\"Decompressed \"+e+\" in \"+(r-i)+\"ms. You can remove this delay if you configure your web server to host files using gzip compression.\"),t(a)},o.send(null)}function LoadCompressedFile(e,t,n){if(CompressionState.current==CompressionState.Unsupported)return void DecompressAndLoadFile(e,t);if(CompressionState.current==CompressionState.Pending)return void CompressionState.pendingServerRequests.push(function(){LoadCompressedFile(e,t,n)});CompressionState.current==CompressionState.Uninitialized&&(CompressionState.current=CompressionState.Pending);var o=new XMLHttpRequest;o.open(\"GET\",e,!0),o.responseType=\"arraybuffer\",o.onprogress=function(e){n&&n(e),CompressionState.current==CompressionState.Pending&&(0==o.status||200==o.status?CompressionState.Set(CompressionState.Supported):CompressionState.Set(CompressionState.Unsupported))},o.onload=function(){if(0==o.status||200==o.status){CompressionState.Set(CompressionState.Supported);var i=new Uint8Array(o.response);t(i)}else CompressionState.Set(CompressionState.Unsupported),DecompressAndLoadFile(e,t,n)},o.onerror=function(){CompressionState.Set(CompressionState.Unsupported),DecompressAndLoadFile(e,t,n)};try{o.send(null)}catch(i){CompressionState.Set(CompressionState.Unsupported),DecompressAndLoadFile(e,t,n)}}function LoadCompressedJS(e,t){LoadCompressedFile(e,function(e){LoadJSCode(e,t)})}function fetchRemotePackageWrapper(e,t,n,o){LoadCompressedFile(e,n,function(n){var o=e,i=t;if(n.total&&(i=n.total),n.loaded){Module.dataFileDownloads||(Module.dataFileDownloads={}),Module.dataFileDownloads[o]={loaded:n.loaded,total:i};var a=0,r=0,s=0;for(var l in Module.dataFileDownloads){var d=Module.dataFileDownloads[l];a+=d.total,r+=d.loaded,s++}a=Math.ceil(a*Module.expectedDataFileDownloads/s),Module.setStatus&&Module.setStatus(\"Downloading data... (\"+r+\"/\"+a+\")\")}else Module.dataFileDownloads||Module.setStatus&&Module.setStatus(\"Downloading data...\")})}function CompatibilityCheck(){hasWebGL?mobile?confirm(\"Please note that Unity WebGL is not currently supported on mobiles. Press Ok if you wish to continue anyway.\")||window.history.back():-1==browser.indexOf(\"Firefox\")&&-1==browser.indexOf(\"Chrome\")&&-1==browser.indexOf(\"Safari\")&&(confirm(\"Please note that your browser is not currently supported for this Unity WebGL content. Try installing Firefox, or press Ok if you wish to continue anyway.\")||window.history.back()):(alert(\"You need a browser which supports WebGL to run this content. Try installing Firefox.\"),window.history.back())}function SetFullscreen(e){if(\"undefined\"==typeof JSEvents)return void console.log(\"Player not loaded yet.\");var t=JSEvents.canPerformEventHandlerRequests;JSEvents.canPerformEventHandlerRequests=function(){return 1},Module.cwrap(\"SetFullscreen\",\"void\",[\"number\"])(e),JSEvents.canPerformEventHandlerRequests=t}var CompressionState={Uninitialized:0,Pending:1,Unsupported:2,Supported:3,current:0,pendingServerRequests:[],Set:function(e){if(CompressionState.current==CompressionState.Pending){CompressionState.current=e;for(var t=0;t<CompressionState.pendingServerRequests.length;t++)CompressionState.pendingServerRequests[t]()}}};Module.memoryInitializerRequest={response:null,callback:null,addEventListener:function(e,t){if(\"load\"!=e)throw\"Unexpected type \"+e;this.callback=t}},LoadCompressedJS(Module.codeUrl),LoadCompressedFile(Module.memUrl,function(e){Module.memoryInitializerRequest.response=e,Module.memoryInitializerRequest.callback&&Module.memoryInitializerRequest.callback()}),function(e){if(\"object\"==typeof exports&&\"undefined\"!=typeof module)module.exports=e();else if(\"function\"==typeof define&&define.amd)define([],e);else{var t;t=\"undefined\"!=typeof window?window:\"undefined\"!=typeof global?global:\"undefined\"!=typeof self?self:this,t.pako=e()}}(function(){return function e(t,n,o){function i(r,s){if(!n[r]){if(!t[r]){var l=\"function\"==typeof require&&require;if(!s&&l)return l(r,!0);if(a)return a(r,!0);var d=new Error(\"Cannot find module '\"+r+\"'\");throw d.code=\"MODULE_NOT_FOUND\",d}var u=n[r]={exports:{}};t[r][0].call(u.exports,function(e){var n=t[r][1][e];return i(n?n:e)},u,u.exports,e,t,n,o)}return n[r].exports}for(var a=\"function\"==typeof require&&require,r=0;r<o.length;r++)i(o[r]);return i}({1:[function(e,t,n){\"use strict\";var o=\"undefined\"!=typeof Uint8Array&&\"undefined\"!=typeof Uint16Array&&\"undefined\"!=typeof Int32Array;n.assign=function(e){for(var t=Array.prototype.slice.call(arguments,1);t.length;){var n=t.shift();if(n){if(\"object\"!=typeof n)throw new TypeError(n+\"must be non-object\");for(var o in n)n.hasOwnProperty(o)&&(e[o]=n[o])}}return e},n.shrinkBuf=function(e,t){return e.length===t?e:e.subarray?e.subarray(0,t):(e.length=t,e)};var i={arraySet:function(e,t,n,o,i){if(t.subarray&&e.subarray)return void e.set(t.subarray(n,n+o),i);for(var a=0;o>a;a++)e[i+a]=t[n+a]},flattenChunks:function(e){var t,n,o,i,a,r;for(o=0,t=0,n=e.length;n>t;t++)o+=e[t].length;for(r=new Uint8Array(o),i=0,t=0,n=e.length;n>t;t++)a=e[t],r.set(a,i),i+=a.length;return r}},a={arraySet:function(e,t,n,o,i){for(var a=0;o>a;a++)e[i+a]=t[n+a]},flattenChunks:function(e){return[].concat.apply([],e)}};n.setTyped=function(e){e?(n.Buf8=Uint8Array,n.Buf16=Uint16Array,n.Buf32=Int32Array,n.assign(n,i)):(n.Buf8=Array,n.Buf16=Array,n.Buf32=Array,n.assign(n,a))},n.setTyped(o)},{}],2:[function(e,t,n){\"use strict\";function o(e,t){if(65537>t&&(e.subarray&&r||!e.subarray&&a))return String.fromCharCode.apply(null,i.shrinkBuf(e,t));for(var n=\"\",o=0;t>o;o++)n+=String.fromCharCode(e[o]);return n}var i=e(\"./common\"),a=!0,r=!0;try{String.fromCharCode.apply(null,[0])}catch(s){a=!1}try{String.fromCharCode.apply(null,new Uint8Array(1))}catch(s){r=!1}for(var l=new i.Buf8(256),d=0;256>d;d++)l[d]=d>=252?6:d>=248?5:d>=240?4:d>=224?3:d>=192?2:1;l[254]=l[254]=1,n.string2buf=function(e){var t,n,o,a,r,s=e.length,l=0;for(a=0;s>a;a++)n=e.charCodeAt(a),55296===(64512&n)&&s>a+1&&(o=e.charCodeAt(a+1),56320===(64512&o)&&(n=65536+(n-55296<<10)+(o-56320),a++)),l+=128>n?1:2048>n?2:65536>n?3:4;for(t=new i.Buf8(l),r=0,a=0;l>r;a++)n=e.charCodeAt(a),55296===(64512&n)&&s>a+1&&(o=e.charCodeAt(a+1),56320===(64512&o)&&(n=65536+(n-55296<<10)+(o-56320),a++)),128>n?t[r++]=n:2048>n?(t[r++]=192|n>>>6,t[r++]=128|63&n):65536>n?(t[r++]=224|n>>>12,t[r++]=128|n>>>6&63,t[r++]=128|63&n):(t[r++]=240|n>>>18,t[r++]=128|n>>>12&63,t[r++]=128|n>>>6&63,t[r++]=128|63&n);return t},n.buf2binstring=function(e){return o(e,e.length)},n.binstring2buf=function(e){for(var t=new i.Buf8(e.length),n=0,o=t.length;o>n;n++)t[n]=e.charCodeAt(n);return t},n.buf2string=function(e,t){var n,i,a,r,s=t||e.length,d=new Array(2*s);for(i=0,n=0;s>n;)if(a=e[n++],128>a)d[i++]=a;else if(r=l[a],r>4)d[i++]=65533,n+=r-1;else{for(a&=2===r?31:3===r?15:7;r>1&&s>n;)a=a<<6|63&e[n++],r--;r>1?d[i++]=65533:65536>a?d[i++]=a:(a-=65536,d[i++]=55296|a>>10&1023,d[i++]=56320|1023&a)}return o(d,i)},n.utf8border=function(e,t){var n;for(t=t||e.length,t>e.length&&(t=e.length),n=t-1;n>=0&&128===(192&e[n]);)n--;return 0>n?t:0===n?t:n+l[e[n]]>t?n:t}},{\"./common\":1}],3:[function(e,t,n){\"use strict\";function o(e,t,n,o){for(var i=65535&e|0,a=e>>>16&65535|0,r=0;0!==n;){r=n>2e3?2e3:n,n-=r;do i=i+t[o++]|0,a=a+i|0;while(--r);i%=65521,a%=65521}return i|a<<16|0}t.exports=o},{}],4:[function(e,t,n){t.exports={Z_NO_FLUSH:0,Z_PARTIAL_FLUSH:1,Z_SYNC_FLUSH:2,Z_FULL_FLUSH:3,Z_FINISH:4,Z_BLOCK:5,Z_TREES:6,Z_OK:0,Z_STREAM_END:1,Z_NEED_DICT:2,Z_ERRNO:-1,Z_STREAM_ERROR:-2,Z_DATA_ERROR:-3,Z_BUF_ERROR:-5,Z_NO_COMPRESSION:0,Z_BEST_SPEED:1,Z_BEST_COMPRESSION:9,Z_DEFAULT_COMPRESSION:-1,Z_FILTERED:1,Z_HUFFMAN_ONLY:2,Z_RLE:3,Z_FIXED:4,Z_DEFAULT_STRATEGY:0,Z_BINARY:0,Z_TEXT:1,Z_UNKNOWN:2,Z_DEFLATED:8}},{}],5:[function(e,t,n){\"use strict\";function o(){for(var e,t=[],n=0;256>n;n++){e=n;for(var o=0;8>o;o++)e=1&e?3988292384^e>>>1:e>>>1;t[n]=e}return t}function i(e,t,n,o){var i=a,r=o+n;e=-1^e;for(var s=o;r>s;s++)e=e>>>8^i[255&(e^t[s])];return-1^e}var a=o();t.exports=i},{}],6:[function(e,t,n){\"use strict\";function o(){this.text=0,this.time=0,this.xflags=0,this.os=0,this.extra=null,this.extra_len=0,this.name=\"\",this.comment=\"\",this.hcrc=0,this.done=!1}t.exports=o},{}],7:[function(e,t,n){\"use strict\";var o=30,i=12;t.exports=function(e,t){var n,a,r,s,l,d,u,c,f,h,m,p,w,b,g,v,k,y,_,x,S,M,C,E,R;n=e.state,a=e.next_in,E=e.input,r=a+(e.avail_in-5),s=e.next_out,R=e.output,l=s-(t-e.avail_out),d=s+(e.avail_out-257),u=n.dmax,c=n.wsize,f=n.whave,h=n.wnext,m=n.window,p=n.hold,w=n.bits,b=n.lencode,g=n.distcode,v=(1<<n.lenbits)-1,k=(1<<n.distbits)-1;e:do{15>w&&(p+=E[a++]<<w,w+=8,p+=E[a++]<<w,w+=8),y=b[p&v];t:for(;;){if(_=y>>>24,p>>>=_,w-=_,_=y>>>16&255,0===_)R[s++]=65535&y;else{if(!(16&_)){if(0===(64&_)){y=b[(65535&y)+(p&(1<<_)-1)];continue t}if(32&_){n.mode=i;break e}e.msg=\"invalid literal/length code\",n.mode=o;break e}x=65535&y,_&=15,_&&(_>w&&(p+=E[a++]<<w,w+=8),x+=p&(1<<_)-1,p>>>=_,w-=_),15>w&&(p+=E[a++]<<w,w+=8,p+=E[a++]<<w,w+=8),y=g[p&k];n:for(;;){if(_=y>>>24,p>>>=_,w-=_,_=y>>>16&255,!(16&_)){if(0===(64&_)){y=g[(65535&y)+(p&(1<<_)-1)];continue n}e.msg=\"invalid distance code\",n.mode=o;break e}if(S=65535&y,_&=15,_>w&&(p+=E[a++]<<w,w+=8,_>w&&(p+=E[a++]<<w,w+=8)),S+=p&(1<<_)-1,S>u){e.msg=\"invalid distance too far back\",n.mode=o;break e}if(p>>>=_,w-=_,_=s-l,S>_){if(_=S-_,_>f&&n.sane){e.msg=\"invalid distance too far back\",n.mode=o;break e}if(M=0,C=m,0===h){if(M+=c-_,x>_){x-=_;do R[s++]=m[M++];while(--_);M=s-S,C=R}}else if(_>h){if(M+=c+h-_,_-=h,x>_){x-=_;do R[s++]=m[M++];while(--_);if(M=0,x>h){_=h,x-=_;do R[s++]=m[M++];while(--_);M=s-S,C=R}}}else if(M+=h-_,x>_){x-=_;do R[s++]=m[M++];while(--_);M=s-S,C=R}for(;x>2;)R[s++]=C[M++],R[s++]=C[M++],R[s++]=C[M++],x-=3;x&&(R[s++]=C[M++],x>1&&(R[s++]=C[M++]))}else{M=s-S;do R[s++]=R[M++],R[s++]=R[M++],R[s++]=R[M++],x-=3;while(x>2);x&&(R[s++]=R[M++],x>1&&(R[s++]=R[M++]))}break}}break}}while(r>a&&d>s);x=w>>3,a-=x,w-=x<<3,p&=(1<<w)-1,e.next_in=a,e.next_out=s,e.avail_in=r>a?5+(r-a):5-(a-r),e.avail_out=d>s?257+(d-s):257-(s-d),n.hold=p,n.bits=w}},{}],8:[function(e,t,n){\"use strict\";function o(e){return(e>>>24&255)+(e>>>8&65280)+((65280&e)<<8)+((255&e)<<24)}function i(){this.mode=0,this.last=!1,this.wrap=0,this.havedict=!1,this.flags=0,this.dmax=0,this.check=0,this.total=0,this.head=null,this.wbits=0,this.wsize=0,this.whave=0,this.wnext=0,this.window=null,this.hold=0,this.bits=0,this.length=0,this.offset=0,this.extra=0,this.lencode=null,this.distcode=null,this.lenbits=0,this.distbits=0,this.ncode=0,this.nlen=0,this.ndist=0,this.have=0,this.next=null,this.lens=new b.Buf16(320),this.work=new b.Buf16(288),this.lendyn=null,this.distdyn=null,this.sane=0,this.back=0,this.was=0}function a(e){var t;return e&&e.state?(t=e.state,e.total_in=e.total_out=t.total=0,e.msg=\"\",t.wrap&&(e.adler=1&t.wrap),t.mode=U,t.last=0,t.havedict=0,t.dmax=32768,t.head=null,t.hold=0,t.bits=0,t.lencode=t.lendyn=new b.Buf32(me),t.distcode=t.distdyn=new b.Buf32(pe),t.sane=1,t.back=-1,R):L}function r(e){var t;return e&&e.state?(t=e.state,t.wsize=0,t.whave=0,t.wnext=0,a(e)):L}function s(e,t){var n,o;return e&&e.state?(o=e.state,0>t?(n=0,t=-t):(n=(t>>4)+1,48>t&&(t&=15)),t&&(8>t||t>15)?L:(null!==o.window&&o.wbits!==t&&(o.window=null),o.wrap=n,o.wbits=t,r(e))):L}function l(e,t){var n,o;return e?(o=new i,e.state=o,o.window=null,n=s(e,t),n!==R&&(e.state=null),n):L}function d(e){return l(e,be)}function u(e){if(ge){var t;for(p=new b.Buf32(512),w=new b.Buf32(32),t=0;144>t;)e.lens[t++]=8;for(;256>t;)e.lens[t++]=9;for(;280>t;)e.lens[t++]=7;for(;288>t;)e.lens[t++]=8;for(y(x,e.lens,0,288,p,0,e.work,{bits:9}),t=0;32>t;)e.lens[t++]=5;y(S,e.lens,0,32,w,0,e.work,{bits:5}),ge=!1}e.lencode=p,e.lenbits=9,e.distcode=w,e.distbits=5}function c(e,t,n,o){var i,a=e.state;return null===a.window&&(a.wsize=1<<a.wbits,a.wnext=0,a.whave=0,a.window=new b.Buf8(a.wsize)),o>=a.wsize?(b.arraySet(a.window,t,n-a.wsize,a.wsize,0),a.wnext=0,a.whave=a.wsize):(i=a.wsize-a.wnext,i>o&&(i=o),b.arraySet(a.window,t,n-o,i,a.wnext),o-=i,o?(b.arraySet(a.window,t,n-o,o,0),a.wnext=o,a.whave=a.wsize):(a.wnext+=i,a.wnext===a.wsize&&(a.wnext=0),a.whave<a.wsize&&(a.whave+=i))),0}function f(e,t){var n,i,a,r,s,l,d,f,h,m,p,w,me,pe,we,be,ge,ve,ke,ye,_e,xe,Se,Me,Ce=0,Ee=new b.Buf8(4),Re=[16,17,18,0,8,7,9,6,10,5,11,4,12,3,13,2,14,1,15];if(!e||!e.state||!e.output||!e.input&&0!==e.avail_in)return L;n=e.state,n.mode===J&&(n.mode=K),s=e.next_out,a=e.output,d=e.avail_out,r=e.next_in,i=e.input,l=e.avail_in,f=n.hold,h=n.bits,m=l,p=d,xe=R;e:for(;;)switch(n.mode){case U:if(0===n.wrap){n.mode=K;break}for(;16>h;){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}if(2&n.wrap&&35615===f){n.check=0,Ee[0]=255&f,Ee[1]=f>>>8&255,n.check=v(n.check,Ee,2,0),f=0,h=0,n.mode=O;break}if(n.flags=0,n.head&&(n.head.done=!1),!(1&n.wrap)||(((255&f)<<8)+(f>>8))%31){e.msg=\"incorrect header check\",n.mode=ce;break}if((15&f)!==I){e.msg=\"unknown compression method\",n.mode=ce;break}if(f>>>=4,h-=4,_e=(15&f)+8,0===n.wbits)n.wbits=_e;else if(_e>n.wbits){e.msg=\"invalid window size\",n.mode=ce;break}n.dmax=1<<_e,e.adler=n.check=1,n.mode=512&f?H:J,f=0,h=0;break;case O:for(;16>h;){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}if(n.flags=f,(255&n.flags)!==I){e.msg=\"unknown compression method\",n.mode=ce;break}if(57344&n.flags){e.msg=\"unknown header flags set\",n.mode=ce;break}n.head&&(n.head.text=f>>8&1),512&n.flags&&(Ee[0]=255&f,Ee[1]=f>>>8&255,n.check=v(n.check,Ee,2,0)),f=0,h=0,n.mode=Z;case Z:for(;32>h;){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}n.head&&(n.head.time=f),512&n.flags&&(Ee[0]=255&f,Ee[1]=f>>>8&255,Ee[2]=f>>>16&255,Ee[3]=f>>>24&255,n.check=v(n.check,Ee,4,0)),f=0,h=0,n.mode=P;case P:for(;16>h;){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}n.head&&(n.head.xflags=255&f,n.head.os=f>>8),512&n.flags&&(Ee[0]=255&f,Ee[1]=f>>>8&255,n.check=v(n.check,Ee,2,0)),f=0,h=0,n.mode=T;case T:if(1024&n.flags){for(;16>h;){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}n.length=f,n.head&&(n.head.extra_len=f),512&n.flags&&(Ee[0]=255&f,Ee[1]=f>>>8&255,n.check=v(n.check,Ee,2,0)),f=0,h=0}else n.head&&(n.head.extra=null);n.mode=N;case N:if(1024&n.flags&&(w=n.length,w>l&&(w=l),w&&(n.head&&(_e=n.head.extra_len-n.length,n.head.extra||(n.head.extra=new Array(n.head.extra_len)),b.arraySet(n.head.extra,i,r,w,_e)),512&n.flags&&(n.check=v(n.check,i,w,r)),l-=w,r+=w,n.length-=w),n.length))break e;n.length=0,n.mode=q;case q:if(2048&n.flags){if(0===l)break e;w=0;do _e=i[r+w++],n.head&&_e&&n.length<65536&&(n.head.name+=String.fromCharCode(_e));while(_e&&l>w);if(512&n.flags&&(n.check=v(n.check,i,w,r)),l-=w,r+=w,_e)break e}else n.head&&(n.head.name=null);n.length=0,n.mode=G;case G:if(4096&n.flags){if(0===l)break e;w=0;do _e=i[r+w++],n.head&&_e&&n.length<65536&&(n.head.comment+=String.fromCharCode(_e));while(_e&&l>w);if(512&n.flags&&(n.check=v(n.check,i,w,r)),l-=w,r+=w,_e)break e}else n.head&&(n.head.comment=null);n.mode=j;case j:if(512&n.flags){for(;16>h;){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}if(f!==(65535&n.check)){e.msg=\"header crc mismatch\",n.mode=ce;break}f=0,h=0}n.head&&(n.head.hcrc=n.flags>>9&1,n.head.done=!0),e.adler=n.check=0,n.mode=J;break;case H:for(;32>h;){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}e.adler=n.check=o(f),f=0,h=0,n.mode=W;case W:if(0===n.havedict)return e.next_out=s,e.avail_out=d,e.next_in=r,e.avail_in=l,n.hold=f,n.bits=h,D;e.adler=n.check=1,n.mode=J;case J:if(t===C||t===E)break e;case K:if(n.last){f>>>=7&h,h-=7&h,n.mode=le;break}for(;3>h;){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}switch(n.last=1&f,f>>>=1,h-=1,3&f){case 0:n.mode=Y;break;case 1:if(u(n),n.mode=te,t===E){f>>>=2,h-=2;break e}break;case 2:n.mode=Q;break;case 3:e.msg=\"invalid block type\",n.mode=ce}f>>>=2,h-=2;break;case Y:for(f>>>=7&h,h-=7&h;32>h;){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}if((65535&f)!==(f>>>16^65535)){e.msg=\"invalid stored block lengths\",n.mode=ce;break}if(n.length=65535&f,f=0,h=0,n.mode=X,t===E)break e;case X:n.mode=V;case V:if(w=n.length){if(w>l&&(w=l),w>d&&(w=d),0===w)break e;b.arraySet(a,i,r,w,s),l-=w,r+=w,d-=w,s+=w,n.length-=w;break}n.mode=J;break;case Q:for(;14>h;){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}if(n.nlen=(31&f)+257,f>>>=5,h-=5,n.ndist=(31&f)+1,f>>>=5,h-=5,n.ncode=(15&f)+4,f>>>=4,h-=4,n.nlen>286||n.ndist>30){e.msg=\"too many length or distance symbols\",n.mode=ce;break}n.have=0,n.mode=$;case $:for(;n.have<n.ncode;){for(;3>h;){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}n.lens[Re[n.have++]]=7&f,f>>>=3,h-=3}for(;n.have<19;)n.lens[Re[n.have++]]=0;if(n.lencode=n.lendyn,n.lenbits=7,Se={bits:n.lenbits},xe=y(_,n.lens,0,19,n.lencode,0,n.work,Se),n.lenbits=Se.bits,xe){e.msg=\"invalid code lengths set\",n.mode=ce;break}n.have=0,n.mode=ee;case ee:for(;n.have<n.nlen+n.ndist;){for(;Ce=n.lencode[f&(1<<n.lenbits)-1],we=Ce>>>24,be=Ce>>>16&255,ge=65535&Ce,!(h>=we);){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}if(16>ge)f>>>=we,h-=we,n.lens[n.have++]=ge;else{if(16===ge){for(Me=we+2;Me>h;){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}if(f>>>=we,h-=we,0===n.have){e.msg=\"invalid bit length repeat\",n.mode=ce;break}_e=n.lens[n.have-1],w=3+(3&f),f>>>=2,h-=2}else if(17===ge){for(Me=we+3;Me>h;){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}f>>>=we,h-=we,_e=0,w=3+(7&f),f>>>=3,h-=3}else{for(Me=we+7;Me>h;){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}f>>>=we,h-=we,_e=0,w=11+(127&f),f>>>=7,h-=7}if(n.have+w>n.nlen+n.ndist){e.msg=\"invalid bit length repeat\",n.mode=ce;break}for(;w--;)n.lens[n.have++]=_e}}if(n.mode===ce)break;if(0===n.lens[256]){e.msg=\"invalid code -- missing end-of-block\",n.mode=ce;break}if(n.lenbits=9,Se={bits:n.lenbits},xe=y(x,n.lens,0,n.nlen,n.lencode,0,n.work,Se),n.lenbits=Se.bits,xe){e.msg=\"invalid literal/lengths set\",n.mode=ce;break}if(n.distbits=6,n.distcode=n.distdyn,Se={bits:n.distbits},xe=y(S,n.lens,n.nlen,n.ndist,n.distcode,0,n.work,Se),n.distbits=Se.bits,xe){e.msg=\"invalid distances set\",n.mode=ce;break}if(n.mode=te,t===E)break e;case te:n.mode=ne;case ne:if(l>=6&&d>=258){e.next_out=s,e.avail_out=d,e.next_in=r,e.avail_in=l,n.hold=f,n.bits=h,k(e,p),s=e.next_out,a=e.output,d=e.avail_out,r=e.next_in,i=e.input,l=e.avail_in,f=n.hold,h=n.bits,n.mode===J&&(n.back=-1);break}for(n.back=0;Ce=n.lencode[f&(1<<n.lenbits)-1],we=Ce>>>24,be=Ce>>>16&255,ge=65535&Ce,!(h>=we);){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}if(be&&0===(240&be)){for(ve=we,ke=be,ye=ge;Ce=n.lencode[ye+((f&(1<<ve+ke)-1)>>ve)],we=Ce>>>24,be=Ce>>>16&255,ge=65535&Ce,!(h>=ve+we);){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}f>>>=ve,h-=ve,n.back+=ve}if(f>>>=we,h-=we,n.back+=we,n.length=ge,0===be){n.mode=se;break}if(32&be){n.back=-1,n.mode=J;break}if(64&be){e.msg=\"invalid literal/length code\",n.mode=ce;break}n.extra=15&be,n.mode=oe;case oe:if(n.extra){for(Me=n.extra;Me>h;){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}n.length+=f&(1<<n.extra)-1,f>>>=n.extra,h-=n.extra,n.back+=n.extra}n.was=n.length,n.mode=ie;case ie:for(;Ce=n.distcode[f&(1<<n.distbits)-1],we=Ce>>>24,be=Ce>>>16&255,ge=65535&Ce,!(h>=we);){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}if(0===(240&be)){for(ve=we,ke=be,ye=ge;Ce=n.distcode[ye+((f&(1<<ve+ke)-1)>>ve)],we=Ce>>>24,be=Ce>>>16&255,ge=65535&Ce,!(h>=ve+we);){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}f>>>=ve,h-=ve,n.back+=ve}if(f>>>=we,h-=we,n.back+=we,64&be){e.msg=\"invalid distance code\",n.mode=ce;break}n.offset=ge,n.extra=15&be,n.mode=ae;case ae:if(n.extra){for(Me=n.extra;Me>h;){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}n.offset+=f&(1<<n.extra)-1,f>>>=n.extra,h-=n.extra,n.back+=n.extra}if(n.offset>n.dmax){e.msg=\"invalid distance too far back\",n.mode=ce;break}n.mode=re;case re:if(0===d)break e;if(w=p-d,n.offset>w){if(w=n.offset-w,w>n.whave&&n.sane){e.msg=\"invalid distance too far back\",n.mode=ce;break}w>n.wnext?(w-=n.wnext,me=n.wsize-w):me=n.wnext-w,w>n.length&&(w=n.length),pe=n.window}else pe=a,me=s-n.offset,w=n.length;w>d&&(w=d),d-=w,n.length-=w;do a[s++]=pe[me++];while(--w);0===n.length&&(n.mode=ne);break;case se:if(0===d)break e;a[s++]=n.length,d--,n.mode=ne;break;case le:if(n.wrap){for(;32>h;){if(0===l)break e;l--,f|=i[r++]<<h,h+=8}if(p-=d,e.total_out+=p,n.total+=p,p&&(e.adler=n.check=n.flags?v(n.check,a,p,s-p):g(n.check,a,p,s-p)),p=d,(n.flags?f:o(f))!==n.check){e.msg=\"incorrect data check\",n.mode=ce;break}f=0,h=0}n.mode=de;case de:if(n.wrap&&n.flags){for(;32>h;){if(0===l)break e;l--,f+=i[r++]<<h,h+=8}if(f!==(4294967295&n.total)){e.msg=\"incorrect length check\",n.mode=ce;break}f=0,h=0}n.mode=ue;case ue:xe=F;break e;case ce:xe=A;break e;case fe:return z;case he:default:return L}return e.next_out=s,e.avail_out=d,e.next_in=r,e.avail_in=l,n.hold=f,n.bits=h,(n.wsize||p!==e.avail_out&&n.mode<ce&&(n.mode<le||t!==M))&&c(e,e.output,e.next_out,p-e.avail_out)?(n.mode=fe,z):(m-=e.avail_in,p-=e.avail_out,e.total_in+=m,e.total_out+=p,n.total+=p,n.wrap&&p&&(e.adler=n.check=n.flags?v(n.check,a,p,e.next_out-p):g(n.check,a,p,e.next_out-p)),e.data_type=n.bits+(n.last?64:0)+(n.mode===J?128:0)+(n.mode===te||n.mode===X?256:0),(0===m&&0===p||t===M)&&xe===R&&(xe=B),xe)}function h(e){if(!e||!e.state)return L;var t=e.state;return t.window&&(t.window=null),e.state=null,R}function m(e,t){var n;return e&&e.state?(n=e.state,0===(2&n.wrap)?L:(n.head=t,t.done=!1,R)):L}var p,w,b=e(\"../utils/common\"),g=e(\"./adler32\"),v=e(\"./crc32\"),k=e(\"./inffast\"),y=e(\"./inftrees\"),_=0,x=1,S=2,M=4,C=5,E=6,R=0,F=1,D=2,L=-2,A=-3,z=-4,B=-5,I=8,U=1,O=2,Z=3,P=4,T=5,N=6,q=7,G=8,j=9,H=10,W=11,J=12,K=13,Y=14,X=15,V=16,Q=17,$=18,ee=19,te=20,ne=21,oe=22,ie=23,ae=24,re=25,se=26,le=27,de=28,ue=29,ce=30,fe=31,he=32,me=852,pe=592,we=15,be=we,ge=!0;n.inflateReset=r,n.inflateReset2=s,n.inflateResetKeep=a,n.inflateInit=d,n.inflateInit2=l,n.inflate=f,n.inflateEnd=h,n.inflateGetHeader=m,n.inflateInfo=\"pako inflate (from Nodeca project)\"},{\"../utils/common\":1,\"./adler32\":3,\"./crc32\":5,\"./inffast\":7,\"./inftrees\":9}],9:[function(e,t,n){\"use strict\";var o=e(\"../utils/common\"),i=15,a=852,r=592,s=0,l=1,d=2,u=[3,4,5,6,7,8,9,10,11,13,15,17,19,23,27,31,35,43,51,59,67,83,99,115,131,163,195,227,258,0,0],c=[16,16,16,16,16,16,16,16,17,17,17,17,18,18,18,18,19,19,19,19,20,20,20,20,21,21,21,21,16,72,78],f=[1,2,3,4,5,7,9,13,17,25,33,49,65,97,129,193,257,385,513,769,1025,1537,2049,3073,4097,6145,8193,12289,16385,24577,0,0],h=[16,16,16,16,17,17,18,18,19,19,20,20,21,21,22,22,23,23,24,24,25,25,26,26,27,27,28,28,29,29,64,64];t.exports=function(e,t,n,m,p,w,b,g){var v,k,y,_,x,S,M,C,E,R=g.bits,F=0,D=0,L=0,A=0,z=0,B=0,I=0,U=0,O=0,Z=0,P=null,T=0,N=new o.Buf16(i+1),q=new o.Buf16(i+1),G=null,j=0;for(F=0;i>=F;F++)N[F]=0;for(D=0;m>D;D++)N[t[n+D]]++;for(z=R,A=i;A>=1&&0===N[A];A--);if(z>A&&(z=A),0===A)return p[w++]=20971520,p[w++]=20971520,g.bits=1,0;for(L=1;A>L&&0===N[L];L++);for(L>z&&(z=L),U=1,F=1;i>=F;F++)if(U<<=1,U-=N[F],0>U)return-1;if(U>0&&(e===s||1!==A))return-1;for(q[1]=0,F=1;i>F;F++)q[F+1]=q[F]+N[F];for(D=0;m>D;D++)0!==t[n+D]&&(b[q[t[n+D]]++]=D);if(e===s?(P=G=b,S=19):e===l?(P=u,T-=257,G=c,j-=257,S=256):(P=f,G=h,S=-1),Z=0,D=0,F=L,x=w,B=z,I=0,y=-1,O=1<<z,_=O-1,e===l&&O>a||e===d&&O>r)return 1;for(var H=0;;){H++,M=F-I,b[D]<S?(C=0,E=b[D]):b[D]>S?(C=G[j+b[D]],E=P[T+b[D]]):(C=96,E=0),v=1<<F-I,k=1<<B,L=k;do k-=v,p[x+(Z>>I)+k]=M<<24|C<<16|E|0;while(0!==k);for(v=1<<F-1;Z&v;)v>>=1;if(0!==v?(Z&=v-1,Z+=v):Z=0,D++,0===--N[F]){if(F===A)break;F=t[n+b[D]]}if(F>z&&(Z&_)!==y){for(0===I&&(I=z),x+=L,B=F-I,U=1<<B;A>B+I&&(U-=N[B+I],!(0>=U));)B++,U<<=1;if(O+=1<<B,e===l&&O>a||e===d&&O>r)return 1;y=Z&_,p[y]=z<<24|B<<16|x-w|0}}return 0!==Z&&(p[x+Z]=F-I<<24|64<<16|0),g.bits=z,0}},{\"../utils/common\":1}],10:[function(e,t,n){\"use strict\";t.exports={2:\"need dictionary\",1:\"stream end\",0:\"\",\"-1\":\"file error\",\"-2\":\"stream error\",\"-3\":\"data error\",\"-4\":\"insufficient memory\",\"-5\":\"buffer error\",\"-6\":\"incompatible version\"}},{}],11:[function(e,t,n){\"use strict\";function o(){this.input=null,this.next_in=0,this.avail_in=0,this.total_in=0,this.output=null,this.next_out=0,this.avail_out=0,this.total_out=0,this.msg=\"\",this.state=null,this.data_type=2,this.adler=0}t.exports=o},{}],\"/lib/inflate.js\":[function(e,t,n){\"use strict\";function o(e,t){var n=new h(t);if(n.push(e,!0),n.err)throw n.msg;return n.result}function i(e,t){return t=t||{},t.raw=!0,o(e,t)}var a=e(\"./zlib/inflate.js\"),r=e(\"./utils/common\"),s=e(\"./utils/strings\"),l=e(\"./zlib/constants\"),d=e(\"./zlib/messages\"),u=e(\"./zlib/zstream\"),c=e(\"./zlib/gzheader\"),f=Object.prototype.toString,h=function(e){this.options=r.assign({chunkSize:16384,windowBits:0,to:\"\"},e||{});var t=this.options;t.raw&&t.windowBits>=0&&t.windowBits<16&&(t.windowBits=-t.windowBits,0===t.windowBits&&(t.windowBits=-15)),!(t.windowBits>=0&&t.windowBits<16)||e&&e.windowBits||(t.windowBits+=32),t.windowBits>15&&t.windowBits<48&&0===(15&t.windowBits)&&(t.windowBits|=15),this.err=0,this.msg=\"\",this.ended=!1,this.chunks=[],this.strm=new u,this.strm.avail_out=0;var n=a.inflateInit2(this.strm,t.windowBits);if(n!==l.Z_OK)throw new Error(d[n]);this.header=new c,a.inflateGetHeader(this.strm,this.header)};h.prototype.push=function(e,t){var n,o,i,d,u,c=this.strm,h=this.options.chunkSize;if(this.ended)return!1;o=t===~~t?t:t===!0?l.Z_FINISH:l.Z_NO_FLUSH,\"string\"==typeof e?c.input=s.binstring2buf(e):\"[object ArrayBuffer]\"===f.call(e)?c.input=new Uint8Array(e):c.input=e,c.next_in=0,c.avail_in=c.input.length;do{if(0===c.avail_out&&(c.output=new r.Buf8(h),c.next_out=0,c.avail_out=h),n=a.inflate(c,l.Z_NO_FLUSH),n!==l.Z_STREAM_END&&n!==l.Z_OK)return this.onEnd(n),this.ended=!0,!1;c.next_out&&(0===c.avail_out||n===l.Z_STREAM_END||0===c.avail_in&&(o===l.Z_FINISH||o===l.Z_SYNC_FLUSH))&&(\"string\"===this.options.to?(i=s.utf8border(c.output,c.next_out),d=c.next_out-i,u=s.buf2string(c.output,i),c.next_out=d,c.avail_out=h-d,d&&r.arraySet(c.output,c.output,i,d,0),this.onData(u)):this.onData(r.shrinkBuf(c.output,c.next_out)))}while(c.avail_in>0&&n!==l.Z_STREAM_END);return n===l.Z_STREAM_END&&(o=l.Z_FINISH),o===l.Z_FINISH?(n=a.inflateEnd(this.strm),this.onEnd(n),this.ended=!0,n===l.Z_OK):o===l.Z_SYNC_FLUSH?(this.onEnd(l.Z_OK),c.avail_out=0,!0):!0},h.prototype.onData=function(e){this.chunks.push(e)},h.prototype.onEnd=function(e){e===l.Z_OK&&(\"string\"===this.options.to?this.result=this.chunks.join(\"\"):this.result=r.flattenChunks(this.chunks)),this.chunks=[],this.err=e,this.msg=this.strm.msg},n.Inflate=h,n.inflate=o,n.inflateRaw=i,n.ungzip=o},{\"./utils/common\":1,\"./utils/strings\":2,\"./zlib/constants\":4,\"./zlib/gzheader\":6,\"./zlib/inflate.js\":8,\"./zlib/messages\":10,\"./zlib/zstream\":11}]},{},[])(\"/lib/inflate.js\")});var browser=function(){var e,t=navigator.userAgent,n=t.match(/(opera|chrome|safari|firefox|msie|trident(?=\\/))\\/?\\s*(\\d+)/i)||[];return/trident/i.test(n[1])?(e=/\\brv[ :]+(\\d+)/g.exec(t)||[],\"IE \"+(e[1]||\"\")):\"Chrome\"===n[1]&&(e=t.match(/\\bOPR\\/(\\d+)/),null!=e)?\"Opera \"+e[1]:(n=n[2]?[n[1],n[2]]:[navigator.appName,navigator.appVersion,\"-?\"],null!=(e=t.match(/version\\/(\\d+)/i))&&n.splice(1,1,e[1]),n.join(\" \"))}(),hasWebGL=function(){if(!window.WebGLRenderingContext)return 0;var e=document.createElement(\"canvas\"),t=e.getContext(\"webgl\");return t||(t=e.getContext(\"experimental-webgl\"))?1:0}(),mobile=function(e){return/(android|bb\\d+|meego).+mobile|avantgo|bada\\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(e)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\\-(n|u)|c55\\/|capi|ccwa|cdm\\-|cell|chtm|cldc|cmd\\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\\-s|devi|dica|dmob|do(c|p)o|ds(12|\\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\\-|_)|g1 u|g560|gene|gf\\-5|g\\-mo|go(\\.w|od)|gr(ad|un)|haie|hcit|hd\\-(m|p|t)|hei\\-|hi(pt|ta)|hp( i|ip)|hs\\-c|ht(c(\\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\\-(20|go|ma)|i230|iac( |\\-|\\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\\/)|klon|kpt |kwc\\-|kyo(c|k)|le(no|xi)|lg( g|\\/(k|l|u)|50|54|\\-[a-w])|libw|lynx|m1\\-w|m3ga|m50\\/|ma(te|ui|xo)|mc(01|21|ca)|m\\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\\-2|po(ck|rt|se)|prox|psio|pt\\-g|qa\\-a|qc(07|12|21|32|60|\\-[2-7]|i\\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\\-|oo|p\\-)|sdk\\/|se(c(\\-|0|1)|47|mc|nd|ri)|sgh\\-|shar|sie(\\-|m)|sk\\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\\-|v\\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\\-|tdg\\-|tel(i|m)|tim\\-|t\\-mo|to(pl|sh)|ts(70|m\\-|m3|m5)|tx\\-9|up(\\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\\-|your|zeto|zte\\-/i.test(e.substr(0,4))}(navigator.userAgent||navigator.vendor||window.opera);Module.compatibilitycheck?Module.compatibilitycheck():CompatibilityCheck();var didShowErrorMessage=!1;\"function\"!=typeof window.onerror&&(window.onerror=function(e,t,n){return Module.errorhandler&&Module.errorhandler(e,t,n)||(console.log(\"Invoking error handler due to\\n\"+e),\"function\"==typeof dump&&dump(\"Invoking error handler due to\\n\"+e),didShowErrorMessage||-1!=e.indexOf(\"UnknownError\")||-1!=e.indexOf(\"Program terminated with exit(0)\"))?void 0:(didShowErrorMessage=!0,-1!=e.indexOf(\"DISABLE_EXCEPTION_CATCHING\")?void alert(\"An exception has occured, but exception handling has been disabled in this build. If you are the developer of this content, enable exceptions in your project's WebGL player settings to be able to catch the exception or see the stack trace.\"):-1!=e.indexOf(\"Cannot enlarge memory arrays\")?void alert(\"Out of memory. If you are the developer of this content, try allocating more memory to your WebGL build in the WebGL player settings.\"):-1!=e.indexOf(\"Invalid array buffer length\")||-1!=e.indexOf(\"out of memory\")?void alert(\"The browser could not allocate enough memory for the WebGL content. If you are the developer of this content, try allocating less memory to your WebGL build in the WebGL player settings.\"):-1!=e.indexOf(\"Script error.\")&&0==document.URL.indexOf(\"file:\")?void alert(\"It seems your browser does not support running Unity WebGL content from file:// urls. Please upload it to an http server, or try a different browser.\"):void alert(\"An error occured running the Unity content on this page. See your browser's JavaScript console for more info. The error was:\\n\"+e))}),Module.locateFile=function(e){return Module.dataUrl},Module.preRun=[],Module.postRun=[],Module.print=function(){return function(e){console.log(e)}}(),Module.printErr=function(e){console.error(e)},Module.canvas=document.getElementById(\"canvas\"),Module.progress=null,Module.setStatus=function(e){if(null==this.progress){if(\"function\"!=typeof UnityProgress)return;this.progress=new UnityProgress(canvas)}if(Module.setStatus.last||(Module.setStatus.last={time:Date.now(),text:\"\"}),e!==Module.setStatus.text){this.progress.SetMessage(e);var t=e.match(/([^(]+)\\((\\d+(\\.\\d+)?)\\/(\\d+)\\)/);t&&this.progress.SetProgress(parseInt(t[2])/parseInt(t[4])),\"\"===e&&this.progress.Clear()}},Module.totalDependencies=0,Module.monitorRunDependencies=function(e){this.totalDependencies=Math.max(this.totalDependencies,e),Module.setStatus(e?\"Preparing... (\"+(this.totalDependencies-e)+\"/\"+this.totalDependencies+\")\":\"All downloads complete.\");\n    2  },Module.setStatus(\"Downloading (0.0/1)\");var Module;\"undefined\"==typeof Module&&(Module=eval(\"(function() { try { return Module || {} } catch(e) { return {} } })()\")),Module.expectedDataFileDownloads||(Module.expectedDataFileDownloads=0,Module.finishedDataFileDownloads=0),Module.expectedDataFileDownloads++,function(){var e=function(e){function t(e){console.error(\"package error:\",e)}function n(){function e(e,t){if(!e)throw t+(new Error).stack}function t(e,t,n,o){this.start=e,this.end=t,this.crunched=n,this.audio=o}function n(n){Module.finishedDataFileDownloads++,e(n,\"Loading data file failed.\");var o=new Uint8Array(n);t.prototype.byteArray=o,t.prototype.requests[\"/data.unity3d\"].onload(),t.prototype.requests[\"/methods_pointedto_by_uievents.xml\"].onload(),t.prototype.requests[\"/Il2CppData/Metadata/global-metadata.dat\"].onload(),t.prototype.requests[\"/Resources/unity_default_resources\"].onload(),t.prototype.requests[\"/Managed/mono/2.0/machine.config\"].onload(),Module.removeRunDependency(\"datafile_targetweb.data\")}Module.FS_createPath(\"/\",\"Il2CppData\",!0,!0),Module.FS_createPath(\"/Il2CppData\",\"Metadata\",!0,!0),Module.FS_createPath(\"/\",\"Resources\",!0,!0),Module.FS_createPath(\"/\",\"Managed\",!0,!0),Module.FS_createPath(\"/Managed\",\"mono\",!0,!0),Module.FS_createPath(\"/Managed/mono\",\"2.0\",!0,!0),t.prototype={requests:{},open:function(e,t){this.name=t,this.requests[t]=this,Module.addRunDependency(\"fp \"+this.name)},send:function(){},onload:function(){var e=this.byteArray.subarray(this.start,this.end);this.finish(e)},finish:function(e){var t=this;Module.FS_createPreloadedFile(this.name,null,e,!0,!0,function(){Module.removeRunDependency(\"fp \"+t.name)},function(){t.audio?Module.removeRunDependency(\"fp \"+t.name):Module.printErr(\"Preloading file \"+t.name+\" failed\")},!1,!0),this.requests[this.name]=null}},new t(0,208816,0,0).open(\"GET\",\"/data.unity3d\"),new t(208816,209266,0,0).open(\"GET\",\"/methods_pointedto_by_uievents.xml\"),new t(209266,1752834,0,0).open(\"GET\",\"/Il2CppData/Metadata/global-metadata.dat\"),new t(1752834,3248134,0,0).open(\"GET\",\"/Resources/unity_default_resources\"),new t(3248134,3275760,0,0).open(\"GET\",\"/Managed/mono/2.0/machine.config\"),Module.addRunDependency(\"datafile_targetweb.data\"),Module.preloadResults||(Module.preloadResults={}),Module.preloadResults[i]={fromCache:!1},l?(n(l),l=null):d=n}var o;if(\"object\"==typeof window)o=window.encodeURIComponent(window.location.pathname.toString().substring(0,window.location.pathname.toString().lastIndexOf(\"/\"))+\"/\");else{if(\"undefined\"==typeof location)throw\"using preloaded data can only be done on a web page or in a web worker\";o=encodeURIComponent(location.pathname.toString().substring(0,location.pathname.toString().lastIndexOf(\"/\"))+\"/\")}var i=\"targetweb.data\",a=\"targetweb.data\";\"function\"!=typeof Module.locateFilePackage||Module.locateFile||(Module.locateFile=Module.locateFilePackage,Module.printErr(\"warning: you defined Module.locateFilePackage, that has been renamed to Module.locateFile (using your locateFilePackage for now)\"));var r=\"function\"==typeof Module.locateFile?Module.locateFile(a):(Module.filePackagePrefixURL||\"\")+a,s=3275760,l=null,d=null;fetchRemotePackageWrapper(r,s,function(e){d?(d(e),d=null):l=e},t),Module.calledRun?n():(Module.preRun||(Module.preRun=[]),Module.preRun.push(n))};e()}();\n\n382 matches across 27 files\n\n\nSearching 64 files for \"ontileadd\"\n\n0 matches\n\nSearching 64 files for \"speedlimit\"\n\nI:\\w\\zeptobots\\Assets\\Prefabs\\actor-bullet.prefab:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Prefabs\\actor-dog.prefab:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Prefabs\\actor-hero-blue.prefab:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Prefabs\\actor-hero-red.prefab:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Actor.cs:\n   59  			this.engine.desiredPosition = new Vector3(rx, 0f, ry);\n   60  			this.spriter.SetSprite(sprite);\n   61: 			this.engine.speedLimit = speed;\n   62  			this.damage = damage;\n   63  		}\n   ..\n   90  		sb.Append(this.hp);\n   91  		sb.Append(\"|\");\n   92: 		sb.Append(this.engine.speedLimit);\n   93  		sb.Append(\"|\");\n   94  		sb.Append(this.damage);\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Director.cs:\n   94  		string sprite = chunks[8];\n   95  		int hp = Utils.IntParseFast(chunks[9]);\n   96: 		int speedLimit = Utils.IntParseFast(chunks[10]);\n   97  		int damage = Utils.IntParseFast(chunks[10]);\n   98  		if( !actorDict.ContainsKey(uid) )\n   ..\n  101  			if( a != null )\n  102  			{\n  103: 				a.Mod(true, uid,oid,team,tx,ty,rx,ry,sprite,hp,speedLimit,damage);\n  104  				actorDict[uid] = a;\n  105  				actorList.Add(a);\n  ...\n  112  			if( oid != Boss.Instance.localOID )\n  113  			{\n  114: 				a.Mod(true, uid,oid,team,tx,ty,rx,ry,sprite,hp,speedLimit,damage);	\n  115  			}\n  116  			else\n  117  			{\n  118: 				a.Mod(false, uid,oid,team,tx,ty,rx,ry,sprite,hp,speedLimit,damage);	\n  119  			}\n  120  		}\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Engine.cs:\n    4  public class Engine : MonoBehaviour {\n    5  \n    6: 	public int speedLimit = 30;\n    7  	public float currentStep = 0f;\n    8  \n    .\n   39  		if( dist > 0.1f )\n   40  		{	\n   41: 			float maxStep = speedLimit*deltaTime;\n   42  			if( dist > maxStep )\n   43  			{\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Hero.cs:\n   63  		Vector3 delta = new Vector3(engine.facingVec.x, 0, engine.facingVec.y)*dashDistance;\n   64  		engine.desiredPosition = engine.transform.position + delta;\n   65: 		engine.speedLimit = 240;\n   66  		actor.damage = 3;\n   67  		engine.moveLock = true;\n   ..\n   72  	{\n   73  		Engine engine = actor.engine;\n   74: 		engine.speedLimit = 20;\n   75  		actor.damage = 0;\n   76  		engine.moveLock = false;\n   ..\n   82  	{\n   83  		Engine engine = actor.engine;\n   84: 		engine.speedLimit = 30;\n   85  		actor.damage = 1;\n   86  		engine.moveLock = false;\n   ..\n   91  	{\n   92  		Engine engine = actor.engine;\n   93: 		engine.speedLimit = 10;\n   94  		actor.damage = 0;\n   95  		ga.lockTime = 0.30f;\n   ..\n  104  		NetMan.Instance.Send(\"requestactoradd|\"+actor.oid+\"|\"+actor.team+\"|\"+actor.tx+\"|\"+actor.ty+\"|\"+shootSprite);\n  105  \n  106: 		engine.speedLimit = 30;\n  107  		actor.damage = 1;\n  108  		ga.lockTime = 0.7f;\n  ...\n  120  		Vector3 delta = new Vector3(engine.facingVec.x, 0, engine.facingVec.y)*dashDistance;\n  121  		engine.desiredPosition = engine.transform.position + delta;\n  122: 		engine.speedLimit = 120;\n  123  		actor.damage = 4;\n  124  		ga.lockTime = 0.30f;\n  ...\n  128  	{\n  129  		Engine engine = actor.engine;\n  130: 		engine.speedLimit = 30;\n  131  		actor.damage = 1;\n  132  		ga.lockTime = 0.7f;\n\nI:\\w\\zeptobots\\targetweb\\Development\\targetweb.data:\n    <binary>\n\n20 matches across 9 files\n\n\nSearching 64 files for \"speedLimit\"\n\nI:\\w\\zeptobots\\Assets\\Prefabs\\actor-bullet.prefab:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Prefabs\\actor-dog.prefab:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Prefabs\\actor-hero-blue.prefab:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Prefabs\\actor-hero-red.prefab:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Actor.cs:\n   59  			this.engine.desiredPosition = new Vector3(rx, 0f, ry);\n   60  			this.spriter.SetSprite(sprite);\n   61: 			this.engine.speedLimit = speed;\n   62  			this.damage = damage;\n   63  			this.ttl = ttl;\n   ..\n   91  		sb.Append(this.hp);\n   92  		sb.Append(\"|\");\n   93: 		sb.Append(this.engine.speedLimit);\n   94  		sb.Append(\"|\");\n   95  		sb.Append(this.damage);\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Director.cs:\n   94  		string sprite = chunks[8];\n   95  		int hp = Utils.IntParseFast(chunks[9]);\n   96: 		int speedLimit = Utils.IntParseFast(chunks[10]);\n   97  		int damage = Utils.IntParseFast(chunks[10]);\n   98  		if( !actorDict.ContainsKey(uid) )\n   ..\n  101  			if( a != null )\n  102  			{\n  103: 				a.Mod(true, uid,oid,team,tx,ty,rx,ry,sprite,hp,speedLimit,damage);\n  104  				actorDict[uid] = a;\n  105  				actorList.Add(a);\n  ...\n  112  			if( oid != Boss.Instance.localOID )\n  113  			{\n  114: 				a.Mod(true, uid,oid,team,tx,ty,rx,ry,sprite,hp,speedLimit,damage);	\n  115  			}\n  116  			else\n  117  			{\n  118: 				a.Mod(false, uid,oid,team,tx,ty,rx,ry,sprite,hp,speedLimit,damage);	\n  119  			}\n  120  		}\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Engine.cs:\n    4  public class Engine : MonoBehaviour {\n    5  \n    6: 	public int speedLimit = 30;\n    7  	public float currentStep = 0f;\n    8  \n    .\n   39  		if( dist > 0.1f )\n   40  		{	\n   41: 			float maxStep = speedLimit*deltaTime;\n   42  			if( dist > maxStep )\n   43  			{\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Hero.cs:\n   63  		Vector3 delta = new Vector3(engine.facingVec.x, 0, engine.facingVec.y)*dashDistance;\n   64  		engine.desiredPosition = engine.transform.position + delta;\n   65: 		engine.speedLimit = 240;\n   66  		actor.damage = 3;\n   67  		engine.moveLock = true;\n   ..\n   72  	{\n   73  		Engine engine = actor.engine;\n   74: 		engine.speedLimit = 20;\n   75  		actor.damage = 0;\n   76  		engine.moveLock = false;\n   ..\n   82  	{\n   83  		Engine engine = actor.engine;\n   84: 		engine.speedLimit = 30;\n   85  		actor.damage = 1;\n   86  		engine.moveLock = false;\n   ..\n   91  	{\n   92  		Engine engine = actor.engine;\n   93: 		engine.speedLimit = 10;\n   94  		actor.damage = 0;\n   95  		ga.lockTime = 0.30f;\n   ..\n  104  		NetMan.Instance.Send(\"requestactoradd|\"+actor.oid+\"|\"+actor.team+\"|\"+actor.tx+\"|\"+actor.ty+\"|\"+shootSprite);\n  105  \n  106: 		engine.speedLimit = 30;\n  107  		actor.damage = 1;\n  108  		ga.lockTime = 0.7f;\n  ...\n  120  		Vector3 delta = new Vector3(engine.facingVec.x, 0, engine.facingVec.y)*dashDistance;\n  121  		engine.desiredPosition = engine.transform.position + delta;\n  122: 		engine.speedLimit = 120;\n  123  		actor.damage = 4;\n  124  		ga.lockTime = 0.30f;\n  ...\n  128  	{\n  129  		Engine engine = actor.engine;\n  130: 		engine.speedLimit = 30;\n  131  		actor.damage = 1;\n  132  		ga.lockTime = 0.7f;\n\nI:\\w\\zeptobots\\targetweb\\Development\\targetweb.data:\n    <binary>\n\n20 matches across 9 files\n\n\nSearching 64 files for \"speedLimit\"\n\nI:\\w\\zeptobots\\Assets\\Prefabs\\actor-bullet.prefab:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Prefabs\\actor-dog.prefab:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Prefabs\\actor-hero-blue.prefab:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Prefabs\\actor-hero-red.prefab:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Actor.cs:\n   59  			this.engine.desiredPosition = new Vector3(rx, 0f, ry);\n   60  			this.spriter.SetSprite(sprite);\n   61: 			this.engine.speedLimit = speed;\n   62  			this.damage = damage;\n   63  			this.ttl = ttl;\n   ..\n   91  		sb.Append(this.hp);\n   92  		sb.Append(\"|\");\n   93: 		sb.Append(this.engine.speedLimit);\n   94  		sb.Append(\"|\");\n   95  		sb.Append(this.damage);\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Director.cs:\n   94  		string sprite = chunks[8];\n   95  		int hp = Utils.IntParseFast(chunks[9]);\n   96: 		int speedLimit = Utils.IntParseFast(chunks[10]);\n   97  		int damage = Utils.IntParseFast(chunks[11]);\n   98  		int ttl = Utils.IntParseFast(chunks[12]);\n   ..\n  102  			if( a != null )\n  103  			{\n  104: 				a.Mod(true, uid,oid,team,tx,ty,rx,ry,sprite,hp,speedLimit,damage,ttl);\n  105  				actorDict[uid] = a;\n  106  				actorList.Add(a);\n  ...\n  113  			if( oid != Boss.Instance.localOID )\n  114  			{\n  115: 				a.Mod(true, uid,oid,team,tx,ty,rx,ry,sprite,hp,speedLimit,damage,ttl);	\n  116  			}\n  117  			else\n  118  			{\n  119: 				a.Mod(false, uid,oid,team,tx,ty,rx,ry,sprite,hp,speedLimit,damage,ttl);	\n  120  			}\n  121  		}\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Engine.cs:\n    4  public class Engine : MonoBehaviour {\n    5  \n    6: 	public int speedLimit = 30;\n    7  	public float currentStep = 0f;\n    8  \n    .\n   39  		if( dist > 0.1f )\n   40  		{	\n   41: 			float maxStep = speedLimit*deltaTime;\n   42  			if( dist > maxStep )\n   43  			{\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Hero.cs:\n   63  		Vector3 delta = new Vector3(engine.facingVec.x, 0, engine.facingVec.y)*dashDistance;\n   64  		engine.desiredPosition = engine.transform.position + delta;\n   65: 		engine.speedLimit = 240;\n   66  		actor.damage = 3;\n   67  		engine.moveLock = true;\n   ..\n   72  	{\n   73  		Engine engine = actor.engine;\n   74: 		engine.speedLimit = 20;\n   75  		actor.damage = 0;\n   76  		engine.moveLock = false;\n   ..\n   82  	{\n   83  		Engine engine = actor.engine;\n   84: 		engine.speedLimit = 30;\n   85  		actor.damage = 1;\n   86  		engine.moveLock = false;\n   ..\n   91  	{\n   92  		Engine engine = actor.engine;\n   93: 		engine.speedLimit = 10;\n   94  		actor.damage = 0;\n   95  		ga.lockTime = 0.30f;\n   ..\n  104  		NetMan.Instance.Send(\"requestactoradd|\"+actor.oid+\"|\"+actor.team+\"|\"+actor.tx+\"|\"+actor.ty+\"|\"+shootSprite);\n  105  \n  106: 		engine.speedLimit = 30;\n  107  		actor.damage = 1;\n  108  		ga.lockTime = 0.7f;\n  ...\n  120  		Vector3 delta = new Vector3(engine.facingVec.x, 0, engine.facingVec.y)*dashDistance;\n  121  		engine.desiredPosition = engine.transform.position + delta;\n  122: 		engine.speedLimit = 120;\n  123  		actor.damage = 4;\n  124  		ga.lockTime = 0.30f;\n  ...\n  128  	{\n  129  		Engine engine = actor.engine;\n  130: 		engine.speedLimit = 30;\n  131  		actor.damage = 1;\n  132  		ga.lockTime = 0.7f;\n\nI:\\w\\zeptobots\\targetweb\\Development\\targetweb.data:\n    <binary>\n\n20 matches across 9 files\n\n\nSearching 64 files for \"speedLimit\"\n\nI:\\w\\zeptobots\\Assets\\Prefabs\\actor-bullet.prefab:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Prefabs\\actor-dog.prefab:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Prefabs\\actor-hero-blue.prefab:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Prefabs\\actor-hero-red.prefab:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Actor.cs:\n   59  			this.engine.desiredPosition = new Vector3(rx, 0f, ry);\n   60  			this.spriter.SetSprite(sprite);\n   61: 			this.engine.speedLimit = speed;\n   62  			this.damage = damage;\n   63  			this.ttl = ttl;\n   ..\n   91  		sb.Append(this.hp);\n   92  		sb.Append(\"|\");\n   93: 		sb.Append(this.engine.speedLimit);\n   94  		sb.Append(\"|\");\n   95  		sb.Append(this.damage);\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Director.cs:\n   94  		string sprite = chunks[8];\n   95  		int hp = Utils.IntParseFast(chunks[9]);\n   96: 		int speedLimit = Utils.IntParseFast(chunks[10]);\n   97  		int damage = Utils.IntParseFast(chunks[11]);\n   98  		int ttl = Utils.IntParseFast(chunks[12]);\n   ..\n  102  			if( a != null )\n  103  			{\n  104: 				a.Mod(true, uid,oid,team,tx,ty,rx,ry,sprite,hp,speedLimit,damage,ttl);\n  105  				actorDict[uid] = a;\n  106  				actorList.Add(a);\n  ...\n  113  			if( oid != Boss.Instance.localOID )\n  114  			{\n  115: 				a.Mod(true, uid,oid,team,tx,ty,rx,ry,sprite,hp,speedLimit,damage,ttl);	\n  116  			}\n  117  			else\n  118  			{\n  119: 				a.Mod(false, uid,oid,team,tx,ty,rx,ry,sprite,hp,speedLimit,damage,ttl);	\n  120  			}\n  121  		}\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Engine.cs:\n    4  public class Engine : MonoBehaviour {\n    5  \n    6: 	public int speedLimit = 30;\n    7  	public float currentStep = 0f;\n    8  \n    .\n   39  		if( dist > 0.1f )\n   40  		{	\n   41: 			float maxStep = speedLimit*deltaTime;\n   42  			if( dist > maxStep )\n   43  			{\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Hero.cs:\n   63  		Vector3 delta = new Vector3(engine.facingVec.x, 0, engine.facingVec.y)*dashDistance;\n   64  		engine.desiredPosition = engine.transform.position + delta;\n   65: 		engine.speedLimit = 240;\n   66  		actor.damage = 3;\n   67  		engine.moveLock = true;\n   ..\n   72  	{\n   73  		Engine engine = actor.engine;\n   74: 		engine.speedLimit = 20;\n   75  		actor.damage = 0;\n   76  		engine.moveLock = false;\n   ..\n   82  	{\n   83  		Engine engine = actor.engine;\n   84: 		engine.speedLimit = 30;\n   85  		actor.damage = 1;\n   86  		engine.moveLock = false;\n   ..\n   91  	{\n   92  		Engine engine = actor.engine;\n   93: 		engine.speedLimit = 10;\n   94  		actor.damage = 0;\n   95  		ga.lockTime = 0.30f;\n   ..\n  104  		NetMan.Instance.Send(\"requestactoradd|\"+actor.oid+\"|\"+actor.team+\"|\"+actor.tx+\"|\"+actor.ty+\"|\"+shootSprite);\n  105  \n  106: 		engine.speedLimit = 30;\n  107  		actor.damage = 1;\n  108  		ga.lockTime = 0.7f;\n  ...\n  120  		Vector3 delta = new Vector3(engine.facingVec.x, 0, engine.facingVec.y)*dashDistance;\n  121  		engine.desiredPosition = engine.transform.position + delta;\n  122: 		engine.speedLimit = 120;\n  123  		actor.damage = 4;\n  124  		ga.lockTime = 0.30f;\n  ...\n  128  	{\n  129  		Engine engine = actor.engine;\n  130: 		engine.speedLimit = 30;\n  131  		actor.damage = 1;\n  132  		ga.lockTime = 0.7f;\n\nI:\\w\\zeptobots\\targetweb\\Development\\targetweb.data:\n    <binary>\n\n20 matches across 9 files\n\n\nSearching 65 files for \"authorita\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Actor.cs:\n   42  		}\n   43  	}\n   44: 	public void Mod(bool authoritative, int uid, int oid, \n   45  		int team, int tx,int ty,int rx,int ry, string sprite,\n   46  		int hp, int speed, int damage, int ttl)\n   ..\n   58  			this.team = team;\n   59  		}\n   60: 		if( authoritative )\n   61  		{\n   62  			this.tx = tx;\n\nI:\\w\\zeptobots\\targetweb\\Development\\targetweb.data:\n    <binary>\n\n3 matches across 2 files\n\n\nSearching 65 files for \"AddActor\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Director.cs:\n   52  \n   53  \n   54: 	public Actor AddActor(int rx, int ry, string sprite)\n   55  	{\n   56  		GameObject prototype = null;\n   ..\n   99  		if( !actorDict.ContainsKey(uid) )\n  100  		{\n  101: 			Actor a = AddActor(rx,ry,sprite);\n  102  			if( a != null )\n  103  			{\n\nI:\\w\\zeptobots\\server\\s.js:\n   53  		if( cmd == \"requestactoradd\" )\n   54  		{\n   55: 			world.addActor(chunks);\n   56  		}\n   57  		if( cmd == \"requestactormod\" )\n\nI:\\w\\zeptobots\\server\\world.js:\n  135  	\n  136  \n  137: 	addActor: function(chunks) {\n  138  		//oid, team, x, y, sprite\n  139  		var self = this;\n  ...\n  157  		actor.hp = 10;\n  158  \n  159: 		console.log(\"addActor\"+actor.sprite);\n  160  		self.dirtyActors.push(actor);\n  161  	},\n\nI:\\w\\zeptobots\\targetweb\\Development\\targetweb.data:\n    <binary>\n\nI:\\w\\zeptobots\\targetweb\\Development\\targetweb.mem:\n    <binary>\n\n13 matches across 5 files\n\n\nSearching 65 files for \"addActor\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Director.cs:\n   52  \n   53  \n   54: 	public Actor AddActor(int rx, int ry, string sprite)\n   55  	{\n   56  		GameObject prototype = null;\n   ..\n  121  		{\n  122  			\n  123: 			a = AddActor(rx,ry,sprite);\n  124  			if( a != null )\n  125  			{\n\nI:\\w\\zeptobots\\server\\s.js:\n   53  		if( cmd == \"requestactoradd\" )\n   54  		{\n   55: 			world.addActor(chunks);\n   56  		}\n   57  		if( cmd == \"requestactormod\" )\n\nI:\\w\\zeptobots\\server\\world.js:\n  135  	\n  136  \n  137: 	addActor: function(chunks) {\n  138  		//oid, team, x, y, sprite\n  139  		var self = this;\n  ...\n  159  		actor.hp = 10;\n  160  \n  161: 		console.log(\"addActor\"+actor.sprite);\n  162  		self.dirtyActors.push(actor);\n  163  	},\n\nI:\\w\\zeptobots\\targetweb\\Development\\targetweb.data:\n    <binary>\n\nI:\\w\\zeptobots\\targetweb\\Development\\targetweb.mem:\n    <binary>\n\n13 matches across 5 files\n\n\nSearching 65 files for \"requestactoradd\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Hero.cs:\n  102  		Utils.Ord ord = Utils.GetOrdFromVector(engine.facingVec);\n  103  		shootSprite += ord.ToString();\n  104: 		NetMan.Instance.Send(\"requestactoradd|\"+actor.oid+\"|\"+actor.team+\"|\"+actor.tx+\"|\"+actor.ty+\"|\"+shootSprite);\n  105  \n  106  		engine.speedLimit = 30;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Kingdom.cs:\n   28  \n   29  		string actorSprite = localIsRed ? \"Rd1\" : \"Bd1\";\n   30: 		NetMan.Instance.Send(\"requestactoradd|\"+ownerOID+\"|\"+team+\"|\"+tile.rtx+\"|\"+tile.rty+\"|\"+actorSprite);\n   31  		string worldSprite = localIsRed ? \"R\" : \"B\";\n   32  		NetMan.Instance.Send(\"requestworldmod|\"+tile.sx+\"|\"+tile.sy+\"|\"+tile.ltx+\"|\"+tile.lty+\"|\"+worldSprite);\n   ..\n   52  				Utils.Ord ord = Utils.GetRandomOrd();\n   53  				dogSprite += ord.ToString();\n   54: 				NetMan.Instance.Send(\"requestactoradd|\"+ownerOID+\"|\"+team+\"|\"+tile.rtx+\"|\"+tile.rty+\"|\"+dogSprite);\n   55  			}\n   56  		}\n\nI:\\w\\zeptobots\\server\\s.js:\n   51  		var cmd = chunks.shift();\n   52  		\n   53: 		if( cmd == \"requestactoradd\" )\n   54  		{\n   55  			world.addActor(chunks);\n\nI:\\w\\zeptobots\\targetweb\\Development\\targetweb.data:\n    <binary>\n\n5 matches across 4 files\n\n\nSearching 65 files for \"requestactoradd\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Hero.cs:\n  102  		Utils.Ord ord = Utils.GetOrdFromVector(engine.facingVec);\n  103  		shootSprite += ord.ToString();\n  104: 		NetMan.Instance.Send(\"requestactoradd|\"+actor.oid+\"|\"+actor.team+\"|\"+actor.tx+\"|\"+actor.ty+\"|\"+shootSprite);\n  105  \n  106  		engine.speedLimit = 30;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Kingdom.cs:\n   30  		int rx = tile.rtx*10+5;\n   31  		int ry = tile.rty*10-5;\n   32: 		NetMan.Instance.Send(\"requestactoradd|\"+ownerOID+\"|\"+team+\"|\"+rx+\"|\"+ry+\"|\"+actorSprite);\n   33  		string worldSprite = localIsRed ? \"R\" : \"B\";\n   34  		NetMan.Instance.Send(\"requestworldmod|\"+tile.sx+\"|\"+tile.sy+\"|\"+tile.ltx+\"|\"+tile.lty+\"|\"+worldSprite);\n   ..\n   54  				Utils.Ord ord = Utils.GetRandomOrd();\n   55  				dogSprite += ord.ToString();\n   56: 				NetMan.Instance.Send(\"requestactoradd|\"+ownerOID+\"|\"+team+\"|\"+tile.rtx+\"|\"+tile.rty+\"|\"+dogSprite);\n   57  			}\n   58  		}\n\nI:\\w\\zeptobots\\server\\s.js:\n   51  		var cmd = chunks.shift();\n   52  		\n   53: 		if( cmd == \"requestactoradd\" )\n   54  		{\n   55  			world.addActor(chunks);\n\nI:\\w\\zeptobots\\targetweb\\Development\\targetweb.data:\n    <binary>\n\n5 matches across 4 files\n\n\nSearching 65 files for \"requestactoradd\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Hero.cs:\n  102  		Utils.Ord ord = Utils.GetOrdFromVector(engine.facingVec);\n  103  		shootSprite += ord.ToString();\n  104: 		NetMan.Instance.Send(\"requestactoradd|\"+actor.oid+\"|\"+actor.team+\"|\"+actor.tx+\"|\"+actor.ty+\"|\"+shootSprite);\n  105  \n  106  		engine.speedLimit = 30;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Kingdom.cs:\n   30  		int rx = tile.rtx*10+5;\n   31  		int ry = tile.rty*10-5;\n   32: 		NetMan.Instance.Send(\"requestactoradd|\"+ownerOID+\"|\"+team+\"|\"+rx+\"|\"+ry+\"|\"+actorSprite);\n   33  		string worldSprite = localIsRed ? \"R\" : \"B\";\n   34  		NetMan.Instance.Send(\"requestworldmod|\"+tile.sx+\"|\"+tile.sy+\"|\"+tile.ltx+\"|\"+tile.lty+\"|\"+worldSprite);\n   ..\n   54  				Utils.Ord ord = Utils.GetRandomOrd();\n   55  				dogSprite += ord.ToString();\n   56: 				NetMan.Instance.Send(\"requestactoradd|\"+ownerOID+\"|\"+team+\"|\"+tile.rtx+\"|\"+tile.rty+\"|\"+dogSprite);\n   57  			}\n   58  		}\n\nI:\\w\\zeptobots\\server\\s.js:\n   51  		var cmd = chunks.shift();\n   52  		\n   53: 		if( cmd == \"requestactoradd\" )\n   54  		{\n   55  			world.addActor(chunks);\n\nI:\\w\\zeptobots\\targetweb\\Development\\targetweb.data:\n    <binary>\n\n5 matches across 4 files\n\n\nSearching 62 files for \"localoid\"\n\nI:\\w\\zeptobots\\Assets\\main.unity:\n    <binary>\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Actor.cs:\n   82  	}\n   83  \n   84: 	public string GetOutString(int localOID)\n   85  	{\n   86  		sb.Length = 0;\n   ..\n   88  		sb.Append(this.uid);\n   89  		sb.Append(\"|\");\n   90: 		sb.Append(localOID);\n   91  		sb.Append(\"|\");\n   92  		sb.Append(this.team);\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Boss.cs:\n    7  	public static Boss Instance;\n    8  \n    9: 	public int localOID = -1;\n   10  	public bool localIsRed = true;\n   11  	public List<Actor> localActors = new List<Actor>();\n   ..\n   74  			return;\n   75  		}\n   76: 		selectedKingdom.RequestKingdom(localOID, localIsRed);\n   77  		\n   78  	}\n   ..\n   83  		{\n   84  			Actor actor = localActors[i];\n   85: 			string str = actor.GetOutString(localOID);\n   86  			NetMan.Instance.Send(str);\n   87  		}\n   ..\n   96  		{\n   97  			Actor a = actorList[i];\n   98: 			if( a.oid == localOID )\n   99  			{\n  100  				localActors.Add(a);\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Director.cs:\n  108  			if( a != null )\n  109  			{\n  110: 				if( oid != Boss.Instance.localOID )\n  111  				{\n  112  					a.Mod(true, uid,oid,team,tx,ty,rx,ry,sprite,hp,speedLimit,damage,ttl);	\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Kingdom.cs:\n   21  	}\n   22  \n   23: 	public void RequestKingdom(int localOID, bool localIsRed)\n   24  	{\n   25  \n   26: 		ownerOID = localOID;\n   27  		team = localIsRed ? 1 : 0;\n   28  \n   ..\n   35  	}\n   36  \n   37: 	public void ConquerKingdom(int localOID, int team)\n   38  	{\n   39: 		ownerOID = localOID;\n   40  		this.team = team;\n   41  		string worldSprite = team == 1 ? \"R\" : \"B\";\n\nI:\\w\\zeptobots\\Assets\\Scripts\\NetMan.cs:\n   58  		{\n   59  			case \"setupclient\":\n   60: 				if( Boss.Instance.localOID > 0 )\n   61  				{\n   62  					Debug.LogError(\"Double setup\");\n   63  					return;\n   64  				}\n   65: 				Boss.Instance.localOID = Utils.IntParseFast(chunks[1]);\n   66: 				Debug.LogError(\"LocalOID\"+Boss.Instance.localOID);\n   67  				Boss.Instance.localIsRed = chunks[2].StartsWith(\"true\");\n   68  				break;\n\nI:\\w\\zeptobots\\targetweb\\Development\\targetweb.data:\n    <binary>\n\n18 matches across 7 files\n",
+			"settings":
+			{
+				"buffer_size": 118361,
+				"line_ending": "Windows",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "Assets/Scripts/Hero.cs",
+			"settings":
+			{
+				"buffer_size": 3317,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Scripts/Director.cs",
+			"settings":
+			{
+				"buffer_size": 2983,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Scripts/CamControl.cs",
+			"settings":
+			{
+				"buffer_size": 1176,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Scripts/Creature.cs",
+			"settings":
+			{
+				"buffer_size": 1451,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Scripts/Engine.cs",
+			"settings":
+			{
+				"buffer_size": 2078,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Scripts/SpriterHero.cs",
+			"settings":
+			{
+				"buffer_size": 2196,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Scripts/Spriter.cs",
+			"settings":
+			{
+				"buffer_size": 352,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "targetweb/rel.html",
+			"settings":
+			{
+				"buffer_size": 1512,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "targetweb/dev.html",
+			"settings":
+			{
+				"buffer_size": 1526,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Assets/Scripts/HealthBar.cs",
+			"settings":
+			{
+				"buffer_size": 584,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "server/world.js",
+			"settings":
+			{
+				"buffer_size": 5732,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Scripts/Menu.cs",
+			"settings":
+			{
+				"buffer_size": 2587,
 				"line_ending": "Unix"
 			}
 		}
@@ -599,27 +769,54 @@
 	[
 		"/I/w/zeptobots/Assets",
 		"/I/w/zeptobots/Assets/Scripts",
-		"/I/w/zeptobots/server"
+		"/I/w/zeptobots/server",
+		"/I/w/zeptobots/targetweb"
 	],
 	"file_history":
 	[
-		"/I/w/zeptobots/Assets/Scripts/Boss.cs",
+		"/I/w/zeptobots/Assets/Spinner.cs",
+		"/I/w/zeptobots/Assets/Creature.cs",
+		"/I/w/zeptobots/Assets/AutoTileSet/AutoTileSet.cs",
+		"/I/w/tools/autotileset/Internal/TileMaterial.cs",
+		"/I/w/zeptobots/Assets/Scripts/Actor.cs",
+		"/I/w/zeptobots/Assets/Scripts/Engine.cs",
+		"/I/w/zeptobots/Assets/Scripts/Hero.cs",
+		"/I/w/zeptobots/Assets/art/RockTiles/main_height.png.meta",
+		"/I/w/zeptobots/Assets/art/RockTiles/main_mat.mat.meta",
+		"/I/w/zeptobots/Assets/art/RockTiles/main_normal.png.meta",
+		"/I/w/zeptobots/Assets/art/RockTiles/main_transparent.png.meta",
+		"/I/w/zeptobots/Assets/art/gregraTiles/gregra_heights.png.meta",
+		"/I/w/zeptobots/Assets/art/gregraTiles/gregra_occlussion.png.meta",
+		"/I/w/zeptobots/Assets/Scripts/Tile.cs",
+		"/I/w/zeptobots/Assets/art/RockTiles/main_occlussion.png.meta",
+		"/I/w/zeptobots/Assets/art/gregraTiles/gregra_bump.png.meta",
+		"/I/w/zeptobots/Assets/art/gregraTiles/gregra.png.meta",
+		"/I/w/zeptobots/Assets/Scripts/GameAction.cs",
+		"/I/w/zeptobots/Assets/Scripts/Spriter.cs",
+		"/I/w/zeptobots/server/world.js",
+		"/I/w/zeptobots/Assets/Scripts/Director.cs",
+		"/I/w/zeptobots/zeptobots.sublime-project",
+		"/I/w/zeptobots/Assets/Scripts/NetMan.cs",
+		"/I/w/zeptobots/.gitignore",
+		"/I/w/zeptobots/Assets/Scripts/World.cs",
+		"/I/w/zeptobots/Assets/AutoTileSet/README.txt",
+		"/I/w/zeptobots/Assets/Scripts/Utils.cs",
+		"/I/w/zeptobots/Assets/Scripts/TileMaterial.cs",
 		"/I/w/zeptobots/Assets/Scripts/CamControl.cs",
-		"/I/w/zeptobots/server/s.js",
+		"/I/w/zeptobots/Assets/Scripts/Boss.cs",
+		"/I/w/zeptobots/targetweb/dev.html",
+		"/I/w/zeptobots/Assets/ATSFixer.cs",
 		"/I/w/zeptobots/server/sector.js",
+		"/I/w/zeptobots/server/package.json",
+		"/I/w/zeptobots/server/s.js",
+		"/I/w/zeptobots/targetweb/rel.html",
+		"/I/w/zeptobots/Assets/Scripts/Entity.cs",
 		"/I/w/zeptobots/server/actor.js",
 		"/I/w/Cyborgers/Server/synchronizer.js",
 		"/I/w/Cyborgers/Server/gameObject.js",
 		"/I/w/zeptobots/target/index.html",
 		"/I/w/zeptobots/target/game.html",
-		"/I/w/zeptobots/Assets/Scripts/Utils.cs",
-		"/I/w/zeptobots/Assets/Scripts/Tile.cs",
-		"/I/w/zeptobots/Assets/Scripts/World.cs",
 		"/I/w/zeptobots/Assets/Scripts/Sector.cs",
-		"/I/w/zeptobots/Assets/Scripts/NetMan.cs",
-		"/I/w/zeptobots/Assets/Scripts/Director.cs",
-		"/I/w/zeptobots/zeptobots.sublime-project",
-		"/I/w/zeptobots/server/world.js",
 		"/I/w/zeptobots/target/websocket.js",
 		"/I/w/zeptobots/Assets/External/WebSocketBrowser.cs",
 		"/I/w/zeptobots/Assets/Plugins/WebSocket.cs",
@@ -704,33 +901,7 @@
 		"//STRAWBERRY/Code/kiloio/client/js/KGame.js",
 		"//STRAWBERRY/Code/webkilo/client/js/KGame.js",
 		"//STRAWBERRY/Code/webkilo/client/js/KCamera.js",
-		"//STRAWBERRY/Code/webkilo/client/lib/babylon/babylon.2.1.debug.js",
-		"//STRAWBERRY/Code/webkilo/client/js/KActorData.js",
-		"//STRAWBERRY/Code/webkilo/client/js/KWorldCli.js",
-		"//STRAWBERRY/Code/webkilo/client/js/globals.js",
-		"//STRAWBERRY/Code/webkilo/client/index.html",
-		"//STRAWBERRY/Code/webkilo/client/js/KSectorCli.js",
-		"//STRAWBERRY/Code/webkilo/server/lib/KUserData.js",
-		"//STRAWBERRY/Code/webkilo/server/lib/KUserSrv.js",
-		"//STRAWBERRY/Code/webkilo/client/js/KActorCli.js",
-		"//STRAWBERRY/Code/webkilo/client/js/KUserCli.js",
-		"//STRAWBERRY/Code/webkilo/client/js/KApp.js",
-		"//STRAWBERRY/Code/webkilo/client/js/KMapCli.js",
-		"//STRAWBERRY/Code/webkilo/server/lib/KActorData.js",
-		"//STRAWBERRY/Code/webkilo/client/js/util.js",
-		"//STRAWBERRY/Code/webkilo/server/lib/KActorSrv.js",
-		"//STRAWBERRY/Code/webkilo/server/lib/KSectorSrv.js",
-		"//STRAWBERRY/Code/webkilo/server/lib/KWorld.js",
-		"//STRAWBERRY/Code/webkilo/client/js/game.js",
-		"//STRAWBERRY/Code/webkilo/server/lib/KUser.js",
-		"//STRAWBERRY/Code/webkilo/server/lib/KActor.js",
-		"//STRAWBERRY/Code/webkilo/client/js/kiloapp.js",
-		"//STRAWBERRY/Code/webkilo/client/js/actor.js",
-		"//STRAWBERRY/Code/webkilo/client/js/map.js",
-		"//STRAWBERRY/Code/webkilo/client/js/sector.js",
-		"//STRAWBERRY/Code/webkilo/server/lib/quadtree.js",
-		"//STRAWBERRY/Code/webkilo/server/config.json",
-		"//STRAWBERRY/Code/webkilo/package.json"
+		"//STRAWBERRY/Code/webkilo/client/lib/babylon/babylon.2.1.debug.js"
 	],
 	"find":
 	{
@@ -766,6 +937,114 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"localoid",
+			"isConnected",
+			"rx",
+			"requestactoradd",
+			"addActor",
+			"AddActor",
+			"addactor",
+			"AddActor",
+			"authorita",
+			"speedLimit",
+			"speedlimit",
+			"(int)Ord",
+			"ontileadd",
+			"ord",
+			".speedlimit",
+			".speed",
+			"requestactoradd",
+			"tx",
+			"MakeTile",
+			"GetTileAt",
+			"GetSectorAt",
+			"console.log",
+			".active",
+			"LookAt",
+			"nowhere",
+			"kingdoms.add",
+			"GetSolid",
+			"GetTileAt",
+			"initSector",
+			"getGround",
+			"getch",
+			"+5",
+			"+ 5",
+			"selectedKingdom",
+			"GetSectorAt",
+			"GetTileAt",
+			"chunks.shift",
+			"getSector",
+			"getsector",
+			"initSector",
+			"requestworldmod",
+			"sectormod",
+			"'R'",
+			"rtx",
+			"RequestSpawn",
+			"TileType",
+			"spriter",
+			"hero",
+			"GetSideNeighbours",
+			"GetTileImageIndex",
+			"MakeTile",
+			"class TileMaterial",
+			"TileMaterial",
+			"tileMaterial",
+			"GetTileImageIndex",
+			"countones",
+			"TestCornerTemplate",
+			"neighbourInfo2",
+			"renderer",
+			"select",
+			"localacto",
+			"localHeroes",
+			"SelectRandomLocalHero",
+			"'B'",
+			"addact",
+			"localActors",
+			"updat",
+			"sprite",
+			"dirtySectors",
+			"selectspawn",
+			"spawnTiles",
+			"lasttile",
+			"AddActor",
+			"tx",
+			"init",
+			"addActor",
+			"requestactoradd",
+			".hp",
+			"speed",
+			"majordi",
+			".mod",
+			"readChunks",
+			"console.log",
+			"majorDirtyActors",
+			"minorDirtyActors",
+			" ",
+			"minorDirtyActors",
+			"majorDirty",
+			"actormod",
+			"requestactoradd",
+			"actor.mod",
+			"requestactoradd",
+			"addActor",
+			"requestactoradd",
+			"actormod",
+			"ModActor",
+			"Init(",
+			"init(",
+			"addActor",
+			"requestactoradd",
+			"requesta",
+			"addActor",
+			"actorList",
+			"DirtyAct",
+			"dirtyact",
+			"requestactormod",
+			"\"Z\"",
+			"setupclient",
 			"dirtyActors",
 			"x",
 			"x,",
@@ -785,115 +1064,7 @@
 			"2,2",
 			"grounddata",
 			"ActorMan",
-			"IntParseFast",
-			"NetManReceive",
-			"push",
-			"','",
-			"\"rx",
-			"actors",
-			"nextUID",
-			"sync",
-			"clients",
-			"addActor",
-			"addactor",
-			"RecvString",
-			"SendString",
-			"message",
-			"PushWebSocketData",
-			"synchr",
-			"OnReceive",
-			"4",
-			"send",
-			"ExternalEval",
-			"protocol",
-			"log",
-			"requestedProtocols",
-			"accept",
-			"connect",
-			"thread",
-			"wsconnected =",
-			"Connect",
-			"socketThread",
-			"connected = ",
-			"socketThread",
-			"RunPingThread",
-			"EmitPacket",
-			"ofakind",
-			"int j",
-			"straight",
-			"uiDiceResults",
-			"base(name);",
-			"Criteria(string name)",
-			"\");",
-			"KActorData",
-			"inputjoy",
-			"localActorData.inputJoy",
-			"inputjoy",
-			"setSoftTarget",
-			"cameraAnchor",
-			"cameraAnchor.position",
-			"actorCameraLock",
-			"doHandleKeyUp",
-			"doHandleKeyDown",
-			"handleKeyUp",
-			"lsx",
-			"inputjoy",
-			"handleKeyDown",
-			"canvas",
-			"gameCanvas",
-			"startga",
-			"onclick",
-			"reenviar",
-			"finishLoad",
-			"startGame",
-			"nickErrorText",
-			"gameInput",
-			"handleKeyInput",
-			"keyInput",
-			"requestAnimFrame",
-			"animloop",
-			"keyInput",
-			"startGame",
-			"KApp",
-			"hudCanvas",
-			"renderCanvas",
-			"hudctx",
-			"this.canv",
-			"game.canv",
-			"canvas",
-			"renderCanvas",
-			"foreach",
-			"handleLogic",
-			".man",
-			"lookat",
-			"rotate",
-			"rotate(",
-			"localCursor",
-			"testCursor",
-			"cursor",
-			"game.cursor",
-			"KEY_SP",
-			"kcamera",
-			"new kcamera",
-			"g_unit",
-			"inputjoy",
-			"inputJoy",
-			"inputjoy",
-			"g_joy",
-			"inputJoy",
-			"g_joy",
-			"mainactor",
-			"space",
-			"attachcontrol",
-			"onPointerDown",
-			"Cameracur",
-			"onPointerDown",
-			"cameracurs",
-			"cameraAnchor",
-			"cameraCursor",
-			"validNick",
-			"setGround",
-			"getGround"
+			"IntParseFast"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -901,6 +1072,8 @@
 		"regex": false,
 		"replace_history":
 		[
+			"(int)Utils.Ord",
+			"corners",
 			"Director",
 			"base(category);",
 			"Criteria(CriteriaCategory category)",
@@ -1026,24 +1199,24 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 3,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "Assets/Scripts/Actor.cs",
+					"file": "Assets/Scripts/Sector.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3743,
+						"buffer_size": 3209,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3278,
-								3278
+								3185,
+								3185
 							]
 						],
 						"settings":
@@ -1052,120 +1225,55 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2112.0,
+						"translation.y": 2196.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 31,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "Assets/Scripts/CamControl.cs",
+					"file": "Assets/Scripts/Kingdom.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 983,
+						"buffer_size": 2087,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								983,
-								983
+								1375,
+								1375
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/C#/C#.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 131.0,
+						"translation.y": 456.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 19,
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "Assets/Scripts/Boss.cs",
+					"file": "server/actor.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1816,
+						"buffer_size": 1750,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1770,
-								1770
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 852.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 1,
-			"sheets":
-			[
-				{
-					"buffer": 3,
-					"file": "server/world.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4124,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4124,
-								4124
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 2322.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "server/s.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1643,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								140,
-								140
+								427,
+								427
 							]
 						],
 						"settings":
@@ -1177,7 +1285,1973 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
+					"stack_index": 14,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "Assets/Scripts/NetMan.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3174,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1361,
+								1361
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage"
+						},
+						"translation.x": 2.0,
+						"translation.y": 651.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "Assets/Scripts/Boss.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3147,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "targetweb/index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1476,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1395,
+								1390
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
 					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "server/sector.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1522,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 24,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "Assets/Scripts/World.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3032,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								611,
+								607
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 225.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 15,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "server/s.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1998,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								611,
+								586
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 21,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "Assets/Scripts/TileContents.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 181,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								181,
+								181
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 30,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "Assets/Scripts/Tile.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8494,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7777,
+								7777
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3717.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 26,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "Assets/Scripts/Utils.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1247,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								627,
+								627
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 371.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 17,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "Assets/Scripts/Actor.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2497,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								500,
+								509
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 135.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 118361,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										457,
+										465
+									],
+									[
+										504,
+										512
+									],
+									[
+										685,
+										693
+									],
+									[
+										762,
+										770
+									],
+									[
+										771,
+										779
+									],
+									[
+										782,
+										790
+									],
+									[
+										919,
+										927
+									],
+									[
+										931,
+										939
+									],
+									[
+										1138,
+										1146
+									],
+									[
+										1155,
+										1163
+									],
+									[
+										1272,
+										1280
+									],
+									[
+										1284,
+										1292
+									],
+									[
+										1562,
+										1565
+									],
+									[
+										1775,
+										1778
+									],
+									[
+										1998,
+										2001
+									],
+									[
+										2312,
+										2315
+									],
+									[
+										2706,
+										2709
+									],
+									[
+										2993,
+										3002
+									],
+									[
+										3171,
+										3180
+									],
+									[
+										3382,
+										3391
+									],
+									[
+										3833,
+										3848
+									],
+									[
+										4054,
+										4069
+									],
+									[
+										4238,
+										4253
+									],
+									[
+										4461,
+										4470
+									],
+									[
+										4635,
+										4644
+									],
+									[
+										4801,
+										4810
+									],
+									[
+										4987,
+										4996
+									],
+									[
+										5327,
+										5329
+									],
+									[
+										5356,
+										5358
+									],
+									[
+										5967,
+										5969
+									],
+									[
+										6497,
+										6506
+									],
+									[
+										6689,
+										6698
+									],
+									[
+										6821,
+										6830
+									],
+									[
+										7064,
+										7073
+									],
+									[
+										7238,
+										7247
+									],
+									[
+										7404,
+										7413
+									],
+									[
+										7590,
+										7599
+									],
+									[
+										7867,
+										7876
+									],
+									[
+										8041,
+										8050
+									],
+									[
+										8207,
+										8216
+									],
+									[
+										8393,
+										8402
+									],
+									[
+										8703,
+										8715
+									],
+									[
+										8983,
+										8990
+									],
+									[
+										9182,
+										9188
+									],
+									[
+										9334,
+										9340
+									],
+									[
+										9706,
+										9717
+									],
+									[
+										9865,
+										9876
+									],
+									[
+										9913,
+										9924
+									],
+									[
+										10048,
+										10059
+									],
+									[
+										10220,
+										10231
+									],
+									[
+										10327,
+										10338
+									],
+									[
+										10518,
+										10529
+									],
+									[
+										10668,
+										10679
+									],
+									[
+										10820,
+										10831
+									],
+									[
+										10987,
+										10998
+									],
+									[
+										11267,
+										11278
+									],
+									[
+										11494,
+										11505
+									],
+									[
+										11791,
+										11802
+									],
+									[
+										11930,
+										11941
+									],
+									[
+										12039,
+										12050
+									],
+									[
+										12285,
+										12296
+									],
+									[
+										12444,
+										12455
+									],
+									[
+										12823,
+										12834
+									],
+									[
+										13319,
+										13330
+									],
+									[
+										15905,
+										15916
+									],
+									[
+										42265,
+										42276
+									],
+									[
+										43790,
+										43801
+									],
+									[
+										48079,
+										48090
+									],
+									[
+										48249,
+										48260
+									],
+									[
+										48560,
+										48569
+									],
+									[
+										48734,
+										48743
+									],
+									[
+										49083,
+										49098
+									],
+									[
+										49426,
+										49441
+									],
+									[
+										49615,
+										49630
+									],
+									[
+										49975,
+										49981
+									],
+									[
+										50126,
+										50132
+									],
+									[
+										50415,
+										50421
+									],
+									[
+										50564,
+										50570
+									],
+									[
+										50713,
+										50719
+									],
+									[
+										50976,
+										50982
+									],
+									[
+										51122,
+										51128
+									],
+									[
+										51290,
+										51296
+									],
+									[
+										51419,
+										51425
+									],
+									[
+										51550,
+										51556
+									],
+									[
+										51713,
+										51719
+									],
+									[
+										51886,
+										51892
+									],
+									[
+										52184,
+										52195
+									],
+									[
+										52338,
+										52349
+									],
+									[
+										52628,
+										52639
+									],
+									[
+										52777,
+										52788
+									],
+									[
+										52926,
+										52937
+									],
+									[
+										53189,
+										53200
+									],
+									[
+										53335,
+										53346
+									],
+									[
+										54768,
+										54771
+									],
+									[
+										54868,
+										54871
+									],
+									[
+										55187,
+										55190
+									],
+									[
+										55419,
+										55422
+									],
+									[
+										55610,
+										55613
+									],
+									[
+										55754,
+										55757
+									],
+									[
+										55903,
+										55906
+									],
+									[
+										56065,
+										56068
+									],
+									[
+										56091,
+										56094
+									],
+									[
+										56162,
+										56165
+									],
+									[
+										56188,
+										56191
+									],
+									[
+										56260,
+										56263
+									],
+									[
+										56286,
+										56289
+									],
+									[
+										56359,
+										56362
+									],
+									[
+										56385,
+										56388
+									],
+									[
+										56450,
+										56453
+									],
+									[
+										56475,
+										56478
+									],
+									[
+										56539,
+										56542
+									],
+									[
+										56564,
+										56567
+									],
+									[
+										56626,
+										56629
+									],
+									[
+										56651,
+										56654
+									],
+									[
+										56715,
+										56718
+									],
+									[
+										56740,
+										56743
+									],
+									[
+										56861,
+										56864
+									],
+									[
+										56901,
+										56904
+									],
+									[
+										56941,
+										56944
+									],
+									[
+										56981,
+										56984
+									],
+									[
+										57056,
+										57059
+									],
+									[
+										57097,
+										57100
+									],
+									[
+										57138,
+										57141
+									],
+									[
+										57179,
+										57182
+									],
+									[
+										57411,
+										57414
+									],
+									[
+										57560,
+										57563
+									],
+									[
+										57690,
+										57693
+									],
+									[
+										57806,
+										57809
+									],
+									[
+										57851,
+										57854
+									],
+									[
+										57933,
+										57936
+									],
+									[
+										58089,
+										58092
+									],
+									[
+										58216,
+										58219
+									],
+									[
+										58394,
+										58397
+									],
+									[
+										58628,
+										58631
+									],
+									[
+										58951,
+										58954
+									],
+									[
+										59155,
+										59158
+									],
+									[
+										59405,
+										59408
+									],
+									[
+										59496,
+										59499
+									],
+									[
+										59678,
+										59681
+									],
+									[
+										59879,
+										59882
+									],
+									[
+										60080,
+										60083
+									],
+									[
+										60450,
+										60453
+									],
+									[
+										60825,
+										60828
+									],
+									[
+										61188,
+										61191
+									],
+									[
+										61381,
+										61384
+									],
+									[
+										61612,
+										61615
+									],
+									[
+										69455,
+										69458
+									],
+									[
+										87790,
+										87793
+									],
+									[
+										97726,
+										97736
+									],
+									[
+										97880,
+										97890
+									],
+									[
+										98093,
+										98103
+									],
+									[
+										98337,
+										98347
+									],
+									[
+										98539,
+										98549
+									],
+									[
+										98658,
+										98668
+									],
+									[
+										98816,
+										98826
+									],
+									[
+										98951,
+										98961
+									],
+									[
+										99235,
+										99245
+									],
+									[
+										99384,
+										99394
+									],
+									[
+										99533,
+										99543
+									],
+									[
+										99682,
+										99692
+									],
+									[
+										99904,
+										99914
+									],
+									[
+										100162,
+										100172
+									],
+									[
+										100308,
+										100318
+									],
+									[
+										100945,
+										100955
+									],
+									[
+										101114,
+										101124
+									],
+									[
+										101327,
+										101337
+									],
+									[
+										101571,
+										101581
+									],
+									[
+										101773,
+										101783
+									],
+									[
+										101892,
+										101902
+									],
+									[
+										102050,
+										102060
+									],
+									[
+										102185,
+										102195
+									],
+									[
+										102469,
+										102479
+									],
+									[
+										102618,
+										102628
+									],
+									[
+										102767,
+										102777
+									],
+									[
+										102916,
+										102926
+									],
+									[
+										103138,
+										103148
+									],
+									[
+										103396,
+										103406
+									],
+									[
+										103542,
+										103552
+									],
+									[
+										104179,
+										104189
+									],
+									[
+										104348,
+										104358
+									],
+									[
+										104561,
+										104571
+									],
+									[
+										104813,
+										104823
+									],
+									[
+										105019,
+										105029
+									],
+									[
+										105142,
+										105152
+									],
+									[
+										105304,
+										105314
+									],
+									[
+										105439,
+										105449
+									],
+									[
+										105723,
+										105733
+									],
+									[
+										105872,
+										105882
+									],
+									[
+										106021,
+										106031
+									],
+									[
+										106170,
+										106180
+									],
+									[
+										106392,
+										106402
+									],
+									[
+										106650,
+										106660
+									],
+									[
+										106796,
+										106806
+									],
+									[
+										107433,
+										107443
+									],
+									[
+										107602,
+										107612
+									],
+									[
+										107815,
+										107825
+									],
+									[
+										108067,
+										108077
+									],
+									[
+										108273,
+										108283
+									],
+									[
+										108396,
+										108406
+									],
+									[
+										108558,
+										108568
+									],
+									[
+										108693,
+										108703
+									],
+									[
+										108977,
+										108987
+									],
+									[
+										109126,
+										109136
+									],
+									[
+										109275,
+										109285
+									],
+									[
+										109424,
+										109434
+									],
+									[
+										109646,
+										109656
+									],
+									[
+										109904,
+										109914
+									],
+									[
+										110050,
+										110060
+									],
+									[
+										110345,
+										110354
+									],
+									[
+										110549,
+										110558
+									],
+									[
+										110810,
+										110818
+									],
+									[
+										110978,
+										110986
+									],
+									[
+										111136,
+										111144
+									],
+									[
+										111263,
+										111271
+									],
+									[
+										111413,
+										111421
+									],
+									[
+										111765,
+										111773
+									],
+									[
+										111895,
+										111903
+									],
+									[
+										112053,
+										112061
+									],
+									[
+										112180,
+										112188
+									],
+									[
+										112330,
+										112338
+									],
+									[
+										112786,
+										112801
+									],
+									[
+										113054,
+										113069
+									],
+									[
+										113429,
+										113444
+									],
+									[
+										113625,
+										113640
+									],
+									[
+										114003,
+										114018
+									],
+									[
+										114271,
+										114286
+									],
+									[
+										114634,
+										114649
+									],
+									[
+										114830,
+										114845
+									],
+									[
+										115208,
+										115223
+									],
+									[
+										115476,
+										115491
+									],
+									[
+										115839,
+										115854
+									],
+									[
+										116035,
+										116050
+									],
+									[
+										116374,
+										116382
+									],
+									[
+										116498,
+										116506
+									],
+									[
+										116669,
+										116677
+									],
+									[
+										116858,
+										116866
+									],
+									[
+										117000,
+										117008
+									],
+									[
+										117133,
+										117141
+									],
+									[
+										117305,
+										117313
+									],
+									[
+										117513,
+										117521
+									],
+									[
+										117578,
+										117586
+									],
+									[
+										117695,
+										117703
+									],
+									[
+										117745,
+										117753
+									],
+									[
+										117947,
+										117955
+									],
+									[
+										118077,
+										118085
+									],
+									[
+										118146,
+										118154
+									],
+									[
+										118170,
+										118178
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								118153,
+								118153
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"line_numbers": false,
+							"output_tag": 32,
+							"result_base_dir": "",
+							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 43890.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "Assets/Scripts/Hero.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3317,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2196,
+								2196
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 1131.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 18,
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "Assets/Scripts/Director.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2983,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								869,
+								869
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 293.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 16,
+					"file": "Assets/Scripts/CamControl.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1176,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1112,
+								1124
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 276.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 29,
+					"type": "text"
+				},
+				{
+					"buffer": 17,
+					"file": "Assets/Scripts/Creature.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1451,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								478,
+								478
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 18,
+					"file": "Assets/Scripts/Engine.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2078,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1831,
+								1831
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 795.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 16,
+					"type": "text"
+				},
+				{
+					"buffer": 19,
+					"file": "Assets/Scripts/SpriterHero.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2196,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 34,
+					"type": "text"
+				},
+				{
+					"buffer": 20,
+					"file": "Assets/Scripts/Spriter.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 352,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								282,
+								282
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 35,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 14,
+			"sheets":
+			[
+				{
+					"buffer": 15,
+					"file": "Assets/Scripts/Director.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2983,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1259,
+								1259
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 578.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 28,
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "Assets/Scripts/Hero.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3317,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2571,
+								2571
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 51.0,
+						"translation.y": 1086.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "Assets/Scripts/Boss.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3147,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2755,
+								2755
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1781.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 21,
+					"file": "targetweb/rel.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1512,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								456,
+								530
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 22,
+					"file": "targetweb/dev.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1526,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								592,
+								592
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "server/actor.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1750,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								738,
+								738
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 405.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 22,
+					"type": "text"
+				},
+				{
+					"buffer": 23,
+					"file": "Assets/Scripts/HealthBar.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 584,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								429,
+								429
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 24,
+					"file": "server/world.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5732,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3303,
+								3303
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1823.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 20,
+					"type": "text"
+				},
+				{
+					"buffer": 18,
+					"file": "Assets/Scripts/Engine.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2078,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2003,
+								2003
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 852.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 0,
+					"file": "Assets/Scripts/Sector.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3209,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1760,
+								1760
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1320.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 33,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "Assets/Scripts/World.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3032,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2774,
+								2774
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1531.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 32,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Assets/Scripts/Kingdom.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2087,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1283,
+								1283
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 267.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 25,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "Assets/Scripts/Tile.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8494,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1555,
+								1555
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 878.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 27,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "Assets/Scripts/Actor.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2497,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								685,
+								685
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 270.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 23,
+					"type": "text"
+				},
+				{
+					"buffer": 25,
+					"file": "Assets/Scripts/Menu.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2587,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1999,
+								1999
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 810.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -1211,7 +3285,7 @@
 		"cols":
 		[
 			0.0,
-			0.641228070176,
+			0.431707317073,
 			1.0
 		],
 		"rows":
@@ -1246,6 +3320,86 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"m",
+				"Assets\\Scripts\\Menu.cs"
+			],
+			[
+				"men",
+				"Assets\\Scripts\\Menu.cs"
+			],
+			[
+				"bos",
+				"Assets\\Scripts\\Boss.cs"
+			],
+			[
+				"her",
+				"Assets\\Scripts\\Hero.cs"
+			],
+			[
+				"ac",
+				"server\\actor.js"
+			],
+			[
+				"netma",
+				"Assets\\Scripts\\NetMan.cs"
+			],
+			[
+				"kin",
+				"Assets\\Scripts\\Kingdom.cs"
+			],
+			[
+				"uti",
+				"Assets\\Scripts\\Utils.cs"
+			],
+			[
+				"actor.cs",
+				"Assets\\Scripts\\Actor.cs"
+			],
+			[
+				"acto",
+				"server\\actor.js"
+			],
+			[
+				"cr",
+				"Assets\\Scripts\\Creature.cs"
+			],
+			[
+				"di",
+				"Assets\\Scripts\\Director.cs"
+			],
+			[
+				"kingd",
+				"Assets\\Scripts\\Kingdom.cs"
+			],
+			[
+				"til",
+				"Assets\\Scripts\\Tile.cs"
+			],
+			[
+				"se",
+				"Assets\\Scripts\\Sector.cs"
+			],
+			[
+				"eng",
+				"Assets\\Scripts\\Engine.cs"
+			],
+			[
+				"camco",
+				"Assets\\Scripts\\CamControl.cs"
+			],
+			[
+				"ki",
+				"Assets\\Scripts\\Kingdom.cs"
+			],
+			[
+				"wor",
+				"Assets\\Scripts\\World.cs"
+			],
+			[
+				"act",
+				"server\\actor.js"
+			],
 			[
 				"fishs",
 				"server\\fishserver.js"
@@ -1307,24 +3461,12 @@
 				"Code\\Actors\\ActorMotor.cs"
 			],
 			[
-				"ac",
-				"Code\\Actors\\Actor.cs"
-			],
-			[
 				"bra",
 				"Code\\Brains\\Brain.cs"
 			],
 			[
-				"uti",
-				"Code\\Utils.cs"
-			],
-			[
 				"vectorl",
 				"Plugins\\VectrosityScripts\\VectorLine.cs"
-			],
-			[
-				"act",
-				"Code\\Actors\\Actor.cs"
 			],
 			[
 				"fish",
@@ -1337,10 +3479,6 @@
 			[
 				"basicm",
 				"CodeLib\\GumboLib\\BasicMachine.cs"
-			],
-			[
-				"acto",
-				"Code\\Actors\\Actor.cs"
 			],
 			[
 				"spawnb",
@@ -1373,10 +3511,6 @@
 			[
 				"basict",
 				"CodeLib\\BasicCommon\\BasicTimer.cs"
-			],
-			[
-				"wor",
-				"Code\\World.cs"
 			],
 			[
 				"control",
@@ -1697,66 +3831,6 @@
 			[
 				"googl",
 				"GooglePlayGames\\OurUtils\\GoogLogger.cs"
-			],
-			[
-				"uiw",
-				"Code\\UI\\UIWheel.cs"
-			],
-			[
-				"inpu",
-				"Code\\UI\\InputMgr.cs"
-			],
-			[
-				"mak",
-				"Code\\Interact\\Maker.cs"
-			],
-			[
-				"threa",
-				"Code\\Game\\ThreatList.cs"
-			],
-			[
-				"go",
-				"Code\\UI\\GoogMgr.cs"
-			],
-			[
-				"uiwh",
-				"Code\\UI\\UIWheel.cs"
-			],
-			[
-				"uie",
-				"Code\\UI\\UIEntity.cs"
-			],
-			[
-				"threatl",
-				"Code\\ThreatList.cs"
-			],
-			[
-				"isom",
-				"Code\\Lib\\Common\\IsoMath.cs"
-			],
-			[
-				"state",
-				"Code\\Lib\\Common\\StateMachine.cs"
-			],
-			[
-				"statem",
-				"Code\\Lib\\StateMachine.cs"
-			],
-			[
-				"playga",
-				"GooglePlayGames\\ISocialPlatform\\PlayGamesPlatform.cs"
-			],
-			[
-				"uim",
-				"UI\\UIMgr.cs"
-			],
-			[
-				"puzzp",
-				"Game\\PuzzleParams.cs"
-			],
-			[
-				"gamepa",
-				"Game\\GameParams.cs"
 			]
 		],
 		"width": 0.0
@@ -1783,7 +3857,7 @@
 		],
 		"width": 604.0
 	},
-	"selected_group": 0,
+	"selected_group": 1,
 	"settings":
 	{
 	},
@@ -1791,7 +3865,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 300.0,
+	"side_bar_width": 152.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

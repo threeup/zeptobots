@@ -63,7 +63,7 @@ public class NetMan : MonoBehaviour {
 					return;
 				}
 				Boss.Instance.localOID = Utils.IntParseFast(chunks[1]);
-				Debug.LogError("LocalOID"+Boss.Instance.localOID);
+				//Debug.LogError("LocalOID"+Boss.Instance.localOID);
 				Boss.Instance.localIsRed = chunks[2].StartsWith("true");
 				break;
 			default:

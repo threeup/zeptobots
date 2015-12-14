@@ -101,7 +101,9 @@ public class Hero : MonoBehaviour {
 		string shootSprite = "*";
 		Utils.Ord ord = Utils.GetOrdFromVector(engine.facingVec);
 		shootSprite += ord.ToString();
-		NetMan.Instance.Send("requestactoradd|"+actor.oid+"|"+actor.team+"|"+actor.rx+"|"+actor.ry+"|"+shootSprite);
+		int forwardX = actor.rx + (int)(engine.facingVec.x*2f);
+		int forwardY = actor.ry - (int)(engine.facingVec.y*2f);
+		NetMan.Instance.Send("requestactoradd|"+actor.oid+"|"+actor.team+"|"+forwardX+"|"+forwardY+"|"+shootSprite);
 
 		engine.speedLimit = 30;
 		actor.damage = 1;

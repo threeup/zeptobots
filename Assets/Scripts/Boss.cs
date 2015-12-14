@@ -141,11 +141,21 @@ public class Boss : MonoBehaviour {
 			}
 			if (Input.GetButton("Fire1"))
 			{
+				Menu.Instance.SetButtonA(true);
 				selectedHero.inputA = true;
+			}
+			else
+			{
+				Menu.Instance.SetButtonA(false);
 			}
 			if (Input.GetButton("Jump"))
 			{
 				selectedHero.inputB = true;
+				Menu.Instance.SetButtonB(true);
+			}
+			else
+			{
+				Menu.Instance.SetButtonB(false);
 			}
 		}
 		sendUpdateTimer -= deltaTime;
