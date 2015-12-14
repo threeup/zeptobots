@@ -52,12 +52,10 @@ server.on('connection', function(socket) {
 		
 		if( cmd == "requestactoradd" )
 		{
-			//oid, x, y, sprite
-			world.addActor(chunks[0], chunks[1], chunks[2], chunks[3]);
+			world.addActor(chunks);
 		}
 		if( cmd == "requestactormod" )
 		{
-			//uid, oid, tx, ty, rx, ry, sprite, hp, speed
 			world.modActor(chunks);
 		}
 		if( cmd == "requestworldmod" )

@@ -75,19 +75,20 @@ public class Director : MonoBehaviour {
 	{
 		int uid = Utils.IntParseFast(chunks[1]);
 		int oid = Utils.IntParseFast(chunks[2]);
-		int tx = Utils.IntParseFast(chunks[3]);
-		int ty = Utils.IntParseFast(chunks[4]);
-		int rx = Utils.IntParseFast(chunks[5]);
-		int ry = Utils.IntParseFast(chunks[6]);
-		string sprite = chunks[7];
-		int hp = Utils.IntParseFast(chunks[8]);
-		int speed = Utils.IntParseFast(chunks[9]);
+		int team = Utils.IntParseFast(chunks[3]);
+		int tx = Utils.IntParseFast(chunks[4]);
+		int ty = Utils.IntParseFast(chunks[5]);
+		int rx = Utils.IntParseFast(chunks[6]);
+		int ry = Utils.IntParseFast(chunks[7]);
+		string sprite = chunks[8];
+		int hp = Utils.IntParseFast(chunks[9]);
+		int speed = Utils.IntParseFast(chunks[10]);
 		if( !actorDict.ContainsKey(uid) )
 		{
 			Actor a = AddActor(rx,ry,sprite);
 			if( a != null )
 			{
-				a.Mod(true, uid,oid,tx,ty,rx,ry,sprite,hp,speed);
+				a.Mod(true, uid,oid,team,tx,ty,rx,ry,sprite,hp,speed);
 				actorDict[uid] = a;
 				actorList.Add(a);
 				Boss.Instance.ScanLocalActors();
@@ -98,11 +99,11 @@ public class Director : MonoBehaviour {
 			Actor a = actorDict[uid];
 			if( oid != Boss.Instance.localOID )
 			{
-				a.Mod(true, uid,oid,tx,ty,rx,ry,sprite,hp,speed);	
+				a.Mod(true, uid,oid,team,tx,ty,rx,ry,sprite,hp,speed);	
 			}
 			else
 			{
-				a.Mod(false, uid,oid,tx,ty,rx,ry,sprite,hp,speed);		
+				a.Mod(false, uid,oid,team,tx,ty,rx,ry,sprite,hp,speed);		
 			}
 		}
 	}

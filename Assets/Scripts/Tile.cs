@@ -251,7 +251,7 @@ public class Tile : MonoBehaviour {
 		if( Passable(actor) )
 		{
 			occupyList.Add(actor);
-			SendMessage("Added", actor, SendMessageOptions.DontRequireReceiver);
+			OnActorAdded(actor);
 			return true;
 		}
 		return false;
@@ -260,6 +260,22 @@ public class Tile : MonoBehaviour {
 	public void Remove(Actor actor)
 	{
 		occupyList.Remove(actor);
-		SendMessage("Removed", actor, SendMessageOptions.DontRequireReceiver);
+		OnActorRemoved(actor);
+	}
+
+	public void OnActorAdded(Actor a)
+	{
+		for(int i=contentList.Count-1; i>=0; --i)
+		{
+			contentList[i].SendMessage("OnActorAdded",a);
+		}
+	}
+
+	public void OnActorRemoved(Actor a)
+	{
+		for(int i=contentList.Count-1; i>=0; --i)
+		{
+			contentList[i].SendMessage("OnActorRemoved",a);
+		}
 	}
 }

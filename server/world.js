@@ -134,7 +134,8 @@ var World = {
 	},
 	
 
-	addActor: function(oid, tx, ty, sprite) {
+	addActor: function(chunks) {
+		//oid, team, x, y, sprite
 		var self = this;
 		var actor = self.actors[self.nextUID-1000];
 		if( self.nextUID == 2000 )
@@ -146,18 +147,20 @@ var World = {
 		{
 			self.nextUID++;
 		}
-		actor.oid = oid;
-		actor.tx = tx;
-		actor.ty = ty;
-		actor.rx = tx*10+5;
-		actor.ry = ty*10-5;
-		actor.sprite = sprite;
+		actor.oid = chunks.shift();
+		actor.team = chunks.shift();
+		actor.tx = chunks.shift();
+		actor.ty = chunks.shift();
+		actor.rx = actor.tx*10+5;
+		actor.ry = actor.ty*10-5;
+		actor.sprite = chunks.shift();
 		actor.hp = 10;
 		actor.speed = 30;
 		self.dirtyActors.push(actor);
 	},
 
 	modActor: function(chunks) {
+		//uid, oid, team, tx, ty, rx, ry, sprite, hp, speed
 		var self = this;
 		var uid = parseInt(chunks.shift());
 		

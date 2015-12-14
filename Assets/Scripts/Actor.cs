@@ -5,11 +5,13 @@ public class Actor : MonoBehaviour {
 
 	public int uid = -1;
 	public int oid = -1;
+	public int team = -1;
 	public int tx = -1;
 	public int ty = -1;
 	public int rx = -1;
 	public int ry = -1;
 	public int hp = -1;
+	
 
 	public bool localInput = false;
 
@@ -21,7 +23,7 @@ public class Actor : MonoBehaviour {
 	private System.Text.StringBuilder sb = new System.Text.StringBuilder();
 
 
-	public void Mod(bool authoritative, int uid, int oid,int tx,int ty,int rx,int ry,string sprite,int hp, int speed)
+	public void Mod(bool authoritative, int uid, int oid, int team, int tx,int ty,int rx,int ry,string sprite,int hp, int speed)
 	{
 		if( this.uid != uid )
 		{
@@ -30,6 +32,10 @@ public class Actor : MonoBehaviour {
 		if( this.oid != oid )
 		{
 			this.oid = oid;
+		}
+		if( this.team != team )
+		{
+			this.team = team;
 		}
 		if( authoritative )
 		{
@@ -54,6 +60,8 @@ public class Actor : MonoBehaviour {
 		sb.Append(this.uid);
 		sb.Append("|");
 		sb.Append(localOID);
+		sb.Append("|");
+		sb.Append(this.team);
 		sb.Append("|");
 		sb.Append(this.tx);
 		sb.Append("|");
