@@ -39,7 +39,7 @@ public class Menu : MonoBehaviour {
 		NetMan.Instance.Launch();
 		connectButton.gameObject.SetActive(false);
 		desiredState = MenuState.CONNECTED;
-		timeoutTime = 3f;
+		timeoutTime = 8f;
 	}
 
 	public void GoSpawn()
@@ -48,7 +48,7 @@ public class Menu : MonoBehaviour {
 		spawnButton.gameObject.SetActive(false);
 		Boss.Instance.RequestSpawn();
 		desiredState = MenuState.SPAWNED;
-		timeoutTime = 3f;
+		timeoutTime = 8f;
 	}
 
 	public void Update()
@@ -74,6 +74,7 @@ public class Menu : MonoBehaviour {
 					buttonB.gameObject.SetActive(false);
 					timeoutButton.gameObject.SetActive(false);
 					background.gameObject.SetActive(true);
+					timeoutTime = -1f;
 					break;
 				case MenuState.CONNECTED:
 					if (NetMan.Instance.isConnected )
@@ -86,6 +87,7 @@ public class Menu : MonoBehaviour {
 							spawnButton.gameObject.SetActive(true);
 							timeoutButton.gameObject.SetActive(false);
 							background.gameObject.SetActive(false);
+							timeoutTime = -1f;
 						}
 					}
 					break;
@@ -96,6 +98,7 @@ public class Menu : MonoBehaviour {
 						buttonA.gameObject.SetActive(true);
 						buttonB.gameObject.SetActive(true);
 						timeoutButton.gameObject.SetActive(false);
+						timeoutTime = -1f;
 					}
 					break;
 			}

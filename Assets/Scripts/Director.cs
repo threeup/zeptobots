@@ -92,6 +92,8 @@ public class Director : MonoBehaviour {
 		int speedLimit = Utils.IntParseFast(chunks[10]);
 		int damage = Utils.IntParseFast(chunks[11]);
 		int ttl = Utils.IntParseFast(chunks[12]);
+		int fx = Utils.IntParseFast(chunks[13]);
+		int fy = Utils.IntParseFast(chunks[14]);
 		Actor a = null;
 
 		if( actorDict.ContainsKey(uid) )
@@ -109,11 +111,11 @@ public class Director : MonoBehaviour {
 			{
 				if( oid != Boss.Instance.localOID )
 				{
-					a.Mod(true, uid,oid,team,tx,ty,rx,ry,sprite,hp,speedLimit,damage,ttl);	
+					a.Mod(true, uid,oid,team,tx,ty,rx,ry,sprite,hp,speedLimit,damage,ttl,fx,fy);	
 				}
 				else
 				{
-					a.Mod(false, uid,oid,team,tx,ty,rx,ry,sprite,hp,speedLimit,damage,ttl);	
+					a.Mod(false, uid,oid,team,tx,ty,rx,ry,sprite,hp,speedLimit,damage,ttl,fx,fy);	
 				}
 			}
 		}
@@ -123,7 +125,7 @@ public class Director : MonoBehaviour {
 			a = AddActor(rx,ry,sprite);
 			if( a != null )
 			{
-				a.Mod(true, uid,oid,team,tx,ty,rx,ry,sprite,hp,speedLimit,damage,ttl);
+				a.Mod(true, uid,oid,team,tx,ty,rx,ry,sprite,hp,speedLimit,damage,ttl,fx,fy);
 				actorDict[uid] = a;
 				actorList.Add(a);
 

@@ -61,4 +61,18 @@ public class Utils : MonoBehaviour {
     	return (Ord)num;
     }
 
+    public static Vector2 GetVecFromString(string str)
+    {
+    	
+		if( str.EndsWith("NW") ) { return new Vector2(-1,1); }
+		if( str.EndsWith("NE") ) { return new Vector2(1,1); }
+		if( str.EndsWith("SW") ) { return new Vector2(-1,-1); }
+		if( str.EndsWith("SE") ) { return new Vector2(1,-1); }
+		if( str.EndsWith("N") ) { return new Vector2(0,1); }
+		if( str.EndsWith("E") ) { return new Vector2(1,0); }
+		if( str.EndsWith("S") ) { return new Vector2(0,-1); }
+		if( str.EndsWith("W") ) { return new Vector2(-1,0); }
+		return Vector2.zero;
+    }
+
 }

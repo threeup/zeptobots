@@ -12,6 +12,8 @@ var Actor = function(uid,oid) {
 	this.speed = 30;
 	this.damage = 1;
 	this.ttl = 1000;
+	this.fx = 0;
+	this.fy = 0;
 };
 
 Actor.prototype.erase = function() {
@@ -34,9 +36,11 @@ Actor.prototype.readChunks = function(chunks) {
 	var speed = chunks.shift();
 	var damage = chunks.shift();
 	var ttl = chunks.shift();
+	var fx = chunks.shift();
+	var fy = chunks.shift();
 
 	var posDirty = false;
-	if( this.rx != rx || this.ry != ry )
+	if( this.rx != rx || this.ry != ry || this.fx != fx || this.fy != fy )
 	{
 		posDirty = true;
 	}
@@ -44,6 +48,8 @@ Actor.prototype.readChunks = function(chunks) {
 	this.ty = ty;
 	this.rx = rx;
 	this.ry = ry;
+	this.fx = fx;
+	this.fy = fy;
 
 	var stateDirty = false;
 	if( this.oid != oid || 
@@ -91,6 +97,10 @@ Actor.prototype.writeChunks = function() {
 	chunks += this.damage;
 	chunks += '|';
 	chunks += this.ttl;
+	chunks += '|';
+	chunks += this.fx;
+	chunks += '|';
+	chunks += this.fy;
 	return chunks;
 };
 

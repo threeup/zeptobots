@@ -9,6 +9,9 @@ public class Engine : MonoBehaviour {
 	public Vector3 desiredPosition = Vector3.zero;
 	public Vector2 moveVec = Vector2.zero;
 	public Vector2 facingVec = Vector2.zero;
+	public int facingX = 0;
+	public int facingY = 0;
+	
 
 	public bool moveLock = false;
 	public bool facingLock = false;
@@ -91,8 +94,9 @@ public class Engine : MonoBehaviour {
 			}
 			actor.rx = (int)Mathf.Round(this.transform.position.x) + 5;
 			actor.ry = -(int)Mathf.Round(this.transform.position.z) - 5;
-
 		}
+		facingX = (int)Mathf.Clamp(facingVec.x*10000, -1,1);
+		facingY = (int)Mathf.Clamp(facingVec.y*10000, -1,1);
 	}
 
 

@@ -57,8 +57,11 @@ public class Boss : MonoBehaviour {
 				selectedHero.Deselect();
 			}
 			selectedHero = localHeroes[Random.Range(0,len)];
-			selectedHero.Select();
-			CamControl.Instance.FollowObject(selectedHero.transform);
+			if( selectedHero != null )
+			{
+				selectedHero.Select();
+				CamControl.Instance.FollowObject(selectedHero.transform);
+			}
 		}
 	}
 

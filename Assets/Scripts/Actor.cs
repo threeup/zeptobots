@@ -48,7 +48,8 @@ public class Actor : MonoBehaviour {
 	}
 	public void Mod(bool authoritative, int uid, int oid, 
 		int team, int tx,int ty,int rx,int ry, string sprite,
-		int hp, int speed, int damage, int ttl)
+		int hp, int speed, int damage, int ttl,
+		int fx, int fy)
 	{
 		if( this.uid != uid )
 		{
@@ -68,9 +69,12 @@ public class Actor : MonoBehaviour {
 			this.ty = ty;
 			this.rx = rx;
 			this.ry = ry;
-			this.engine.desiredPosition = new Vector3(rx, 0f, ry);
+			this.engine.desiredPosition = new Vector3(rx-5, 0f, -ry-5);
 			this.spriter.SetSprite(sprite);
 			this.engine.speedLimit = speed;
+			this.engine.facingX = fx;
+			this.engine.facingY = fy;
+			this.engine.facingVec = new Vector2(fx, fy);
 			this.damage = damage;
 			this.ttl = ttl;
 			this.ttlTimer = ttl;
@@ -108,6 +112,10 @@ public class Actor : MonoBehaviour {
 		sb.Append(this.damage);
 		sb.Append("|");
 		sb.Append(this.ttl);
+		sb.Append("|");
+		sb.Append(this.engine.facingX);
+		sb.Append("|");
+		sb.Append(this.engine.facingY);
 		sb.Append("\n");
 		return sb.ToString();
 	}

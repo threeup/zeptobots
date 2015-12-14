@@ -15,6 +15,10 @@ public class HealthBar : MonoBehaviour {
 		}
 		this.hp = hp;
 		int percentHealth = (int)Mathf.Round(10*hp / maxHP);
+		if (percentHealth < 1)
+		{
+			percentHealth = 1;
+		}
 		Color color = Color.green;
 		if( percentHealth < 3 )
 		{

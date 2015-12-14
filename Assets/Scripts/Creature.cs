@@ -22,14 +22,7 @@ public class Creature : MonoBehaviour {
 		actor.ttl = ttlOverride;
 		actor.ttlTimer = ttlOverride;
 		actor.engine.speedLimit = speedOverride;
-		if( sprite.EndsWith("NW") ) { targetVec = new Vector2(-1,1); return; }
-		if( sprite.EndsWith("NE") ) { targetVec = new Vector2(1,1); return; }
-		if( sprite.EndsWith("SW") ) { targetVec = new Vector2(-1,-1); return; }
-		if( sprite.EndsWith("SE") ) { targetVec = new Vector2(1,-1); return; }
-		if( sprite.EndsWith("N") ) { targetVec = new Vector2(0,1); return; }
-		if( sprite.EndsWith("E") ) { targetVec = new Vector2(1,0); return; }
-		if( sprite.EndsWith("S") ) { targetVec = new Vector2(0,-1); return; }
-		if( sprite.EndsWith("W") ) { targetVec = new Vector2(-1,0); return; }
+		targetVec = Utils.GetVecFromString(sprite);
 	}
 
 

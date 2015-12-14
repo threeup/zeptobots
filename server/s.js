@@ -1,7 +1,7 @@
 var ws           = require('ws').Server;
 var server       = new ws({ port: 3000 });
 var world 		 = require('./world');
-var fps          = 10;
+var fps          = 30;
 
 
 server.broadcast = function(data) {
