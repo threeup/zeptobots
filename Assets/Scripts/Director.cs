@@ -61,7 +61,7 @@ public class Director : MonoBehaviour {
 		}
 		if( prototype )
 		{
-			Vector3 pos = new Vector3(rx, 1f, ry);
+			Vector3 pos = new Vector3(rx-5, 1f, -ry-5);
 			GameObject go = GameObject.Instantiate(prototype, pos, prototype.transform.rotation) as GameObject;
 			go.SetActive(true);
 			actor = go.GetComponent<Actor>();

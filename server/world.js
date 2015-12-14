@@ -21,7 +21,7 @@ var World = {
 				this.sectors.push(new Sector(sx,sy));
 			}	
 		}
-
+		
 		for( var q = 0; q<1000; ++q)
 		{
 			var uid = q+1000;
@@ -39,6 +39,7 @@ var World = {
 		var endX = 5+radius;
 		var startY = 5-radius;
 		var endY = 5+radius;
+		console.log('radius'+radius);
 		for( var sy = startY; sy<= endY; ++sy)
 		{
 			for( var sx = startX; sx<= endX; ++sx)
@@ -59,8 +60,8 @@ var World = {
 					var chunks = line.toString().split('|');
 					if( chunks.length > 2 )
 					{
-						var sx = chunks.shift();
-						var sy = chunks.shift();
+						var sx = parseInt(chunks.shift());
+						var sy = parseInt(chunks.shift());
 						var contents = chunks.shift();
 						var sec = self.getSector(sx,sy);
 						if( sec )
@@ -88,7 +89,7 @@ var World = {
 					var chunks = line.toString().split('|');
 					if( chunks.length > 3)
 					{
-						var uid = chunks.shift();
+						var uid = parseInt(chunks.shift());
 						var actor = self.actors[uid-1000];
 						actor.readChunks(chunks);
 						count++;
@@ -149,7 +150,7 @@ var World = {
 		actor.tx = tx;
 		actor.ty = ty;
 		actor.rx = tx*10+5;
-		actor.ry = ty*10+5;
+		actor.ry = ty*10-5;
 		actor.sprite = sprite;
 		actor.hp = 10;
 		actor.speed = 30;
@@ -158,7 +159,7 @@ var World = {
 
 	modActor: function(chunks) {
 		var self = this;
-		var uid = chunks.shift();
+		var uid = parseInt(chunks.shift());
 		
 		var actor = self.actors[uid-1000];
 		if( actor != null )
@@ -181,6 +182,26 @@ var World = {
 				self.dirtyActors.push(actor);
 			}
 		});
+	},
+
+	modTile: function(chunks) {
+		var self = this;
+		var sx = parseInt(chunks.shift());
+		var sy = parseInt(chunks.shift());
+		var ltx = parseInt(chunks.shift());
+		var lty = parseInt(chunks.shift());
+		var c = chunks.shift();
+		var sec = self.getSector(sx,sy);
+		if( sec != null )
+		{
+			var old = sec.getGround(ltx,lty);
+			if( old != c )
+			{
+				sec.setGround(ltx,lty,c);
+				self.dirtySectors.push(sec);
+				//console.log(sx+","+sy+" "+ltx+","+lty+" "+old+" ->"+c);
+			}
+		}
 	},
 
 	getAll: function() {

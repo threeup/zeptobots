@@ -5,16 +5,18 @@ public class World : MonoBehaviour {
 
 	public static World Instance;
 	public Sector[,] sectors = new Sector[10,10];
+	public int sectorCount = 0;
 
 
 	public TileMaterial wallMaterial;
 
 	public GameObject protoSector;
-	public GameObject protoTileFloor;
-	public GameObject protoTileWall;
-	public GameObject protoTileTree;
-	public GameObject protoTileRedHouse;
-	public GameObject protoTileBlueHouse;
+	public GameObject tileEmpty;
+	public GameObject tileWall;
+	public GameObject contentsTree;
+	public GameObject contentsEmptyHouse;
+	public GameObject contentsRedHouse;
+	public GameObject contentsBlueHouse;
 
 
 	void Awake()
@@ -33,7 +35,7 @@ public class World : MonoBehaviour {
 		{
 			for(int sx=0; sx<10; ++sx)
 			{
-				Vector3 pos = new Vector3(sx*100, 0, sy*100);
+				Vector3 pos = new Vector3(sx*100, 0, -sy*100);
 				GameObject go = GameObject.Instantiate(protoSector, pos, protoSector.transform.rotation) as GameObject;
 				go.name = "Sector "+sx+","+sy;
 				go.transform.parent = this.transform;
@@ -70,7 +72,11 @@ public class World : MonoBehaviour {
 		int sx = Utils.IntParseFast(chunks[1]);
 		int sy = Utils.IntParseFast(chunks[2]);
 		string contents = chunks[3];
-		sectors[sx,sy].Mod(contents);	
+		bool created = sectors[sx,sy].Mod(contents);
+		if( created )
+		{
+			sectorCount++;
+		}
 	}
 
 	public Tile MakeTile(char c, Vector3 pos, string tname)
@@ -79,12 +85,8 @@ public class World : MonoBehaviour {
 		Tile tile = null;
 		switch(c)
 		{
-			case 'F': prototype = protoTileFloor; break;
-			case 'W': prototype = protoTileWall; break;
-			case 'T': prototype = protoTileTree; break;
-			case 'R': prototype = protoTileRedHouse; break;
-			case 'B': prototype = protoTileBlueHouse; break;
-			default:  break;
+			case 'W': prototype = tileWall; break;
+			default:  prototype = tileEmpty; break;
 		}
 		if( prototype )
 		{
@@ -96,6 +98,28 @@ public class World : MonoBehaviour {
 		}
 		return tile;
 	}
+
+	public TileContents MakeTileContents(char c, Transform root)
+	{
+		GameObject prototype = null;
+		TileContents contents = null;
+		switch(c)
+		{
+			case 'T': prototype = contentsTree; break;
+			case 'S': prototype = contentsEmptyHouse; break;
+			case 'R': prototype = contentsRedHouse; break;
+			case 'B': prototype = contentsBlueHouse; break;
+			default:  break;
+		}
+		if( prototype )
+		{
+			GameObject go = GameObject.Instantiate(prototype, Vector3.zero, Quaternion.identity) as GameObject;
+			go.transform.SetParent(root,false);
+			go.SetActive(true);
+			contents = go.GetComponent<TileContents>();
+		}
+		return contents;
+	}
 	
 	public Sector GetRandomSector()
 	{
@@ -104,22 +128,15 @@ public class World : MonoBehaviour {
 
 	public Sector GetSectorAt(Vector3 pos)
 	{
-		int sx = (int)Mathf.Floor(pos.x/100f);
-		int sy = (int)Mathf.Floor(pos.z/100f);
+		float localX = pos.x;
+		float localY = -pos.z;
+		int sx = (int)Mathf.Floor(localX/100f);
+		int sy = (int)Mathf.Floor(localY/100f);
 		if( sx >= 0 && sx < 10 && sy >= 0 && sy < 10 )
 		{
 			return sectors[sx,sy];
 		}
 		return null;
 	}
-	public Tile GetTileAt(Vector3 pos)
-	{
-		int sx = (int)Mathf.Floor(pos.x/100f);
-		int sy = (int)Mathf.Floor(pos.z/100f);
-		if( sx >= 0 && sx < 10 && sy >= 0 && sy < 10 )
-		{
-			return sectors[sx,sy].GetTileAt(pos);
-		}
-		return null;
-	}
+
 }

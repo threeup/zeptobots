@@ -17,21 +17,26 @@ server.broadcast = function(data) {
 var clientNum = 0;
 var nextIsRed = true;
 server.on('connection', function(socket) {
-	console.log('connected');
 	//console.log(socket);
 
 	clientNum = server.clients.length;
+	console.log('connected: '+clientNum);
 	var oid = 100+clientNum;
+
 
 	if( clientNum == 1 )
 	{
+		world.activateSector(1);
+	}
+	else if( clientNum == 2 )
+	{
 		world.activateSector(2);
 	}
-	else if( clientNum == 3 )
+	else if( clientNum == 4 )
 	{
 		world.activateSector(3);
 	}
-	else if( clientNum == 6 )
+	else if( clientNum == 10 )
 	{
 		world.activateSector(5);
 	}
@@ -54,6 +59,11 @@ server.on('connection', function(socket) {
 		{
 			//uid, oid, tx, ty, rx, ry, sprite, hp, speed
 			world.modActor(chunks);
+		}
+		if( cmd == "requestworldmod" )
+		{
+			//sx, sy, ltx, lty, c
+			world.modTile(chunks);
 		}
 	});
 

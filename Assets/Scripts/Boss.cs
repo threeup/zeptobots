@@ -10,7 +10,7 @@ public class Boss : MonoBehaviour {
 	public bool localIsRed = true;
 	public List<Actor> localActors = new List<Actor>();
 	public List<Hero> localHeroes = new List<Hero>();
-	public Tile selectedTile = null;
+	public Kingdom selectedKingdom = null;
 	public Hero selectedHero = null;
 
 	private float sendUpdateTimer = 0.1f;
@@ -22,20 +22,29 @@ public class Boss : MonoBehaviour {
 	
 	public void SelectRandomSpawn()
 	{
-		int len = 0;
+		if( World.Instance.sectorCount == 0 )
+		{
+			Debug.Log("wait");
+			return;
+		}
 		int attempt = 0;;
-		List<Tile> spawnTiles = null;
-		while(len == 0 && attempt < 100)
+		List<Kingdom> kingdoms = null;
+		selectedKingdom = null;
+		while(selectedKingdom == null && attempt < 100)
 		{
 			attempt++;
-			spawnTiles = World.Instance.GetRandomSector().spawnTiles;
-			len = spawnTiles.Count;
+			kingdoms = World.Instance.GetRandomSector().kingdoms;
+			for(int i=0; i<kingdoms.Count; ++i)
+			{
+				if( kingdoms[i].ownerOID < 0 )
+				{
+					selectedKingdom = kingdoms[i];
+					CamControl.Instance.FollowObject(selectedKingdom.transform);
+					break;
+				}
+			}
 		}
-		if( len > 0 )
-		{
-			selectedTile = spawnTiles[Random.Range(0,len)];
-			CamControl.Instance.LookAt(selectedTile.transform.position);
-		}
+		
 	}
 
 	public void SelectRandomLocalHero()
@@ -55,16 +64,17 @@ public class Boss : MonoBehaviour {
 
 	public void RequestSpawn() 
 	{
-		if( selectedTile != null )
+		if( selectedKingdom == null )
 		{
-			int rtx = selectedTile.rtx;
-			int rty = selectedTile.rty;
-			//oid, x, y, sprite
-
-			string sprite = localIsRed ? "Rd1" : "Bd1";
-			NetMan.Instance.Send("requestactoradd|"+localOID+"|"+rtx+"|"+rty+"|"+sprite);
-			Debug.Log("request spawn"+rtx+" "+rty+" "+sprite);
+			SelectRandomSpawn();
 		}
+		if( selectedKingdom == null )
+		{
+			Debug.Log("nowhere to spawn");
+			return;
+		}
+		selectedKingdom.RequestKingdom(localOID, localIsRed);
+		
 	}
 
 	public void SendUpdate()

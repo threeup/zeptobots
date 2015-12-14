@@ -55,9 +55,14 @@ public class Engine : MonoBehaviour {
 		{
 			currentStep = 0f;
 		}
-		Sector sec = World.Instance.GetSectorAt(this.transform.position);
-		Tile t = sec.GetTileAt(this.transform.position);
-		if( t == null )
+		Vector3 centerPos = this.transform.position- Vector3.forward*5+ Vector3.right*5;
+		Sector sec = World.Instance.GetSectorAt(centerPos);
+		Tile t = null;
+		if( sec != null )
+		{
+			t = sec.GetTileAt(centerPos);
+		}
+		if( t == null && engineTile != null )
 		{
 			this.transform.position = originalPosition;
 			currentStep = 0f; 

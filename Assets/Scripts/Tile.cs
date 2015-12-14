@@ -4,12 +4,13 @@ using System.Collections.Generic;
 
 public class Tile : MonoBehaviour {
 
-	public enum TileType
+	[System.Flags]
+	public enum TileFlags
 	{
 		NONE = 0,
 		SOLID = 1,
-		SPAWN = 2,
-		FARM = 3,
+		KINGDOM = 2,
+		FARM = 4,
 	}
 
 	public enum Ord
@@ -24,11 +25,13 @@ public class Tile : MonoBehaviour {
 		E = 7,
 	}
 
-	public TileType tileType = TileType.NONE;
+	public TileFlags tFlags = TileFlags.NONE;
 	public int ltx;
 	public int lty;
 	public int rtx;
 	public int rty;
+	public int sx;
+	public int sy;
 	private int imageIndex = -1;
 	private int solidImageIndex;
 	public int desiredImageIndex;
@@ -39,12 +42,40 @@ public class Tile : MonoBehaviour {
 	public SpriteRenderer spriteRend = null;
 	public TileMaterial tileMat = null;
 
-	public void Init(int ltx, int lty, int rtx, int rty)
+	public char cValue = ' ';
+	public List<TileContents> contentList = new List<TileContents>();
+
+	public void Init(int ltx, int lty, int rtx, int rty, int sx, int sy)
 	{
 		this.ltx = ltx;
 		this.lty = lty;
 		this.rtx = rtx;
 		this.rty = rty;
+		this.sx = sx;
+		this.sy = sy;
+	}
+
+	public bool SetContents(char c)
+	{
+		if(this.cValue == c)
+		{
+			return false;
+		}
+		this.cValue = c;
+		for(int i=contentList.Count-1; i>=0; --i)
+		{
+			TileContents dead = contentList[i];
+			contentList.RemoveAt(i);
+			Destroy(dead);
+		}
+		TileContents content = World.Instance.MakeTileContents(c, this.transform);
+		if( content != null )
+		{
+			contentList.Add(content);
+			tFlags |= content.tFlags;
+		}
+		return true;
+
 	}
 
 	public void AddNbor(Tile t)
@@ -69,7 +100,7 @@ public class Tile : MonoBehaviour {
 
 	public void RefreshSprite()
 	{
-		bool solid = tileType == TileType.SOLID;
+		bool solid = (tFlags & Tile.TileFlags.SOLID) != 0;
 		solidImageIndex = GetTileImageIndex();
 		desiredImageIndex = solid?solidImageIndex:defaultImageIndex;
 		//spriteRend.sprite = tileMat.GetSprite(desiredImageIndex);
@@ -86,7 +117,11 @@ public class Tile : MonoBehaviour {
 
 	char GetSolid(Tile t)
 	{
-		if(t == null || t.tileType == this.tileType)
+		if( t== null )
+		{
+			return '1';
+		}
+		if((t.tFlags & Tile.TileFlags.SOLID) != 0)
 		{
 			return '1';
 		}
@@ -206,7 +241,8 @@ public class Tile : MonoBehaviour {
 
 	public bool Passable(Actor actor)
 	{
-		return tileType != TileType.SOLID || !actor.localInput;
+		bool isSolid = (tFlags & Tile.TileFlags.SOLID) != 0;
+		return !isSolid || !actor.localInput;
 	}
 	
 
@@ -215,6 +251,7 @@ public class Tile : MonoBehaviour {
 		if( Passable(actor) )
 		{
 			occupyList.Add(actor);
+			SendMessage("Added", actor, SendMessageOptions.DontRequireReceiver);
 			return true;
 		}
 		return false;
@@ -223,5 +260,6 @@ public class Tile : MonoBehaviour {
 	public void Remove(Actor actor)
 	{
 		occupyList.Remove(actor);
+		SendMessage("Removed", actor, SendMessageOptions.DontRequireReceiver);
 	}
 }

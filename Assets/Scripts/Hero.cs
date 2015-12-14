@@ -4,10 +4,8 @@ using System.Collections;
 public class Hero : MonoBehaviour {
 
 	public Actor actor = null;
-	public Engine engine = null;
 	public GameAction[] actions;
 
-	public Spriter spriter = null;
 	public Light spotLight = null;
 
 	public Vector2 inputVec = Vector2.zero;
@@ -31,6 +29,8 @@ public class Hero : MonoBehaviour {
 	void Update () 
 	{
 		float deltaTime = Time.deltaTime;
+		Engine engine = actor.engine;
+		Spriter spriter = actor.spriter;
 		engine.MoveUpdate(deltaTime, inputVec);
 		
 		actions[0].ActionUpdate(deltaTime, actor, inputA);

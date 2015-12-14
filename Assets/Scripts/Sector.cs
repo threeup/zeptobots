@@ -10,9 +10,9 @@ public class Sector : MonoBehaviour {
 	int mapWidth = 10;
 	World world;
 
-	bool isInit = false;
+	bool isPopulated = false;
 
-	public List<Tile> spawnTiles = new List<Tile>();
+	public List<Kingdom> kingdoms = new List<Kingdom>();
 	public Tile[,] tiles = new Tile[10,10];
 
 
@@ -36,7 +36,7 @@ public class Sector : MonoBehaviour {
 		this.sy = sy;
 	}
 
-	public void Mod(string blob)
+	public bool Mod(string blob)
 	{
 		string[] blobArray = blob.Split(',');
 		mapWidth = blobArray.Length-1;
@@ -45,19 +45,52 @@ public class Sector : MonoBehaviour {
 		{
 			map[i] = blobArray[i];
 		}
-		if( !isInit )
+		if( !isPopulated )
 		{
-			InitMap();
+			bool isDifferent = PopulateMap();
+			if( isDifferent )
+			{
+				RefreshMap();
+				return true;
+			}
 		}
 		else
 		{
-			//?
+			bool isDifferent = ChangeMap();
+			if( isDifferent )
+			{
+				RefreshMap();
+			}
+			
 		}
+		return false;
+		
+	}
+
+	public bool ChangeMap()
+	{		
+		bool result = false;
+		for(int lty=0; lty<mapWidth; ++lty)
+		{
+			for(int ltx=0; ltx<mapWidth; ++ltx)	
+			{
+				string line = map[lty];
+				char c = ' ';
+				if( line.Length > ltx )
+				{
+					c = line[ltx];
+				}
+				Tile t = tiles[ltx,lty];
+				result |= t.SetContents(c);
+			}
+		}
+		return isPopulated;
 	}
 
 
-	public void InitMap	()
+	public bool PopulateMap	()
 	{		
+		isPopulated = false;
 		for(int lty=0; lty<mapWidth; ++lty)
 		{
 			for(int ltx=0; ltx<mapWidth; ++ltx)	
@@ -71,35 +104,29 @@ public class Sector : MonoBehaviour {
 				string tileName = "Tile "+ltx+","+lty+" of "+this.gameObject.name;
 				int rtx = ltx+sx*10;
 				int rty = lty+sy*10;
-				Vector3 tilePos = new Vector3(rtx*10, 0, rty*10);
-				tilePos.x += 5;
-				tilePos.z += 5;
-				if( c == 'S')
-				{
-					if( sy > 5 )
-					{
-						c = 'R';
-					}
-					else
-					{
-						c = 'B';
-					}
-				}
+				Vector3 tilePos = new Vector3(rtx*10, 0, -rty*10);
 				Tile t = world.MakeTile(c, tilePos, tileName);
 				if( t != null )
 				{
-					switch(t.tileType)
-					{
-						case Tile.TileType.SPAWN:
-							spawnTiles.Add(t);
-							break;
-					}
+					isPopulated = true;
 					t.gameObject.transform.parent = this.transform;
-					t.Init(ltx,lty,rtx,rty);
+					t.Init(ltx,lty,rtx,rty,sx,sy);
+					t.SetContents(c);
 					tiles[ltx,lty] = t;
+
+					if( (t.tFlags & Tile.TileFlags.KINGDOM) != 0 )
+					{
+						kingdoms.Add(t.GetComponentInChildren<Kingdom>());
+					}
 				}
 			}
 		}
+		return isPopulated;
+	}
+
+	public void RefreshMap()
+	{
+
 		for(int lty=0; lty<mapWidth; ++lty)
 		{
 			for(int ltx=0; ltx<mapWidth; ++ltx)	
@@ -137,18 +164,21 @@ public class Sector : MonoBehaviour {
 				}
 			}
 		}
-		isInit = true;
 	}
 
 	public Tile GetTileAt(Vector3 pos)
 	{
 		float localX = pos.x - sx*100;
-		float localY = pos.z - sy*100;
+		float localY = -pos.z - sy*100;
 		int ltx = (int)Mathf.Floor(localX/10f);
 		int lty = (int)Mathf.Floor(localY/10f);
 		if( ltx >= 0 && ltx < 10 && lty >= 0 && lty < 10 )
 		{
 			return tiles[ltx,lty];
+		}
+		else
+		{
+			Debug.Log("wrong"+ltx+" "+lty);
 		}
 		return null;
 	}

@@ -15,6 +15,7 @@ public class Actor : MonoBehaviour {
 
 	public Engine engine = null;
 	public Hero hero = null;
+	public Creature creature = null;
 	public Spriter spriter = null;
 
 	private System.Text.StringBuilder sb = new System.Text.StringBuilder();

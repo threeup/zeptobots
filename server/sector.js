@@ -34,14 +34,25 @@ var Sector = function(sx,sy) {
 		this.contents += "WFFWWFTTFW,";
 		this.contents += "WFFFFFTTFW,";
 	}
+
 	this.contents += "WWWWFFWWWW,";	
 	this.active = false;
 	this.sx = sx;
 	this.sy = sy;
 };
 
+Sector.prototype.replaceAt=function(string, index, character) {
+    return string.substr(0, index) + character + string.substr(index+character.length);
+}
+
 Sector.prototype.getGround = function(sx,sy) {
-	return this.contents.charAt(sy*10+sx);
+	//11 for commas
+	return this.contents.charAt(sy*11+sx);
+};
+
+Sector.prototype.setGround = function(sx,sy,c) {
+	//11 for commas
+	this.contents = this.replaceAt(this.contents, sy*11+sx, c);
 };
 
 Sector.prototype.writeChunks = function() {
