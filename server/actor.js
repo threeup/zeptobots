@@ -10,6 +10,8 @@ var Actor = function(uid,oid) {
 	this.sprite = " ";
 	this.hp = -1;
 	this.speed = 30;
+	this.damage = 1;
+	this.ttl = 1000;
 };
 
 Actor.prototype.erase = function() {
@@ -30,6 +32,8 @@ Actor.prototype.readChunks = function(chunks) {
 	var sprite = chunks.shift();
 	var hp = chunks.shift();
 	var speed = chunks.shift();
+	var damage = chunks.shift();
+	var ttl = chunks.shift();
 
 	var posDirty = false;
 	if( this.rx != rx || this.ry != ry )
@@ -42,7 +46,13 @@ Actor.prototype.readChunks = function(chunks) {
 	this.ry = ry;
 
 	var stateDirty = false;
-	if( this.oid != oid || this.team != team || this.sprite != sprite || this.hp != hp || this.speed != speed)
+	if( this.oid != oid || 
+		this.team != team || 
+		this.sprite != sprite || 
+		this.hp != hp || 
+		this.speed != speed ||
+		this.damage != damage ||
+		this.ttl != ttl)
 	{
 		stateDirty = true;
 	}
@@ -51,6 +61,8 @@ Actor.prototype.readChunks = function(chunks) {
 	this.sprite = sprite;
 	this.hp = hp;
 	this.speed = speed;
+	this.damage = damage;
+	this.ttl = ttl;
 	return posDirty || stateDirty;
 };
 
@@ -75,6 +87,10 @@ Actor.prototype.writeChunks = function() {
 	chunks += this.hp;
 	chunks += '|';
 	chunks += this.speed;
+	chunks += '|';
+	chunks += this.damage;
+	chunks += '|';
+	chunks += this.ttl;
 	return chunks;
 };
 

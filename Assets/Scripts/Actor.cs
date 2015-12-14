@@ -5,12 +5,14 @@ public class Actor : MonoBehaviour {
 
 	public int uid = -1;
 	public int oid = -1;
-	public int team = -1;
+	public int team = -1; //red is 1 blue is 0
 	public int tx = -1;
 	public int ty = -1;
 	public int rx = -1;
 	public int ry = -1;
 	public int hp = -1;
+	public int damage = 1;
+	public int ttl = -1;
 	
 
 	public bool localInput = false;
@@ -23,7 +25,25 @@ public class Actor : MonoBehaviour {
 	private System.Text.StringBuilder sb = new System.Text.StringBuilder();
 
 
-	public void Mod(bool authoritative, int uid, int oid, int team, int tx,int ty,int rx,int ry,string sprite,int hp, int speed)
+	private float invulnerableTime = -1f;
+	public float ttlTimer = -1f;
+
+	public void Update()
+	{
+		float deltaTime = Time.deltaTime;
+		if( invulnerableTime > 0f )
+		{
+			invulnerableTime -= deltaTime;
+		}
+		if( ttlTimer > 0f && ttlTimer < 999f )
+		{
+			ttlTimer -= deltaTime;
+			ttl = (int)Mathf.Ceil(ttlTimer);
+		}
+	}
+	public void Mod(bool authoritative, int uid, int oid, 
+		int team, int tx,int ty,int rx,int ry, string sprite,
+		int hp, int speed, int damage, int ttl)
 	{
 		if( this.uid != uid )
 		{
@@ -46,6 +66,9 @@ public class Actor : MonoBehaviour {
 			this.engine.desiredPosition = new Vector3(rx, 0f, ry);
 			this.spriter.SetSprite(sprite);
 			this.engine.speedLimit = speed;
+			this.damage = damage;
+			this.ttl = ttl;
+			this.ttlTimer = ttl;
 		}
 		if( this.hp != hp )
 		{
@@ -76,6 +99,10 @@ public class Actor : MonoBehaviour {
 		sb.Append(this.hp);
 		sb.Append("|");
 		sb.Append(this.engine.speedLimit);
+		sb.Append("|");
+		sb.Append(this.damage);
+		sb.Append("|");
+		sb.Append(this.ttl);
 		sb.Append("\n");
 		return sb.ToString();
 	}
@@ -84,6 +111,15 @@ public class Actor : MonoBehaviour {
 	{
 		localInput = val;
 		spriter.localUpdate = val;
+	}
+
+	public void TakeDamage(int val)
+	{
+		if( invulnerableTime < 0f )
+		{
+			this.hp -= val;
+			this.invulnerableTime = 1f;
+		}
 	}
 
 }

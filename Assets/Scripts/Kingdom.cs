@@ -27,7 +27,9 @@ public class Kingdom : MonoBehaviour {
 		team = localIsRed ? 1 : 0;
 
 		string actorSprite = localIsRed ? "Rd1" : "Bd1";
-		NetMan.Instance.Send("requestactoradd|"+ownerOID+"|"+team+"|"+tile.rtx+"|"+tile.rty+"|"+actorSprite);
+		int rx = tile.rtx*10+5;
+		int ry = tile.rty*10-5;
+		NetMan.Instance.Send("requestactoradd|"+ownerOID+"|"+team+"|"+rx+"|"+ry+"|"+actorSprite);
 		string worldSprite = localIsRed ? "R" : "B";
 		NetMan.Instance.Send("requestworldmod|"+tile.sx+"|"+tile.sy+"|"+tile.ltx+"|"+tile.lty+"|"+worldSprite);
 	}
@@ -48,8 +50,12 @@ public class Kingdom : MonoBehaviour {
 			if( spawnTimer <= 0f)
 			{
 				spawnTimer = 20f;
-				string actorSprite = "H";
-				NetMan.Instance.Send("requestactoradd|"+ownerOID+"|"+team+"|"+tile.rtx+"|"+tile.rty+"|"+actorSprite);
+				string dogSprite = "H";
+				Utils.Ord ord = Utils.GetRandomOrd();
+				dogSprite += ord.ToString();
+				int rx = tile.rtx*10+5;
+				int ry = tile.rty*10-5;
+				NetMan.Instance.Send("requestactoradd|"+ownerOID+"|"+team+"|"+rx+"|"+ry+"|"+dogSprite);
 			}
 		}
 		if( conquerTimer > 0f )

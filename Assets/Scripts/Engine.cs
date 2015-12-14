@@ -81,8 +81,8 @@ public class Engine : MonoBehaviour {
 					engineTile = t;
 					actor.tx = t.rtx;
 					actor.ty = t.rty;
-					actor.rx = (int)Mathf.Round(this.transform.position.x);
-					actor.ry = (int)Mathf.Round(this.transform.position.z);
+					actor.rx = (int)Mathf.Round(this.transform.position.x) + 5;
+					actor.ry = -(int)Mathf.Round(this.transform.position.z) - 5;
 				}
 				else
 				{

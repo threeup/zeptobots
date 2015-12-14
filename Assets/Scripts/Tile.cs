@@ -13,17 +13,6 @@ public class Tile : MonoBehaviour {
 		FARM = 4,
 	}
 
-	public enum Ord
-	{
-		NE = 0,
-		N = 1,
-		NW = 2,
-		W = 3,
-		SW = 4,
-		S = 5,
-		SE = 6,
-		E = 7,
-	}
 
 	public TileFlags tFlags = TileFlags.NONE;
 	public int ltx;
@@ -88,14 +77,14 @@ public class Tile : MonoBehaviour {
 		bool isRight = t.ltx > this.ltx;
 		bool isUp = t.lty > this.lty;
 		bool isDown = t.lty < this.lty;
-		if( isLeft && isUp ) { 		nbors[(int)Ord.NW] = t; t.nbors[(int)Ord.SE] = this; return; }
-		if( isRight && isUp ) { 	nbors[(int)Ord.NE] = t; t.nbors[(int)Ord.SW] = this; return; }
-		if( isLeft && isDown ) { 	nbors[(int)Ord.SW] = t; t.nbors[(int)Ord.NE] = this; return; }
-		if( isRight && isDown ) { 	nbors[(int)Ord.SE] = t; t.nbors[(int)Ord.NW] = this; return; }
-		if( isLeft ) { 				nbors[(int)Ord.W] = t; t.nbors[(int)Ord.E] = this; return; }
-		if( isRight ) { 			nbors[(int)Ord.E] = t; t.nbors[(int)Ord.W] = this; return; }
-		if( isUp ) { 				nbors[(int)Ord.N] = t; t.nbors[(int)Ord.S] = this; return; }
-		if( isDown ) { 				nbors[(int)Ord.S] = t; t.nbors[(int)Ord.N] = this; return; }
+		if( isLeft && isUp ) { 		nbors[(int)Utils.Ord.NW] = t; t.nbors[(int)Utils.Ord.SE] = this; return; }
+		if( isRight && isUp ) { 	nbors[(int)Utils.Ord.NE] = t; t.nbors[(int)Utils.Ord.SW] = this; return; }
+		if( isLeft && isDown ) { 	nbors[(int)Utils.Ord.SW] = t; t.nbors[(int)Utils.Ord.NE] = this; return; }
+		if( isRight && isDown ) { 	nbors[(int)Utils.Ord.SE] = t; t.nbors[(int)Utils.Ord.NW] = this; return; }
+		if( isLeft ) { 				nbors[(int)Utils.Ord.W] = t; t.nbors[(int)Utils.Ord.E] = this; return; }
+		if( isRight ) { 			nbors[(int)Utils.Ord.E] = t; t.nbors[(int)Utils.Ord.W] = this; return; }
+		if( isUp ) { 				nbors[(int)Utils.Ord.N] = t; t.nbors[(int)Utils.Ord.S] = this; return; }
+		if( isDown ) { 				nbors[(int)Utils.Ord.S] = t; t.nbors[(int)Utils.Ord.N] = this; return; }
 	}
 
 	public void RefreshSprite()
@@ -150,15 +139,15 @@ public class Tile : MonoBehaviour {
 		int result=0;
 		
 		char[] sidesArray = { 
-			GetSolid(nbors[(int)Ord.N]), 
-			GetSolid(nbors[(int)Ord.E]), 
-			GetSolid(nbors[(int)Ord.S]), 
-			GetSolid(nbors[(int)Ord.W]) };
+			GetSolid(nbors[(int)Utils.Ord.N]), 
+			GetSolid(nbors[(int)Utils.Ord.E]), 
+			GetSolid(nbors[(int)Utils.Ord.S]), 
+			GetSolid(nbors[(int)Utils.Ord.W]) };
 		char[] cornersArray = { 
-			GetSolid(nbors[(int)Ord.NE]), 
-			GetSolid(nbors[(int)Ord.NW]), 
-			GetSolid(nbors[(int)Ord.SW]), 
-			GetSolid(nbors[(int)Ord.SE]) };
+			GetSolid(nbors[(int)Utils.Ord.NE]), 
+			GetSolid(nbors[(int)Utils.Ord.NW]), 
+			GetSolid(nbors[(int)Utils.Ord.SW]), 
+			GetSolid(nbors[(int)Utils.Ord.SE]) };
 		string sides = new string(sidesArray);
 		string corners = new string(cornersArray);
 		
@@ -252,6 +241,7 @@ public class Tile : MonoBehaviour {
 		{
 			occupyList.Add(actor);
 			OnActorAdded(actor);
+			CheckCollision();
 			return true;
 		}
 		return false;
@@ -267,7 +257,7 @@ public class Tile : MonoBehaviour {
 	{
 		for(int i=contentList.Count-1; i>=0; --i)
 		{
-			contentList[i].SendMessage("OnActorAdded",a);
+			contentList[i].SendMessage("OnActorAdded",a, SendMessageOptions.DontRequireReceiver);
 		}
 	}
 
@@ -275,7 +265,39 @@ public class Tile : MonoBehaviour {
 	{
 		for(int i=contentList.Count-1; i>=0; --i)
 		{
-			contentList[i].SendMessage("OnActorRemoved",a);
+			contentList[i].SendMessage("OnActorRemoved",a, SendMessageOptions.DontRequireReceiver);
+		}
+	}
+
+	public void CheckCollision()
+	{
+		if( occupyList.Count > 1 )
+		{
+			int redDamage = 0;
+			int blueDamage = 0;
+			for(int i=0; i<occupyList.Count; ++i)
+			{
+				if( occupyList[i].team == 0 )
+				{
+					blueDamage += occupyList[i].damage;
+				}
+				if( occupyList[i].team == 1 )		
+				{
+					redDamage += occupyList[i].damage;
+				}
+			}
+			for(int i=0; i<occupyList.Count; ++i)
+			{
+				if( occupyList[i].team == 0 && redDamage > 0 )
+				{
+					occupyList[i].TakeDamage(redDamage);
+					
+				}
+				if( occupyList[i].team == 1 && blueDamage > 0 )		
+				{
+					occupyList[i].TakeDamage(blueDamage);
+				}
+			}
 		}
 	}
 }

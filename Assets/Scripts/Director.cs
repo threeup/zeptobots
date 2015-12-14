@@ -6,8 +6,10 @@ public class Director : MonoBehaviour {
 
 	public static Director Instance;
 	
-	public GameObject protoActorR;
-	public GameObject protoActorB;
+	public GameObject protoActorRed;
+	public GameObject protoActorBlue;
+	public GameObject protoActorDog;
+	public GameObject protoActorBullet;
 
 	private Dictionary<int,Actor> actorDict = new Dictionary<int,Actor>();
 	private List<Actor> actorList = new List<Actor>();
@@ -55,8 +57,10 @@ public class Director : MonoBehaviour {
 		Actor actor = null;
 		switch(sprite[0])
 		{
-			case 'R': prototype = protoActorR; break;
-			case 'B': prototype = protoActorB; break;
+			case 'R': prototype = protoActorRed; break;
+			case 'B': prototype = protoActorBlue; break;
+			case 'H': prototype = protoActorDog; break;
+			case '*': prototype = protoActorBullet; break;
 			default: break;
 		}
 		if( prototype )
@@ -65,8 +69,11 @@ public class Director : MonoBehaviour {
 			GameObject go = GameObject.Instantiate(prototype, pos, prototype.transform.rotation) as GameObject;
 			go.SetActive(true);
 			actor = go.GetComponent<Actor>();
-			actor.hero.actions = go.GetComponents<GameAction>();
-			actor.hero.Init();
+			if( actor.hero )
+			{
+				actor.hero.actions = go.GetComponents<GameAction>();
+			}
+			
 		}
 		return actor;
 	}
@@ -82,30 +89,56 @@ public class Director : MonoBehaviour {
 		int ry = Utils.IntParseFast(chunks[7]);
 		string sprite = chunks[8];
 		int hp = Utils.IntParseFast(chunks[9]);
-		int speed = Utils.IntParseFast(chunks[10]);
-		if( !actorDict.ContainsKey(uid) )
+		int speedLimit = Utils.IntParseFast(chunks[10]);
+		int damage = Utils.IntParseFast(chunks[11]);
+		int ttl = Utils.IntParseFast(chunks[12]);
+		Actor a = null;
+
+		if( actorDict.ContainsKey(uid) )
 		{
-			Actor a = AddActor(rx,ry,sprite);
+			a = actorDict[uid];
+
+			if( a != null && a.hp <= 0 )
+			{
+				actorDict[uid] = null;
+				actorList.Remove(a);
+				Destroy(a.gameObject);
+			}
+
 			if( a != null )
 			{
-				a.Mod(true, uid,oid,team,tx,ty,rx,ry,sprite,hp,speed);
+				if( oid != Boss.Instance.localOID )
+				{
+					a.Mod(true, uid,oid,team,tx,ty,rx,ry,sprite,hp,speedLimit,damage,ttl);	
+				}
+				else
+				{
+					a.Mod(false, uid,oid,team,tx,ty,rx,ry,sprite,hp,speedLimit,damage,ttl);	
+				}
+			}
+		}
+		else if( hp > 0 )
+		{
+			
+			a = AddActor(rx,ry,sprite);
+			if( a != null )
+			{
+				a.Mod(true, uid,oid,team,tx,ty,rx,ry,sprite,hp,speedLimit,damage,ttl);
 				actorDict[uid] = a;
 				actorList.Add(a);
+
+				if( a.hero )
+				{
+					a.hero.Init();
+				}
+				if( a.creature )
+				{
+					a.creature.Init(sprite);
+				}
 				Boss.Instance.ScanLocalActors();
 			}
 		}
-		else
-		{
-			Actor a = actorDict[uid];
-			if( oid != Boss.Instance.localOID )
-			{
-				a.Mod(true, uid,oid,team,tx,ty,rx,ry,sprite,hp,speed);	
-			}
-			else
-			{
-				a.Mod(false, uid,oid,team,tx,ty,rx,ry,sprite,hp,speed);		
-			}
-		}
+		
 	}
 
 	 

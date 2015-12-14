@@ -149,13 +149,16 @@ var World = {
 		}
 		actor.oid = chunks.shift();
 		actor.team = chunks.shift();
-		actor.tx = chunks.shift();
-		actor.ty = chunks.shift();
-		actor.rx = actor.tx*10+5;
-		actor.ry = actor.ty*10-5;
+		//actor.rx = actor.tx*10+5;
+		//actor.ry = actor.ty*10-5;
+		actor.rx = chunks.shift();
+		actor.ry = chunks.shift();
+		actor.tx = Math.round((actor.rx-5)/10);
+		actor.ty = Math.round((actor.rx-5)/10);
 		actor.sprite = chunks.shift();
 		actor.hp = 10;
-		actor.speed = 30;
+
+		console.log("addActor"+actor.sprite);
 		self.dirtyActors.push(actor);
 	},
 
@@ -170,6 +173,10 @@ var World = {
 			var dirty = actor.readChunks(chunks);
 			if( dirty )
 			{
+				if( actor.ttl <= 0 )
+				{
+					actor.hp = -1;
+				}
 				self.dirtyActors.push(actor);
 				//self.minorDirtyActors.push(actor);	
 			}
