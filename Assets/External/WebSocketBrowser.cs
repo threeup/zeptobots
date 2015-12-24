@@ -29,4 +29,9 @@ public class WebSocketBrowser : MonoBehaviour
 	{
 		queue_.Enqueue(data);
 	}
+
+	void PushError(string er)
+	{
+		Debug.Log("er"+er);
+	}
 }
