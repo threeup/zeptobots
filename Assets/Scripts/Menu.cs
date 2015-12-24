@@ -19,6 +19,7 @@ public class Menu : MonoBehaviour {
 	public MenuState desiredState = MenuState.READY;
 
 	public Button connectButton;
+	public Button localButton;
 	public Button cycleButton;
 	public Button spawnButton;
 	public Button timeoutButton;
@@ -33,11 +34,20 @@ public class Menu : MonoBehaviour {
 		Instance = this;
 	}
 
-
 	public void GoConnect()
 	{
-		NetMan.Instance.Launch();
+		NetMan.Instance.Launch(false);
 		connectButton.gameObject.SetActive(false);
+		localButton.gameObject.SetActive(false);
+		desiredState = MenuState.CONNECTED;
+		timeoutTime = 8f;
+	}
+
+	public void GoLocal()
+	{
+		NetMan.Instance.Launch(true);
+		connectButton.gameObject.SetActive(false);
+		localButton.gameObject.SetActive(false);
 		desiredState = MenuState.CONNECTED;
 		timeoutTime = 8f;
 	}
@@ -68,6 +78,7 @@ public class Menu : MonoBehaviour {
 				case MenuState.READY:
 					menuState = desiredState;
 					connectButton.gameObject.SetActive(true);
+					localButton.gameObject.SetActive(true);
 					cycleButton.gameObject.SetActive(false);
 					spawnButton.gameObject.SetActive(false);
 					buttonA.gameObject.SetActive(false);
@@ -77,7 +88,7 @@ public class Menu : MonoBehaviour {
 					timeoutTime = -1f;
 					break;
 				case MenuState.CONNECTED:
-					if (NetMan.Instance.isConnected )
+					if (NetMan.Instance.IsConnected)
 					{
 						Boss.Instance.SelectRandomSpawn();
 						if( Boss.Instance.selectedKingdom != null )

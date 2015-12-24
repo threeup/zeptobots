@@ -19,6 +19,26 @@ public class Boss : MonoBehaviour {
 	{
 		Instance = this;
 	}
+
+	public void MessageReceive(string message)
+	{
+		string[] chunks = message.Split('|');
+		switch(chunks[0])
+		{
+			case "setupclient":
+				if( Boss.Instance.localOID > 0 )
+				{
+					Debug.LogError("Double setup");
+					return;
+				}
+				localOID = Utils.IntParseFast(chunks[1]);
+				//Debug.LogError("LocalOID"+Boss.Instance.localOID);
+				localIsRed = chunks[2].StartsWith("true");
+				break;
+			default:
+				break;
+		}
+	}
 	
 	public void SelectRandomSpawn()
 	{
@@ -126,19 +146,19 @@ public class Boss : MonoBehaviour {
 			selectedHero.inputVec = Vector2.zero;
 			selectedHero.inputA = false;
 			selectedHero.inputB = false;
-			if (Input.GetKey("up"))
+			if (Input.GetKey("up") || Input.GetKey("w"))
 			{
 				selectedHero.inputVec.y += 1;
 			}
-			if (Input.GetKey("down"))
+			if (Input.GetKey("down")|| Input.GetKey("s"))
 			{
 				selectedHero.inputVec.y -= 1;
 			}
-			if (Input.GetKey("left"))
+			if (Input.GetKey("left")|| Input.GetKey("a"))
 			{
 				selectedHero.inputVec.x -= 1;
 			}
-			if (Input.GetKey("right"))
+			if (Input.GetKey("right")|| Input.GetKey("d"))
 			{
 				selectedHero.inputVec.x += 1;
 			}

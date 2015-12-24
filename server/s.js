@@ -1,7 +1,7 @@
 var ws           = require('ws').Server;
 var server       = new ws({ port: 3000 });
 var world 		 = require('./world');
-var fps          = 30;
+var fps          = 10;
 
 
 server.broadcast = function(data) {
@@ -21,6 +21,7 @@ server.on('connection', function(socket) {
 
 	clientNum = server.clients.length;
 	console.log('connected: '+clientNum);
+	console.log(socket.upgradeReq.connection.remoteAddress);
 	var oid = 100+clientNum;
 
 
@@ -79,10 +80,10 @@ server.on('connection', function(socket) {
 	}, 1000 / fps);
 });
 world.initSector();
-world.loadGround(function(count) {
+/*world.loadGround(function(count) {
 	
 	console.log('loaded World '+count);
-});
+});*/
 /*world.loadActor(function(count) {
 	
 	console.log('loaded Actor '+count);

@@ -6,8 +6,6 @@ public class Hero : MonoBehaviour {
 	public Actor actor = null;
 	public GameAction[] actions;
 
-	public Light spotLight = null;
-
 	public Vector2 inputVec = Vector2.zero;
 	public bool inputA = false;
 	public bool inputB = false;
@@ -31,18 +29,16 @@ public class Hero : MonoBehaviour {
 	{
 		float deltaTime = Time.deltaTime;
 		Engine engine = actor.engine;
-		Spriter spriter = actor.spriter;
+		ActorBody actorbody = actor.actorbody;
 		engine.MoveUpdate(deltaTime, inputVec);
 		
 		actions[0].ActionUpdate(deltaTime, actor, inputA);
 		actions[1].ActionUpdate(deltaTime, actor, inputB);
 
-		if( spriter.localUpdate )
+		if( actorbody && actorbody.localUpdate )
 		{
-			spriter.SpriteUpdate(deltaTime, engine.facingVec, engine.currentStep);
+			actorbody.BodyUpdate(deltaTime, engine.facingVec, engine.currentStep, actions[0].isPressed, actions[1].isPressed);
 		}
-		float rot_y = Mathf.Atan2(engine.facingVec.y, -engine.facingVec.x) * Mathf.Rad2Deg;
-        spotLight.transform.rotation = Quaternion.Euler(30f, rot_y - 90, 0f);
 	}
 
 	public void Select()

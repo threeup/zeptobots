@@ -6,8 +6,7 @@ public class Director : MonoBehaviour {
 
 	public static Director Instance;
 	
-	public GameObject protoActorRed;
-	public GameObject protoActorBlue;
+	public GameObject protoActorHero;
 	public GameObject protoActorDog;
 	public GameObject protoActorBullet;
 
@@ -57,8 +56,8 @@ public class Director : MonoBehaviour {
 		Actor actor = null;
 		switch(sprite[0])
 		{
-			case 'R': prototype = protoActorRed; break;
-			case 'B': prototype = protoActorBlue; break;
+			case 'R': prototype = protoActorHero; break;
+			case 'B': prototype = protoActorHero; break;
 			case 'H': prototype = protoActorDog; break;
 			case '*': prototype = protoActorBullet; break;
 			default: break;

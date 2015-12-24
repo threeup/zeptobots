@@ -116,7 +116,11 @@ public class Sector : MonoBehaviour {
 
 					if( (t.tFlags & Tile.TileFlags.KINGDOM) != 0 )
 					{
-						kingdoms.Add(t.GetComponentInChildren<Kingdom>());
+						Kingdom kd = t.GetComponentInChildren<Kingdom>();
+						if( kd != null )
+						{
+							kingdoms.Add(kd);
+						}
 					}
 				}
 			}

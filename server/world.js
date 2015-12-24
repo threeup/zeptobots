@@ -218,7 +218,7 @@ var World = {
 		var self = this;
 		var messages = '';
 		self.actors.forEach(function(actor) {
-			if( actor.oid > 0 && actor.hp > 0)
+			if( actor.oid > 0 && actor.hp > 0 && actor.ttl > 0)
 			{
 				messages += 'actormod|';
 				messages += actor.writeChunks();

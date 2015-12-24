@@ -20,7 +20,7 @@ public class Actor : MonoBehaviour {
 	public Engine engine = null;
 	public Hero hero = null;
 	public Creature creature = null;
-	public Spriter spriter = null;
+	public ActorBody actorbody = null;
 	public HealthBar healthBar = null;
 
 	private System.Text.StringBuilder sb = new System.Text.StringBuilder();
@@ -70,7 +70,10 @@ public class Actor : MonoBehaviour {
 			this.rx = rx;
 			this.ry = ry;
 			this.engine.desiredPosition = new Vector3(rx-5, 0f, -ry-5);
-			this.spriter.SetSprite(sprite);
+			if( this.actorbody )
+			{
+				this.actorbody.SetSprite(sprite);
+			}
 			this.engine.speedLimit = speed;
 			this.engine.facingX = fx;
 			this.engine.facingY = fy;
@@ -103,7 +106,14 @@ public class Actor : MonoBehaviour {
 		sb.Append("|");
 		sb.Append(this.ry);
 		sb.Append("|");
-		sb.Append(this.spriter.spriteString);
+		if( this.actorbody )
+		{
+			sb.Append(this.actorbody.spriteString);
+		}
+		else
+		{
+			sb.Append(" ");
+		}
 		sb.Append("|");
 		sb.Append(this.hp);
 		sb.Append("|");
@@ -123,7 +133,10 @@ public class Actor : MonoBehaviour {
 	public void SetLocal(bool val)
 	{
 		localInput = val;
-		spriter.localUpdate = val;
+		if( this.actorbody )
+		{
+			this.actorbody.localUpdate = val;
+		}
 	}
 
 	public void TakeDamage(int val)

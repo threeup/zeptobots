@@ -6,6 +6,7 @@ public class CamControl : MonoBehaviour {
 
 	public static CamControl Instance;
 	public float camHeight;
+	public float camShiftZ;
 	public Transform target;
 	private float nearSpeed = 60f;
 	private float farSpeed = 6000f;
@@ -47,6 +48,7 @@ public class CamControl : MonoBehaviour {
 	public void LookAt(Vector3 pos)
 	{
 		pos.y = camHeight;
+		pos.z += camShiftZ;
 		desiredPosition = pos;
 	}
 

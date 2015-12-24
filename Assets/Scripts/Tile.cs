@@ -11,9 +11,10 @@ public class Tile : MonoBehaviour {
 		SOLID = 1,
 		KINGDOM = 2,
 		FARM = 4,
+		FACTORY = 8,
 	}
 
-
+	[EnumFlagsAttribute]
 	public TileFlags tFlags = TileFlags.NONE;
 	public int ltx;
 	public int lty;

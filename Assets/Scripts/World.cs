@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class World : MonoBehaviour {
 
@@ -11,21 +12,27 @@ public class World : MonoBehaviour {
 	public TileMaterial wallMaterial;
 
 	public GameObject protoSector;
-	public GameObject tileEmpty;
-	public GameObject tileWall;
-	public GameObject contentsTree;
-	public GameObject contentsEmptyHouse;
-	public GameObject contentsRedHouse;
-	public GameObject contentsBlueHouse;
+	public Dictionary<string, GameObject> protos;
 
 
 	void Awake()
 	{
 		Instance = this;
+		
 	}
 
 	void Start()
 	{
+		protos = new Dictionary<string, GameObject>();
+		ProtoPrep("ground-normal");
+		ProtoPrep("ground-wall");
+		//ProtoPrep("tree-normal");
+		ProtoPrep("tree-pine");
+		ProtoPrep("house-big");
+		ProtoPrep("over-red");
+		ProtoPrep("over-blue");
+		ProtoPrep("over-gray");
+		
 		foreach(Transform child in transform)
 		{
 			child.gameObject.SetActive(false);
@@ -51,6 +58,17 @@ public class World : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	void ProtoPrep(string str)
+	{
+		GameObject go = Resources.Load("Prefabs/pr-"+str) as GameObject;
+		if( go == null )
+		{
+			Debug.Log("cant load "+str);
+			return;
+		}
+		protos.Add(str,go);
 	}
 
 	public void MessageReceive(string message)
@@ -85,8 +103,8 @@ public class World : MonoBehaviour {
 		Tile tile = null;
 		switch(c)
 		{
-			case 'W': prototype = tileWall; break;
-			default:  prototype = tileEmpty; break;
+			case 'W': prototype = protos["ground-wall"];; break;
+			default:  prototype = protos["ground-normal"];; break;
 		}
 		if( prototype )
 		{
@@ -96,24 +114,31 @@ public class World : MonoBehaviour {
 			tile = go.GetComponent<Tile>();
 			tile.tileMat = wallMaterial;
 		}
+		else
+		{
+			Debug.Log("broken tile");
+		}
 		return tile;
 	}
 
 	public TileContents MakeTileContents(char c, Transform root)
 	{
-		GameObject prototype = null;
+		List<GameObject> prototypes = new List<GameObject>();
 		TileContents contents = null;
 		switch(c)
 		{
-			case 'T': prototype = contentsTree; break;
-			case 'S': prototype = contentsEmptyHouse; break;
-			case 'R': prototype = contentsRedHouse; break;
-			case 'B': prototype = contentsBlueHouse; break;
+			case 'A': prototypes.Add(protos["tree-normal"]); break;
+			case 'B': prototypes.Add(protos["over-blue"]); prototypes.Add(protos["house-big"]); break;
+			case 'C': prototypes.Add(protos["tree-pine"]); break;
+			case 'D': prototypes.Add(protos["tree-pine"]); break;
+			case 'R': prototypes.Add(protos["over-red"]); prototypes.Add(protos["house-big"]); break;
+			case 'S': prototypes.Add(protos["over-gray"]); prototypes.Add(protos["house-big"]); break;
+			case 'T': prototypes.Add(protos["tree-pine"]); break;
 			default:  break;
 		}
-		if( prototype )
+		for( int i=0; i< prototypes.Count; ++i )
 		{
-			GameObject go = GameObject.Instantiate(prototype, Vector3.zero, Quaternion.identity) as GameObject;
+			GameObject go = GameObject.Instantiate(prototypes[i], Vector3.zero, Quaternion.identity) as GameObject;
 			go.transform.SetParent(root,false);
 			go.SetActive(true);
 			contents = go.GetComponent<TileContents>();
