@@ -43,6 +43,7 @@ public class Hero : MonoBehaviour {
 
 	public void Select()
 	{
+		Menu.Instance.SetPortrait(0, actor.team == 1 ? Color.red : Color.blue);
 		//tint?
 	}
 
