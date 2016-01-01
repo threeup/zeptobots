@@ -54,11 +54,11 @@ public class Director : MonoBehaviour {
 	{
 		GameObject prototype = null;
 		Actor actor = null;
+
 		switch(sprite[0])
 		{
-			case 'R': prototype = protoActorHero; break;
-			case 'B': prototype = protoActorHero; break;
-			case 'H': prototype = protoActorDog; break;
+			case 'H': prototype = protoActorHero; break;
+			case 'D': prototype = protoActorDog; break;
 			case '*': prototype = protoActorBullet; break;
 			default: break;
 		}
@@ -70,7 +70,7 @@ public class Director : MonoBehaviour {
 			actor = go.GetComponent<Actor>();
 			if( actor.hero )
 			{
-				actor.hero.actions = go.GetComponents<GameAction>();
+				actor.hero.actions = go.GetComponents<GameAbility>();
 			}
 			
 		}
@@ -94,12 +94,12 @@ public class Director : MonoBehaviour {
 		int fx = Utils.IntParseFast(chunks[13]);
 		int fy = Utils.IntParseFast(chunks[14]);
 		Actor a = null;
-
+		
 		if( actorDict.ContainsKey(uid) )
 		{
 			a = actorDict[uid];
 
-			if( a != null && a.hp <= 0 )
+			if( a != null && a.HP <= 0 )
 			{
 				actorDict[uid] = null;
 				actorList.Remove(a);
@@ -120,7 +120,6 @@ public class Director : MonoBehaviour {
 		}
 		else if( hp > 0 )
 		{
-			
 			a = AddActor(rx,ry,sprite);
 			if( a != null )
 			{
@@ -128,6 +127,7 @@ public class Director : MonoBehaviour {
 				actorDict[uid] = a;
 				actorList.Add(a);
 
+				a.Init();
 				if( a.hero )
 				{
 					a.hero.Init();

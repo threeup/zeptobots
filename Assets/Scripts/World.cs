@@ -25,8 +25,8 @@ public class World : MonoBehaviour {
 	{
 		protos = new Dictionary<string, GameObject>();
 		ProtoPrep("ground-normal");
-		ProtoPrep("ground-wall");
-		//ProtoPrep("tree-normal");
+		ProtoPrep("wall-straight");
+		ProtoPrep("wall-corner");
 		ProtoPrep("tree-pine");
 		ProtoPrep("house-big");
 		ProtoPrep("over-red");
@@ -103,7 +103,6 @@ public class World : MonoBehaviour {
 		Tile tile = null;
 		switch(c)
 		{
-			case 'W': prototype = protos["ground-wall"];; break;
 			default:  prototype = protos["ground-normal"];; break;
 		}
 		if( prototype )
@@ -134,6 +133,7 @@ public class World : MonoBehaviour {
 			case 'R': prototypes.Add(protos["over-red"]); prototypes.Add(protos["house-big"]); break;
 			case 'S': prototypes.Add(protos["over-gray"]); prototypes.Add(protos["house-big"]); break;
 			case 'T': prototypes.Add(protos["tree-pine"]); break;
+			case 'W': prototypes.Add(protos["wall-corner"]); break;
 			default:  break;
 		}
 		for( int i=0; i< prototypes.Count; ++i )

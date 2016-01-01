@@ -39,7 +39,6 @@ var World = {
 		var endX = 5+radius;
 		var startY = 5-radius;
 		var endY = 5+radius;
-		console.log('radius'+radius);
 		for( var sy = startY; sy<= endY; ++sy)
 		{
 			for( var sx = startX; sx<= endX; ++sx)
@@ -149,14 +148,16 @@ var World = {
 		}
 		actor.oid = chunks.shift();
 		actor.team = chunks.shift();
-		//actor.rx = actor.tx*10+5;
-		//actor.ry = actor.ty*10-5;
 		actor.rx = chunks.shift();
 		actor.ry = chunks.shift();
 		actor.tx = Math.round((actor.rx-5)/10);
 		actor.ty = Math.round((actor.rx-5)/10);
+		actor.fx = chunks.shift();
+		actor.fy = chunks.shift();
 		actor.sprite = chunks.shift();
-		actor.hp = 10;
+
+		actor.loadDef();
+		
 
 		//console.log("addActor"+actor.sprite);
 		self.dirtyActors.push(actor);

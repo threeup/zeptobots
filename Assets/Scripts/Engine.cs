@@ -4,7 +4,8 @@ using System.Collections;
 public class Engine : MonoBehaviour {
 
 	public int speedLimit = 30;
-	public float currentStep = 0f;
+	private float currentStep = 0f;
+	public float currentSpeed = 0f;
 
 	public Vector3 desiredPosition = Vector3.zero;
 	public Vector2 moveVec = Vector2.zero;
@@ -34,7 +35,7 @@ public class Engine : MonoBehaviour {
 		}
 		if( !moveLock && actor.localInput )
 		{
-			this.desiredPosition = this.transform.position + new Vector3(moveVec.x, 0, inputVec.y);
+			this.desiredPosition = this.transform.position + new Vector3(moveVec.x, 0, moveVec.y)*1000f;
 		}
 
 		Vector3 diff = this.desiredPosition - this.transform.position;
@@ -82,8 +83,8 @@ public class Engine : MonoBehaviour {
 						engineTile.Remove(this.actor);
 					}
 					engineTile = t;
-					actor.tx = t.rtx;
-					actor.ty = t.rty;
+					actor.TX = t.rtx;
+					actor.TY = t.rty;
 					
 				}
 				else
@@ -92,11 +93,12 @@ public class Engine : MonoBehaviour {
 					currentStep = 0f; 
 				}
 			}
-			actor.rx = (int)Mathf.Round(this.transform.position.x) + 5;
-			actor.ry = -(int)Mathf.Round(this.transform.position.z) - 5;
+			actor.RX = (int)Mathf.Round(this.transform.position.x) + 5;
+			actor.RY = -(int)Mathf.Round(this.transform.position.z) - 5;
 		}
 		facingX = (int)Mathf.Clamp(facingVec.x*10000, -1,1);
 		facingY = (int)Mathf.Clamp(facingVec.y*10000, -1,1);
+		currentSpeed = currentStep/deltaTime;
 	}
 
 

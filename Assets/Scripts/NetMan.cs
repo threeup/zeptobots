@@ -14,6 +14,8 @@ public class NetMan : MonoBehaviour {
 	public ReceiveEventListener OnReceive = data => {};
 	public ReceiveEventListener OnMessage = data => {};
 
+	private System.Text.StringBuilder sb = new System.Text.StringBuilder();
+
 	void Awake()
 	{
 		Instance = this;
@@ -77,6 +79,60 @@ public class NetMan : MonoBehaviour {
 		{
 			ServerMan.Instance.Send(str);
 		}
+    }
+
+    public void SendReqWorld(int sx, int sy, int ltx, int lty, string spriteString)
+    {
+    	sb.Length = 0;
+		sb.Append("requestworldmod|");
+		sb.Append(sx);
+		sb.Append("|");
+		sb.Append(sy);
+		sb.Append("|");
+		sb.Append(ltx);
+		sb.Append("|");
+		sb.Append(lty);
+		sb.Append("|");
+		sb.Append(spriteString);
+		sb.Append("\n");
+		Send( sb.ToString() );
+    }
+
+    public void SendReqActor(int uid, int oid, int team, 
+    	int tx, int ty, int rx, int ry, int fx, int fy, string spriteString,
+    	int hp, int speedLimit, int damage, int ttl)
+    {
+    	sb.Length = 0;
+		sb.Append("requestactor|");
+		sb.Append(uid);
+		sb.Append("|");
+		sb.Append(oid);
+		sb.Append("|");
+		sb.Append(team);
+		sb.Append("|");
+		sb.Append(tx);
+		sb.Append("|");
+		sb.Append(ty);
+		sb.Append("|");
+		sb.Append(rx);
+		sb.Append("|");
+		sb.Append(ry);
+		sb.Append("|");
+		sb.Append(fx);
+		sb.Append("|");
+		sb.Append(fy);
+		sb.Append("|");
+		sb.Append(spriteString); //10
+		sb.Append("|");
+		sb.Append(hp);
+		sb.Append("|");
+		sb.Append(speedLimit);
+		sb.Append("|");
+		sb.Append(damage);
+		sb.Append("|");
+		sb.Append(ttl);
+		sb.Append("\n");
+		Send( sb.ToString() );
     }
 
 	

@@ -105,8 +105,7 @@ public class Boss : MonoBehaviour {
 		for(int i=0; i<localActors.Count; ++i)
 		{
 			Actor actor = localActors[i];
-			string str = actor.GetOutString(localOID);
-			NetMan.Instance.Send(str);
+			NetMan.Instance.Send( actor.GetOutString(localOID) );
 		}
 	}
 
@@ -118,7 +117,7 @@ public class Boss : MonoBehaviour {
 		for(int i = 0; i<actorList.Count; ++i)
 		{
 			Actor a = actorList[i];
-			if( a.oid == localOID )
+			if( a.OID == localOID )
 			{
 				localActors.Add(a);
 				if( a.hero != null )
@@ -164,21 +163,16 @@ public class Boss : MonoBehaviour {
 			}
 			if (Input.GetButton("Fire1"))
 			{
-				Menu.Instance.SetButtonA(true);
 				selectedHero.inputA = true;
-			}
-			else
-			{
-				Menu.Instance.SetButtonA(false);
 			}
 			if (Input.GetButton("Jump"))
 			{
 				selectedHero.inputB = true;
-				Menu.Instance.SetButtonB(true);
 			}
-			else
+			for(int i=0; i<2; ++i)
 			{
-				Menu.Instance.SetButtonB(false);
+				GameAbility ga = selectedHero.actions[i];
+				Hud.Instance.SetButton(i, ga.CooldownPercent, ga.IsActive, ga.isPressed);
 			}
 		}
 		sendUpdateTimer -= deltaTime;

@@ -26,12 +26,16 @@ public class Kingdom : MonoBehaviour {
 		ownerOID = localOID;
 		team = localIsRed ? 1 : 0;
 
-		string actorSprite = localIsRed ? "Rd1" : "Bd1";
-		int rx = tile.rtx*10+5;
-		int ry = tile.rty*10-5;
-		NetMan.Instance.Send("requestactoradd|"+ownerOID+"|"+team+"|"+rx+"|"+ry+"|"+actorSprite);
+		string actorSprite = localIsRed ? "HR" : "HB";
+		int tx = tile.rtx;
+		int ty = tile.rty;
+		int rx = tx*10+5;
+		int ry = ty*10-5;
+		int fx = 0;
+		int fy = -1;
+		NetMan.Instance.SendReqActor(-1,ownerOID,team,tx,ty,rx,ry,fx,fy,actorSprite,-1,-1,-1,-1);
 		string worldSprite = localIsRed ? "R" : "B";
-		NetMan.Instance.Send("requestworldmod|"+tile.sx+"|"+tile.sy+"|"+tile.ltx+"|"+tile.lty+"|"+worldSprite);
+		NetMan.Instance.SendReqWorld(tile.sx,tile.sy,tile.ltx,tile.lty,worldSprite);
 	}
 
 	public void ConquerKingdom(int localOID, int team)
@@ -39,7 +43,7 @@ public class Kingdom : MonoBehaviour {
 		ownerOID = localOID;
 		this.team = team;
 		string worldSprite = team == 1 ? "R" : "B";
-		NetMan.Instance.Send("requestworldmod|"+tile.sx+"|"+tile.sy+"|"+tile.ltx+"|"+tile.lty+"|"+worldSprite);
+		NetMan.Instance.SendReqWorld(tile.sx,tile.sy,tile.ltx,tile.lty,worldSprite);
 	}
 
 	public void Update()
@@ -50,12 +54,14 @@ public class Kingdom : MonoBehaviour {
 			if( spawnTimer <= 0f)
 			{
 				spawnTimer = 20f;
-				string dogSprite = "H";
-				Utils.Ord ord = Utils.GetRandomOrd();
-				dogSprite += ord.ToString();
-				int rx = tile.rtx*10+5;
-				int ry = tile.rty*10-5;
-				NetMan.Instance.Send("requestactoradd|"+ownerOID+"|"+team+"|"+rx+"|"+ry+"|"+dogSprite);
+				string actorSprite = team==1 ? "DR" : "DB";
+				int tx = tile.rtx;
+				int ty = tile.rty;
+				int rx = tx*10+5;
+				int ry = ty*10-5;
+				int fx = 0;
+				int fy = -1;
+				NetMan.Instance.SendReqActor(-1,ownerOID,team,tx,ty,rx,ry,fx,fy,actorSprite,-1,-1,-1,-1);
 			}
 		}
 		if( conquerTimer > 0f )
@@ -67,9 +73,9 @@ public class Kingdom : MonoBehaviour {
 				if( conquerList.Count > 0 )
 				{
 					Actor a = conquerList[0];
-					if( team != a.team )
+					if( team != a.Team )
 					{
-						ConquerKingdom( a.oid, a.team );
+						ConquerKingdom( a.OID, a.Team );
 					}
 				}
 			}

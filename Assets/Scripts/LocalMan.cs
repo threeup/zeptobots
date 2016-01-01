@@ -7,6 +7,8 @@ public class LocalMan : MonoBehaviour {
 
 	string[] storedSectorData = new string[100];
 
+	private int nextUID = 1000;
+
 	private bool isConnected = false;
 	public bool IsConnected
 	{
@@ -68,22 +70,60 @@ public class LocalMan : MonoBehaviour {
 		return "newclient|101|true";
 	}
 
+
 	string GetActorMessage(string[] chunks)
 	{
 		sb.Length = 0;
-
+		int uid = 0;
+		int oid = 0;
+		int team = 0;
+		int.TryParse(chunks[1], out uid);
+		int.TryParse(chunks[2], out oid);
+		int.TryParse(chunks[3], out team);
+		
+		int tx = 0;
+		int ty = 0;
 		int rx = 0;
-		int.TryParse(chunks[3], out rx);
 		int ry = 0;
-		int.TryParse(chunks[4], out ry);
-		int tx = (int)Mathf.Round((rx-5)/10f);
-		int ty = (int)Mathf.Round((ry-5)/10f);
+		int fx = 0;
+		int fy = 0;
+		int.TryParse(chunks[4], out tx);
+		int.TryParse(chunks[5], out ty);
+		int.TryParse(chunks[6], out rx);
+		int.TryParse(chunks[7], out ry);
+		int.TryParse(chunks[8], out fx);
+		int.TryParse(chunks[9], out fy);
+		
+		string sprite = chunks[10];
+		
+		int hp = 0;
+		int speedlimit = 0;
+		int damage = 0;
+		int ttl = 0;
+		if( uid < 0 )
+		{
+			uid = nextUID++;
+			Lookup(sprite, out hp, out speedlimit, out damage, out ttl);
+		}
+		else
+		{
+			int.TryParse(chunks[11], out hp);
+			int.TryParse(chunks[12], out speedlimit);
+			int.TryParse(chunks[13], out damage);
+			int.TryParse(chunks[14], out ttl);
+			if( ttl <= 0 )
+			{
+				hp = -1;
+			}
+		}
+		
+		
 		sb.Append("actormod|");
-		sb.Append(1000);
+		sb.Append(uid);
 		sb.Append('|');
-		sb.Append(chunks[1]);
+		sb.Append(oid);
 		sb.Append('|');
-		sb.Append(chunks[2]);
+		sb.Append(team);
 		sb.Append('|');
 		sb.Append(tx);
 		sb.Append('|');
@@ -93,19 +133,19 @@ public class LocalMan : MonoBehaviour {
 		sb.Append('|');
 		sb.Append(ry);
 		sb.Append('|');
-		sb.Append(chunks[5]);
+		sb.Append(sprite); 
 		sb.Append('|');
-		sb.Append(10);
+		sb.Append(hp);
 		sb.Append('|');
-		sb.Append(30);
+		sb.Append(speedlimit);
 		sb.Append('|');
-		sb.Append(1);
+		sb.Append(damage);
 		sb.Append('|');
-		sb.Append(1000);
+		sb.Append(ttl);
 		sb.Append('|');
-		sb.Append(0);
+		sb.Append(fx);
 		sb.Append('|');
-		sb.Append(0);
+		sb.Append(fy);
 		return sb.ToString();
 	}
 
@@ -169,10 +209,8 @@ public class LocalMan : MonoBehaviour {
 		string[] chunks = message.Split('|');
 		switch(chunks[0])
 		{
-			case "requestactoradd":
+			case "requestactor":
 				HandleMessage(GetActorMessage(chunks));
-				break;
-			case "requestactormod":
 				break;
 			case "requestworldmod":
 				ChangeWorld(chunks);
@@ -183,5 +221,18 @@ public class LocalMan : MonoBehaviour {
 				break;
 		}
 	}
+
+	public void Lookup(string sprite, out int hp, out int speedlimit, out int dmg, out int ttl)
+	{
+		switch(sprite[0])
+		{
+			case '*': RulesBullet.Lookup(out hp, out speedlimit, out dmg, out ttl); break;
+			case 'H': RulesHero.Lookup(out hp, out speedlimit, out dmg, out ttl); break;
+			case 'D': RulesDog.Lookup(out hp, out speedlimit, out dmg, out ttl); break;
+			default:  RulesDog.Lookup(out hp, out speedlimit, out dmg, out ttl); break;
+		}
+
+	}
+	
 
 }

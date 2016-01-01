@@ -26,10 +26,6 @@ public class Menu : MonoBehaviour {
 	private UIFace cycleButton;
 	private UIFace spawnButton;
 	
-	private UIFace abilityA;
-	private UIFace abilityB;
-	private UIFace portrait;
-
 	private float timeoutTime = -1f;
 
 	private bool isInitialized = false;
@@ -42,9 +38,7 @@ public class Menu : MonoBehaviour {
 	void Start()
 	{
 		Transform root = this.transform;
-		float leftX = -220f;
-		float rightX = 220f;
-		float bottomY = -200f;
+
 		connectButton = factory.AddFrontButton(root, -170f, 70f, "Connect To Server");
 		connectButton.btn.onClick.AddListener(delegate {this.GoConnect();});
 		localButton = factory.AddFrontButton(root, 170f, 70f, "Local Playground");
@@ -53,11 +47,6 @@ public class Menu : MonoBehaviour {
 		cycleButton.btn.onClick.AddListener(delegate {Boss.Instance.SelectRandomSpawn();});
 		spawnButton = factory.AddFrontButton(root, 170f, -70f, "Jump In!");
 		spawnButton.btn.onClick.AddListener(delegate {this.GoSpawn();});
-		abilityA = factory.AddAbility(root, rightX-75f, bottomY, "Ctrl", "99");
-		abilityB = factory.AddAbility(root, rightX-0f, bottomY, "Shift", "99");
-		portrait = factory.AddPortrait(root, leftX, bottomY);
-		portrait.fill.color = Color.magenta; 
-		portrait.SetActive(false);
 
 		isInitialized = true;
 	}
@@ -113,8 +102,6 @@ public class Menu : MonoBehaviour {
 					localButton.gameObject.SetActive(true);
 					cycleButton.gameObject.SetActive(false);
 					spawnButton.gameObject.SetActive(false);
-					abilityA.gameObject.SetActive(false);
-					abilityB.gameObject.SetActive(false);
 					timeoutButton.gameObject.SetActive(false);
 					titleSplash.gameObject.SetActive(true);
 					timeoutTime = -1f;
@@ -126,6 +113,7 @@ public class Menu : MonoBehaviour {
 						if( Boss.Instance.selectedKingdom != null )
 						{
 							menuState = desiredState;
+							Hud.Instance.SetActive(false);
 							cycleButton.gameObject.SetActive(true);
 							spawnButton.gameObject.SetActive(true);
 							timeoutButton.gameObject.SetActive(false);
@@ -138,8 +126,7 @@ public class Menu : MonoBehaviour {
 					if (Boss.Instance.selectedHero != null)
 					{
 						menuState = desiredState;
-						abilityA.gameObject.SetActive(true);
-						abilityB.gameObject.SetActive(true);
+						Hud.Instance.SetActive(true);
 						timeoutButton.gameObject.SetActive(false);
 						timeoutTime = -1f;
 					}
@@ -148,34 +135,5 @@ public class Menu : MonoBehaviour {
 		}
 	}
 
-	public void SetPortrait(int portraitType, Color color)
-	{
-		portrait.fill.color = color; 
-		bool activePortrait = portraitType >= 0;
-		portrait.SetActive(activePortrait);
-	}
-
-	public void SetButtonA(bool val)
-	{
-		if( val )
-		{
-			abilityA.img.color = Color.green;
-		}
-		else
-		{
-			abilityA.img.color = Color.white;
-		}
-	}
-
-	public void SetButtonB(bool val)
-	{
-		if( val )
-		{
-			abilityB.img.color = Color.green;
-		}
-		else
-		{
-			abilityB.img.color = Color.white;
-		}
-	}
+	
 }

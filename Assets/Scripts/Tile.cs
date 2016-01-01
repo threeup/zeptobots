@@ -90,9 +90,14 @@ public class Tile : MonoBehaviour {
 
 	public void RefreshSprite()
 	{
-		bool solid = (tFlags & Tile.TileFlags.SOLID) != 0;
-		solidImageIndex = GetTileImageIndex();
-		desiredImageIndex = solid?solidImageIndex:defaultImageIndex;
+		//bool solid = (tFlags & Tile.TileFlags.SOLID) != 0;
+		//solidImageIndex = GetTileImageIndex();
+
+		desiredImageIndex = defaultImageIndex;
+		/*if( solid )
+		{
+			desiredImageIndex = solidImageIndex;
+		}*/
 		//spriteRend.sprite = tileMat.GetSprite(desiredImageIndex);
 	}
 
@@ -278,23 +283,23 @@ public class Tile : MonoBehaviour {
 			int blueDamage = 0;
 			for(int i=0; i<occupyList.Count; ++i)
 			{
-				if( occupyList[i].team == 0 )
+				if( occupyList[i].Team == 0 )
 				{
-					blueDamage += occupyList[i].damage;
+					blueDamage += occupyList[i].Damage;
 				}
-				if( occupyList[i].team == 1 )		
+				if( occupyList[i].Team == 1 )		
 				{
-					redDamage += occupyList[i].damage;
+					redDamage += occupyList[i].Damage;
 				}
 			}
 			for(int i=0; i<occupyList.Count; ++i)
 			{
-				if( occupyList[i].team == 0 && redDamage > 0 )
+				if( occupyList[i].Team == 0 && redDamage > 0 )
 				{
 					occupyList[i].TakeDamage(redDamage);
 					
 				}
-				if( occupyList[i].team == 1 && blueDamage > 0 )		
+				if( occupyList[i].Team == 1 && blueDamage > 0 )		
 				{
 					occupyList[i].TakeDamage(blueDamage);
 				}

@@ -3,10 +3,6 @@ using System.Collections;
 
 public class Creature : MonoBehaviour {
 
-	public int hpOverride = 1;
-	public int damageOverride = 3;
-	public int ttlOverride = 3;
-	public int speedOverride = 3;
 	public Actor actor = null;
 
 	
@@ -16,13 +12,7 @@ public class Creature : MonoBehaviour {
 
 	public void Init(string sprite)
 	{
-		//bullets should move forwards
-		actor.hp = hpOverride;
-		actor.damage = damageOverride;
-		actor.ttl = ttlOverride;
-		actor.ttlTimer = ttlOverride;
-		actor.engine.speedLimit = speedOverride;
-		targetVec = Utils.GetVecFromString(sprite);
+		targetVec = actor.engine.facingVec;
 	}
 
 
