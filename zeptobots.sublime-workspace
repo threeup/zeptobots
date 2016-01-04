@@ -4,8 +4,48 @@
 		"selected_items":
 		[
 			[
+				"Cr",
+				"CreatureCollide"
+			],
+			[
+				"Eng",
+				"EngineReached"
+			],
+			[
+				"sp",
+				"speedLimit"
+			],
+			[
+				"lookup",
+				"LookupHP"
+			],
+			[
+				"ra",
+				"rarmSwing"
+			],
+			[
+				"la",
+				"larmSwing"
+			],
+			[
+				"Abil",
+				"AbilityState"
+			],
+			[
+				"sele",
+				"selectedHero"
+			],
+			[
 				"abi",
-				"abilityA"
+				"abilityB"
+			],
+			[
+				"Ac",
+				"ActionState"
+			],
+			[
+				"ef",
+				"effectList"
 			],
 			[
 				"tra",
@@ -14,10 +54,6 @@
 			[
 				"co",
 				"coloredRenderers"
-			],
-			[
-				"sp",
-				"spriteString"
 			],
 			[
 				"sel",
@@ -48,20 +84,12 @@
 				"contentList"
 			],
 			[
-				"sele",
-				"selectedKingdom"
-			],
-			[
 				"tar",
 				"targetVec"
 			],
 			[
 				"soli",
 				"solidImageIndex"
-			],
-			[
-				"Ac",
-				"Activate"
 			],
 			[
 				"Coo",
@@ -486,142 +514,104 @@
 			[
 				"debr",
 				"debrisPart"
-			],
-			[
-				"fa",
-				"failedState"
-			],
-			[
-				"Leg",
-				"LegRightUpper"
-			],
-			[
-				"weapon",
-				"weaponType"
-			],
-			[
-				"pare",
-				"parentPart"
-			],
-			[
-				"weapn",
-				"weaponType"
-			],
-			[
-				"switch",
-				"switchThrowerType"
-			],
-			[
-				"swi",
-				"switchThrower"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "Assets/Scripts/ActorBody.cs",
-			"settings":
-			{
-				"buffer_size": 3080,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "targetweb/websocket.js",
-			"settings":
-			{
-				"buffer_size": 576,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "Assets/Scripts/UIFace.cs",
-			"settings":
-			{
-				"buffer_size": 368,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/Scripts/Menu.cs",
-			"settings":
-			{
-				"buffer_size": 4362,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": ".gitignore",
-			"settings":
-			{
-				"buffer_size": 284,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "Assets/.gitignore",
-			"settings":
-			{
-				"buffer_size": 9,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"contents": "Searching 28 files for \"BodyUpdate\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\ActorBody.cs:\n   24  		thisTransform = this.transform;\n   25  	}\n   26: 	public virtual void BodyUpdate(float deltaTime, Vector2 facing, float speed, bool larm, bool rarm)\n   27  	{\n   28  		float rot_y = Mathf.Atan2(facing.y, -facing.x) * Mathf.Rad2Deg;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Hero.cs:\n   38  		if( actorbody && actorbody.localUpdate )\n   39  		{\n   40: 			actorbody.BodyUpdate(deltaTime, engine.facingVec, engine.currentStep);\n   41  		}\n   42  	}\n\n2 matches across 2 files\n\n\nSearching 28 files for \"SetSprite\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Actor.cs:\n   73  			if( this.actorbody )\n   74  			{\n   75: 				this.actorbody.SetSprite(sprite);\n   76  			}\n   77  			this.engine.speedLimit = speed;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\ActorBody.cs:\n   54  	}\n   55  \n   56: 	public virtual void SetSprite(string s)\n   57  	{\n   58  		spriteString = s;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Spriter.cs:\n   14  	}\n   15  \n   16: 	public virtual void SetSprite(string s)\n   17  	{\n   18  		spriteString = s;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\SpriterHero.cs:\n   42  		{\n   43  			//stopped = true;\n   44: 			SetSprite(currentSet,1);\n   45  		}\n   46  		else\n   ..\n   60  						setIndex++;\n   61  					}\n   62: 					SetSprite(currentSet,setIndex);	\n   63  				}\n   64  			}\n   65  			else\n   66  			{\n   67: 				SetSprite(currentSet,setIndex);	\n   68  				lastSet = currentSet;\n   69  			}\n   ..\n   72  	}\n   73  \n   74: 	void SetSprite(SpriteSet s, int idx)\n   75  	{\n   76  		char[] charArr = spriteString.ToCharArray();\n   ..\n   86  	}\n   87  \n   88: 	public override void SetSprite(string s)\n   89  	{\n   90  		spriteString = s;\n\n8 matches across 4 files\n\n\nSearching 28 files for \"PushWebSocketData\"\n\nI:\\w\\zeptobots\\Assets\\External\\WebSocketBrowser.cs:\n   26  	}\n   27  \n   28: 	void PushWebSocketData(string data)\n   29  	{\n   30  		queue_.Enqueue(data);\n\n1 match in 1 file\n\n\nSearching 30 files for \"cycle\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Menu.cs:\n   22  	public UIFace connectButton;\n   23  	public UIFace localButton;\n   24: 	public UIFace cycleButton;\n   25  	public UIFace spawnButton;\n   26  	public Button timeoutButton;\n   ..\n   49  		localButton = factory.AddFrontButton(root, 170f, 70f, \"Local Playground\");\n   50  		connectButton.btn.onClick.AddListener(this.GoLocal);\n   51: 		cycleButton = factory.AddFrontButton(root, -170f, -70f, \"Cycle Spawn\");\n   52  		connectButton.btn.onClick.AddListener(this.GoConnect);\n   53  		spawnButton = factory.AddFrontButton(root, 170f, -70f, \"Jump In!\");\n   ..\n   81  	public void GoSpawn()\n   82  	{\n   83: 		cycleButton.gameObject.SetActive(false);\n   84  		spawnButton.gameObject.SetActive(false);\n   85  		Boss.Instance.RequestSpawn();\n   ..\n  110  					connectButton.gameObject.SetActive(true);\n  111  					localButton.gameObject.SetActive(true);\n  112: 					cycleButton.gameObject.SetActive(false);\n  113  					spawnButton.gameObject.SetActive(false);\n  114  					abilityA.gameObject.SetActive(false);\n  ...\n  125  						{\n  126  							menuState = desiredState;\n  127: 							cycleButton.gameObject.SetActive(true);\n  128  							spawnButton.gameObject.SetActive(true);\n  129  							timeoutButton.gameObject.SetActive(false);\n\n6 matches in 1 file\n\n\nSearching 30 files for \"nextspawn\"\n\n0 matches\n\nSearching 30 files for \"findsp\"\n\n0 matches\n\nSearching 30 files for \"spawn\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Boss.cs:\n   41  	}\n   42  	\n   43: 	public void SelectRandomSpawn()\n   44  	{\n   45  		if( World.Instance.sectorCount == 0 )\n   ..\n   86  	}\n   87  \n   88: 	public void RequestSpawn() \n   89  	{\n   90  		if( selectedKingdom == null )\n   91  		{\n   92: 			SelectRandomSpawn();\n   93  		}\n   94  		if( selectedKingdom == null )\n   95  		{\n   96: 			Debug.Log(\"nowhere to spawn\");\n   97  			return;\n   98  		}\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Kingdom.cs:\n   10  	public Tile tile;\n   11  \n   12: 	private float spawnTimer = 5f;\n   13  	private float conquerTimer = 5f;\n   14  \n   ..\n   47  		if( ownerOID > 0 )\n   48  		{\n   49: 			spawnTimer -= Time.deltaTime;\n   50: 			if( spawnTimer <= 0f)\n   51  			{\n   52: 				spawnTimer = 20f;\n   53  				string dogSprite = \"H\";\n   54  				Utils.Ord ord = Utils.GetRandomOrd();\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Menu.cs:\n   12  		READY,\n   13  		CONNECTED,\n   14: 		SPAWNED,\n   15  		DEAD,\n   16  	}\n   ..\n   23  	public UIFace localButton;\n   24  	public UIFace cycleButton;\n   25: 	public UIFace spawnButton;\n   26  	public Button timeoutButton;\n   27  	public Image background;\n   ..\n   49  		localButton = factory.AddFrontButton(root, 170f, 70f, \"Local Playground\");\n   50  		connectButton.btn.onClick.AddListener(this.GoLocal);\n   51: 		cycleButton = factory.AddFrontButton(root, -170f, -70f, \"Cycle Spawn\");\n   52  		connectButton.btn.onClick.AddListener(this.GoConnect);\n   53: 		spawnButton = factory.AddFrontButton(root, 170f, -70f, \"Jump In!\");\n   54: 		connectButton.btn.onClick.AddListener(this.GoSpawn);\n   55  		abilityA = factory.AddAbility(root, rightX-75f, bottomY).img;\n   56  		abilityB = factory.AddAbility(root, rightX-0f, bottomY).img;\n   ..\n   79  	}\n   80  \n   81: 	public void GoSpawn()\n   82  	{\n   83  		cycleButton.gameObject.SetActive(false);\n   84: 		spawnButton.gameObject.SetActive(false);\n   85: 		Boss.Instance.RequestSpawn();\n   86: 		desiredState = MenuState.SPAWNED;\n   87  		timeoutTime = 8f;\n   88  	}\n   ..\n  111  					localButton.gameObject.SetActive(true);\n  112  					cycleButton.gameObject.SetActive(false);\n  113: 					spawnButton.gameObject.SetActive(false);\n  114  					abilityA.gameObject.SetActive(false);\n  115  					abilityB.gameObject.SetActive(false);\n  ...\n  121  					if (NetMan.Instance.IsConnected)\n  122  					{\n  123: 						Boss.Instance.SelectRandomSpawn();\n  124  						if( Boss.Instance.selectedKingdom != null )\n  125  						{\n  126  							menuState = desiredState;\n  127  							cycleButton.gameObject.SetActive(true);\n  128: 							spawnButton.gameObject.SetActive(true);\n  129  							timeoutButton.gameObject.SetActive(false);\n  130  							background.gameObject.SetActive(false);\n  ...\n  133  					}\n  134  					break;\n  135: 				case MenuState.SPAWNED:\n  136  					if (Boss.Instance.selectedHero != null)\n  137  					{\n\n21 matches across 3 files\n\n\nSearching 30 files for \"randomsp\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Boss.cs:\n   41  	}\n   42  	\n   43: 	public void SelectRandomSpawn()\n   44  	{\n   45  		if( World.Instance.sectorCount == 0 )\n   ..\n   90  		if( selectedKingdom == null )\n   91  		{\n   92: 			SelectRandomSpawn();\n   93  		}\n   94  		if( selectedKingdom == null )\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Menu.cs:\n   50  		connectButton.btn.onClick.AddListener(this.GoLocal);\n   51  		cycleButton = factory.AddFrontButton(root, -170f, -70f, \"Cycle Spawn\");\n   52: 		connectButton.btn.onClick.AddListener(this.SelectRandomSpawn;\n   53  		spawnButton = factory.AddFrontButton(root, 170f, -70f, \"Jump In!\");\n   54  		connectButton.btn.onClick.AddListener(this.GoSpawn);\n   ..\n  121  					if (NetMan.Instance.IsConnected)\n  122  					{\n  123: 						Boss.Instance.SelectRandomSpawn();\n  124  						if( Boss.Instance.selectedKingdom != null )\n  125  						{\n\n4 matches across 2 files\n",
-			"settings":
-			{
-				"buffer_size": 7194,
-				"line_ending": "Windows",
-				"name": "Find Results",
-				"scratch": true
-			}
-		},
-		{
-			"file": "Assets/Scripts/Boss.cs",
-			"settings":
-			{
-				"buffer_size": 3695,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/External/WebSocketBrowser.cs",
-			"settings":
-			{
-				"buffer_size": 556,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/Scripts/GameAction.cs",
-			"settings":
-			{
-				"buffer_size": 1471,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/Scripts/Hero.cs",
-			"settings":
-			{
-				"buffer_size": 3259,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "server/actor.js",
-			"settings":
-			{
-				"buffer_size": 1966,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "Assets/Scripts/Actor.cs",
 			"settings":
 			{
-				"buffer_size": 2878,
+				"buffer_size": 5024,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Scripts/ActorBody.cs",
+			"settings":
+			{
+				"buffer_size": 1117,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Scripts/BipedBody.cs",
+			"settings":
+			{
+				"buffer_size": 2405,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Scripts/LocalMan.cs",
+			"settings":
+			{
+				"buffer_size": 4592,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Scripts/NetMan.cs",
+			"settings":
+			{
+				"buffer_size": 2688,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Scripts/Engine.cs",
+			"settings":
+			{
+				"buffer_size": 2605,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Scripts/RulesActor.cs",
+			"settings":
+			{
+				"buffer_size": 647,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Scripts/RulesEff.cs",
+			"settings":
+			{
+				"buffer_size": 960,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Scripts/RulesAb.cs",
+			"settings":
+			{
+				"buffer_size": 3033,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/fonts/Aileron-Black.otf",
+			"settings":
+			{
+				"buffer_size": 65527,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Scripts/Creature.cs",
+			"settings":
+			{
+				"buffer_size": 735,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Scripts/Hud.cs",
+			"settings":
+			{
+				"buffer_size": 1517,
 				"line_ending": "Unix"
 			}
 		},
@@ -634,10 +624,76 @@
 			}
 		},
 		{
+			"file": "Assets/Scripts/Menu.cs",
+			"settings":
+			{
+				"buffer_size": 3369,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Scripts/Hero.cs",
+			"settings":
+			{
+				"buffer_size": 1098,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "Searching 35 files for \"requestactoradd\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Ab.cs:\n   86  		int launchX = actor.rx + fx*2;\n   87  		int launchY = actor.ry - fy*2;\n   88: 		NetMan.Instance.Send(\"requestactoradd|\"+actor.oid+\"|\"+actor.team+\"|\"+launchX+\"|\"+launchY+\"|\"+fx+\"|\"+fy+\"|\"+shootSprite);\n   89  \n   90  		engine.speedLimit = 30;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Kingdom.cs:\n   32  		int fx = 0;\n   33  		int fy = -1;\n   34: 		NetMan.Instance.Send(\"requestactoradd|\"+ownerOID+\"|\"+team+\"|\"+rx+\"|\"+ry+\"|\"+fx+\"|\"+fy+\"|\"+actorSprite);\n   35  		string worldSprite = localIsRed ? \"R\" : \"B\";\n   36  		NetMan.Instance.Send(\"requestworldmod|\"+tile.sx+\"|\"+tile.sy+\"|\"+tile.ltx+\"|\"+tile.lty+\"|\"+worldSprite);\n   ..\n   58  				int fx = 0;\n   59  				int fy = -1;\n   60: 				NetMan.Instance.Send(\"requestactoradd|\"+ownerOID+\"|\"+team+\"|\"+rx+\"|\"+ry+\"|\"+fx+\"|\"+fy+\"|\"+dogSprite);\n   61  			}\n   62  		}\n\nI:\\w\\zeptobots\\Assets\\Scripts\\LocalMan.cs:\n  210  		switch(chunks[0])\n  211  		{\n  212: 			case \"requestactoradd\":\n  213  				HandleMessage(GetActorMessage(chunks));\n  214  				break;\n\n4 matches across 3 files\n\n\nSearching 35 files for \"requestactor\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Ab.cs:\n   86  		int launchX = actor.rx + fx*2;\n   87  		int launchY = actor.ry - fy*2;\n   88: 		NetMan.Instance.Send(\"requestactor|\"+actor.oid+\"|\"+actor.team+\"|\"+launchX+\"|\"+launchY+\"|\"+fx+\"|\"+fy+\"|\"+shootSprite);\n   89  \n   90  		engine.speedLimit = 30;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Actor.cs:\n  106  	{\n  107  		sb.Length = 0;\n  108: 		sb.Append(\"requestactormod|\");\n  109  		sb.Append(this.uid);\n  110  		sb.Append(\"|\");\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Kingdom.cs:\n   32  		int fx = 0;\n   33  		int fy = -1;\n   34: 		NetMan.Instance.Send(\"requestactoradd|\"+ownerOID+\"|\"+team+\"|\"+rx+\"|\"+ry+\"|\"+fx+\"|\"+fy+\"|\"+actorSprite);\n   35  		string worldSprite = localIsRed ? \"R\" : \"B\";\n   36  		NetMan.Instance.Send(\"requestworldmod|\"+tile.sx+\"|\"+tile.sy+\"|\"+tile.ltx+\"|\"+tile.lty+\"|\"+worldSprite);\n   ..\n   58  				int fx = 0;\n   59  				int fy = -1;\n   60: 				NetMan.Instance.Send(\"requestactoradd|\"+ownerOID+\"|\"+team+\"|\"+rx+\"|\"+ry+\"|\"+fx+\"|\"+fy+\"|\"+dogSprite);\n   61  			}\n   62  		}\n\nI:\\w\\zeptobots\\Assets\\Scripts\\LocalMan.cs:\n  210  		switch(chunks[0])\n  211  		{\n  212: 			case \"requestactoradd\":\n  213  				HandleMessage(GetActorMessage(chunks));\n  214  				break;\n  215: 			case \"requestactormod\":\n  216  				HandleMessage(GetActorMessage(chunks));\n  217  				break;\n\n6 matches across 4 files\n\n\nSearching 35 files for \"requestactor\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Ab.cs:\n   86  		int launchX = actor.rx + fx*2;\n   87  		int launchY = actor.ry - fy*2;\n   88: 		NetMan.Instance.Send(\"requestactor|\"+actor.oid+\"|\"+actor.team+\"|\"+launchX+\"|\"+launchY+\"|\"+fx+\"|\"+fy+\"|\"+shootSprite);\n   89  \n   90  		engine.speedLimit = 30;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Actor.cs:\n  106  	{\n  107  		sb.Length = 0;\n  108: 		sb.Append(\"requestactor|\");\n  109  		sb.Append(this.uid);\n  110  		sb.Append(\"|\");\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Kingdom.cs:\n   32  		int fx = 0;\n   33  		int fy = -1;\n   34: 		NetMan.Instance.Send(\"requestactoradd|\"+ownerOID+\"|\"+team+\"|\"+rx+\"|\"+ry+\"|\"+fx+\"|\"+fy+\"|\"+actorSprite);\n   35  		string worldSprite = localIsRed ? \"R\" : \"B\";\n   36  		NetMan.Instance.Send(\"requestworldmod|\"+tile.sx+\"|\"+tile.sy+\"|\"+tile.ltx+\"|\"+tile.lty+\"|\"+worldSprite);\n   ..\n   58  				int fx = 0;\n   59  				int fy = -1;\n   60: 				NetMan.Instance.Send(\"requestactoradd|\"+ownerOID+\"|\"+team+\"|\"+rx+\"|\"+ry+\"|\"+fx+\"|\"+fy+\"|\"+dogSprite);\n   61  			}\n   62  		}\n\nI:\\w\\zeptobots\\Assets\\Scripts\\LocalMan.cs:\n  210  		switch(chunks[0])\n  211  		{\n  212: 			case \"requestactoradd\":\n  213  				HandleMessage(GetActorMessage(chunks));\n  214  				break;\n  215: 			case \"requestactormod\":\n  216  				HandleMessage(GetActorMessage(chunks));\n  217  				break;\n\n6 matches across 4 files\n\n\nSearching 35 files for \"requestactor\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Ab.cs:\n   86  		int launchX = actor.rx + fx*2;\n   87  		int launchY = actor.ry - fy*2;\n   88: 		NetMan.Instance.Send(\"requestactor|\"+actor.oid+\"|\"+actor.team+\"|\"+launchX+\"|\"+launchY+\"|\"+fx+\"|\"+fy+\"|\"+shootSprite);\n   89  \n   90  		engine.speedLimit = 30;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Actor.cs:\n  106  	{\n  107  		sb.Length = 0;\n  108: 		sb.Append(\"requestactor|\");\n  109  		sb.Append(this.uid);\n  110  		sb.Append(\"|\");\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Kingdom.cs:\n   32  		int fx = 0;\n   33  		int fy = -1;\n   34: 		NetMan.Instance.Send(\"requestactor|\"+ownerOID+\"|\"+team+\"|\"+rx+\"|\"+ry+\"|\"+fx+\"|\"+fy+\"|\"+actorSprite);\n   35  		string worldSprite = localIsRed ? \"R\" : \"B\";\n   36  		NetMan.Instance.Send(\"requestworldmod|\"+tile.sx+\"|\"+tile.sy+\"|\"+tile.ltx+\"|\"+tile.lty+\"|\"+worldSprite);\n   ..\n   58  				int fx = 0;\n   59  				int fy = -1;\n   60: 				NetMan.Instance.Send(\"requestactoradd|\"+ownerOID+\"|\"+team+\"|\"+rx+\"|\"+ry+\"|\"+fx+\"|\"+fy+\"|\"+dogSprite);\n   61  			}\n   62  		}\n\nI:\\w\\zeptobots\\Assets\\Scripts\\LocalMan.cs:\n  210  		switch(chunks[0])\n  211  		{\n  212: 			case \"requestactoradd\":\n  213  				HandleMessage(GetActorMessage(chunks));\n  214  				break;\n  215: 			case \"requestactormod\":\n  216  				HandleMessage(GetActorMessage(chunks));\n  217  				break;\n\n6 matches across 4 files\n\n\nSearching 35 files for \"requestactor\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Ab.cs:\n   86  		int launchX = actor.rx + fx*2;\n   87  		int launchY = actor.ry - fy*2;\n   88: 		NetMan.Instance.Send(\"requestactor|\"+actor.oid+\"|\"+actor.team+\"|\"+launchX+\"|\"+launchY+\"|\"+fx+\"|\"+fy+\"|\"+shootSprite);\n   89  \n   90  		engine.speedLimit = 30;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Actor.cs:\n  106  	{\n  107  		sb.Length = 0;\n  108: 		sb.Append(\"requestactor|\");\n  109  		sb.Append(this.uid);\n  110  		sb.Append(\"|\");\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Kingdom.cs:\n   32  		int fx = 0;\n   33  		int fy = -1;\n   34: 		NetMan.Instance.Send(\"requestactor|\"+ownerOID+\"|\"+team+\"|\"+rx+\"|\"+ry+\"|\"+fx+\"|\"+fy+\"|\"+actorSprite);\n   35  		string worldSprite = localIsRed ? \"R\" : \"B\";\n   36  		NetMan.Instance.Send(\"requestworldmod|\"+tile.sx+\"|\"+tile.sy+\"|\"+tile.ltx+\"|\"+tile.lty+\"|\"+worldSprite);\n   ..\n   58  				int fx = 0;\n   59  				int fy = -1;\n   60: 				NetMan.Instance.Send(\"requestactor|\"+ownerOID+\"|\"+team+\"|\"+rx+\"|\"+ry+\"|\"+fx+\"|\"+fy+\"|\"+dogSprite);\n   61  			}\n   62  		}\n\nI:\\w\\zeptobots\\Assets\\Scripts\\LocalMan.cs:\n  210  		switch(chunks[0])\n  211  		{\n  212: 			case \"requestactoradd\":\n  213  				HandleMessage(GetActorMessage(chunks));\n  214  				break;\n  215: 			case \"requestactormod\":\n  216  				HandleMessage(GetActorMessage(chunks));\n  217  				break;\n\n6 matches across 4 files\n\n\nSearching 35 files for \"requestactor\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Ab.cs:\n   86  		int launchX = actor.rx + fx*2;\n   87  		int launchY = actor.ry - fy*2;\n   88: 		NetMan.Instance.Send(\"requestactor|\"+actor.oid+\"|\"+actor.team+\"|\"+launchX+\"|\"+launchY+\"|\"+fx+\"|\"+fy+\"|\"+shootSprite);\n   89  \n   90  		engine.speedLimit = 30;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Actor.cs:\n  106  	{\n  107  		sb.Length = 0;\n  108: 		sb.Append(\"requestactor|\");\n  109  		sb.Append(this.uid);\n  110  		sb.Append(\"|\");\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Kingdom.cs:\n   32  		int fx = 0;\n   33  		int fy = -1;\n   34: 		NetMan.Instance.Send(\"requestactor|\"+ownerOID+\"|\"+team+\"|\"+rx+\"|\"+ry+\"|\"+fx+\"|\"+fy+\"|\"+actorSprite);\n   35  		string worldSprite = localIsRed ? \"R\" : \"B\";\n   36  		NetMan.Instance.Send(\"requestworldmod|\"+tile.sx+\"|\"+tile.sy+\"|\"+tile.ltx+\"|\"+tile.lty+\"|\"+worldSprite);\n   ..\n   58  				int fx = 0;\n   59  				int fy = -1;\n   60: 				NetMan.Instance.Send(\"requestactor|\"+ownerOID+\"|\"+team+\"|\"+rx+\"|\"+ry+\"|\"+fx+\"|\"+fy+\"|\"+dogSprite);\n   61  			}\n   62  		}\n\nI:\\w\\zeptobots\\Assets\\Scripts\\LocalMan.cs:\n  210  		switch(chunks[0])\n  211  		{\n  212: 			case \"requestactor\":\n  213  				HandleMessage(GetActorMessage(chunks));\n  214  				break;\n\n5 matches across 4 files\n\n\nSearching 35 files for \"GetOutString\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Actor.cs:\n  103  	}\n  104  \n  105: 	public string GetOutString(int localOID)\n  106  	{\n  107  		sb.Length = 0;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Boss.cs:\n  106  		{\n  107  			Actor actor = localActors[i];\n  108: 			string str = actor.GetOutString(localOID);\n  109  			NetMan.Instance.Send(str);\n  110  		}\n\n2 matches across 2 files\n\n\nSearching 35 files for \"SendReqActor\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Ab.cs:\n   88  		int tx = (int)Mathf.Round((rx-5)/10f);\n   89  		int ty = (int)Mathf.Round((ry-5)/10f);\n   90: 		NetMan.Instance.SendReqActor(-1, actor.oid, actor.team, rx, ry,tx,ty,fx,fy,shootSprite);\n   91  \n   92  		engine.speedLimit = 30;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\NetMan.cs:\n   80      }\n   81  \n   82:     public void SendReqActor(int uid, int oid, int team, \n   83      	int tx, int ty, int rx, int ry, int fx, int fy, string spriteString,\n   84      	int hp, int speedLimit, int damage, int ttl)\n\n2 matches across 2 files\n\n\nSearching 35 files for \".Send\"\n\nI:\\w\\zeptobots\\Assets\\External\\WebSocketBrowser.cs:\n   23  	public void SendString(string data)\n   24  	{\n   25: 		Application.ExternalCall(\"ws.send\", data);\n   26  	}\n   27  \n\nI:\\w\\zeptobots\\Assets\\Plugins\\WebSocket.cs:\n  130  	public void Send(byte[] buffer)\n  131  	{\n  132: 		m_Socket.Send(buffer);\n  133  	}\n  134  \n\nI:\\w\\zeptobots\\Assets\\Scripts\\Ab.cs:\n   88  		int tx = (int)Mathf.Round((rx-5)/10f);\n   89  		int ty = (int)Mathf.Round((ry-5)/10f);\n   90: 		NetMan.Instance.SendReqActor(-1, actor.oid, actor.team, rx, ry,tx,ty,fx,fy,shootSprite,-1,-1,-1,-1);\n   91  \n   92  		engine.speedLimit = 30;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Boss.cs:\n  107  			Actor actor = localActors[i];\n  108  			string str = actor.GetOutString(localOID);\n  109: 			NetMan.Instance.Send(str);\n  110  		}\n  111  	}\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Kingdom.cs:\n   34  		int fx = 0;\n   35  		int fy = -1;\n   36: 		NetMan.Instance.SendReqActor(-1,ownerOID,team,tx,ty,rx,ry,fx,fy,actorSprite,-1,-1,-1,-1);\n   37  		string worldSprite = localIsRed ? \"R\" : \"B\";\n   38: 		NetMan.Instance.SendReqWorld(tile.sx,tile.sy,tile.ltx,tile.lty,worldSprite);\n   39  	}\n   40  \n   ..\n   44  		this.team = team;\n   45  		string worldSprite = team == 1 ? \"R\" : \"B\";\n   46: 		NetMan.Instance.SendReqWorld(tile.sx,tile.sy,tile.ltx,tile.lty,worldSprite);\n   47  	}\n   48  \n   ..\n   62  				int fx = 0;\n   63  				int fy = -1;\n   64: 				NetMan.Instance.SendReqActor(-1,ownerOID,team,tx,ty,rx,ry,fx,fy,actorSprite,-1,-1,-1,-1);\n   65  			}\n   66  		}\n\nI:\\w\\zeptobots\\Assets\\Scripts\\NetMan.cs:\n   74      	if( isLocal )\n   75  		{\n   76: 			LocalMan.Instance.Send(str);\n   77  		}\n   78  		else\n   79  		{\n   80: 			ServerMan.Instance.Send(str);\n   81  		}\n   82      }\n\nI:\\w\\zeptobots\\Assets\\Scripts\\ServerMan.cs:\n   86  	public void Send(byte[] data)\n   87  	{\n   88: 		ws.Send(data);\n   89  	}\n   90  \n   91  	public void Send(string data)\n   92  	{\n   93: 		ws.SendString(data);\n   94  	}\n   95  \n\nI:\\w\\zeptobots\\Assets\\Scripts\\Tile.cs:\n  264  		for(int i=contentList.Count-1; i>=0; --i)\n  265  		{\n  266: 			contentList[i].SendMessage(\"OnActorAdded\",a, SendMessageOptions.DontRequireReceiver);\n  267  		}\n  268  	}\n  ...\n  272  		for(int i=contentList.Count-1; i>=0; --i)\n  273  		{\n  274: 			contentList[i].SendMessage(\"OnActorRemoved\",a, SendMessageOptions.DontRequireReceiver);\n  275  		}\n  276  	}\n\n14 matches across 8 files\n\n\nSearching 35 files for \".Send(\"\n\nI:\\w\\zeptobots\\Assets\\Plugins\\WebSocket.cs:\n  130  	public void Send(byte[] buffer)\n  131  	{\n  132: 		m_Socket.Send(buffer);\n  133  	}\n  134  \n\nI:\\w\\zeptobots\\Assets\\Scripts\\Boss.cs:\n  107  			Actor actor = localActors[i];\n  108  			string str = actor.GetOutString(localOID);\n  109: 			NetMan.Instance.Send(str);\n  110  		}\n  111  	}\n\nI:\\w\\zeptobots\\Assets\\Scripts\\NetMan.cs:\n   74      	if( isLocal )\n   75  		{\n   76: 			LocalMan.Instance.Send(str);\n   77  		}\n   78  		else\n   79  		{\n   80: 			ServerMan.Instance.Send(str);\n   81  		}\n   82      }\n\nI:\\w\\zeptobots\\Assets\\Scripts\\ServerMan.cs:\n   86  	public void Send(byte[] data)\n   87  	{\n   88: 		ws.Send(data);\n   89  	}\n   90  \n\n5 matches across 4 files\n\n\nSearching 35 files for \"SendReqActor\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Ab.cs:\n   88  		int tx = (int)Mathf.Round((rx-5)/10f);\n   89  		int ty = (int)Mathf.Round((ry-5)/10f);\n   90: 		NetMan.Instance.SendReqActor(-1, actor.oid, actor.team, rx, ry,tx,ty,fx,fy,shootSprite,-1,-1,-1,-1);\n   91  \n   92  		engine.speedLimit = 30;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Kingdom.cs:\n   34  		int fx = 0;\n   35  		int fy = -1;\n   36: 		NetMan.Instance.SendReqActor(-1,ownerOID,team,tx,ty,rx,ry,fx,fy,actorSprite,-1,-1,-1,-1);\n   37  		string worldSprite = localIsRed ? \"R\" : \"B\";\n   38  		NetMan.Instance.SendReqWorld(tile.sx,tile.sy,tile.ltx,tile.lty,worldSprite);\n   ..\n   62  				int fx = 0;\n   63  				int fy = -1;\n   64: 				NetMan.Instance.SendReqActor(-1,ownerOID,team,tx,ty,rx,ry,fx,fy,actorSprite,-1,-1,-1,-1);\n   65  			}\n   66  		}\n\nI:\\w\\zeptobots\\Assets\\Scripts\\NetMan.cs:\n   99      }\n  100  \n  101:     public void SendReqActor(int uid, int oid, int team, \n  102      	int tx, int ty, int rx, int ry, int fx, int fy, string spriteString,\n  103      	int hp, int speedLimit, int damage, int ttl)\n\n4 matches across 3 files\n\n\nSearching 35 files for \"rx,ry\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Ab.cs:\n   88  		int tx = (int)Mathf.Round((rx-5)/10f);\n   89  		int ty = (int)Mathf.Round((ry-5)/10f);\n   90: 		NetMan.Instance.SendReqActor(-1, actor.oid, actor.team,tx,ty,rx,ry,fx,fy,shootSprite,-1,-1,-1,-1);\n   91  \n   92  		engine.speedLimit = 30;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Director.cs:\n  111  				if( oid != Boss.Instance.localOID )\n  112  				{\n  113: 					a.Mod(true, uid,oid,team,tx,ty,rx,ry,sprite,hp,speedLimit,damage,ttl,fx,fy);	\n  114  				}\n  115  				else\n  116  				{\n  117: 					a.Mod(false, uid,oid,team,tx,ty,rx,ry,sprite,hp,speedLimit,damage,ttl,fx,fy);	\n  118  				}\n  119  			}\n  ...\n  122  		{\n  123  			Debug.Log(\"addactor\"+uid+\"@ \"+tx+\" \"+ty);\n  124: 			a = AddActor(rx,ry,sprite);\n  125  			if( a != null )\n  126  			{\n  127: 				a.Mod(true, uid,oid,team,tx,ty,rx,ry,sprite,hp,speedLimit,damage,ttl,fx,fy);\n  128  				actorDict[uid] = a;\n  129  				actorList.Add(a);\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Kingdom.cs:\n   34  		int fx = 0;\n   35  		int fy = -1;\n   36: 		NetMan.Instance.SendReqActor(-1,ownerOID,team,tx,ty,rx,ry,fx,fy,actorSprite,-1,-1,-1,-1);\n   37  		string worldSprite = localIsRed ? \"R\" : \"B\";\n   38  		NetMan.Instance.SendReqWorld(tile.sx,tile.sy,tile.ltx,tile.lty,worldSprite);\n   ..\n   62  				int fx = 0;\n   63  				int fy = -1;\n   64: 				NetMan.Instance.SendReqActor(-1,ownerOID,team,tx,ty,rx,ry,fx,fy,actorSprite,-1,-1,-1,-1);\n   65  			}\n   66  		}\n\n7 matches across 3 files\n\n\nSearching 35 files for \"Shift\"\n\nI:\\w\\zeptobots\\Assets\\Editor\\EnumFlagsAttributeDrawer.cs:\n   53          for ( int i = 1; i < enumLength; i++ )\n   54          {\n   55:         	int shift = 1 << (i-1);\n   56:             buttonPressed[ i ] = ( prop.intValue & shift ) == shift;\n   57   \n   58              buttonPos.x = position.x + labelWidth + buttonWidth * i;\n   ..\n   68              if ( buttonPressed[ i ] )\n   69              {\n   70:                 buttonsIntValue += shift;\n   71              }\n   72          }\n\nI:\\w\\zeptobots\\Assets\\Scripts\\CamControl.cs:\n    7  	public static CamControl Instance;\n    8  	public float camHeight;\n    9: 	public float camShiftZ;\n   10  	public Transform target;\n   11  	private float nearSpeed = 60f;\n   ..\n   49  	{\n   50  		pos.y = camHeight;\n   51: 		pos.z += camShiftZ;\n   52  		desiredPosition = pos;\n   53  	}\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Hud.cs:\n   30  		abilityA = factory.AddAbility(root, rightX-75f, bottomY, \"Ctrl\", \"99\");\n   31  		\n   32: 		abilityB = factory.AddAbility(root, rightX-0f, bottomY, \"Shift\", \"99\");\n   33  		\n   34  		portrait = factory.AddPortrait(root, leftX, bottomY);\n\n7 matches across 3 files\n\n\nSearching 35 files for \"addactor\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Director.cs:\n   51  \n   52  \n   53: 	public Actor AddActor(int rx, int ry, string sprite)\n   54  	{\n   55  		GameObject prototype = null;\n   ..\n  121  		else if( hp > 0 )\n  122  		{\n  123: 			Debug.Log(\"addactor\"+uid+\"@ \"+tx+\" \"+ty);\n  124: 			a = AddActor(rx,ry,sprite);\n  125  			if( a != null )\n  126  			{\n\n3 matches in 1 file\n\n\nSearching 35 files for \"currentStep\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Engine.cs:\n    5  \n    6  	public int speedLimit = 30;\n    7: 	public float currentStep = 0f;\n    8  	public float currentSpeed = 0f;\n    9  \n   ..\n   46  			if( dist > maxStep )\n   47  			{\n   48: 				currentStep = maxStep;\n   49  				Vector3 dir = diff/dist;\n   50: 				this.transform.position = this.transform.position + dir*currentStep;\n   51  			}\n   52  			else\n   53  			{\n   54: 				currentStep = dist;\n   55  				this.transform.position = this.desiredPosition;	\n   56  			}\n   ..\n   58  		else\n   59  		{\n   60: 			currentStep = 0f;\n   61  		}\n   62  		Vector3 centerPos = this.transform.position- Vector3.forward*5+ Vector3.right*5;\n   ..\n   70  		{\n   71  			this.transform.position = originalPosition;\n   72: 			currentStep = 0f; \n   73  		}\n   74  		else \n   ..\n   91  				{\n   92  					this.transform.position = originalPosition;\n   93: 					currentStep = 0f; \n   94  				}\n   95  			}\n   ..\n   99  		facingX = (int)Mathf.Clamp(facingVec.x*10000, -1,1);\n  100  		facingY = (int)Mathf.Clamp(facingVec.y*10000, -1,1);\n  101: 		currentSpeed = currentStep/deltaTime;\n  102  	}\n  103  \n\nI:\\w\\zeptobots\\Assets\\Scripts\\Hero.cs:\n   36  		if( actorBody && actorBody.localUpdate )\n   37  		{\n   38: 			actorBody.BodyUpdate(deltaTime, engine.facingVec, engine.currentStep, actions[0].isPressed, actions[1].isPressed);\n   39  		}\n   40  	}\n\n9 matches across 2 files\n\n\nSearching 36 files for \".Init(\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Actor.cs:\n   49  		effects[0] = this.gameObject.AddComponent<GameEffect>();\n   50  		effects[1] = this.gameObject.AddComponent<GameEffect>();\n   51: 		engine.Init();\n   52  	}\n   53  \n\nI:\\w\\zeptobots\\Assets\\Scripts\\Director.cs:\n  128  				actorList.Add(a);\n  129  \n  130: 				a.Init();\n  131  				if( a.hero )\n  132  				{\n  133: 					a.hero.Init();\n  134  				}\n  135  				if( a.creature )\n  136  				{\n  137: 					a.creature.Init(sprite);\n  138  				}\n  139  				Boss.Instance.ScanLocalActors();\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Sector.cs:\n  111  					isPopulated = true;\n  112  					t.gameObject.transform.parent = this.transform;\n  113: 					t.Init(ltx,lty,rtx,rty,sx,sy);\n  114  					t.SetContents(c);\n  115  					tiles[ltx,lty] = t;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\World.cs:\n   48  				go.transform.parent = this.transform;\n   49  				Sector s = go.GetComponent<Sector>();\n   50: 				s.Init(sx,sy);\n   51  				sectors[sx,sy] = s;\n   52  				go.SetActive(true);\n\n6 matches across 4 files\n\n\nSearching 36 files for \".Init(\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Actor.cs:\n   49  		effects[0] = this.gameObject.AddComponent<GameEffect>();\n   50  		effects[1] = this.gameObject.AddComponent<GameEffect>();\n   51: 		engine.Init();\n   52  		if( hero )\n   53  		{\n   54: 			hero.Init();\n   55  		}\n   56  		if( creature )\n   57  		{\n   58: 			creature.Init(sprite);\n   59  		}\n   60  	}\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Director.cs:\n  128  				actorList.Add(a);\n  129  \n  130: 				a.Init(sprite);\n  131  				\n  132  				Boss.Instance.ScanLocalActors();\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Sector.cs:\n  111  					isPopulated = true;\n  112  					t.gameObject.transform.parent = this.transform;\n  113: 					t.Init(ltx,lty,rtx,rty,sx,sy);\n  114  					t.SetContents(c);\n  115  					tiles[ltx,lty] = t;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\World.cs:\n   48  				go.transform.parent = this.transform;\n   49  				Sector s = go.GetComponent<Sector>();\n   50: 				s.Init(sx,sy);\n   51  				sectors[sx,sy] = s;\n   52  				go.SetActive(true);\n\n6 matches across 4 files\n",
+			"settings":
+			{
+				"buffer_size": 19678,
+				"line_ending": "Windows",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "Assets/Scripts/Kingdom.cs",
+			"settings":
+			{
+				"buffer_size": 2104,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Scripts/Tile.cs",
+			"settings":
+			{
+				"buffer_size": 8579,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Scripts/GameAbility.cs",
+			"settings":
+			{
+				"buffer_size": 2092,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Scripts/Boss.cs",
+			"settings":
+			{
+				"buffer_size": 3654,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "Assets/Scripts/Director.cs",
 			"settings":
 			{
-				"buffer_size": 3054,
+				"buffer_size": 2916,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "server/world.js",
+			"settings":
+			{
+				"buffer_size": 5723,
 				"line_ending": "Unix"
 			}
 		}
@@ -681,20 +737,37 @@
 	[
 		"/I/w/zeptobots/Assets",
 		"/I/w/zeptobots/Assets/Editor",
+		"/I/w/zeptobots/Assets/Scripts",
 		"/I/w/zeptobots/server",
 		"/I/w/zeptobots/targetweb"
 	],
 	"file_history":
 	[
+		"/I/w/zeptobots/Assets/Scripts/SpriterHero.cs",
+		"/I/w/zeptobots/server/actor.js",
+		"/I/w/zeptobots/Assets/Scripts/ActorBody.cs",
+		"/I/w/zeptobots/Assets/Scripts/Kingdom.cs",
+		"/I/w/zeptobots/Assets/Scripts/BipedBody.cs",
+		"/I/w/zeptobots/targetweb/websocket.js",
+		"/I/w/zeptobots/Assets/Scripts/UIFace.cs",
+		"/I/w/zeptobots/Assets/Scripts/Hud.cs",
+		"/I/w/zeptobots/Assets/Scripts/World.cs",
+		"/I/w/zeptobots/Assets/Scripts/Tile.cs",
+		"/I/w/zeptobots/.gitignore",
+		"/I/w/zeptobots/Assets/.gitignore",
+		"/I/w/zeptobots/Assets/Scripts/Boss.cs",
+		"/I/w/zeptobots/Assets/External/WebSocketBrowser.cs",
+		"/I/w/zeptobots/Assets/Scripts/GameEffect.cs",
+		"/I/w/zeptobots/Assets/Scripts/Actor.cs",
+		"/I/w/zeptobots/Assets/Scripts/Hero.cs",
+		"/I/w/zeptobots/Assets/Scripts/GameAbility.cs",
+		"/I/w/zeptobots/Assets/Scripts/Ab.cs",
 		"/I/w/zeptobots/Assets/Scripts/MenuFactory.cs",
 		"/I/w/zeptobots/Assets/Scripts/Sector.cs",
 		"/I/w/zeptobots/Assets/Editor/EnumFlagsAttributeDrawer.cs",
 		"/I/w/zeptobots/Assets/Scripts/EnumFlagsAttribute.cs",
-		"/I/w/zeptobots/Assets/Scripts/Kingdom.cs",
-		"/I/w/zeptobots/server/actor.js",
 		"/I/w/zeptobots/Assets/Scripts/ServerMan.cs",
 		"/I/w/zeptobots/Assets/Scripts/Menu.cs",
-		"/I/w/zeptobots/Assets/Scripts/Boss.cs",
 		"/I/w/zeptobots/targetweb/index.html",
 		"/I/w/zeptobots/targetweb/dev.html",
 		"/I/w/zeptobots/server/sector.js",
@@ -702,16 +775,11 @@
 		"/I/w/zeptobots/Assets/Scripts/NetMan.cs",
 		"/I/w/zeptobots/server/s.js",
 		"/I/w/zeptobots/Assets/Scripts/TileContents.cs",
-		"/I/w/zeptobots/Assets/Scripts/Tile.cs",
 		"/I/w/zeptobots/Assets/Scripts/Utils.cs",
-		"/I/w/zeptobots/Assets/Scripts/Actor.cs",
-		"/I/w/zeptobots/Assets/Scripts/World.cs",
 		"/I/w/zeptobots/Assets/Scripts/Director.cs",
 		"/I/w/zeptobots/Assets/Scripts/CamControl.cs",
 		"/I/w/zeptobots/Assets/Scripts/Creature.cs",
 		"/I/w/zeptobots/Assets/Scripts/Engine.cs",
-		"/I/w/zeptobots/Assets/Scripts/SpriterHero.cs",
-		"/I/w/zeptobots/Assets/Scripts/Hero.cs",
 		"/I/w/zeptobots/Assets/Scripts/HealthBar.cs",
 		"/I/w/zeptobots/server/world.js",
 		"/I/w/zeptobots/Assets/Editor/EnumFlagsAttribute.cs",
@@ -734,7 +802,6 @@
 		"/I/w/zeptobots/Assets/Scripts/GameAction.cs",
 		"/I/w/zeptobots/Assets/Scripts/Spriter.cs",
 		"/I/w/zeptobots/zeptobots.sublime-project",
-		"/I/w/zeptobots/.gitignore",
 		"/I/w/zeptobots/Assets/AutoTileSet/README.txt",
 		"/I/w/zeptobots/Assets/Scripts/TileMaterial.cs",
 		"/I/w/zeptobots/Assets/ATSFixer.cs",
@@ -745,7 +812,6 @@
 		"/I/w/zeptobots/target/index.html",
 		"/I/w/zeptobots/target/game.html",
 		"/I/w/zeptobots/target/websocket.js",
-		"/I/w/zeptobots/Assets/External/WebSocketBrowser.cs",
 		"/I/w/zeptobots/Assets/Plugins/WebSocket.cs",
 		"/I/w/Cyborgers/Server/s.js",
 		"/I/w/zeptobots/server/synchronizer.js",
@@ -804,16 +870,7 @@
 		"//STRAWBERRY/Code/kiloio/common/clientjs/KApp.js",
 		"//STRAWBERRY/Code/kiloio/client/js/KApp.js",
 		"/I/w/kiloio/client/js/KApp.js",
-		"//STRAWBERRY/Code/kiloio/client/js/KActorData.js",
-		"//STRAWBERRY/Code/kiloio/server/lib/KSectorSrv.js",
-		"//STRAWBERRY/Code/kiloio/server/lib/util.js",
-		"//STRAWBERRY/Code/kiloio/server/lib/KActorData.js",
-		"//STRAWBERRY/Code/kiloio/server/lib/KWorld.js",
-		"//STRAWBERRY/Code/kiloio/client/js/KUserData.js",
-		"/I/w/kiloio/client/index.html",
-		"//STRAWBERRY/Code/testnodejs/client/index.html",
-		"//STRAWBERRY/Code/RequireJS-example-of-use-lib-on-server-side-and-client-side-master/client/js/app.js",
-		"//STRAWBERRY/Code/testnodejs/lib/pyandex/core.js"
+		"//STRAWBERRY/Code/kiloio/client/js/KActorData.js"
 	],
 	"find":
 	{
@@ -850,6 +907,50 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			".Init(",
+			"desiredPosition",
+			"EngineCollided",
+			"currentSpeed",
+			"currentStep",
+			"speedlimi",
+			"addactor",
+			"2",
+			"team",
+			"Shift",
+			"rx,ry",
+			"SendReqActor",
+			".Send(",
+			".Send",
+			"SendReqActor",
+			"GetOutString",
+			"requestactor",
+			"requestactoradd",
+			"ttl",
+			"'H'",
+			"requestactoradd",
+			"GetActorAddMessage",
+			"SetSprite",
+			"spriteString",
+			"requestactoradd",
+			"GetActorMessage",
+			"handlem",
+			"getactormes",
+			"requestactoradd",
+			"larm",
+			"spritest",
+			"vacante",
+			"ctorbody",
+			"SetColored",
+			"SetButton",
+			"locktime = ",
+			"Init",
+			"effname",
+			"ActionState",
+			"ActionEvent",
+			"GameAction",
+			"ActionUpdate",
+			"GameAction",
+			"GetTileImageIndex",
 			"backg",
 			"blue",
 			"red",
@@ -933,51 +1034,7 @@
 			"getch",
 			"+5",
 			"+ 5",
-			"selectedKingdom",
-			"GetSectorAt",
-			"GetTileAt",
-			"chunks.shift",
-			"getSector",
-			"getsector",
-			"initSector",
-			"requestworldmod",
-			"sectormod",
-			"'R'",
-			"rtx",
-			"RequestSpawn",
-			"TileType",
-			"spriter",
-			"hero",
-			"GetSideNeighbours",
-			"GetTileImageIndex",
-			"MakeTile",
-			"class TileMaterial",
-			"TileMaterial",
-			"tileMaterial",
-			"GetTileImageIndex",
-			"countones",
-			"TestCornerTemplate",
-			"neighbourInfo2",
-			"renderer",
-			"select",
-			"localacto",
-			"localHeroes",
-			"SelectRandomLocalHero",
-			"'B'",
-			"addact",
-			"localActors",
-			"updat",
-			"sprite",
-			"dirtySectors",
-			"selectspawn",
-			"spawnTiles",
-			"lasttile",
-			"AddActor",
-			"tx",
-			"init",
-			"addActor",
-			"requestactoradd",
-			".hp"
+			"selectedKingdom"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -985,6 +1042,11 @@
 		"regex": false,
 		"replace_history":
 		[
+			"ctorBody",
+			"effName",
+			"AbilityState",
+			"AbilityEvent",
+			"GameAbility",
 			"go.transform.SetParent(root);",
 			"(int)Utils.Ord",
 			"corners",
@@ -1113,145 +1175,60 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "Assets/Scripts/ActorBody.cs",
+					"file": "Assets/Scripts/Actor.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3080,
+						"buffer_size": 5024,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1272,
-								1272
+								3916,
+								3916
 							]
 						],
 						"settings":
 						{
+							"history_list_is_closing": true,
 							"syntax": "Packages/C#/C#.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 546.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 13,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "targetweb/websocket.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 576,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								575,
-								575
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 11,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "Assets/Scripts/UIFace.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 368,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								362,
-								362
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "Assets/Scripts/Menu.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4362,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4030,
-								4030
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 2072.0,
+						"translation.y": 2535.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": ".gitignore",
+					"buffer": 1,
+					"file": "Assets/Scripts/ActorBody.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 284,
+						"buffer_size": 1117,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								137,
-								137
+								373,
+								373
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1261,12 +1238,222 @@
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "Assets/.gitignore",
+					"buffer": 2,
+					"file": "Assets/Scripts/BipedBody.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 9,
+						"buffer_size": 2405,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								334,
+								334
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 45.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "Assets/Scripts/LocalMan.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4592,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4134,
+								4134
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2924.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "Assets/Scripts/NetMan.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2688,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2271,
+								2271
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1469.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 21,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "Assets/Scripts/Engine.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2605,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								593,
+								593
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 225.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 6,
+					"file": "Assets/Scripts/RulesActor.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 647,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								410,
+								420
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "Assets/Scripts/RulesEff.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 960,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								80,
+								80
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "Assets/Scripts/RulesAb.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3033,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2224,
+								2224
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1469.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "Assets/fonts/Aileron-Black.otf",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 65527,
 						"regions":
 						{
 						},
@@ -1285,387 +1472,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 14,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 7194,
-						"regions":
-						{
-							"match":
-							{
-								"flags": 112,
-								"regions":
-								[
-									[
-										160,
-										170
-									],
-									[
-										443,
-										453
-									],
-									[
-										698,
-										707
-									],
-									[
-										862,
-										871
-									],
-									[
-										1008,
-										1017
-									],
-									[
-										1161,
-										1170
-									],
-									[
-										1268,
-										1277
-									],
-									[
-										1364,
-										1373
-									],
-									[
-										1479,
-										1488
-									],
-									[
-										1628,
-										1637
-									],
-									[
-										1840,
-										1857
-									],
-									[
-										2098,
-										2103
-									],
-									[
-										2344,
-										2349
-									],
-									[
-										2401,
-										2406
-									],
-									[
-										2612,
-										2617
-									],
-									[
-										2866,
-										2871
-									],
-									[
-										3085,
-										3090
-									],
-									[
-										3472,
-										3477
-									],
-									[
-										3588,
-										3593
-									],
-									[
-										3679,
-										3684
-									],
-									[
-										3781,
-										3786
-									],
-									[
-										3918,
-										3923
-									],
-									[
-										4039,
-										4044
-									],
-									[
-										4083,
-										4088
-									],
-									[
-										4124,
-										4129
-									],
-									[
-										4311,
-										4316
-									],
-									[
-										4443,
-										4448
-									],
-									[
-										4750,
-										4755
-									],
-									[
-										4832,
-										4837
-									],
-									[
-										4954,
-										4959
-									],
-									[
-										5149,
-										5154
-									],
-									[
-										5226,
-										5231
-									],
-									[
-										5297,
-										5302
-									],
-									[
-										5340,
-										5345
-									],
-									[
-										5509,
-										5514
-									],
-									[
-										5754,
-										5759
-									],
-									[
-										5943,
-										5948
-									],
-									[
-										6159,
-										6164
-									],
-									[
-										6382,
-										6390
-									],
-									[
-										6525,
-										6533
-									],
-									[
-										6831,
-										6839
-									],
-									[
-										7081,
-										7089
-									]
-								],
-								"scope": ""
-							}
-						},
-						"selection":
-						[
-							[
-								6831,
-								6831
-							]
-						],
-						"settings":
-						{
-							"detect_indentation": false,
-							"line_numbers": false,
-							"output_tag": 8,
-							"result_base_dir": "",
-							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
-							"result_line_regex": "^ +([0-9]+):",
-							"scroll_past_end": true,
-							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 3510.0,
-						"zoom_level": 1.0
-					},
 					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
-					"file": "Assets/Scripts/Boss.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3695,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1851,
-								1851
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1049.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "Assets/External/WebSocketBrowser.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 556,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								510,
-								510
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 12,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "Assets/Scripts/GameAction.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1471,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								176,
-								185
-							]
-						],
-						"settings":
-						{
-							"history_list_is_closing": true,
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 16,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
-				{
 					"buffer": 10,
-					"file": "Assets/Scripts/Hero.cs",
+					"file": "Assets/Scripts/Creature.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3259,
+						"buffer_size": 735,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1094,
-								1094
-							]
-						],
-						"settings":
-						{
-							"history_list_is_closing": true,
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 35.0,
-						"translation.y": 376.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 11,
-					"file": "server/actor.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1966,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 12,
-					"file": "Assets/Scripts/Actor.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2878,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								140,
-								144
+								683,
+								683
 							]
 						],
 						"settings":
@@ -1681,20 +1505,78 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "Assets/Scripts/Menu.cs",
+					"buffer": 4,
+					"file": "Assets/Scripts/NetMan.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4362,
+						"buffer_size": 2688,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								235,
-								235
+								969,
+								969
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 659.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 23,
+					"type": "text"
+				},
+				{
+					"buffer": 0,
+					"file": "Assets/Scripts/Actor.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5024,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3916,
+								3916
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2414.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "Assets/Scripts/Hud.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1517,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								623,
+								623
 							]
 						],
 						"settings":
@@ -1702,15 +1584,15 @@
 							"syntax": "Packages/C#/C#.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.x": -0.0,
+						"translation.y": 141.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 20,
 					"type": "text"
 				},
 				{
-					"buffer": 13,
+					"buffer": 12,
 					"file": "Assets/Scripts/MenuFactory.cs",
 					"semi_transient": false,
 					"settings":
@@ -1736,24 +1618,24 @@
 						"translation.y": 315.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 25,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
-					"file": "Assets/Scripts/Boss.cs",
+					"buffer": 13,
+					"file": "Assets/Scripts/Menu.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3695,
+						"buffer_size": 3369,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1814,
-								1814
+								2819,
+								2819
 							]
 						],
 						"settings":
@@ -1762,27 +1644,520 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 946.0,
+						"translation.y": 1515.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 24,
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "Assets/Scripts/Hero.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1098,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								888,
+								888
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 256.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 14,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "Assets/Scripts/LocalMan.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4592,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4174,
+								4230
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 73.0,
+						"translation.y": 2924.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 19678,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										190,
+										205
+									],
+									[
+										447,
+										462
+									],
+									[
+										782,
+										797
+									],
+									[
+										983,
+										998
+									],
+									[
+										1285,
+										1297
+									],
+									[
+										1517,
+										1529
+									],
+									[
+										1709,
+										1721
+									],
+									[
+										2044,
+										2056
+									],
+									[
+										2245,
+										2257
+									],
+									[
+										2348,
+										2360
+									],
+									[
+										2650,
+										2662
+									],
+									[
+										2882,
+										2894
+									],
+									[
+										3071,
+										3083
+									],
+									[
+										3406,
+										3418
+									],
+									[
+										3607,
+										3619
+									],
+									[
+										3710,
+										3722
+									],
+									[
+										4012,
+										4024
+									],
+									[
+										4244,
+										4256
+									],
+									[
+										4433,
+										4445
+									],
+									[
+										4765,
+										4777
+									],
+									[
+										4966,
+										4978
+									],
+									[
+										5069,
+										5081
+									],
+									[
+										5371,
+										5383
+									],
+									[
+										5603,
+										5615
+									],
+									[
+										5792,
+										5804
+									],
+									[
+										6124,
+										6136
+									],
+									[
+										6322,
+										6334
+									],
+									[
+										6425,
+										6437
+									],
+									[
+										6727,
+										6739
+									],
+									[
+										6959,
+										6971
+									],
+									[
+										7148,
+										7160
+									],
+									[
+										7480,
+										7492
+									],
+									[
+										7678,
+										7690
+									],
+									[
+										7909,
+										7921
+									],
+									[
+										8090,
+										8102
+									],
+									[
+										8387,
+										8399
+									],
+									[
+										8587,
+										8599
+									],
+									[
+										8970,
+										8975
+									],
+									[
+										9115,
+										9120
+									],
+									[
+										9306,
+										9311
+									],
+									[
+										9591,
+										9596
+									],
+									[
+										9734,
+										9739
+									],
+									[
+										9887,
+										9892
+									],
+									[
+										10077,
+										10082
+									],
+									[
+										10236,
+										10241
+									],
+									[
+										10440,
+										10445
+									],
+									[
+										10516,
+										10521
+									],
+									[
+										10656,
+										10661
+									],
+									[
+										10746,
+										10751
+									],
+									[
+										10909,
+										10914
+									],
+									[
+										11094,
+										11099
+									],
+									[
+										11362,
+										11368
+									],
+									[
+										11553,
+										11559
+									],
+									[
+										11692,
+										11698
+									],
+									[
+										11768,
+										11774
+									],
+									[
+										11908,
+										11914
+									],
+									[
+										12164,
+										12176
+									],
+									[
+										12401,
+										12413
+									],
+									[
+										12695,
+										12707
+									],
+									[
+										12878,
+										12890
+									],
+									[
+										13321,
+										13326
+									],
+									[
+										13547,
+										13552
+									],
+									[
+										13680,
+										13685
+									],
+									[
+										13844,
+										13849
+									],
+									[
+										13939,
+										13944
+									],
+									[
+										14192,
+										14197
+									],
+									[
+										14486,
+										14491
+									],
+									[
+										14756,
+										14761
+									],
+									[
+										14834,
+										14839
+									],
+									[
+										14845,
+										14850
+									],
+									[
+										15051,
+										15056
+									],
+									[
+										15241,
+										15246
+									],
+									[
+										15386,
+										15391
+									],
+									[
+										15632,
+										15637
+									],
+									[
+										15863,
+										15871
+									],
+									[
+										16016,
+										16024
+									],
+									[
+										16061,
+										16069
+									],
+									[
+										16290,
+										16301
+									],
+									[
+										16416,
+										16427
+									],
+									[
+										16542,
+										16553
+									],
+									[
+										16605,
+										16616
+									],
+									[
+										16738,
+										16749
+									],
+									[
+										16938,
+										16949
+									],
+									[
+										17070,
+										17081
+									],
+									[
+										17268,
+										17279
+									],
+									[
+										17477,
+										17488
+									],
+									[
+										17804,
+										17810
+									],
+									[
+										17924,
+										17930
+									],
+									[
+										17988,
+										17994
+									],
+									[
+										18073,
+										18079
+									],
+									[
+										18292,
+										18298
+									],
+									[
+										18535,
+										18541
+									],
+									[
+										18859,
+										18865
+									],
+									[
+										18913,
+										18919
+									],
+									[
+										18986,
+										18992
+									],
+									[
+										19115,
+										19121
+									],
+									[
+										19333,
+										19339
+									],
+									[
+										19576,
+										19582
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								19119,
+								19119
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"line_numbers": false,
+							"output_tag": 17,
+							"result_base_dir": "",
+							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 10245.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 14,
-					"file": "Assets/Scripts/Director.cs",
+					"buffer": 16,
+					"file": "Assets/Scripts/Kingdom.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3054,
+						"buffer_size": 2104,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								448,
-								448
+								1773,
+								1773
 							]
 						],
 						"settings":
@@ -1791,10 +2166,186 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 826.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 18,
+					"type": "text"
+				},
+				{
+					"buffer": 17,
+					"file": "Assets/Scripts/Tile.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8579,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8118,
+								8118
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 4096.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 17,
+					"type": "text"
+				},
+				{
+					"buffer": 18,
+					"file": "Assets/Scripts/GameAbility.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2092,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1832,
+								1832
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1153.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 16,
+					"type": "text"
+				},
+				{
+					"buffer": 19,
+					"file": "Assets/Scripts/Boss.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3654,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2378,
+								2378
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1486.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 19,
+					"type": "text"
+				},
+				{
+					"buffer": 20,
+					"file": "Assets/Scripts/Director.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2916,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2834,
+								2834
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1169.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "Assets/Scripts/Engine.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2605,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2556,
+								2556
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1231.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
+					"type": "text"
+				},
+				{
+					"buffer": 21,
+					"file": "server/world.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5723,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3866,
+								3866
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1981.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 22,
 					"type": "text"
 				}
 			]
@@ -1828,7 +2379,7 @@
 		"cols":
 		[
 			0.0,
-			0.620557491289,
+			0.538327526133,
 			1.0
 		],
 		"rows":
@@ -1864,16 +2415,112 @@
 		"selected_items":
 		[
 			[
+				"lo",
+				"Assets\\Scripts\\LocalMan.cs"
+			],
+			[
+				"en",
+				"Assets\\Scripts\\Engine.cs"
+			],
+			[
+				"bi",
+				"Assets\\Scripts\\BipedBody.cs"
+			],
+			[
+				"body",
+				"Assets\\Scripts\\ActorBody.cs"
+			],
+			[
+				"di",
+				"Assets\\Scripts\\Director.cs"
+			],
+			[
+				"ab",
+				"Assets\\Scripts\\Ab.cs"
+			],
+			[
+				"ti",
+				"Assets\\Scripts\\Tile.cs"
+			],
+			[
+				"ki",
+				"Assets\\Scripts\\Kingdom.cs"
+			],
+			[
+				"he",
+				"Assets\\Scripts\\Hero.cs"
+			],
+			[
+				"cre",
+				"Assets\\Scripts\\Creature.cs"
+			],
+			[
+				"bo",
+				"Assets\\Scripts\\Boss.cs"
+			],
+			[
+				"a",
+				"Assets\\Scripts\\Actor.cs"
+			],
+			[
+				"kin",
+				"Assets\\Scripts\\Kingdom.cs"
+			],
+			[
+				"netm",
+				"Assets\\Scripts\\NetMan.cs"
+			],
+			[
 				"acto",
 				"Assets\\Scripts\\Actor.cs"
 			],
 			[
 				"ac",
-				"server\\actor.js"
+				"Assets\\Scripts\\Actor.cs"
 			],
 			[
-				"he",
+				"serve",
+				"server\\world.js"
+			],
+			[
+				"actorb",
+				"Assets\\Scripts\\ActorBody.cs"
+			],
+			[
+				"gamea",
+				"Assets\\Scripts\\GameAbility.cs"
+			],
+			[
+				"her",
 				"Assets\\Scripts\\Hero.cs"
+			],
+			[
+				"menu",
+				"Assets\\Scripts\\Menu.cs"
+			],
+			[
+				"men",
+				"Assets\\Scripts\\MenuFactory.cs"
+			],
+			[
+				"eff",
+				"Assets\\Scripts\\Eff.cs"
+			],
+			[
+				"game",
+				"Assets\\Scripts\\GameEffect.cs"
+			],
+			[
+				"effct",
+				"Assets\\Scripts\\GameEffect.cs"
+			],
+			[
+				"action",
+				"Assets\\Scripts\\GameAction.cs"
+			],
+			[
+				"wo",
+				"Assets\\Scripts\\World.cs"
 			],
 			[
 				"bos",
@@ -1882,14 +2529,6 @@
 			[
 				"m",
 				"Assets\\Scripts\\Menu.cs"
-			],
-			[
-				"di",
-				"Assets\\Scripts\\Director.cs"
-			],
-			[
-				"men",
-				"Assets\\Scripts\\MenuFactory.cs"
 			],
 			[
 				"menuf",
@@ -1908,10 +2547,6 @@
 				"Assets\\Scripts\\CamControl.cs"
 			],
 			[
-				"her",
-				"Assets\\Scripts\\Hero.cs"
-			],
-			[
 				"actor",
 				"Assets\\Scripts\\Actor.cs"
 			],
@@ -1920,20 +2555,12 @@
 				"Assets\\Scripts\\Sector.cs"
 			],
 			[
-				"bo",
-				"Assets\\Scripts\\Boss.cs"
-			],
-			[
 				"enum",
 				"Assets\\Editor\\EnumFlagsAttributeDrawer.cs"
 			],
 			[
 				"enumf",
 				"Assets\\Scripts\\Editor\\EnumFlagsAttribute.cs"
-			],
-			[
-				"wo",
-				"Assets\\Scripts\\World.cs"
 			],
 			[
 				"loc",
@@ -1948,20 +2575,12 @@
 				"server\\world.js"
 			],
 			[
-				"netm",
-				"Assets\\Scripts\\NetMan.cs"
-			],
-			[
 				"ser",
 				"Assets\\Scripts\\ServerMan.cs"
 			],
 			[
 				"local",
 				"Assets\\Scripts\\LocalMan.cs"
-			],
-			[
-				"menu",
-				"Assets\\Scripts\\Menu.cs"
 			],
 			[
 				"netma",
@@ -1992,10 +2611,6 @@
 				"Assets\\main.unity"
 			],
 			[
-				"kin",
-				"Assets\\Scripts\\Kingdom.cs"
-			],
-			[
 				"uti",
 				"Assets\\Scripts\\Utils.cs"
 			],
@@ -2014,10 +2629,6 @@
 			[
 				"camco",
 				"Assets\\Scripts\\CamControl.cs"
-			],
-			[
-				"ki",
-				"Assets\\Scripts\\Kingdom.cs"
 			],
 			[
 				"wor",
@@ -2112,10 +2723,6 @@
 				"Code\\Actors\\ActorHUD.cs"
 			],
 			[
-				"actorb",
-				"Code\\Actors\\ActorBody.cs"
-			],
-			[
 				"hook",
 				"Code\\Actors\\Hook.cs"
 			],
@@ -2184,10 +2791,6 @@
 				"Code\\AICharacterControl.cs"
 			],
 			[
-				"game",
-				"Code\\Game.cs"
-			],
-			[
 				"bas",
 				"CodeLib\\BasicCommon\\BasicTimer.cs"
 			],
@@ -2218,10 +2821,6 @@
 			[
 				"con",
 				"Code\\Constants.cs"
-			],
-			[
-				"a",
-				"Code\\Game\\Ability.cs"
 			],
 			[
 				"googm",
@@ -2262,10 +2861,6 @@
 			[
 				"norm",
 				"Code\\Game\\NormalActor.cs"
-			],
-			[
-				"en",
-				"Code\\Game\\Entity.cs"
 			],
 			[
 				"fac",
@@ -2330,50 +2925,6 @@
 			[
 				"gumbos",
 				"Code\\GumboAI\\GumboCore\\GumboSense.cs"
-			],
-			[
-				"eff",
-				"Code\\Game\\Effect.cs"
-			],
-			[
-				"typ",
-				"GooglePlayGames\\Platforms\\Native\\Cwrapper\\Types.cs"
-			],
-			[
-				"vi",
-				"Code\\Game\\Vitals.cs"
-			],
-			[
-				"ab",
-				"Code\\Game\\Ability.cs"
-			],
-			[
-				"e",
-				"Code\\Game\\Entity.cs"
-			],
-			[
-				"ut",
-				"CodeLib\\Common\\Utilities.cs"
-			],
-			[
-				"pre",
-				"CodeLib\\Common\\PrefsFile.cs"
-			],
-			[
-				"inp",
-				"Code\\UI\\InputMgr.cs"
-			],
-			[
-				"db",
-				"Code\\UI\\Dbg.cs"
-			],
-			[
-				"",
-				"Code\\Game\\Actor.cs"
-			],
-			[
-				"w",
-				"Code\\World.cs"
 			]
 		],
 		"width": 0.0

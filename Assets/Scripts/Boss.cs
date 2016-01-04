@@ -105,7 +105,8 @@ public class Boss : MonoBehaviour {
 		for(int i=0; i<localActors.Count; ++i)
 		{
 			Actor actor = localActors[i];
-			NetMan.Instance.Send( actor.GetOutString(localOID) );
+			actor.PrepOutString();
+			NetMan.Instance.Send( actor.outString );
 		}
 	}
 

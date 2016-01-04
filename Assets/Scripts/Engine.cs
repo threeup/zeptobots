@@ -20,7 +20,18 @@ public class Engine : MonoBehaviour {
 	public Tile engineTile = null;
 
 	public Actor actor;
+
+	public delegate void EngineEvent();
+	public EngineEvent EngineReached;
+	public EngineEvent EngineCollided;
 	
+	public void Init()
+	{
+		EngineReached += Noop;
+		EngineCollided += Noop;		
+	}
+
+
 	public void MoveUpdate (float deltaTime, Vector2 inputVec) 
 	{
 		moveVec = inputVec;
@@ -58,6 +69,7 @@ public class Engine : MonoBehaviour {
 		else
 		{
 			currentStep = 0f;
+			EngineReached();
 		}
 		Vector3 centerPos = this.transform.position- Vector3.forward*5+ Vector3.right*5;
 		Sector sec = World.Instance.GetSectorAt(centerPos);
@@ -66,12 +78,8 @@ public class Engine : MonoBehaviour {
 		{
 			t = sec.GetTileAt(centerPos);
 		}
-		if( t == null && engineTile != null )
-		{
-			this.transform.position = originalPosition;
-			currentStep = 0f; 
-		}
-		else 
+		bool collide = t == null && engineTile != null;
+		if( !collide ) 
 		{
 			if( t != engineTile )
 			{
@@ -89,13 +97,20 @@ public class Engine : MonoBehaviour {
 				}
 				else
 				{
-					this.transform.position = originalPosition;
-					currentStep = 0f; 
+					collide = true;
 				}
 			}
-			actor.RX = (int)Mathf.Round(this.transform.position.x) + 5;
-			actor.RY = -(int)Mathf.Round(this.transform.position.z) - 5;
 		}
+		if( collide )
+		{
+			this.transform.position = originalPosition;
+			this.desiredPosition = originalPosition;
+			currentStep = 0f; 
+
+			EngineCollided();
+		}
+		actor.RX = (int)Mathf.Round(this.transform.position.x) + 5;
+		actor.RY = -(int)Mathf.Round(this.transform.position.z) - 5;
 		facingX = (int)Mathf.Clamp(facingVec.x*10000, -1,1);
 		facingY = (int)Mathf.Clamp(facingVec.y*10000, -1,1);
 		currentSpeed = currentStep/deltaTime;
@@ -103,5 +118,9 @@ public class Engine : MonoBehaviour {
 
 
 
+	public void Noop()
+	{
+		
+	}
 
 }

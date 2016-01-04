@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class Actor : MonoBehaviour {
 
+	public string outString = "-";
 
 	private int uid = -1;
 	public int UID { get { return uid; } set { uid = value; } }
@@ -34,7 +35,7 @@ public class Actor : MonoBehaviour {
 	public Creature creature = null;
 	public ActorBody actorBody = null;
 	public HealthBar healthBar = null;
-	public List<string> effectNames = new List<string>();
+	public List<char> effectNames = new List<char>();
 	public GameEffect[] effects;
 
 	private System.Text.StringBuilder sb = new System.Text.StringBuilder();
@@ -43,11 +44,20 @@ public class Actor : MonoBehaviour {
 	private float invulnerableTime = -1f;
 	public float ttlTimer = -1f;
 
-	public void Init()
+	public void Init(string sprite)
 	{
 		effects = new GameEffect[2];
 		effects[0] = this.gameObject.AddComponent<GameEffect>();
 		effects[1] = this.gameObject.AddComponent<GameEffect>();
+		engine.Init();
+		if( hero )
+		{
+			hero.Init();
+		}
+		if( creature )
+		{
+			creature.Init(sprite);
+		}
 	}
 
 	public void Update()
@@ -113,13 +123,13 @@ public class Actor : MonoBehaviour {
 		}
 	}
 
-	public string GetOutString(int localOID)
+	public void PrepOutString()
 	{
 		sb.Length = 0;
 		sb.Append("requestactor|");
 		sb.Append(this.uid);
 		sb.Append("|");
-		sb.Append(localOID);
+		sb.Append(this.oid);
 		sb.Append("|");
 		sb.Append(this.team);
 		sb.Append("|");
@@ -151,8 +161,24 @@ public class Actor : MonoBehaviour {
 		sb.Append(this.damage);
 		sb.Append("|");
 		sb.Append(this.ttl);
+		sb.Append("|");
+		for(int i=0; i<effects.Length; ++i)
+		{
+			sb.Append(effects[i].effName);
+			sb.Append(effects[i].effStateName);
+			sb.Append("|");
+		}
+		if( hero )
+		{
+			for(int i=0; i<hero.actions.Length; ++i)
+			{
+				sb.Append(hero.actions[i].abName);
+				sb.Append(hero.actions[i].abStateName);
+				sb.Append("|");
+			}
+		}
 		sb.Append("\n");
-		return sb.ToString();
+		outString = sb.ToString();
 	}
 
 	public void SetLocal(bool val)
@@ -164,6 +190,11 @@ public class Actor : MonoBehaviour {
 		}
 	}
 
+	public void TakeDeath()
+	{
+		this.hp = -1;
+	}
+
 	public void TakeDamage(int val)
 	{
 		if( invulnerableTime < 0f )
@@ -173,7 +204,7 @@ public class Actor : MonoBehaviour {
 		}
 	}
 
-	public void AddEff(string effName)
+	public void AddEff(char effName, float duration)
 	{
 		if( !effectNames.Contains(effName) )
 		{
@@ -183,12 +214,39 @@ public class Actor : MonoBehaviour {
 				effectNames.Add(effName);
 				switch(effName)
 				{
-					case "vfx-glow": GlowEff.Assign(ge, effName); break;
-					case "vfx-rock": RockEff.Assign(ge, effName); break;
+					case 'G': GlowEff.Assign(ge, effName); break;
+					case 'R': RockEff.Assign(ge, effName); break;
 					default: break;
 				}
+				ge.SetPause(false);
+				ge.SetDuration(duration);
 				ge.Advance(this);
 			}
+		}
+	}
+
+	public void PauseEff(char effName)
+	{
+		if( effectNames.Contains(effName) )
+		{
+			GameEffect ge = GetNamedEffect(effName);
+			if( ge != null )
+			{
+				ge.SetPause(true);
+			}
+		}
+	}
+
+	public void RemEff(char effName)
+	{
+		if( effectNames.Contains(effName) )
+		{
+			GameEffect ge = GetNamedEffect(effName);
+			if( ge != null )
+			{
+				ge.Interrupt(this);
+			}
+			effectNames.Remove(effName);
 		}
 	}
 
@@ -204,11 +262,12 @@ public class Actor : MonoBehaviour {
 		return null;
 	}
 
-	public GameEffect GetNamedEffect(string effName)
+	public GameEffect GetNamedEffect(char effName)
 	{
 		for(int i=0; i<effects.Length; ++i)
 		{
-			if(string.Compare(effects[i].effName, effName) == 0)
+			//if(string.Compare(effects[i].effName, effName) == 0)
+			if(effects[i].effName == effName)
 			{
 				return effects[i];
 			}
@@ -217,17 +276,5 @@ public class Actor : MonoBehaviour {
 	}
 
 
-	public void RemEff(string effName)
-	{
-		if( effectNames.Contains(effName) )
-		{
-			GameEffect ge = GetNamedEffect(effName);
-			if( ge != null )
-			{
-				ge.Interrupt(this);
-			}
-			effectNames.Remove(effName);
-		}
-	}
 
 }

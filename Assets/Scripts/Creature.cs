@@ -13,6 +13,7 @@ public class Creature : MonoBehaviour {
 	public void Init(string sprite)
 	{
 		targetVec = actor.engine.facingVec;
+		actor.engine.EngineCollided += CreatureCollide;
 	}
 
 
@@ -27,5 +28,11 @@ public class Creature : MonoBehaviour {
 		}
 		engine.MoveUpdate(deltaTime, targetVec);
 
+	}
+
+	public void CreatureCollide()
+	{
+		targetVec = Vector2.zero;
+		actor.TakeDeath();
 	}
 }

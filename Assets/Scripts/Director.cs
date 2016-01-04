@@ -124,18 +124,9 @@ public class Director : MonoBehaviour {
 			if( a != null )
 			{
 				a.Mod(true, uid,oid,team,tx,ty,rx,ry,sprite,hp,speedLimit,damage,ttl,fx,fy);
+				a.Init(sprite);			
 				actorDict[uid] = a;
 				actorList.Add(a);
-
-				a.Init();
-				if( a.hero )
-				{
-					a.hero.Init();
-				}
-				if( a.creature )
-				{
-					a.creature.Init(sprite);
-				}
 				Boss.Instance.ScanLocalActors();
 			}
 		}

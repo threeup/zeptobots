@@ -4,7 +4,10 @@ using System.Collections;
 public class RulesAbility 
 {
 
-
+	public static void Noop(GameAbility ga, Actor actor)
+	{
+		return;
+	}
 }
 
 public class DashAb : RulesAbility
@@ -12,20 +15,27 @@ public class DashAb : RulesAbility
 
 	public static void Assign(GameAbility ga)
 	{
+		ga.abName = 'D';
 		ga.StartUp = StartUp;
+		ga.Charge = Charge;
 		ga.Activate = Activate;
 		ga.Recover = Recover;
 		ga.Cooldown = Cooldown;
-		//ga.Finish = Finish;
+		ga.Finish = Noop;
 	}
 	public static void StartUp(GameAbility ga, Actor actor)
 	{
-		actor.AddEff("vfx-glow");
-		ga.SetLock(0.3f);
+		ga.SetLock(0.1f);
+	}
+	public static void Charge(GameAbility ga, Actor actor)
+	{
+		actor.AddEff('G', 2.6f);
+		ga.SetLock(2.0f);
 	}
 
 	public static void Activate(GameAbility ga, Actor actor)
 	{
+		actor.PauseEff('G');
 		float dashDistance = 40f;
 		Engine engine = actor.engine;
 		Vector3 delta = new Vector3(engine.facingVec.x, 0, engine.facingVec.y)*dashDistance;
@@ -38,8 +48,8 @@ public class DashAb : RulesAbility
 
 	public static void Recover(GameAbility ga, Actor actor)
 	{
-		actor.RemEff("vfx-glow");
-		actor.AddEff("vfx-rock");
+		actor.RemEff('G');
+		actor.AddEff('R', 2.5f);
 		Engine engine = actor.engine;
 		engine.speedLimit = 20;
 		actor.Damage = 0;
@@ -50,7 +60,7 @@ public class DashAb : RulesAbility
 
 	public static void Cooldown(GameAbility ga, Actor actor)
 	{
-		actor.RemEff("vfx-rock");
+		actor.RemEff('R');
 		Engine engine = actor.engine;
 		engine.speedLimit = 30;
 		actor.Damage = 1;
@@ -63,11 +73,13 @@ public class ShootAb : RulesAbility {
 
 	public static void Assign(GameAbility ga)
 	{
-		//ga.StartUp = StartUp;
+		ga.abName = 'S';
+		ga.StartUp = Noop;
+		ga.Charge = Noop;
 		ga.Activate = Activate;
 		ga.Recover = Recover;
 		ga.Cooldown = Cooldown;
-		//ga.Finish = Finish;
+		ga.Finish = Noop;
 	}
 	public static void Activate(GameAbility ga, Actor actor)
 	{
@@ -104,11 +116,13 @@ public class PunchAb : RulesAbility {
 
 	public static void Assign(GameAbility ga)
 	{
-		//ga.StartUp = StartUp;
+		ga.abName = 'P';
+		ga.StartUp = Noop;
+		ga.Charge = Noop;
 		ga.Activate = Activate;
 		ga.Recover = Recover;
 		ga.Cooldown = Cooldown;
-		//ga.Finish = Finish;
+		ga.Finish = Noop;
 	}
 	public static void Activate(GameAbility ga, Actor actor)
 	{
