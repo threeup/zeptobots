@@ -3,15 +3,13 @@ using System.Collections;
 
 public class Engine : MonoBehaviour {
 
-	public int speedLimit = 30;
 	private float currentStep = 0f;
 	public float currentSpeed = 0f;
 
 	public Vector3 desiredPosition = Vector3.zero;
 	public Vector2 moveVec = Vector2.zero;
 	public Vector2 facingVec = Vector2.zero;
-	public int facingX = 0;
-	public int facingY = 0;
+	
 	
 
 	public bool moveLock = false;
@@ -53,7 +51,7 @@ public class Engine : MonoBehaviour {
 		float dist = diff.magnitude;
 		if( dist > 0.1f )
 		{	
-			float maxStep = speedLimit*deltaTime;
+			float maxStep = actor.SpeedLimit*deltaTime;
 			if( dist > maxStep )
 			{
 				currentStep = maxStep;
@@ -111,11 +109,15 @@ public class Engine : MonoBehaviour {
 		}
 		actor.RX = (int)Mathf.Round(this.transform.position.x) + 5;
 		actor.RY = -(int)Mathf.Round(this.transform.position.z) - 5;
-		facingX = (int)Mathf.Clamp(facingVec.x*10000, -1,1);
-		facingY = (int)Mathf.Clamp(facingVec.y*10000, -1,1);
+		actor.FX = (int)Mathf.Clamp(facingVec.x*10000, -1,1);
+		actor.FY = (int)Mathf.Clamp(facingVec.y*10000, -1,1);
 		currentSpeed = currentStep/deltaTime;
 	}
 
+	public void SetFacing(int fx, int fy)
+	{
+		facingVec = new Vector2(fx, fy);
+	}
 
 
 	public void Noop()

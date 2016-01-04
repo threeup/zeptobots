@@ -4,28 +4,23 @@ using System.Collections.Generic;
 
 public class Actor : MonoBehaviour {
 
-	public string outString = "-";
+	public string adString = "-";
+	public ActorData ad = new ActorData();
 
-	private int uid = -1;
-	public int UID { get { return uid; } set { uid = value; } }
-	private int oid = -1;
-	public int OID { get { return oid; } set { oid = value; } }
-	private int team = -1; //red is 1 blue is 0
-	public int Team { get { return team; } set { team = value; } }
-	private int tx = -1;
-	public int TX { get { return tx; } set { tx = value; } }
-	private int ty = -1;
-	public int TY { get { return ty; } set { ty = value; } }
-	private int rx = -1;
-	public int RX { get { return rx; } set { rx = value; } }
-	private int ry = -1;
-	public int RY { get { return ry; } set { ry = value; } }
-	private int hp = -1;
-	public int HP { get { return hp; } set { hp = value; } }
-	private int damage = 1;
-	public int Damage { get { return damage; } set { damage = value; } }
-	private int ttl = -1;
-	public int TTL { get { return ttl; } set { ttl = value; } }
+	public int UID { get { return ad.uid; } set { ad.uid = value; } }
+	public int OID { get { return ad.oid; } set { ad.oid = value; } }
+	public int Team { get { return ad.team; } set { ad.team = value; } }
+	public string SpriteString { get { return ad.spriteString; } set { ad.spriteString = value; } }
+	public int HP { get { return ad.hp; } set { ad.hp = value; } }
+	public int TX { get { return ad.tx; } set { ad.tx = value; } }
+	public int TY { get { return ad.ty; } set { ad.ty = value; } }
+	public int RX { get { return ad.rx; } set { ad.rx = value; } }
+	public int RY { get { return ad.ry; } set { ad.ry = value; } }
+	public int FX { get { return ad.fx; } set { ad.fx = value; } }
+	public int FY { get { return ad.fy; } set { ad.fy = value; } }
+	public int SpeedLimit { get { return ad.speedLimit; } set { ad.speedLimit = value; } }
+	public int Damage { get { return ad.damage; } set { ad.damage = value; } }
+	public int TTL { get { return ad.ttl; } set { ad.ttl = value; } }
 	
 
 	public bool localInput = false;
@@ -70,115 +65,72 @@ public class Actor : MonoBehaviour {
 		if( ttlTimer > 0f && ttlTimer < 999f )
 		{
 			ttlTimer -= deltaTime;
-			ttl = (int)Mathf.Ceil(ttlTimer);
+			TTL = (int)Mathf.Ceil(ttlTimer);
 		}
 		if( healthBar != null )
 		{
-			healthBar.SetHP(this.hp);
+			healthBar.SetHP(HP);
 		}
 		for(int i=0; i<effects.Length; ++i)
 		{
 			effects[i].EffectUpdate(deltaTime, this);
 		}
 	}
-	public void Mod(bool authoritative, int uid, int oid, 
-		int team, int tx,int ty,int rx,int ry, string sprite,
-		int hp, int speed, int damage, int ttl,
-		int fx, int fy)
+	public void Mod(bool authoritative, string[] chunks)
 	{
-		if( this.uid != uid )
+		int uid = Utils.IntParseFast(chunks[(int)Pck.Ac.UID]);
+		int oid = Utils.IntParseFast(chunks[(int)Pck.Ac.OID]);
+		int team = Utils.IntParseFast(chunks[(int)Pck.Ac.TEAM]);
+		if( ad.uid != uid )
 		{
-			this.uid = uid;
+			ad.uid = uid;
 		}
-		if( this.oid != oid )
+		if( ad.oid != oid )
 		{
-			this.oid = oid;
+			ad.oid = oid;
 		}
-		if( this.team != team )
+		if( ad.team != team )
 		{
-			this.team = team;
+			ad.team = team;
+		}
+		int hp = Utils.IntParseFast(chunks[(int)Pck.Ac.HP]);
+		if( ad.hp != hp )
+		{
+			ad.hp = hp;
 		}
 		if( authoritative )
 		{
-			this.tx = tx;
-			this.ty = ty;
-			this.rx = rx;
-			this.ry = ry;
-			this.engine.desiredPosition = new Vector3(rx-5, 0f, -ry-5);
+			ad.tx = Utils.IntParseFast(chunks[(int)Pck.Ac.TX]);
+			ad.ty = Utils.IntParseFast(chunks[(int)Pck.Ac.TY]);
+			ad.rx = Utils.IntParseFast(chunks[(int)Pck.Ac.RX]);
+			ad.ry = Utils.IntParseFast(chunks[(int)Pck.Ac.RY]);
+			this.engine.desiredPosition = new Vector3(ad.rx-5, 0f, -ad.ry-5);
+			ad.spriteString = chunks[(int)Pck.Ac.SPRITE];
 			if( this.actorBody )
 			{
-				this.actorBody.SetSprite(sprite);
+				this.actorBody.SetSprite(ad.spriteString);
 			}
-			this.engine.speedLimit = speed;
-			this.engine.facingX = fx;
-			this.engine.facingY = fy;
-			this.engine.facingVec = new Vector2(fx, fy);
-			this.damage = damage;
-			this.ttl = ttl;
-			this.ttlTimer = ttl;
+			ad.speedLimit = Utils.IntParseFast(chunks[(int)Pck.Ac.SPEEDLIMIT]);
+			ad.fx = Utils.IntParseFast(chunks[(int)Pck.Ac.FX]);
+			ad.fy = Utils.IntParseFast(chunks[(int)Pck.Ac.FY]);
+			this.engine.SetFacing(ad.fx, ad.fy);
+			
+			ad.damage = Utils.IntParseFast(chunks[(int)Pck.Ac.DAMAGE]);
+			ad.ttl = Utils.IntParseFast(chunks[(int)Pck.Ac.TTL]);
+			this.ttlTimer = ad.ttl;
 		}
-		if( this.hp != hp )
-		{
-			this.hp = hp;
-		}
+		
 	}
 
-	public void PrepOutString()
+
+	public void SerializeActorData()
 	{
 		sb.Length = 0;
 		sb.Append("requestactor|");
-		sb.Append(this.uid);
-		sb.Append("|");
-		sb.Append(this.oid);
-		sb.Append("|");
-		sb.Append(this.team);
-		sb.Append("|");
-		sb.Append(this.tx);
-		sb.Append("|");
-		sb.Append(this.ty);
-		sb.Append("|");
-		sb.Append(this.rx);
-		sb.Append("|");
-		sb.Append(this.ry);
-		sb.Append("|");
-		sb.Append(this.engine.facingX);
-		sb.Append("|");
-		sb.Append(this.engine.facingY);
-		sb.Append("|");
-		if( this.actorBody )
-		{
-			sb.Append(this.actorBody.spriteString); //10
-		}
-		else
-		{
-			sb.Append("  ");
-		}
-		sb.Append("|");
-		sb.Append(this.hp);
-		sb.Append("|");
-		sb.Append(this.engine.speedLimit);
-		sb.Append("|");
-		sb.Append(this.damage);
-		sb.Append("|");
-		sb.Append(this.ttl);
-		sb.Append("|");
-		for(int i=0; i<effects.Length; ++i)
-		{
-			sb.Append(effects[i].effName);
-			sb.Append(effects[i].effStateName);
-			sb.Append("|");
-		}
-		if( hero )
-		{
-			for(int i=0; i<hero.actions.Length; ++i)
-			{
-				sb.Append(hero.actions[i].abName);
-				sb.Append(hero.actions[i].abStateName);
-				sb.Append("|");
-			}
-		}
+		Pck.PackActorData(sb,ad);
+		Pck.PackActorExtra(sb,this);
 		sb.Append("\n");
-		outString = sb.ToString();
+		adString = sb.ToString();
 	}
 
 	public void SetLocal(bool val)
@@ -192,14 +144,14 @@ public class Actor : MonoBehaviour {
 
 	public void TakeDeath()
 	{
-		this.hp = -1;
+		ad.hp = -1;
 	}
 
 	public void TakeDamage(int val)
 	{
 		if( invulnerableTime < 0f )
 		{
-			this.hp -= val;
+			ad.hp -= val;
 			this.invulnerableTime = 1f;
 		}
 	}

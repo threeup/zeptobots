@@ -98,43 +98,16 @@ public class NetMan : MonoBehaviour {
 		Send( sb.ToString() );
     }
 
-    public void SendReqActor(int uid, int oid, int team, 
-    	int tx, int ty, int rx, int ry, int fx, int fy, string spriteString,
-    	int hp, int speedLimit, int damage, int ttl)
+
+    public void SendReqActor(ActorData ad)
     {
     	sb.Length = 0;
 		sb.Append("requestactor|");
-		sb.Append(uid);
-		sb.Append("|");
-		sb.Append(oid);
-		sb.Append("|");
-		sb.Append(team);
-		sb.Append("|");
-		sb.Append(tx);
-		sb.Append("|");
-		sb.Append(ty);
-		sb.Append("|");
-		sb.Append(rx);
-		sb.Append("|");
-		sb.Append(ry);
-		sb.Append("|");
-		sb.Append(fx);
-		sb.Append("|");
-		sb.Append(fy);
-		sb.Append("|");
-		sb.Append(spriteString); //10
-		sb.Append("|");
-		sb.Append(hp);
-		sb.Append("|");
-		sb.Append(speedLimit);
-		sb.Append("|");
-		sb.Append(damage);
-		sb.Append("|");
-		sb.Append(ttl);
+		Pck.PackActorData(sb, ad);
+		Pck.PackActorExtra(sb, null);
 		sb.Append("\n");
 		Send( sb.ToString() );
     }
-
-	
+    
 
 }

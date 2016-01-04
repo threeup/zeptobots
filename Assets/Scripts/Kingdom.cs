@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class Kingdom : MonoBehaviour {
 
 	public int ownerOID = -1;
-	public int team = -1;
+	public int ownerTeam = -1;
 
 	public Tile tile;
 
@@ -24,16 +24,19 @@ public class Kingdom : MonoBehaviour {
 	{
 
 		ownerOID = localOID;
-		team = localIsRed ? 1 : 0;
+		ownerTeam = localIsRed ? 1 : 0;
 
-		string actorSprite = localIsRed ? "HR" : "HB";
-		int tx = tile.rtx;
-		int ty = tile.rty;
-		int rx = tx*10+5;
-		int ry = ty*10-5;
-		int fx = 0;
-		int fy = -1;
-		NetMan.Instance.SendReqActor(-1,ownerOID,team,tx,ty,rx,ry,fx,fy,actorSprite,-1,-1,-1,-1);
+		ActorData ad = new ActorData(localIsRed ? "HR" : "HB");
+		ad.oid = localOID;
+		ad.team = ownerTeam;
+		ad.tx = tile.rtx;
+		ad.ty = tile.rty;
+		ad.rx = ad.tx*10+5;
+		ad.ry = ad.ty*10-5;
+		ad.fx = 0;
+		ad.fy = -1;
+
+		NetMan.Instance.SendReqActor(ad);
 		string worldSprite = localIsRed ? "R" : "B";
 		NetMan.Instance.SendReqWorld(tile.sx,tile.sy,tile.ltx,tile.lty,worldSprite);
 	}
@@ -41,8 +44,8 @@ public class Kingdom : MonoBehaviour {
 	public void ConquerKingdom(int localOID, int team)
 	{
 		ownerOID = localOID;
-		this.team = team;
-		string worldSprite = team == 1 ? "R" : "B";
+		ownerTeam = team;
+		string worldSprite = ownerTeam == 1 ? "R" : "B";
 		NetMan.Instance.SendReqWorld(tile.sx,tile.sy,tile.ltx,tile.lty,worldSprite);
 	}
 
@@ -54,14 +57,16 @@ public class Kingdom : MonoBehaviour {
 			if( spawnTimer <= 0f)
 			{
 				spawnTimer = 20f;
-				string actorSprite = team==1 ? "DR" : "DB";
-				int tx = tile.rtx;
-				int ty = tile.rty;
-				int rx = tx*10+5;
-				int ry = ty*10-5;
-				int fx = 0;
-				int fy = -1;
-				NetMan.Instance.SendReqActor(-1,ownerOID,team,tx,ty,rx,ry,fx,fy,actorSprite,-1,-1,-1,-1);
+				ActorData ad = new ActorData(ownerTeam==1 ? "DR" : "DB");
+				ad.oid = ownerOID;
+				ad.team = ownerTeam;
+				ad.tx = tile.rtx;
+				ad.ty = tile.rty;
+				ad.rx = ad.tx*10+5;
+				ad.ry = ad.ty*10-5;
+				ad.fx = 0;
+				ad.fy = -1;
+				NetMan.Instance.SendReqActor(ad);
 			}
 		}
 		if( conquerTimer > 0f )
@@ -73,7 +78,7 @@ public class Kingdom : MonoBehaviour {
 				if( conquerList.Count > 0 )
 				{
 					Actor a = conquerList[0];
-					if( team != a.Team )
+					if( ownerTeam != a.Team )
 					{
 						ConquerKingdom( a.OID, a.Team );
 					}

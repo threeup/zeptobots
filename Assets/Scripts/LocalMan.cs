@@ -73,79 +73,46 @@ public class LocalMan : MonoBehaviour {
 
 	string GetActorMessage(string[] chunks)
 	{
+		ActorData ad = new ActorData();
 		sb.Length = 0;
-		int uid = 0;
-		int oid = 0;
-		int team = 0;
-		int.TryParse(chunks[1], out uid);
-		int.TryParse(chunks[2], out oid);
-		int.TryParse(chunks[3], out team);
+		int.TryParse(chunks[(int)Pck.Ac.UID], out ad.uid);
+		int.TryParse(chunks[(int)Pck.Ac.OID], out ad.oid);
+		int.TryParse(chunks[(int)Pck.Ac.TEAM], out ad.team);
 		
-		int tx = 0;
-		int ty = 0;
-		int rx = 0;
-		int ry = 0;
-		int fx = 0;
-		int fy = 0;
-		int.TryParse(chunks[4], out tx);
-		int.TryParse(chunks[5], out ty);
-		int.TryParse(chunks[6], out rx);
-		int.TryParse(chunks[7], out ry);
-		int.TryParse(chunks[8], out fx);
-		int.TryParse(chunks[9], out fy);
+		int.TryParse(chunks[(int)Pck.Ac.TX], out ad.tx);
+		int.TryParse(chunks[(int)Pck.Ac.TY], out ad.ty);
+		int.TryParse(chunks[(int)Pck.Ac.RX], out ad.rx);
+		int.TryParse(chunks[(int)Pck.Ac.RY], out ad.ry);
+		int.TryParse(chunks[(int)Pck.Ac.FX], out ad.fx);
+		int.TryParse(chunks[(int)Pck.Ac.FY], out ad.fy);
 		
-		string sprite = chunks[10];
+		ad.spriteString = chunks[(int)Pck.Ac.SPRITE];
 		
-		int hp = 0;
-		int speedlimit = 0;
-		int damage = 0;
-		int ttl = 0;
-		if( uid < 0 )
+		if( ad.uid < 0 )
 		{
-			uid = nextUID++;
-			Lookup(sprite, out hp, out speedlimit, out damage, out ttl);
+			ad.uid = nextUID++;
+			Lookup(ad.spriteString, out ad.hp, out ad.speedLimit, out ad.damage, out ad.ttl);
 		}
 		else
 		{
-			int.TryParse(chunks[11], out hp);
-			int.TryParse(chunks[12], out speedlimit);
-			int.TryParse(chunks[13], out damage);
-			int.TryParse(chunks[14], out ttl);
-			if( ttl <= 0 )
+			int.TryParse(chunks[(int)Pck.Ac.HP], out ad.hp);
+			int.TryParse(chunks[(int)Pck.Ac.SPEEDLIMIT], out ad.speedLimit);
+			int.TryParse(chunks[(int)Pck.Ac.DAMAGE], out ad.damage);
+			int.TryParse(chunks[(int)Pck.Ac.TTL], out ad.ttl);
+			if( ad.ttl <= 0 )
 			{
-				hp = -1;
+				ad.hp = -1;
 			}
 		}
-		
+		string actionChunks = chunks[(int)Pck.Ac.ACTIONS];
+		string effectChunks = chunks[(int)Pck.Ac.EFFECTS];
 		
 		sb.Append("actormod|");
-		sb.Append(uid);
+		Pck.PackActorData(sb,ad);
+		sb.Append(actionChunks);
 		sb.Append('|');
-		sb.Append(oid);
+		sb.Append(effectChunks);
 		sb.Append('|');
-		sb.Append(team);
-		sb.Append('|');
-		sb.Append(tx);
-		sb.Append('|');
-		sb.Append(ty);
-		sb.Append('|');
-		sb.Append(rx);
-		sb.Append('|');
-		sb.Append(ry);
-		sb.Append('|');
-		sb.Append(sprite); 
-		sb.Append('|');
-		sb.Append(hp);
-		sb.Append('|');
-		sb.Append(speedlimit);
-		sb.Append('|');
-		sb.Append(damage);
-		sb.Append('|');
-		sb.Append(ttl);
-		sb.Append('|');
-		sb.Append(fx);
-		sb.Append('|');
-		sb.Append(fy);
 		return sb.ToString();
 	}
 

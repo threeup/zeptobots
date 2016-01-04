@@ -79,20 +79,9 @@ public class Director : MonoBehaviour {
 
 	public void ModActor(string[] chunks)
 	{
-		int uid = Utils.IntParseFast(chunks[1]);
-		int oid = Utils.IntParseFast(chunks[2]);
-		int team = Utils.IntParseFast(chunks[3]);
-		int tx = Utils.IntParseFast(chunks[4]);
-		int ty = Utils.IntParseFast(chunks[5]);
-		int rx = Utils.IntParseFast(chunks[6]);
-		int ry = Utils.IntParseFast(chunks[7]);
-		string sprite = chunks[8];
-		int hp = Utils.IntParseFast(chunks[9]);
-		int speedLimit = Utils.IntParseFast(chunks[10]);
-		int damage = Utils.IntParseFast(chunks[11]);
-		int ttl = Utils.IntParseFast(chunks[12]);
-		int fx = Utils.IntParseFast(chunks[13]);
-		int fy = Utils.IntParseFast(chunks[14]);
+		int uid = Utils.IntParseFast(chunks[(int)Pck.Ac.UID]);
+		int oid = Utils.IntParseFast(chunks[(int)Pck.Ac.OID]);
+		int hp = Utils.IntParseFast(chunks[(int)Pck.Ac.HP]);
 		Actor a = null;
 		
 		if( actorDict.ContainsKey(uid) )
@@ -110,20 +99,23 @@ public class Director : MonoBehaviour {
 			{
 				if( oid != Boss.Instance.localOID )
 				{
-					a.Mod(true, uid,oid,team,tx,ty,rx,ry,sprite,hp,speedLimit,damage,ttl,fx,fy);	
+					a.Mod(true, chunks);	
 				}
 				else
 				{
-					a.Mod(false, uid,oid,team,tx,ty,rx,ry,sprite,hp,speedLimit,damage,ttl,fx,fy);	
+					a.Mod(false, chunks);	
 				}
 			}
 		}
 		else if( hp > 0 )
 		{
+			int rx = Utils.IntParseFast(chunks[(int)Pck.Ac.RX]);
+			int ry = Utils.IntParseFast(chunks[(int)Pck.Ac.RY]);
+			string sprite = chunks[(int)Pck.Ac.SPRITE];
 			a = AddActor(rx,ry,sprite);
 			if( a != null )
 			{
-				a.Mod(true, uid,oid,team,tx,ty,rx,ry,sprite,hp,speedLimit,damage,ttl,fx,fy);
+				a.Mod(true, chunks);
 				a.Init(sprite);			
 				actorDict[uid] = a;
 				actorList.Add(a);
