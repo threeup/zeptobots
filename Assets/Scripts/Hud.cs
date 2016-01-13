@@ -10,7 +10,9 @@ public class Hud : MonoBehaviour {
 	
 	public MenuFactory factory;
 	private UIFace abilityA;
+	private UIFace carouselA;
 	private UIFace abilityB;
+	private UIFace carouselB;
 	private UIFace portrait;
 
 	//private bool isInitialized = false;
@@ -28,12 +30,16 @@ public class Hud : MonoBehaviour {
 		float bottomY = -200f;
 
 		abilityA = factory.AddAbility(root, rightX-75f, bottomY, "Ctrl", "99");
+		carouselA = factory.AddCarousel(root, rightX-75f, bottomY+150f);
 		
 		abilityB = factory.AddAbility(root, rightX-0f, bottomY, "Space", "99");
+		carouselB = factory.AddCarousel(root, rightX-0f, bottomY+150f);
 		
 		portrait = factory.AddPortrait(root, leftX, bottomY);
 		portrait.fill.color = Color.magenta; 
 		
+
+
 		SetActive(false);
 		//isInitialized = true;
 	}
@@ -41,7 +47,9 @@ public class Hud : MonoBehaviour {
 	public void SetActive(bool val)
 	{
 		abilityA.SetActive(val);
+		carouselA.SetActive(val);
 		abilityB.SetActive(val);
+		carouselB.SetActive(val);
 		portrait.SetActive(val);
 	}
 

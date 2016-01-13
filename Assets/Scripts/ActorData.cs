@@ -19,6 +19,8 @@ public struct ActorData {
 	public int speedLimit;
 	public int damage;
 	public int ttl;
+	public string actionString;
+	public string effectString;
 
 	public ActorData(string str)
 	{
@@ -36,6 +38,8 @@ public struct ActorData {
 		speedLimit = 1;
 		damage = 1;
 		ttl = -1;
+		actionString = "";
+		effectString = "";
 	}
 
 }

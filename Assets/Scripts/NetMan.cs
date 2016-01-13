@@ -101,10 +101,11 @@ public class NetMan : MonoBehaviour {
 
     public void SendReqActor(ActorData ad)
     {
+
+		Pck.DynamicActorData(sb, ref ad, null);
     	sb.Length = 0;
 		sb.Append("requestactor|");
 		Pck.PackActorData(sb, ad);
-		Pck.PackActorExtra(sb, null);
 		sb.Append("\n");
 		Send( sb.ToString() );
     }

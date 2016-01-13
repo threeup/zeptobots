@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class Actor : MonoBehaviour {
 
-	public string adString = "-";
 	public ActorData ad = new ActorData();
 
 	public int UID { get { return ad.uid; } set { ad.uid = value; } }
@@ -123,14 +122,14 @@ public class Actor : MonoBehaviour {
 	}
 
 
-	public void SerializeActorData()
+	public string SerializeActorData()
 	{
+		Pck.DynamicActorData(sb, ref ad, this);
 		sb.Length = 0;
 		sb.Append("requestactor|");
 		Pck.PackActorData(sb,ad);
-		Pck.PackActorExtra(sb,this);
 		sb.Append("\n");
-		adString = sb.ToString();
+		return sb.ToString();
 	}
 
 	public void SetLocal(bool val)

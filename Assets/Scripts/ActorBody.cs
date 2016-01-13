@@ -3,7 +3,8 @@ using System.Collections;
 
 public class ActorBody : MonoBehaviour {
 
-
+	public Material flatMaterial;
+	public Material tintedMaterial;
 	public Light[] coloredLights = null;
 	public Renderer[] allRenderers = null;
 	public Renderer[] coloredRenderers = null;
@@ -12,9 +13,17 @@ public class ActorBody : MonoBehaviour {
 	public Color defaultColor = Color.white;
 	protected Transform thisTransform;
 
-	void Awake()
+	protected virtual void Awake()
 	{
 		thisTransform = this.transform;
+		for(int i=0; i<allRenderers.Length; ++i)
+		{
+			allRenderers[i].material = flatMaterial;
+		}
+		for(int i=0; i<coloredRenderers.Length; ++i)
+		{
+			coloredRenderers[i].material = flatMaterial;
+		}
 	}
 	public virtual void BodyUpdate(float deltaTime, Vector2 facing, float speed, bool larmSwing, bool rarmSwing)
 	{

@@ -58,21 +58,16 @@ public class Pck : MonoBehaviour {
 		sb.Append("|");
 		sb.Append(ad.ttl);
 		sb.Append("|");
+		sb.Append(ad.actionString);
+		sb.Append("|");
+		sb.Append(ad.effectString);
+		sb.Append("|");
 	}
 
-	public static void PackActorExtra(System.Text.StringBuilder sb, Actor actor)
+	public static void DynamicActorData(System.Text.StringBuilder sb, ref ActorData ad, Actor actor)
 	{
 		
-		if( actor )
-		{
-			for(int i=0; i<actor.effects.Length; ++i)
-			{
-				sb.Append(actor.effects[i].effName);
-				sb.Append(actor.effects[i].effStateName);
-				sb.Append(",");
-			}
-		}
-		sb.Append("|");
+		sb.Length = 0;
 		if( actor && actor.hero )
 		{
 			for(int i=0; i<actor.hero.actions.Length; ++i)
@@ -82,7 +77,19 @@ public class Pck : MonoBehaviour {
 				sb.Append(",");
 			}
 		}
-		sb.Append("|");
+		ad.actionString = sb.ToString();
+		sb.Length = 0;
+		if( actor )
+		{
+			for(int i=0; i<actor.effects.Length; ++i)
+			{
+				sb.Append(actor.effects[i].effName);
+				sb.Append(actor.effects[i].effStateName);
+				sb.Append(",");
+			}
+		}
+		ad.effectString = sb.ToString();
+		sb.Length = 0;
 	}
 
 	

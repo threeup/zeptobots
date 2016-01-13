@@ -12,9 +12,9 @@ public class BipedBody : ActorBody {
 	private float legDistance;
 	private int legTick;
 
-	void Awake()
+	protected override void Awake()
 	{
-		thisTransform = this.transform;
+		base.Awake();
 	}
 	public override void BodyUpdate(float deltaTime, Vector2 facing, float speed, bool larmSwing, bool rarmSwing)
 	{
