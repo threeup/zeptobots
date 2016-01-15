@@ -24,14 +24,20 @@ public class World : MonoBehaviour {
 	void Start()
 	{
 		protos = new Dictionary<string, GameObject>();
-		ProtoPrep("ground-normal");
-		ProtoPrep("wall-straight");
-		ProtoPrep("wall-corner");
-		ProtoPrep("tree-pine");
-		ProtoPrep("house-big");
-		ProtoPrep("over-red");
-		ProtoPrep("over-blue");
-		ProtoPrep("over-gray");
+		ProtoVox("terrain-grass1");
+		ProtoVox("terrain-hill1");
+		ProtoVox("terrain-mountain1");
+		ProtoVox("prop-tree1");
+		ProtoVox("prop-tree2");
+		ProtoVox("prop-house1");
+		ProtoVox("prop-tower1");
+		ProtoVox("prop-barn1");
+		ProtoVox("actor-man1");
+		ProtoVox("actor-dog1");
+		ProtoVox("actor-mega1");
+		ProtoBlend("over-red");
+		ProtoBlend("over-blue");
+		ProtoBlend("over-gray");
 		
 		foreach(Transform child in transform)
 		{
@@ -60,9 +66,20 @@ public class World : MonoBehaviour {
 	
 	}
 
-	void ProtoPrep(string str)
+	void ProtoBlend(string str)
 	{
 		GameObject go = Resources.Load("Prefabs/pr-"+str) as GameObject;
+		if( go == null )
+		{
+			Debug.Log("cant load "+str);
+			return;
+		}
+		protos.Add(str,go);
+	}
+
+	void ProtoVox(string str)
+	{
+		GameObject go = Resources.Load("Vox/"+str) as GameObject;
 		if( go == null )
 		{
 			Debug.Log("cant load "+str);
@@ -103,7 +120,7 @@ public class World : MonoBehaviour {
 		Tile tile = null;
 		switch(c)
 		{
-			default:  prototype = protos["ground-normal"];; break;
+			default:  prototype = protos["terrain-grass1"];; break;
 		}
 		if( prototype )
 		{
@@ -126,14 +143,14 @@ public class World : MonoBehaviour {
 		TileContents contents = null;
 		switch(c)
 		{
-			case 'A': prototypes.Add(protos["tree-normal"]); break;
-			case 'B': prototypes.Add(protos["over-blue"]); prototypes.Add(protos["house-big"]); break;
-			case 'C': prototypes.Add(protos["tree-pine"]); break;
-			case 'D': prototypes.Add(protos["tree-pine"]); break;
-			case 'R': prototypes.Add(protos["over-red"]); prototypes.Add(protos["house-big"]); break;
-			case 'S': prototypes.Add(protos["over-gray"]); prototypes.Add(protos["house-big"]); break;
-			case 'T': prototypes.Add(protos["tree-pine"]); break;
-			case 'W': prototypes.Add(protos["wall-corner"]); break;
+			case 'A': prototypes.Add(protos["prop-tree1"]); break;
+			case 'B': prototypes.Add(protos["over-blue"]); prototypes.Add(protos["prop-house1"]); break;
+			case 'C': prototypes.Add(protos["prop-tree2"]); break;
+			case 'D': prototypes.Add(protos["prop-tree2"]); break;
+			case 'R': prototypes.Add(protos["over-red"]); prototypes.Add(protos["prop-house1"]); break;
+			case 'S': prototypes.Add(protos["over-gray"]); prototypes.Add(protos["prop-house1"]); break;
+			case 'T': prototypes.Add(protos["prop-tree2"]); break;
+			case 'W': prototypes.Add(protos["terrain-mountain1"]); break;
 			default:  break;
 		}
 		for( int i=0; i< prototypes.Count; ++i )

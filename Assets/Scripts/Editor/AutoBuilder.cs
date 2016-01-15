@@ -34,8 +34,6 @@ using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Diagnostics;
-using System;
 
 public static class AutoBuilder {
  
@@ -57,13 +55,58 @@ public static class AutoBuilder {
 		return scenes;
 	}
 
+	[MenuItem ("AutoBuilder/PrefabFromVox")]
+	static void DoCreateSimplePrefab()
+	{
+		Object[] objs = Selection.objects;
+		foreach (Object obj in objs) {
+			GameObject src = obj as GameObject;
+			if( src )
+			{
+				bool hasMesh = src.GetComponent<MeshFilter>() != null;
+				bool hasChildMesh = src.GetComponentInChildren<MeshFilter>() != null;
+				//Debug.Log(src +" "+hasMesh+" "+hasChildMesh);
+				if( !hasMesh && hasChildMesh )
+				{
+					GameObject go = GameObject.Instantiate(src);
+					if( src.name.StartsWith("actor") )
+					{
+						Actor a = go.AddComponent<Actor>();
+						Engine e = go.AddComponent<Engine>();
+						e.actor = a;
+						Hero h = go.AddComponent<Hero>();
+						h.actor = a;
+						a.engine = e;
+						a.hero = h;
+						GameObject hb = new GameObject("HealthBar");
+						hb.AddComponent<HealthBar>();
+						hb.AddComponent<SpriteRenderer>();
+						hb.transform.parent = go.transform;
+					}
+					if( src.name.StartsWith("terrain") )
+					{
+						go.AddComponent<Tile>();
+					}
+					if( src.name.StartsWith("prop") )
+					{
+						go.AddComponent<TileContents>();
+					}
+			    	UnityEngine.Object prefab = PrefabUtility.CreatePrefab("Assets/Resources/Prefabs/"+obj.name+".prefab", go, ReplacePrefabOptions.Default);
+			    	Debug.Log("Created "+prefab);
+			    	GameObject.DestroyImmediate(go);
+			    }
+			}
+			
+	    }
+	}
+
 	[MenuItem("AutoBuilder/GetVox")]
 	static void GetVox ()
 	{
 		try
 		{
-			Process myProcess = new Process();
-			myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
+			System.Diagnostics.Process myProcess = new System.Diagnostics.Process();
+			myProcess.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
 			myProcess.StartInfo.CreateNoWindow = false;
 			myProcess.StartInfo.UseShellExecute = false;
 			myProcess.StartInfo.FileName = "C:\\Windows\\system32\\cmd.exe";
@@ -76,7 +119,7 @@ public static class AutoBuilder {
 			int exitCode = myProcess.ExitCode;
 			UnityEngine.Debug.Log(exitCode);  
 		} 
-		catch (Exception e)
+		catch (System.Exception e)
 		{
 		 	UnityEngine.Debug.Log(e);        
 		}

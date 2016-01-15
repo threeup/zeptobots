@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"has",
+				"hasChildMesh"
+			],
+			[
 				"ac",
 				"actionString"
 			],
@@ -510,240 +514,59 @@
 			[
 				"glue",
 				"glueState"
-			],
-			[
-				"glu",
-				"glueState"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"contents": "#ifndef RANDOM_INCLUDED\n#define RANDOM_INCLUDED\n\nfloat rand( float2 co ){\n    return frac(sin(dot(co.xy, float2(12.9898, 78.233))) * 43758.5453);\n}\n\nfloat3 rand3( float2 seed ){\n    float t = sin(seed.x + seed.y * 1e3);\n    return float3(frac(t*1e4), frac(t*1e6), frac(t*1e5));\n}\n\n#endif // RANDOM_INCLUDED",
-			"file": "Assets/Basic Shaders/Random.cginc",
-			"file_size": 309,
-			"file_write_time": 130968599576802677,
+			"file": "Assets/Scripts/Editor/MeshImporter.cs",
 			"settings":
 			{
-				"buffer_size": 306,
+				"buffer_size": 291,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "Shader \"Custom/Generated-SurfDeferred\" {\n    Properties {\n        _Color (\"Color\", Color) = (1,1,1,1)\n        _MainTex (\"Albedo (RGB)\", 2D) = \"white\" {}\n        _Glossiness (\"Smoothness\", Range(0,1)) = 0.5\n        _Metallic (\"Metallic\", Range(0,1)) = 0.0\n    }\n    CGINCLUDE\n    \n    #include \"HLSLSupport.cginc\"\n    #include \"UnityShaderVariables.cginc\"\n    \n    #include \"UnityCG.cginc\"\n    #include \"Lighting.cginc\"\n    #include \"UnityPBSLighting.cginc\"\n    \n    #define WorldReflectionVector(data,normal) data.worldRefl\n    #define WorldNormalVector(data,normal) normal\n    \n    sampler2D _MainTex;\n    \n    struct Input {\n        float2 uv_MainTex;\n    };\n    \n    half _Glossiness;\n    half _Metallic;\n    fixed4 _Color;\n    \n    void surf (Input IN, inout SurfaceOutputStandard o) {\n        // Albedo comes from a texture tinted by color\n        fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;\n        o.Albedo = c.rgb;\n        // Metallic and smoothness come from slider variables\n        o.Metallic = _Metallic;\n        o.Smoothness = _Glossiness;\n        o.Alpha = c.a;\n    }\n    \n    \n    // vertex-to-fragment interpolation data\n    struct v2f_surf {\n        float4 pos : SV_POSITION;\n        float2 pack0 : TEXCOORD0; // _MainTex\n        half3 worldNormal : TEXCOORD1;\n        float3 worldPos : TEXCOORD2;\n        half3 sh : TEXCOORD3; // SH\n    };\n    float4 _MainTex_ST;\n    \n    // vertex shader\n    v2f_surf vert_surf (appdata_full v) {\n        v2f_surf o;\n        UNITY_INITIALIZE_OUTPUT(v2f_surf,o);\n        o.pos = mul (UNITY_MATRIX_MVP, v.vertex);\n        o.pack0.xy = TRANSFORM_TEX(v.texcoord, _MainTex);\n        float3 worldPos = mul(_Object2World, v.vertex).xyz;\n        fixed3 worldNormal = UnityObjectToWorldNormal(v.normal);\n        o.worldPos = worldPos;\n        o.worldNormal = worldNormal;\n        float3 viewDirForLight = UnityWorldSpaceViewDir(worldPos);\n        \n        o.sh = ShadeSH3Order (half4(worldNormal, 1.0));\n        return o;\n    }\n    \n    // fragment shader\n    void frag_surf (v2f_surf IN,\n        out half4 outDiffuse : SV_Target0,\n        out half4 outSpecSmoothness : SV_Target1,\n        out half4 outNormal : SV_Target2,\n        out half4 outEmission : SV_Target3) \n    {\n    // prepare and unpack data\n        Input surfIN;\n        UNITY_INITIALIZE_OUTPUT(Input,surfIN);\n        surfIN.uv_MainTex = IN.pack0.xy;\n        float3 worldPos = IN.worldPos;\n        \n        fixed3 worldViewDir = normalize(UnityWorldSpaceViewDir(worldPos));\n        \n        #ifdef UNITY_COMPILER_HLSL\n            SurfaceOutputStandard o = (SurfaceOutputStandard)0;\n        #else\n            SurfaceOutputStandard o;\n        #endif\n        \n        o.Albedo = 0.0;\n        o.Emission = 0.0;\n        o.Alpha = 0.0;\n        o.Occlusion = 1.0;\n        o.Normal = IN.worldNormal;\n        \n        // call surface function\n        surf (surfIN, o);\n        fixed3 originalNormal = o.Normal;\n        \n        // Setup lighting environment\n        UnityGI gi;\n        UNITY_INITIALIZE_OUTPUT(UnityGI, gi);\n        gi.indirect.diffuse = 0;\n        gi.indirect.specular = 0;\n        gi.light.color = 0;\n        gi.light.dir = half3(0,1,0);\n        gi.light.ndotl = LambertTerm (o.Normal, gi.light.dir);\n        // Call GI (lightmaps/SH/reflections) lighting function\n        UnityGIInput giInput;\n        UNITY_INITIALIZE_OUTPUT(UnityGIInput, giInput);\n        giInput.light = gi.light;\n        giInput.worldPos = worldPos;\n        giInput.worldViewDir = worldViewDir;\n        giInput.atten = 1.0;\n        \n        giInput.ambient = IN.sh;\n        \n        giInput.probeHDR[0] = unity_SpecCube0_HDR;\n        giInput.probeHDR[1] = unity_SpecCube1_HDR;\n        \n        #if UNITY_SPECCUBE_BLENDING || UNITY_SPECCUBE_BOX_PROJECTION\n            giInput.boxMin[0] = unity_SpecCube0_BoxMin; // .w holds lerp value for blending\n        #endif\n        \n        #if UNITY_SPECCUBE_BOX_PROJECTION\n            giInput.boxMax[0] = unity_SpecCube0_BoxMax;\n            giInput.probePosition[0] = unity_SpecCube0_ProbePosition;\n            giInput.boxMax[1] = unity_SpecCube1_BoxMax;\n            giInput.boxMin[1] = unity_SpecCube1_BoxMin;\n            giInput.probePosition[1] = unity_SpecCube1_ProbePosition;\n        #endif\n        \n        LightingStandard_GI(o, giInput, gi);\n        \n        // call lighting function to output g-buffer\n        outEmission = LightingStandard_Deferred (o, worldViewDir, gi, outDiffuse, outSpecSmoothness, outNormal);\n        outDiffuse.a = 1.0;\n        \n        #ifndef UNITY_HDR_ON\n            outEmission.rgb = exp2(-outEmission.rgb);\n        #endif\n    }\n    ENDCG\n\n    SubShader {\n        Tags { \"RenderType\"=\"Opaque\" }\n        LOD 200\n        \n        Pass {\n            Name \"DEFERRED\"\n            Tags { \"LightMode\" = \"Deferred\" }\n            \n            CGPROGRAM\n            #pragma vertex vert_surf\n            #pragma fragment frag_surf\n            #pragma target 3.0\n            #pragma exclude_renderers nomrt\n            #pragma multi_compile_prepassfinal noshadow\n            ENDCG\n        }\n    }\n    FallBack \"Diffuse\"\n}",
-			"file": "Assets/Basic Shaders/standard-defer.shader",
-			"file_size": 5088,
-			"file_write_time": 130968621325097920,
+			"file": "Assets/Scripts/Editor/AutoBuilder.cs",
 			"settings":
 			{
-				"buffer_size": 5085,
+				"buffer_size": 5081,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/I/w/ex/sugiImageEffects-master/Assets/sugiMaterial/Shader/BetterDiffuse.shader",
+			"file": "Assets/Scripts/World.cs",
 			"settings":
 			{
-				"buffer_size": 7129,
+				"buffer_size": 4183,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/I/w/ex/VJ_CX-master/Assets/sugiVJ/Scripts/Misc/ShaderMainCameraPos.cs",
+			"file": "/C/Program Files/MagicaVoxel/export/actor-man1.mtl",
 			"settings":
 			{
-				"buffer_size": 1177,
-				"line_ending": "Unix"
+				"buffer_size": 134,
+				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "Assets/Scripts/Effect/ShaderMainCameraPos.cs",
+			"contents": "Searching 38 files for \"PackActorData\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Actor.cs:\n  127  		sb.Length = 0;\n  128  		sb.Append(\"requestactor|\");\n  129: 		Pck.PackActorData(sb,ad,this);\n  130  		sb.Append(\"\\n\");\n  131  		adString = sb.ToString();\n\nI:\\w\\zeptobots\\Assets\\Scripts\\NetMan.cs:\n  104      	sb.Length = 0;\n  105  		sb.Append(\"requestactor|\");\n  106: 		Pck.PackActorData(sb, ad, null);\n  107  		sb.Append(\"\\n\");\n  108  		Send( sb.ToString() );\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Pck.cs:\n   29  	}\n   30  \n   31: 	public static void PackActorData(System.Text.StringBuilder sb, ActorData ad, Actor actor)\n   32  	{\n   33  		sb.Append(ad.uid);\n\n3 matches across 3 files\n\n\nSearching 38 files for \"GetActorMessage\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\LocalMan.cs:\n   56  		}\n   57  		HandleMessage(GetClientMessage());\n   58: 		//HandleMessage(GetActorMessage());\n   59  		isConnected = true;\n   60  		yield return null;\n   ..\n   72  \n   73  \n   74: 	string GetActorMessage(string[] chunks)\n   75  	{\n   76  		ActorData ad = new ActorData();\n   ..\n  178  		{\n  179  			case \"requestactor\":\n  180: 				HandleMessage(GetActorMessage(chunks));\n  181  				break;\n  182  			case \"requestworldmod\":\n\n3 matches in 1 file\n\n\nSearching 38 files for \"speedLimit\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Actor.cs:\n   17  	public int RX { get { return ad.rx; } set { ad.rx = value; } }\n   18  	public int RY { get { return ad.ry; } set { ad.ry = value; } }\n   19: 	public int SpeedLimit { get { return ad.speedLimit; } set { ad.speedLimit = value; } }\n   20  	public int Damage { get { return ad.damage; } set { ad.damage = value; } }\n   21  	public int TTL { get { return ad.ttl; } set { ad.ttl = value; } }\n   ..\n  109  				this.actorBody.SetSprite(ad.spriteString);\n  110  			}\n  111: 			ad.speedLimit = Utils.IntParseFast(chunks[(int)Pck.Ac.SPEEDLIMIT]);\n  112: 			this.engine.speedLimit = ad.speedLimit;\n  113  			ad.fx = Utils.IntParseFast(chunks[(int)Pck.Ac.FX]);\n  114  			ad.fy = Utils.IntParseFast(chunks[(int)Pck.Ac.FY]);\n\nI:\\w\\zeptobots\\Assets\\Scripts\\ActorData.cs:\n   17  	public int fx;\n   18  	public int fy;\n   19: 	public int speedLimit;\n   20  	public int damage;\n   21  	public int ttl;\n   ..\n   34  		fx = -1;\n   35  		fy = -1;\n   36: 		speedLimit = 1;\n   37  		damage = 1;\n   38  		ttl = -1;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Engine.cs:\n    4  public class Engine : MonoBehaviour {\n    5  \n    6: 	public int speedLimit = 30;\n    7  	private float currentStep = 0f;\n    8  	public float currentSpeed = 0f;\n    .\n   54  		if( dist > 0.1f )\n   55  		{	\n   56: 			float maxStep = speedLimit*deltaTime;\n   57  			if( dist > maxStep )\n   58  			{\n\nI:\\w\\zeptobots\\Assets\\Scripts\\LocalMan.cs:\n   92  		{\n   93  			ad.uid = nextUID++;\n   94: 			Lookup(ad.spriteString, out ad.hp, out ad.speedLimit, out ad.damage, out ad.ttl);\n   95  		}\n   96  		else\n   97  		{\n   98  			int.TryParse(chunks[(int)Pck.Ac.HP], out ad.hp);\n   99: 			int.TryParse(chunks[(int)Pck.Ac.SPEEDLIMIT], out ad.speedLimit);\n  100  			int.TryParse(chunks[(int)Pck.Ac.DAMAGE], out ad.damage);\n  101  			int.TryParse(chunks[(int)Pck.Ac.TTL], out ad.ttl);\n  ...\n  190  	}\n  191  \n  192: 	public void Lookup(string sprite, out int hp, out int speedlimit, out int dmg, out int ttl)\n  193  	{\n  194  		switch(sprite[0])\n  195  		{\n  196: 			case '*': RulesBullet.Lookup(out hp, out speedlimit, out dmg, out ttl); break;\n  197: 			case 'H': RulesHero.Lookup(out hp, out speedlimit, out dmg, out ttl); break;\n  198: 			case 'D': RulesDog.Lookup(out hp, out speedlimit, out dmg, out ttl); break;\n  199: 			default:  RulesDog.Lookup(out hp, out speedlimit, out dmg, out ttl); break;\n  200  		}\n  201  \n\nI:\\w\\zeptobots\\Assets\\Scripts\\Pck.cs:\n   21  		FX = 10,\n   22  		FY = 11,\n   23: 		SPEEDLIMIT = 12,\n   24  		DAMAGE = 13,\n   25  		TTL = 14,\n   ..\n   53  		sb.Append(ad.fy);\n   54  		sb.Append(\"|\");\n   55: 		sb.Append(ad.speedLimit);\n   56  		sb.Append(\"|\");\n   57  		sb.Append(ad.damage);\n\nI:\\w\\zeptobots\\Assets\\Scripts\\RulesAb.cs:\n   41  		Vector3 delta = new Vector3(engine.facingVec.x, 0, engine.facingVec.y)*dashDistance;\n   42  		engine.desiredPosition = engine.transform.position + delta;\n   43: 		engine.speedLimit = 240;\n   44  		actor.Damage = 3;\n   45  		engine.moveLock = true;\n   ..\n   52  		actor.AddEff('R', 2.5f);\n   53  		Engine engine = actor.engine;\n   54: 		engine.speedLimit = 20;\n   55  		actor.Damage = 0;\n   56  		engine.moveLock = false;\n   ..\n   63  		actor.RemEff('R');\n   64  		Engine engine = actor.engine;\n   65: 		engine.speedLimit = 30;\n   66  		actor.Damage = 1;\n   67  		engine.moveLock = false;\n   ..\n   85  	{\n   86  		Engine engine = actor.engine;\n   87: 		engine.speedLimit = 10;\n   88  		actor.Damage = 0;\n   89  		ga.SetLock(0.30f);\n   ..\n  104  		NetMan.Instance.SendReqActor(ad);\n  105  \n  106: 		engine.speedLimit = 30;\n  107  		actor.Damage = 1;\n  108  		ga.SetLock(0.7f);\n  ...\n  133  		Vector3 delta = new Vector3(engine.facingVec.x, 0, engine.facingVec.y)*dashDistance;\n  134  		engine.desiredPosition = engine.transform.position + delta;\n  135: 		engine.speedLimit = 120;\n  136  		actor.Damage = 4;\n  137  		ga.SetLock(0.30f);\n  ...\n  141  	{\n  142  		Engine engine = actor.engine;\n  143: 		engine.speedLimit = 30;\n  144  		actor.Damage = 1;\n  145  		ga.SetLock(0.7f);\n\nI:\\w\\zeptobots\\Assets\\Scripts\\RulesActor.cs:\n    9  public class RulesHero : RulesActor\n   10  {\n   11: 	public static void Lookup(out int hp, out int speedlimit, out int dmg, out int ttl)\n   12  	{\n   13  		hp = 10; \n   14: 		speedlimit = 30; \n   15  		dmg = 1; \n   16  		ttl = 100000; \n   ..\n   20  public class RulesBullet : RulesActor\n   21  {\n   22: 	public static void Lookup(out int hp, out int speedlimit, out int dmg, out int ttl)\n   23  	{\n   24  		hp = 1; \n   25: 		speedlimit = 150; \n   26  		dmg = 10; \n   27  		ttl = 3; \n   ..\n   31  public class RulesDog : RulesActor\n   32  {\n   33: 	public static void Lookup(out int hp, out int speedlimit, out int dmg, out int ttl)\n   34  	{\n   35  		hp = 2; \n   36: 		speedlimit = 25; \n   37  		dmg = 1; \n   38  		ttl = 1000; \n\n34 matches across 7 files\n\n\nSearching 38 files for \"PackActorExtra\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Actor.cs:\n  129  		sb.Append(\"requestactor|\");\n  130  		Pck.PackActorData(sb,ad);\n  131: 		Pck.PackActorExtra(sb,this);\n  132  		sb.Append(\"\\n\");\n  133  		adString = sb.ToString();\n\nI:\\w\\zeptobots\\Assets\\Scripts\\NetMan.cs:\n  105  		sb.Append(\"requestactor|\");\n  106  		Pck.PackActorData(sb, ad);\n  107: 		Pck.PackActorExtra(sb, null);\n  108  		sb.Append(\"\\n\");\n  109  		Send( sb.ToString() );\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Pck.cs:\n   65  	}\n   66  \n   67: 	public static void PackActorExtra(System.Text.StringBuilder sb, ActorData ad, Actor actor)\n   68  	{\n   69  		\n\n3 matches across 3 files\n\n\nSearching 38 files for \"adString\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Actor.cs:\n    5  public class Actor : MonoBehaviour {\n    6  \n    7: 	public string adString = \"-\";\n    8  	public ActorData ad = new ActorData();\n    9  \n   ..\n  131  		Pck.PackActorData(sb,ad);\n  132  		sb.Append(\"\\n\");\n  133: 		adString = sb.ToString();\n  134  	}\n  135  \n\nI:\\w\\zeptobots\\Assets\\Scripts\\Boss.cs:\n  107  			Actor actor = localActors[i];\n  108  			actor.SerializeActorData();\n  109: 			NetMan.Instance.Send( actor.adString );\n  110  		}\n  111  	}\n\n3 matches across 2 files\n\n\nSearching 38 files for \"children\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Sector.cs:\n  117  					if( (t.tFlags & Tile.TileFlags.KINGDOM) != 0 )\n  118  					{\n  119: 						Kingdom kd = t.GetComponentInChildren<Kingdom>();\n  120  						if( kd != null )\n  121  						{\n\nI:\\w\\zeptobots\\Assets\\Scripts\\UIFace.cs:\n   12  	public Text label;\n   13  	public Text content;\n   14: 	public UIFace[] children;\n   15  \n   16  	public void SetActive(bool val)\n\n2 matches across 2 files\n\n\nSearching 38 files for \".content\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Hud.cs:\n   69  		if( percVal == 0 )\n   70  		{\n   71: 			ab.content.text = \"\";\n   72  		}\n   73  		else\n   74  		{\n   75: 			ab.content.text = percVal.ToString();\n   76  		}\n   77  \n\nI:\\w\\zeptobots\\Assets\\Scripts\\MenuFactory.cs:\n   29  		go.transform.SetParent(root);\n   30  		UIFace uf = go.GetComponent<UIFace>();\n   31: 		uf.content.text = contents;\n   32  		RectTransform rt = go.GetComponent<RectTransform>();\n   33  		rt.localPosition = new Vector2(posX, posY);\n   ..\n   42  		UIFace uf = go.GetComponent<UIFace>();\n   43  		uf.label.text = label;\n   44: 		uf.content.text = contents;\n   45  		RectTransform rt = go.GetComponent<RectTransform>();\n   46  		rt.localPosition = new Vector2(posX, posY);\n\n4 matches across 2 files\n\n\nSearching 39 files for \"onclick\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Menu.cs:\n   41  \n   42  		connectButton = factory.AddFrontButton(root, -170f, 70f, \"Connect To Server\");\n   43: 		connectButton.btn.onClick.AddListener(delegate {this.GoConnect();});\n   44  		localButton = factory.AddFrontButton(root, 170f, 70f, \"Local Playground\");\n   45: 		localButton.btn.onClick.AddListener(delegate {this.GoLocal();});\n   46  		cycleButton = factory.AddFrontButton(root, -170f, -70f, \"Cycle Spawn\");\n   47: 		cycleButton.btn.onClick.AddListener(delegate {Boss.Instance.SelectRandomSpawn();});\n   48  		spawnButton = factory.AddFrontButton(root, 170f, -70f, \"Jump In!\");\n   49: 		spawnButton.btn.onClick.AddListener(delegate {this.GoSpawn();});\n   50  \n   51  		isInitialized = true;\n\n4 matches in 1 file\n\n\nSearching 39 files for \"AddPortrait\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Hud.cs:\n   32  		abilityB = factory.AddAbility(root, rightX-0f, bottomY, \"Space\", \"99\");\n   33  		\n   34: 		portrait = factory.AddPortrait(root, leftX, bottomY);\n   35  		portrait.fill.color = Color.magenta; \n   36  		\n\nI:\\w\\zeptobots\\Assets\\Scripts\\MenuFactory.cs:\n   74  		return uf;\n   75  	}\n   76: 	public UIFace AddPortrait(Transform root, float posX, float posY)\n   77  	{\n   78  		GameObject go = GameObject.Instantiate(portraitProto);\n\n2 matches across 2 files\n\n\nSearching 46 files for \"ProtoPrep\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\World.cs:\n   25  	{\n   26  		protos = new Dictionary<string, GameObject>();\n   27: 		ProtoPrep(\"terrain-grass1\");\n   28: 		ProtoPrep(\"terrain-hill1\");\n   29: 		ProtoPrep(\"terrain-mountain1\");\n   30: 		ProtoPrep(\"prop-tree1\");\n   31: 		ProtoPrep(\"prop-tree2\");\n   32: 		ProtoPrep(\"prop-house1\");\n   33: 		ProtoPrep(\"prop-tower1\");\n   34: 		ProtoPrep(\"prop-barn1\");\n   35: 		ProtoPrep(\"actor-man1\");\n   36: 		ProtoPrep(\"actor-dog1\");\n   37: 		ProtoPrep(\"actor-mega1\");\n   38: 		ProtoPrep(\"over-red\");\n   39: 		ProtoPrep(\"over-blue\");\n   40: 		ProtoPrep(\"over-gray\");\n   41  		\n   42  		foreach(Transform child in transform)\n   ..\n   67  	}\n   68  \n   69: 	void ProtoPrep(string str)\n   70  	{\n   71  		GameObject go = Resources.Load(\"Prefabs/pr-\"+str) as GameObject;\n\n15 matches in 1 file\n",
 			"settings":
 			{
-				"buffer_size": 1177,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/Scripts/Effect/RenderEffect.cs",
-			"settings":
-			{
-				"buffer_size": 1973,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/Scripts/BipedBody.cs",
-			"settings":
-			{
-				"buffer_size": 2406,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/Scripts/ActorBody.cs",
-			"settings":
-			{
-				"buffer_size": 1396,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "CGPROGRAM\n        #pragma vertex vert\n        #pragma fragment frag\n          \n        #include \"UnityCG.cginc\"\n        struct appdata\n        {\n            float4 vertex : POSITION;\n            float3 normal : NORMAL;\n            float2 texcoord : TEXCOORD0;\n        };\n        struct v2f\n        {\n            float4 position : SV_POSITION;\n            float4 col : COLOR0;\n            \n        };\n        \n        half4 _Color;\n        uniform float4 _LightColor0;\n\n\n        v2f vert (appdata v)\n        {\n            v2f o;\n            float4 normal = float4(v.normal, 0.0);\n            float3 n = normalize(mul(normal, _World2Object));\n            float3 l = normalize(_WorldSpaceLightPos0);\n\n            float3 NdotL = max(0.0, dot(n, l));\n\n            float3 d = NdotL * _LightColor0 * _Color;\n            o.col = float4(d, 1.0);\n            o.position = mul(UNITY_MATRIX_MVP, v.vertex);\n\n             \n            return o;\n        }\n        \n        half4 frag (v2f i) : COLOR\n        {\n            half4 col =  i.col;\n            col.r = calculateRampCoefficient(col.r, 4);\n            col.g = calculateRampCoefficient(col.g, 4);\n            col.b = calculateRampCoefficient(col.b, 4);\n            return col;\n        }\n\n\n        ENDCG",
-			"settings":
-			{
-				"buffer_size": 1245,
-				"line_ending": "Windows",
-				"name": "CGPROGRAM"
-			}
-		},
-		{
-			"file": "Assets/Scripts/Pck.cs",
-			"settings":
-			{
-				"buffer_size": 1714,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "Searching 38 files for \"PackActorData\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Actor.cs:\n  127  		sb.Length = 0;\n  128  		sb.Append(\"requestactor|\");\n  129: 		Pck.PackActorData(sb,ad,this);\n  130  		sb.Append(\"\\n\");\n  131  		adString = sb.ToString();\n\nI:\\w\\zeptobots\\Assets\\Scripts\\NetMan.cs:\n  104      	sb.Length = 0;\n  105  		sb.Append(\"requestactor|\");\n  106: 		Pck.PackActorData(sb, ad, null);\n  107  		sb.Append(\"\\n\");\n  108  		Send( sb.ToString() );\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Pck.cs:\n   29  	}\n   30  \n   31: 	public static void PackActorData(System.Text.StringBuilder sb, ActorData ad, Actor actor)\n   32  	{\n   33  		sb.Append(ad.uid);\n\n3 matches across 3 files\n\n\nSearching 38 files for \"GetActorMessage\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\LocalMan.cs:\n   56  		}\n   57  		HandleMessage(GetClientMessage());\n   58: 		//HandleMessage(GetActorMessage());\n   59  		isConnected = true;\n   60  		yield return null;\n   ..\n   72  \n   73  \n   74: 	string GetActorMessage(string[] chunks)\n   75  	{\n   76  		ActorData ad = new ActorData();\n   ..\n  178  		{\n  179  			case \"requestactor\":\n  180: 				HandleMessage(GetActorMessage(chunks));\n  181  				break;\n  182  			case \"requestworldmod\":\n\n3 matches in 1 file\n\n\nSearching 38 files for \"speedLimit\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Actor.cs:\n   17  	public int RX { get { return ad.rx; } set { ad.rx = value; } }\n   18  	public int RY { get { return ad.ry; } set { ad.ry = value; } }\n   19: 	public int SpeedLimit { get { return ad.speedLimit; } set { ad.speedLimit = value; } }\n   20  	public int Damage { get { return ad.damage; } set { ad.damage = value; } }\n   21  	public int TTL { get { return ad.ttl; } set { ad.ttl = value; } }\n   ..\n  109  				this.actorBody.SetSprite(ad.spriteString);\n  110  			}\n  111: 			ad.speedLimit = Utils.IntParseFast(chunks[(int)Pck.Ac.SPEEDLIMIT]);\n  112: 			this.engine.speedLimit = ad.speedLimit;\n  113  			ad.fx = Utils.IntParseFast(chunks[(int)Pck.Ac.FX]);\n  114  			ad.fy = Utils.IntParseFast(chunks[(int)Pck.Ac.FY]);\n\nI:\\w\\zeptobots\\Assets\\Scripts\\ActorData.cs:\n   17  	public int fx;\n   18  	public int fy;\n   19: 	public int speedLimit;\n   20  	public int damage;\n   21  	public int ttl;\n   ..\n   34  		fx = -1;\n   35  		fy = -1;\n   36: 		speedLimit = 1;\n   37  		damage = 1;\n   38  		ttl = -1;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Engine.cs:\n    4  public class Engine : MonoBehaviour {\n    5  \n    6: 	public int speedLimit = 30;\n    7  	private float currentStep = 0f;\n    8  	public float currentSpeed = 0f;\n    .\n   54  		if( dist > 0.1f )\n   55  		{	\n   56: 			float maxStep = speedLimit*deltaTime;\n   57  			if( dist > maxStep )\n   58  			{\n\nI:\\w\\zeptobots\\Assets\\Scripts\\LocalMan.cs:\n   92  		{\n   93  			ad.uid = nextUID++;\n   94: 			Lookup(ad.spriteString, out ad.hp, out ad.speedLimit, out ad.damage, out ad.ttl);\n   95  		}\n   96  		else\n   97  		{\n   98  			int.TryParse(chunks[(int)Pck.Ac.HP], out ad.hp);\n   99: 			int.TryParse(chunks[(int)Pck.Ac.SPEEDLIMIT], out ad.speedLimit);\n  100  			int.TryParse(chunks[(int)Pck.Ac.DAMAGE], out ad.damage);\n  101  			int.TryParse(chunks[(int)Pck.Ac.TTL], out ad.ttl);\n  ...\n  190  	}\n  191  \n  192: 	public void Lookup(string sprite, out int hp, out int speedlimit, out int dmg, out int ttl)\n  193  	{\n  194  		switch(sprite[0])\n  195  		{\n  196: 			case '*': RulesBullet.Lookup(out hp, out speedlimit, out dmg, out ttl); break;\n  197: 			case 'H': RulesHero.Lookup(out hp, out speedlimit, out dmg, out ttl); break;\n  198: 			case 'D': RulesDog.Lookup(out hp, out speedlimit, out dmg, out ttl); break;\n  199: 			default:  RulesDog.Lookup(out hp, out speedlimit, out dmg, out ttl); break;\n  200  		}\n  201  \n\nI:\\w\\zeptobots\\Assets\\Scripts\\Pck.cs:\n   21  		FX = 10,\n   22  		FY = 11,\n   23: 		SPEEDLIMIT = 12,\n   24  		DAMAGE = 13,\n   25  		TTL = 14,\n   ..\n   53  		sb.Append(ad.fy);\n   54  		sb.Append(\"|\");\n   55: 		sb.Append(ad.speedLimit);\n   56  		sb.Append(\"|\");\n   57  		sb.Append(ad.damage);\n\nI:\\w\\zeptobots\\Assets\\Scripts\\RulesAb.cs:\n   41  		Vector3 delta = new Vector3(engine.facingVec.x, 0, engine.facingVec.y)*dashDistance;\n   42  		engine.desiredPosition = engine.transform.position + delta;\n   43: 		engine.speedLimit = 240;\n   44  		actor.Damage = 3;\n   45  		engine.moveLock = true;\n   ..\n   52  		actor.AddEff('R', 2.5f);\n   53  		Engine engine = actor.engine;\n   54: 		engine.speedLimit = 20;\n   55  		actor.Damage = 0;\n   56  		engine.moveLock = false;\n   ..\n   63  		actor.RemEff('R');\n   64  		Engine engine = actor.engine;\n   65: 		engine.speedLimit = 30;\n   66  		actor.Damage = 1;\n   67  		engine.moveLock = false;\n   ..\n   85  	{\n   86  		Engine engine = actor.engine;\n   87: 		engine.speedLimit = 10;\n   88  		actor.Damage = 0;\n   89  		ga.SetLock(0.30f);\n   ..\n  104  		NetMan.Instance.SendReqActor(ad);\n  105  \n  106: 		engine.speedLimit = 30;\n  107  		actor.Damage = 1;\n  108  		ga.SetLock(0.7f);\n  ...\n  133  		Vector3 delta = new Vector3(engine.facingVec.x, 0, engine.facingVec.y)*dashDistance;\n  134  		engine.desiredPosition = engine.transform.position + delta;\n  135: 		engine.speedLimit = 120;\n  136  		actor.Damage = 4;\n  137  		ga.SetLock(0.30f);\n  ...\n  141  	{\n  142  		Engine engine = actor.engine;\n  143: 		engine.speedLimit = 30;\n  144  		actor.Damage = 1;\n  145  		ga.SetLock(0.7f);\n\nI:\\w\\zeptobots\\Assets\\Scripts\\RulesActor.cs:\n    9  public class RulesHero : RulesActor\n   10  {\n   11: 	public static void Lookup(out int hp, out int speedlimit, out int dmg, out int ttl)\n   12  	{\n   13  		hp = 10; \n   14: 		speedlimit = 30; \n   15  		dmg = 1; \n   16  		ttl = 100000; \n   ..\n   20  public class RulesBullet : RulesActor\n   21  {\n   22: 	public static void Lookup(out int hp, out int speedlimit, out int dmg, out int ttl)\n   23  	{\n   24  		hp = 1; \n   25: 		speedlimit = 150; \n   26  		dmg = 10; \n   27  		ttl = 3; \n   ..\n   31  public class RulesDog : RulesActor\n   32  {\n   33: 	public static void Lookup(out int hp, out int speedlimit, out int dmg, out int ttl)\n   34  	{\n   35  		hp = 2; \n   36: 		speedlimit = 25; \n   37  		dmg = 1; \n   38  		ttl = 1000; \n\n34 matches across 7 files\n\n\nSearching 38 files for \"PackActorExtra\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Actor.cs:\n  129  		sb.Append(\"requestactor|\");\n  130  		Pck.PackActorData(sb,ad);\n  131: 		Pck.PackActorExtra(sb,this);\n  132  		sb.Append(\"\\n\");\n  133  		adString = sb.ToString();\n\nI:\\w\\zeptobots\\Assets\\Scripts\\NetMan.cs:\n  105  		sb.Append(\"requestactor|\");\n  106  		Pck.PackActorData(sb, ad);\n  107: 		Pck.PackActorExtra(sb, null);\n  108  		sb.Append(\"\\n\");\n  109  		Send( sb.ToString() );\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Pck.cs:\n   65  	}\n   66  \n   67: 	public static void PackActorExtra(System.Text.StringBuilder sb, ActorData ad, Actor actor)\n   68  	{\n   69  		\n\n3 matches across 3 files\n\n\nSearching 38 files for \"adString\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Actor.cs:\n    5  public class Actor : MonoBehaviour {\n    6  \n    7: 	public string adString = \"-\";\n    8  	public ActorData ad = new ActorData();\n    9  \n   ..\n  131  		Pck.PackActorData(sb,ad);\n  132  		sb.Append(\"\\n\");\n  133: 		adString = sb.ToString();\n  134  	}\n  135  \n\nI:\\w\\zeptobots\\Assets\\Scripts\\Boss.cs:\n  107  			Actor actor = localActors[i];\n  108  			actor.SerializeActorData();\n  109: 			NetMan.Instance.Send( actor.adString );\n  110  		}\n  111  	}\n\n3 matches across 2 files\n\n\nSearching 38 files for \"children\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Sector.cs:\n  117  					if( (t.tFlags & Tile.TileFlags.KINGDOM) != 0 )\n  118  					{\n  119: 						Kingdom kd = t.GetComponentInChildren<Kingdom>();\n  120  						if( kd != null )\n  121  						{\n\nI:\\w\\zeptobots\\Assets\\Scripts\\UIFace.cs:\n   12  	public Text label;\n   13  	public Text content;\n   14: 	public UIFace[] children;\n   15  \n   16  	public void SetActive(bool val)\n\n2 matches across 2 files\n\n\nSearching 38 files for \".content\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Hud.cs:\n   69  		if( percVal == 0 )\n   70  		{\n   71: 			ab.content.text = \"\";\n   72  		}\n   73  		else\n   74  		{\n   75: 			ab.content.text = percVal.ToString();\n   76  		}\n   77  \n\nI:\\w\\zeptobots\\Assets\\Scripts\\MenuFactory.cs:\n   29  		go.transform.SetParent(root);\n   30  		UIFace uf = go.GetComponent<UIFace>();\n   31: 		uf.content.text = contents;\n   32  		RectTransform rt = go.GetComponent<RectTransform>();\n   33  		rt.localPosition = new Vector2(posX, posY);\n   ..\n   42  		UIFace uf = go.GetComponent<UIFace>();\n   43  		uf.label.text = label;\n   44: 		uf.content.text = contents;\n   45  		RectTransform rt = go.GetComponent<RectTransform>();\n   46  		rt.localPosition = new Vector2(posX, posY);\n\n4 matches across 2 files\n\n\nSearching 39 files for \"onclick\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Menu.cs:\n   41  \n   42  		connectButton = factory.AddFrontButton(root, -170f, 70f, \"Connect To Server\");\n   43: 		connectButton.btn.onClick.AddListener(delegate {this.GoConnect();});\n   44  		localButton = factory.AddFrontButton(root, 170f, 70f, \"Local Playground\");\n   45: 		localButton.btn.onClick.AddListener(delegate {this.GoLocal();});\n   46  		cycleButton = factory.AddFrontButton(root, -170f, -70f, \"Cycle Spawn\");\n   47: 		cycleButton.btn.onClick.AddListener(delegate {Boss.Instance.SelectRandomSpawn();});\n   48  		spawnButton = factory.AddFrontButton(root, 170f, -70f, \"Jump In!\");\n   49: 		spawnButton.btn.onClick.AddListener(delegate {this.GoSpawn();});\n   50  \n   51  		isInitialized = true;\n\n4 matches in 1 file\n\n\nSearching 39 files for \"AddPortrait\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Hud.cs:\n   32  		abilityB = factory.AddAbility(root, rightX-0f, bottomY, \"Space\", \"99\");\n   33  		\n   34: 		portrait = factory.AddPortrait(root, leftX, bottomY);\n   35  		portrait.fill.color = Color.magenta; \n   36  		\n\nI:\\w\\zeptobots\\Assets\\Scripts\\MenuFactory.cs:\n   74  		return uf;\n   75  	}\n   76: 	public UIFace AddPortrait(Transform root, float posX, float posY)\n   77  	{\n   78  		GameObject go = GameObject.Instantiate(portraitProto);\n\n2 matches across 2 files\n",
-			"settings":
-			{
-				"buffer_size": 9889,
+				"buffer_size": 10744,
 				"line_ending": "Windows",
 				"name": "Find Results",
 				"scratch": true
 			}
 		},
 		{
-			"file": "Assets/Scripts/Hud.cs",
+			"file": "getvox.bat",
 			"settings":
 			{
-				"buffer_size": 1762,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "Shader \"Custom/Untextured Diffuse No Cull\"\n{\n    Properties\n    {\n        _Color (\"Color\", Color) = (1, 1, 1, 0)\n    }\n    SubShader\n    {\n        Tags { \"RenderType\"=\"Opaque\" }\n\n        Cull off\n\n        CGPROGRAM\n\n        #pragma surface surf Lambert\n\n        half4 _Color;\n\n        struct Input\n        {\n            float dummy;\n        };\n\n        void surf (Input IN, inout SurfaceOutput o)\n        {\n            o.Albedo = _Color.rgb;\n            o.Alpha = _Color.a;\n        }\n\n        ENDCG\n    } \n    FallBack \"Diffuse\"\n}\n",
-			"file": "Assets/Basic Shaders/Untextured Diffuse No Cull.shader",
-			"file_size": 534,
-			"file_write_time": 130968485481119074,
-			"settings":
-			{
-				"buffer_size": 531,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "Shader \"Custom/Untextured Diffuse\"\n{\n    Properties\n    {\n        _Color (\"Color\", Color) = (1, 1, 1, 0)\n    }\n    SubShader\n    {\n        Tags { \"RenderType\"=\"Opaque\" }\n\n        CGPROGRAM\n\n        #pragma surface surf Lambert\n\n        half4 _Color;\n\n        struct Input\n        {\n            float dummy;\n        };\n\n        void surf (Input IN, inout SurfaceOutput o)\n        {\n            o.Albedo = _Color.rgb;\n            o.Alpha = _Color.a;\n        }\n\n        ENDCG\n    } \n    FallBack \"Diffuse\"\n}\n",
-			"file": "Assets/Basic Shaders/Untextured Diffuse.shader",
-			"file_size": 508,
-			"file_write_time": 130968485481309228,
-			"settings":
-			{
-				"buffer_size": 505,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "Shader \"Custom/Transparent Line\"\n{\n    Properties\n    {\n        _Color (\"Color\", Color) = (1, 1, 1, 0.5)\n    }\n\n    CGINCLUDE\n\n    #include \"UnityCG.cginc\"\n\n    struct v2f\n    {\n        float4 position : SV_POSITION;\n    };\n    \n    half4 _Color;\n    \n    v2f vert (appdata_base v)\n    {\n        v2f o;\n        o.position = mul (UNITY_MATRIX_MVP, v.vertex);\n        return o;\n    }\n    \n    half4 frag (v2f i) : COLOR\n    {\n        return _Color;\n    }\n\n    ENDCG\n\n    SubShader\n    {\n        Tags { \"RenderType\"=\"Transparent\" \"Queue\" = \"Transparent\" }\n        Pass\n        {\n            Blend SrcAlpha OneMinusSrcAlpha\n            CGPROGRAM\n            #pragma vertex vert\n            #pragma fragment frag\n            #pragma fragmentoption ARB_precision_hint_fastest\n            ENDCG\n        }\n    } \n    FallBack Off\n}\n",
-			"file": "Assets/Basic Shaders/Transparent Line.shader",
-			"file_size": 827,
-			"file_write_time": 130968485480918905,
-			"settings":
-			{
-				"buffer_size": 824,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "Shader \"Custom/BG Gradation\"\n{\n    Properties\n    {\n        _Color1 (\"Color 1\", Color) = (1, 0, 0, 1)\n        _Color2 (\"Color 2\", Color) = (0, 1, 0, 1)\n    }\n\n    CGINCLUDE\n\n    #include \"UnityCG.cginc\"\n    \n    struct v2f\n    {\n        float4 position : SV_POSITION;\n        half2 texcoord : TEXCOORD0;\n    };\n    \n    half4 _Color1;\n    half4 _Color2;\n    \n    v2f vert (appdata_base v)\n    {\n        v2f o;\n        o.position = mul (UNITY_MATRIX_MVP, v.vertex);\n        o.texcoord = v.texcoord;\n        return o;\n    }\n    \n    fixed4 frag (v2f i) : COLOR\n    {\n        return lerp (_Color1, _Color2, i.texcoord.y);\n    }\n\n    ENDCG\n\n    SubShader\n    {\n        Tags { \"RenderType\"=\"Background\" \"Queue\"=\"Background+1\" }\n        Pass\n        {\n            ZTest Always\n            Fog { Mode Off }\n            CGPROGRAM\n            #pragma fragmentoption ARB_precision_hint_fastest\n            #pragma vertex vert\n            #pragma fragment frag\n            ENDCG\n        }\n    } \n}\n",
-			"file": "Assets/Basic Shaders/BG Gradation.shader",
-			"file_size": 990,
-			"file_write_time": 130968485479087378,
-			"settings":
-			{
-				"buffer_size": 987,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "Shader \"Custom/Normal Gloss Mapped Specular\"\n{\n    Properties\n    {\n        _Color (\"Main Color\", Color) = (1, 1, 1, 1)\n        _SpecColor (\"Specular Color\", Color) = (0.5, 0.5, 0.5, 1)\n        _Shininess (\"Shininess\", Range (0.01, 1)) = 0.078125\n        _Gloss (\"Gloss\", Range (0.0, 2.0)) = 1\n        _MainTex (\"Base Texture\", 2D) = \"white\" {}\n        _BumpMap (\"Normal Map\", 2D) = \"bump\" {}\n        _GlossMap (\"Gloss Map\", 2D) = \"gloss\" {}\n    }\n    SubShader\n    {\n        Tags { \"RenderType\"=\"Opaque\" }\n        \n        CGPROGRAM\n\n        #pragma surface surf BlinnPhong\n\n        fixed4 _Color;\n        half _Shininess;\n        half _Gloss;\n        sampler2D _MainTex;\n        sampler2D _BumpMap;\n        sampler2D _GlossMap;\n\n        struct Input\n        {\n            float2 uv_MainTex;\n            float2 uv_BumpMap;\n            float2 uv_GlossMap;\n        };\n\n        void surf (Input IN, inout SurfaceOutput o)\n        {\n            half4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;\n            o.Albedo = c.rgb;\n            o.Alpha = c.a;\n            o.Normal = UnpackNormal (tex2D (_BumpMap, IN.uv_BumpMap));\n            o.Gloss = tex2D (_GlossMap, IN.uv_GlossMap).a * _Gloss;\n            o.Specular = _Shininess;\n        }\n\n        ENDCG\n    } \n    Fallback \"Specular\"\n}\n",
-			"file": "Assets/Basic Shaders/Normal Gloss Mapped Specular.shader",
-			"file_size": 1288,
-			"file_write_time": 130968485479517744,
-			"settings":
-			{
-				"buffer_size": 1285,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "Shader \"Custom/Offset Diffuse\"\n{\n    Properties\n    {\n        _MainTex (\"Base (RGB)\", 2D) = \"white\" {}\n        _Color (\"Color\", Color) = (1, 1, 1, 0)\n    }\n    SubShader\n    {\n        Tags { \"RenderType\" = \"Opaque\" }\n\n        Offset 1, 1\n\n        CGPROGRAM\n\n        #pragma surface surf Lambert\n\n        sampler2D _MainTex;\n        half4 _Color;\n\n        struct Input\n        {\n            float2 uv_MainTex;\n        };\n\n        void surf (Input IN, inout SurfaceOutput o)\n        {\n            half4 c = tex2D (_MainTex, IN.uv_MainTex);\n            o.Albedo = _Color.rgb * c.rgb;\n            o.Alpha = _Color.a * c.a;\n        }\n\n        ENDCG\n    } \n    FallBack \"Diffuse\"\n}\n",
-			"file": "Assets/Basic Shaders/Offset Diffuse.shader",
-			"file_size": 679,
-			"file_write_time": 130968485479717905,
-			"settings":
-			{
-				"buffer_size": 676,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/Scripts/HudCarousel.cs",
-			"settings":
-			{
-				"buffer_size": 903,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/Scripts/Boss.cs",
-			"settings":
-			{
-				"buffer_size": 3652,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/Scripts/Actor.cs",
-			"settings":
-			{
-				"buffer_size": 5310,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/Scripts/UIFace.cs",
-			"settings":
-			{
-				"buffer_size": 368,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/Scripts/ActorData.cs",
-			"settings":
-			{
-				"buffer_size": 724,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/Scripts/Engine.cs",
-			"settings":
-			{
-				"buffer_size": 2616,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/Scripts/RulesAb.cs",
-			"settings":
-			{
-				"buffer_size": 3151,
-				"line_ending": "Unix"
+				"buffer_size": 554,
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -787,41 +610,54 @@
 		"/I/w/zeptobots/Assets",
 		"/I/w/zeptobots/Assets/Editor",
 		"/I/w/zeptobots/Assets/Scripts",
+		"/I/w/zeptobots/Assets/Scripts/Editor",
 		"/I/w/zeptobots/Assets/Scripts/Effect",
 		"/I/w/zeptobots/server",
 		"/I/w/zeptobots/targetweb"
 	],
 	"file_history":
 	[
+		"/I/w/ex/sugiImageEffects-master/Assets/sugiMaterial/Shader/BetterDiffuse.shader",
+		"/I/w/ex/VJ_CX-master/Assets/sugiVJ/Scripts/Misc/ShaderMainCameraPos.cs",
+		"/I/w/zeptobots/Assets/Scripts/Effect/ShaderMainCameraPos.cs",
+		"/I/w/zeptobots/Assets/Scripts/Effect/RenderEffect.cs",
+		"/I/w/zeptobots/Assets/Scripts/BipedBody.cs",
+		"/I/w/zeptobots/Assets/Scripts/ActorBody.cs",
+		"/I/w/zeptobots/Assets/Basic Shaders/standard-defer.shader",
+		"/I/w/zeptobots/Assets/Basic Shaders/Random.cginc",
+		"/I/w/zeptobots/Assets/Scripts/Pck.cs",
+		"/I/w/zeptobots/Assets/Scripts/Hud.cs",
+		"/I/w/zeptobots/Assets/Basic Shaders/Untextured Diffuse No Cull.shader",
+		"/I/w/zeptobots/Assets/Basic Shaders/Untextured Diffuse.shader",
+		"/I/w/zeptobots/Assets/Basic Shaders/Transparent Line.shader",
+		"/I/w/zeptobots/Assets/Basic Shaders/BG Gradation.shader",
+		"/I/w/zeptobots/Assets/Basic Shaders/Normal Gloss Mapped Specular.shader",
+		"/I/w/zeptobots/Assets/Basic Shaders/Offset Diffuse.shader",
+		"/I/w/zeptobots/Assets/Scripts/HudCarousel.cs",
+		"/I/w/zeptobots/Assets/Scripts/Boss.cs",
+		"/I/w/zeptobots/Assets/Scripts/Actor.cs",
+		"/I/w/zeptobots/Assets/Scripts/UIFace.cs",
+		"/I/w/zeptobots/Assets/Scripts/ActorData.cs",
+		"/I/w/zeptobots/Assets/Scripts/Engine.cs",
+		"/I/w/zeptobots/Assets/Scripts/RulesAb.cs",
 		"/I/w/ex/VJ_CX-master/Assets/sugiVJ/Scripts/Misc/ShaderGlobalProps.cs",
 		"/I/w/ex/VJ_CX-master/Assets/sugiVJ/Scripts/Particle/VertToPosTex.cs",
 		"/I/w/zeptobots/Assets/Scripts/LocalMan.cs",
 		"/I/w/zeptobots/Assets/Scripts/NetMan.cs",
 		"/I/w/zeptobots/Assets/Scripts/MenuFactory.cs",
-		"/I/w/zeptobots/Assets/Basic Shaders/Offset Diffuse.shader",
-		"/I/w/zeptobots/Assets/Scripts/UIFace.cs",
 		"/I/w/zeptobots/Assets/Scripts/Kingdom.cs",
 		"/C/large/tv/5-ji kara 9-ji made/5-ji kara 9-ji made ep08 (848x480 x264).srt",
-		"/I/w/zeptobots/Assets/Scripts/ActorData.cs",
-		"/I/w/zeptobots/Assets/Scripts/Boss.cs",
-		"/I/w/zeptobots/Assets/Scripts/Pck.cs",
-		"/I/w/zeptobots/Assets/Scripts/Actor.cs",
 		"/I/w/zeptobots/Assets/Scripts/Hero.cs",
-		"/I/w/zeptobots/Assets/Scripts/RulesAb.cs",
 		"/I/w/zeptobots/Assets/Scripts/Director.cs",
-		"/I/w/zeptobots/Assets/Scripts/Engine.cs",
 		"/I/w/zeptobots/Assets/Scripts/GameEffect.cs",
 		"/I/w/zeptobots/Assets/Scripts/GameAbility.cs",
 		"/I/w/zeptobots/Assets/Scripts/RulesEff.cs",
 		"/I/w/zeptobots/Assets/Scripts/RulesActor.cs",
 		"/I/w/zeptobots/Assets/fonts/Aileron-Black.otf",
 		"/I/w/zeptobots/Assets/Scripts/Creature.cs",
-		"/I/w/zeptobots/Assets/Scripts/Hud.cs",
 		"/I/w/zeptobots/Assets/Scripts/Menu.cs",
 		"/I/w/zeptobots/Assets/Scripts/Tile.cs",
 		"/I/w/zeptobots/server/world.js",
-		"/I/w/zeptobots/Assets/Scripts/ActorBody.cs",
-		"/I/w/zeptobots/Assets/Scripts/BipedBody.cs",
 		"/I/w/zeptobots/Assets/Scripts/SpriterHero.cs",
 		"/I/w/zeptobots/server/actor.js",
 		"/I/w/zeptobots/targetweb/websocket.js",
@@ -908,19 +744,7 @@
 		"//STRAWBERRY/Code/kiloio/client/js/prep.js",
 		"//STRAWBERRY/Code/kiloio/client/js/app.js",
 		"//STRAWBERRY/Code/kiloio/client/js/KCamera.js",
-		"//STRAWBERRY/Code/kiloio/common/clientjs/KUserCli.js",
-		"//STRAWBERRY/Code/kiloio/common/clientjs/KActorCli.js",
-		"//STRAWBERRY/Code/kiloio/server/lib/KActorSrv.js",
-		"//STRAWBERRY/Code/kiloio/server/lib/KInputData.js",
-		"/I/w/ClickThink/ClickThink/GameActor.cs",
-		"/I/w/ClickThink/ClickThink/ActionInterface.cs",
-		"/I/w/ClickThink/ClickThink/AIBrain.cs",
-		"//STRAWBERRY/Code/kiloio/common/commonjs/KInputData.js",
-		"//STRAWBERRY/Code/kiloio/common/clientjs/KGame.js",
-		"//STRAWBERRY/Code/kiloio/common/commonjs/KActorData.js",
-		"//STRAWBERRY/Code/kiloio/server/fishserver.js",
-		"//STRAWBERRY/Code/kiloio/client/index.html",
-		"//STRAWBERRY/Code/kiloio/client/js/clientutil.js"
+		"//STRAWBERRY/Code/kiloio/common/clientjs/KUserCli.js"
 	],
 	"find":
 	{
@@ -957,6 +781,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"tree-normal",
+			"ground-normal",
+			"grass-normal",
+			"ProtoPrep",
 			"_Color",
 			"aries-",
 			"AddPortrait",
@@ -1080,11 +908,7 @@
 			"addactor",
 			"AddActor",
 			"authorita",
-			"speedLimit",
-			"speedlimit",
-			"(int)Ord",
-			"ontileadd",
-			"ord"
+			"speedLimit"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1092,6 +916,8 @@
 		"regex": false,
 		"replace_history":
 		[
+			"prop-tree1",
+			"terrain-grass1",
 			"ctorBody",
 			"effName",
 			"AbilityState",
@@ -1225,114 +1051,24 @@
 	"groups":
 	[
 		{
-			"selected": 5,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "Assets/Basic Shaders/Random.cginc",
+					"file": "Assets/Scripts/Editor/MeshImporter.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 306,
+						"buffer_size": 291,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								306,
-								306
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "Assets/Basic Shaders/standard-defer.shader",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5085,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3975,
-								3975
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1809.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/I/w/ex/sugiImageEffects-master/Assets/sugiMaterial/Shader/BetterDiffuse.shader",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 7129,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								6690,
-								6690
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2304.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/I/w/ex/VJ_CX-master/Assets/sugiVJ/Scripts/Misc/ShaderMainCameraPos.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1177,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								1177
+								291,
+								291
 							]
 						],
 						"settings":
@@ -1348,20 +1084,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "Assets/Scripts/Effect/ShaderMainCameraPos.cs",
+					"buffer": 1,
+					"file": "Assets/Scripts/Editor/AutoBuilder.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1177,
+						"buffer_size": 5081,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								610,
-								610
+								2769,
+								2769
 							]
 						],
 						"settings":
@@ -1370,56 +1106,27 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "Assets/Scripts/Effect/RenderEffect.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1973,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								425,
-								425
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 30.0,
+						"translation.y": 732.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "Assets/Scripts/BipedBody.cs",
+					"buffer": 2,
+					"file": "Assets/Scripts/World.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2406,
+						"buffer_size": 4183,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								244,
-								244
+								3356,
+								3356
 							]
 						],
 						"settings":
@@ -1427,113 +1134,53 @@
 							"syntax": "Packages/C#/C#.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.x": 174.0,
+						"translation.y": 1945.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
-					"file": "Assets/Scripts/ActorBody.cs",
+					"buffer": 3,
+					"file": "/C/Program Files/MagicaVoxel/export/actor-man1.mtl",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1396,
+						"buffer_size": 134,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								454,
-								454
+								134,
+								134
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": -0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1245,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								417,
-								430
-							]
-						],
-						"settings":
-						{
-							"auto_name": "CGPROGRAM",
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 6,
+			"selected": 1,
 			"sheets":
 			[
 				{
-					"buffer": 9,
-					"file": "Assets/Scripts/Pck.cs",
+					"buffer": 4,
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1714,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1157,
-								1157
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 523.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 21,
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 9889,
+						"buffer_size": 10744,
 						"regions":
 						{
 							"match":
@@ -1772,6 +1419,66 @@
 									[
 										9737,
 										9748
+									],
+									[
+										10042,
+										10051
+									],
+									[
+										10080,
+										10089
+									],
+									[
+										10117,
+										10126
+									],
+									[
+										10158,
+										10167
+									],
+									[
+										10192,
+										10201
+									],
+									[
+										10226,
+										10235
+									],
+									[
+										10261,
+										10270
+									],
+									[
+										10296,
+										10305
+									],
+									[
+										10330,
+										10339
+									],
+									[
+										10364,
+										10373
+									],
+									[
+										10398,
+										10407
+									],
+									[
+										10433,
+										10442
+									],
+									[
+										10465,
+										10474
+									],
+									[
+										10498,
+										10507
+									],
+									[
+										10616,
+										10625
 									]
 								],
 								"scope": ""
@@ -1780,15 +1487,15 @@
 						"selection":
 						[
 							[
-								9551,
-								9551
+								10621,
+								10621
 							]
 						],
 						"settings":
 						{
 							"detect_indentation": false,
 							"line_numbers": false,
-							"output_tag": 9,
+							"output_tag": 10,
 							"result_base_dir": "",
 							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
 							"result_line_regex": "^ +([0-9]+):",
@@ -1796,424 +1503,38 @@
 							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 5160.0,
+						"translation.y": 6420.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 17,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 11,
-					"file": "Assets/Scripts/Hud.cs",
+					"buffer": 5,
+					"file": "getvox.bat",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1762,
+						"buffer_size": 554,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1326,
-								1326
+								554,
+								554
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 315.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 15,
-					"type": "text"
-				},
-				{
-					"buffer": 12,
-					"file": "Assets/Basic Shaders/Untextured Diffuse No Cull.shader",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 531,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/Batch File/Batch File.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 14,
-					"type": "text"
-				},
-				{
-					"buffer": 13,
-					"file": "Assets/Basic Shaders/Untextured Diffuse.shader",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 505,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 13,
-					"type": "text"
-				},
-				{
-					"buffer": 14,
-					"file": "Assets/Basic Shaders/Transparent Line.shader",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 824,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								216,
-								216
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 12,
-					"type": "text"
-				},
-				{
-					"buffer": 15,
-					"file": "Assets/Basic Shaders/BG Gradation.shader",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 987,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								515,
-								515
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 16,
-					"file": "Assets/Basic Shaders/Normal Gloss Mapped Specular.shader",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1285,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								867,
-								867
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 270.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 10,
-					"type": "text"
-				},
-				{
-					"buffer": 17,
-					"file": "Assets/Basic Shaders/Offset Diffuse.shader",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 676,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								175,
-								175
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 11,
-					"type": "text"
-				},
-				{
-					"buffer": 18,
-					"file": "Assets/Scripts/HudCarousel.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 903,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								404,
-								404
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 90.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 16,
-					"type": "text"
-				},
-				{
-					"buffer": 19,
-					"file": "Assets/Scripts/Boss.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3652,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2133,
-								2133
-							]
-						],
-						"settings":
-						{
-							"history_list_is_closing": true,
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1296.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 20,
-					"type": "text"
-				},
-				{
-					"buffer": 20,
-					"file": "Assets/Scripts/Actor.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5310,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3556,
-								3556
-							]
-						],
-						"settings":
-						{
-							"history_list_is_closing": true,
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1561.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 19,
-					"type": "text"
-				},
-				{
-					"buffer": 21,
-					"file": "Assets/Scripts/UIFace.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 368,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 18,
-					"type": "text"
-				},
-				{
-					"buffer": 22,
-					"file": "Assets/Scripts/ActorData.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 724,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								419,
-								431
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": -0.0,
-						"translation.y": 135.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 22,
-					"type": "text"
-				},
-				{
-					"buffer": 23,
-					"file": "Assets/Scripts/Engine.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2616,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1628,
-								1628
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 735.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 24,
-					"type": "text"
-				},
-				{
-					"buffer": 24,
-					"file": "Assets/Scripts/RulesAb.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3151,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								733,
-								733
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 90.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 23,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -2247,7 +1568,7 @@
 		"cols":
 		[
 			0.0,
-			0.534843205576,
+			0.580139372823,
 			1.0
 		],
 		"rows":
@@ -2283,6 +1604,14 @@
 		"selected_items":
 		[
 			[
+				"wo",
+				"Assets\\Scripts\\World.cs"
+			],
+			[
+				"ac",
+				"Assets\\Scripts\\Actor.cs"
+			],
+			[
 				"actorb",
 				"Assets\\Scripts\\ActorBody.cs"
 			],
@@ -2309,10 +1638,6 @@
 			[
 				"rule",
 				"Assets\\Scripts\\RulesAb.cs"
-			],
-			[
-				"ac",
-				"Assets\\Scripts\\Actor.cs"
 			],
 			[
 				"pc",
@@ -2429,10 +1754,6 @@
 			[
 				"action",
 				"Assets\\Scripts\\GameAction.cs"
-			],
-			[
-				"wo",
-				"Assets\\Scripts\\World.cs"
 			],
 			[
 				"bos",
