@@ -58,7 +58,9 @@ public static class AutoBuilder {
 	[MenuItem ("AutoBuilder/PrefabFromVox")]
 	static void DoCreateSimplePrefab()
 	{
-		Object[] objs = Selection.objects;
+		Object[] objs = Resources.LoadAll("Vox");
+		int newCount = 0;
+		int updateCount = 0;
 		foreach (Object obj in objs) {
 			GameObject src = obj as GameObject;
 			if( src )
@@ -68,41 +70,100 @@ public static class AutoBuilder {
 				//Debug.Log(src +" "+hasMesh+" "+hasChildMesh);
 				if( !hasMesh && hasChildMesh )
 				{
-					GameObject go = GameObject.Instantiate(src);
-					if( src.name.StartsWith("actor") )
+					string prefabName = "Imported/"+obj.name;
+					GameObject prefab = Resources.Load(prefabName, typeof(GameObject)) as GameObject;
+					GameObject go = null;
+					if( prefab == null )
 					{
-						Actor a = go.AddComponent<Actor>();
-						Engine e = go.AddComponent<Engine>();
-						e.actor = a;
-						Hero h = go.AddComponent<Hero>();
-						h.actor = a;
-						a.engine = e;
-						a.hero = h;
-						GameObject hb = new GameObject("HealthBar");
-						hb.AddComponent<HealthBar>();
-						hb.AddComponent<SpriteRenderer>();
-						hb.transform.parent = go.transform;
-					}
-					if( src.name.StartsWith("terrain") )
-					{
-						go.transform.localScale = Vector3.one*10f;
-						go.AddComponent<Tile>();
-					}
-					if( src.name.StartsWith("prop") )
-					{
-						TileContents tc = go.AddComponent<TileContents>();
-						if( src.name.Contains("house")  )
+						//Debug.Log("Created "+prefabName);
+						newCount++;
+						go = GameObject.Instantiate(src);
+						if( src.name.StartsWith("actor") )
 						{
-							tc.tFlags |= Tile.TileFlags.KINGDOM;
+							go.transform.localScale = Vector3.one*5f;
+							Actor a = go.AddComponent<Actor>();
+							Engine e = go.AddComponent<Engine>();
+							e.actor = a;
+							Hero h = go.AddComponent<Hero>();
+							h.actor = a;
+							a.engine = e;
+							a.hero = h;
+							GameObject hb = new GameObject("HealthBar");
+							hb.AddComponent<HealthBar>();
+							hb.AddComponent<SpriteRenderer>();
+							hb.transform.parent = go.transform;
+							Transform bodyT = go.transform.Find("default");
+							bodyT.gameObject.name = "actorbody";
+							a.actorBody = bodyT.gameObject.AddComponent<ActorBody>();
+						}
+						if( src.name.StartsWith("terrain") )
+						{
+							go.transform.localScale = Vector3.one*10f;
+							go.AddComponent<Tile>();
+							Transform bodyT = go.transform.Find("default");
+							bodyT.gameObject.name = "terrainbody";
+						}
+						if( src.name.StartsWith("prop") )
+						{
+							TileContents tc = go.AddComponent<TileContents>();
+							if( src.name.Contains("house")  )
+							{
+								tc.tFlags |= Tile.TileFlags.KINGDOM;
+							}
+							Transform bodyT = go.transform.Find("default");
+							bodyT.gameObject.name = "propbody";
 						}
 					}
-			    	UnityEngine.Object prefab = PrefabUtility.CreatePrefab("Assets/Resources/Imported/"+obj.name+".prefab", go, ReplacePrefabOptions.Default);
-			    	Debug.Log("Created "+prefab);
-			    	GameObject.DestroyImmediate(go);
+					else
+					{
+						//Debug.Log("Updated"+prefabName);
+						updateCount++;
+						go = GameObject.Instantiate(prefab);
+						GameObject other = GameObject.Instantiate(src);
+						int children = go.transform.childCount;
+				        for (int i = children-1; i >= 0; --i)
+				        {
+				        	Transform child = go.transform.GetChild(i);
+				        	if( child.gameObject.name.EndsWith("body"))
+				        	{
+								GameObject.DestroyImmediate(go.transform.GetChild(i).gameObject);
+							}
+						}
+						children = other.transform.childCount;
+						for (int i = children-1; i >= 0; --i)
+				        {
+				        	Transform child = other.transform.GetChild(i);
+				        	child.SetParent(go.transform);
+							child.localScale = Vector3.one;
+						}
+						if( src.name.StartsWith("actor") )
+						{
+							Actor a = go.GetComponent<Actor>();
+							Transform bodyT = go.transform.Find("default");
+							bodyT.gameObject.name = "actorbody";
+							a.actorBody = bodyT.gameObject.AddComponent<ActorBody>();
+						}
+						if( src.name.StartsWith("terrain") )
+						{
+							Transform bodyT = go.transform.Find("default");
+							bodyT.gameObject.name = "terrainbody";
+						}
+						if( src.name.StartsWith("prop") )
+						{
+							Transform bodyT = go.transform.Find("default");
+							bodyT.gameObject.name = "propbody";
+						}
+						GameObject.DestroyImmediate(other);
+
+					}
+					PrefabUtility.CreatePrefab("Assets/Resources/"+prefabName+".prefab", go, ReplacePrefabOptions.Default);
+					GameObject.DestroyImmediate(go);
+			    	
 			    }
 			}
 			
 	    }
+	    Debug.Log("Crunched "+newCount+" New, "+updateCount+" Updated");
 	}
 
 	[MenuItem("AutoBuilder/GetVox")]

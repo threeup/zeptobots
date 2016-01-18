@@ -91,12 +91,16 @@ public class LocalMan : MonoBehaviour {
 		if( ad.uid < 0 )
 		{
 			ad.uid = nextUID++;
-			Lookup(ad.spriteString, out ad.hp, out ad.speedLimit, out ad.damage, out ad.ttl);
+			Lookup(ad.spriteString, out ad.defaulthp, out ad.defaultSpeedLimit, out ad.damage, out ad.ttl);
+			ad.hp = ad.defaulthp;
+			ad.currentSpeedLimit = ad.defaultSpeedLimit;
 		}
 		else
 		{
 			int.TryParse(chunks[(int)Pck.Ac.HP], out ad.hp);
-			int.TryParse(chunks[(int)Pck.Ac.SPEEDLIMIT], out ad.speedLimit);
+			int.TryParse(chunks[(int)Pck.Ac.DEFAULTHP], out ad.defaulthp);
+			int.TryParse(chunks[(int)Pck.Ac.CURRENTSPEEDLIMIT], out ad.currentSpeedLimit);
+			int.TryParse(chunks[(int)Pck.Ac.DEFAULTSPEEDLIMIT], out ad.defaultSpeedLimit);
 			int.TryParse(chunks[(int)Pck.Ac.DAMAGE], out ad.damage);
 			int.TryParse(chunks[(int)Pck.Ac.TTL], out ad.ttl);
 			if( ad.ttl <= 0 )
@@ -189,14 +193,14 @@ public class LocalMan : MonoBehaviour {
 		}
 	}
 
-	public void Lookup(string sprite, out int hp, out int speedlimit, out int dmg, out int ttl)
+	public void Lookup(string sprite, out int defaulthp, out int defaultSpeedLimit, out int dmg, out int ttl)
 	{
 		switch(sprite[0])
 		{
-			case '*': RulesBullet.Lookup(out hp, out speedlimit, out dmg, out ttl); break;
-			case 'H': RulesHero.Lookup(out hp, out speedlimit, out dmg, out ttl); break;
-			case 'D': RulesDog.Lookup(out hp, out speedlimit, out dmg, out ttl); break;
-			default:  RulesDog.Lookup(out hp, out speedlimit, out dmg, out ttl); break;
+			case '*': RulesBullet.Lookup(out defaulthp, out defaultSpeedLimit, out dmg, out ttl); break;
+			case 'H': RulesHero.Lookup(out defaulthp, out defaultSpeedLimit, out dmg, out ttl); break;
+			case 'D': RulesDog.Lookup(out defaulthp, out defaultSpeedLimit, out dmg, out ttl); break;
+			default:  RulesDog.Lookup(out defaulthp, out defaultSpeedLimit, out dmg, out ttl); break;
 		}
 
 	}

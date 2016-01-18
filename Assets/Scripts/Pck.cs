@@ -13,18 +13,20 @@ public class Pck : MonoBehaviour {
 		OID = 2,
 		TEAM = 3,
 		SPRITE = 4,
-		HP = 5,
-		TX = 6,
-		TY = 7,
-		RX = 8,
-		RY = 9,
-		FX = 10,
-		FY = 11,
-		SPEEDLIMIT = 12,
-		DAMAGE = 13,
-		TTL = 14,
-		ACTIONS = 15,
-		EFFECTS = 16,
+		TX = 5,
+		TY = 6,
+		RX = 7,
+		RY = 8,
+		FX = 9,
+		FY = 10,
+		HP = 11,
+		DEFAULTHP = 12,
+		CURRENTSPEEDLIMIT = 13,
+		DEFAULTSPEEDLIMIT = 14,
+		DAMAGE = 15,
+		TTL = 16,
+		ACTIONS = 17,
+		EFFECTS = 18,
 		
 	}
 
@@ -38,8 +40,6 @@ public class Pck : MonoBehaviour {
 		sb.Append("|");
 		sb.Append(ad.spriteString); 
 		sb.Append("|");
-		sb.Append(ad.hp);
-		sb.Append("|");
 		sb.Append(ad.tx);
 		sb.Append("|");
 		sb.Append(ad.ty);
@@ -52,7 +52,13 @@ public class Pck : MonoBehaviour {
 		sb.Append("|");
 		sb.Append(ad.fy);
 		sb.Append("|");
-		sb.Append(ad.speedLimit);
+		sb.Append(ad.hp);
+		sb.Append("|");
+		sb.Append(ad.defaulthp);
+		sb.Append("|");
+		sb.Append(ad.currentSpeedLimit);
+		sb.Append("|");
+		sb.Append(ad.defaultSpeedLimit);
 		sb.Append("|");
 		sb.Append(ad.damage);
 		sb.Append("|");

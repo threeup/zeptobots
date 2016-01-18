@@ -11,13 +11,15 @@ public class Actor : MonoBehaviour {
 	public int Team { get { return ad.team; } set { ad.team = value; } }
 	public string SpriteString { get { return ad.spriteString; } set { ad.spriteString = value; } }
 	public int HP { get { return ad.hp; } set { ad.hp = value; } }
+	public int defaulthp { get { return ad.defaulthp; } set { ad.defaulthp = value; } }
 	public int TX { get { return ad.tx; } set { ad.tx = value; } }
 	public int TY { get { return ad.ty; } set { ad.ty = value; } }
 	public int RX { get { return ad.rx; } set { ad.rx = value; } }
 	public int RY { get { return ad.ry; } set { ad.ry = value; } }
 	public int FX { get { return ad.fx; } set { ad.fx = value; } }
 	public int FY { get { return ad.fy; } set { ad.fy = value; } }
-	public int SpeedLimit { get { return ad.speedLimit; } set { ad.speedLimit = value; } }
+	public int CurrentSpeedLimit { get { return ad.currentSpeedLimit; } set { ad.currentSpeedLimit = value; } }
+	public int DefaultSpeedLimit { get { return ad.defaultSpeedLimit; } set { ad.defaultSpeedLimit = value; } }
 	public int Damage { get { return ad.damage; } set { ad.damage = value; } }
 	public int TTL { get { return ad.ttl; } set { ad.ttl = value; } }
 	
@@ -26,8 +28,8 @@ public class Actor : MonoBehaviour {
 
 	public Engine engine = null;
 	public Hero hero = null;
-	public Creature creature = null;
 	public ActorBody actorBody = null;
+	public Creature creature = null;
 	public HealthBar healthBar = null;
 	public List<char> effectNames = new List<char>();
 	public GameEffect[] effects;
@@ -93,9 +95,11 @@ public class Actor : MonoBehaviour {
 			ad.team = team;
 		}
 		int hp = Utils.IntParseFast(chunks[(int)Pck.Ac.HP]);
-		if( ad.hp != hp )
+		int defaulthp = Utils.IntParseFast(chunks[(int)Pck.Ac.DEFAULTHP]);
+		if( ad.hp != hp || ad.defaulthp != defaulthp )
 		{
 			ad.hp = hp;
+			ad.defaulthp = defaulthp;
 		}
 		if( authoritative )
 		{
@@ -109,7 +113,8 @@ public class Actor : MonoBehaviour {
 			{
 				this.actorBody.SetSprite(ad.spriteString);
 			}
-			ad.speedLimit = Utils.IntParseFast(chunks[(int)Pck.Ac.SPEEDLIMIT]);
+			ad.currentSpeedLimit = Utils.IntParseFast(chunks[(int)Pck.Ac.CURRENTSPEEDLIMIT]);
+			ad.defaultSpeedLimit = Utils.IntParseFast(chunks[(int)Pck.Ac.DEFAULTSPEEDLIMIT]);
 			ad.fx = Utils.IntParseFast(chunks[(int)Pck.Ac.FX]);
 			ad.fy = Utils.IntParseFast(chunks[(int)Pck.Ac.FY]);
 			this.engine.SetFacing(ad.fx, ad.fy);

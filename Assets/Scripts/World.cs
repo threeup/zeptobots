@@ -36,6 +36,7 @@ public class World : MonoBehaviour {
 		ProtoImported("actor-man1");
 		ProtoImported("actor-dog1");
 		ProtoImported("actor-mega1");
+		ProtoDirect("actor-bullet");
 		ProtoDirect("over-red");
 		ProtoDirect("over-blue");
 		ProtoDirect("over-gray");
@@ -69,7 +70,7 @@ public class World : MonoBehaviour {
 
 	void ProtoDirect(string str)
 	{
-		GameObject go = Resources.Load("Prefabs/pr-"+str) as GameObject;
+		GameObject go = Resources.Load("Prefabs/"+str) as GameObject;
 		if( go == null )
 		{
 			Debug.Log("cant load "+str);

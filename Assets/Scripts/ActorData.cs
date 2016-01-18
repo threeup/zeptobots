@@ -10,13 +10,15 @@ public struct ActorData {
 	public int team; //red is 1 blue is 0
 	public string spriteString;
 	public int hp;
+	public int defaulthp;
 	public int tx;
 	public int ty;
 	public int rx;
 	public int ry;
 	public int fx;
 	public int fy;
-	public int speedLimit;
+	public int currentSpeedLimit;
+	public int defaultSpeedLimit;
 	public int damage;
 	public int ttl;
 	public string actionString;
@@ -29,13 +31,15 @@ public struct ActorData {
 		team = -1;
 		spriteString = str;
 		hp = -1;
+		defaulthp = -1;
 		tx = -1;
 		ty = -1;
 		rx = -1;
 		ry = -1;
 		fx = -1;
 		fy = -1;
-		speedLimit = 1;
+		currentSpeedLimit = 1;
+		defaultSpeedLimit = 1;
 		damage = 1;
 		ttl = -1;
 		actionString = "";

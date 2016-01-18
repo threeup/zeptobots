@@ -51,7 +51,7 @@ public class Engine : MonoBehaviour {
 		float dist = diff.magnitude;
 		if( dist > 0.1f )
 		{	
-			float maxStep = actor.SpeedLimit*deltaTime;
+			float maxStep = actor.CurrentSpeedLimit*deltaTime;
 			if( dist > maxStep )
 			{
 				currentStep = maxStep;

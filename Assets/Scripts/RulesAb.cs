@@ -40,7 +40,7 @@ public class DashAb : RulesAbility
 		Engine engine = actor.engine;
 		Vector3 delta = new Vector3(engine.facingVec.x, 0, engine.facingVec.y)*dashDistance;
 		engine.desiredPosition = engine.transform.position + delta;
-		actor.SpeedLimit = 240;
+		actor.CurrentSpeedLimit = actor.DefaultSpeedLimit*8;
 		actor.Damage = 3;
 		engine.moveLock = true;
 		ga.SetLock(0.6f);
@@ -51,7 +51,7 @@ public class DashAb : RulesAbility
 		actor.RemEff('G');
 		actor.AddEff('R', 2.5f);
 		Engine engine = actor.engine;
-		actor.SpeedLimit = 20;
+		actor.CurrentSpeedLimit = actor.DefaultSpeedLimit*3/4;
 		actor.Damage = 0;
 		engine.moveLock = false;
 		ga.SetLock(2.5f);
@@ -62,7 +62,7 @@ public class DashAb : RulesAbility
 	{
 		actor.RemEff('R');
 		Engine engine = actor.engine;
-		actor.SpeedLimit = 30;
+		actor.CurrentSpeedLimit = actor.DefaultSpeedLimit;
 		actor.Damage = 1;
 		engine.moveLock = false;
 		ga.SetLock(2.0f);
@@ -83,7 +83,7 @@ public class ShootAb : RulesAbility {
 	}
 	public static void Activate(GameAbility ga, Actor actor)
 	{
-		actor.SpeedLimit = 10;
+		actor.CurrentSpeedLimit = actor.DefaultSpeedLimit*1/4;
 		actor.Damage = 0;
 		ga.SetLock(0.30f);
 	}
@@ -101,7 +101,7 @@ public class ShootAb : RulesAbility {
 		ad.ty = (int)Mathf.Round((ad.ry-5)/10f);
 		NetMan.Instance.SendReqActor(ad);
 
-		actor.SpeedLimit = 30;
+		actor.CurrentSpeedLimit = actor.DefaultSpeedLimit;
 		actor.Damage = 1;
 		ga.SetLock(0.7f);
 	}
@@ -130,14 +130,14 @@ public class PunchAb : RulesAbility {
 		Engine engine = actor.engine;
 		Vector3 delta = new Vector3(engine.facingVec.x, 0, engine.facingVec.y)*dashDistance;
 		engine.desiredPosition = engine.transform.position + delta;
-		actor.SpeedLimit = 120;
+		actor.CurrentSpeedLimit = actor.DefaultSpeedLimit*4;
 		actor.Damage = 4;
 		ga.SetLock(0.30f);
 	}
 
 	public static void Recover(GameAbility ga, Actor actor)
 	{
-		actor.SpeedLimit = 30;
+		actor.CurrentSpeedLimit = actor.DefaultSpeedLimit;
 		actor.Damage = 1;
 		ga.SetLock(0.7f);
 	}

@@ -5,10 +5,7 @@ using System.Collections.Generic;
 public class Director : MonoBehaviour {
 
 	public static Director Instance;
-	
-	public GameObject protoActorHero;
-	public GameObject protoActorDog;
-	public GameObject protoActorBullet;
+
 
 	private Dictionary<int,Actor> actorDict = new Dictionary<int,Actor>();
 	private List<Actor> actorList = new List<Actor>();
@@ -54,12 +51,14 @@ public class Director : MonoBehaviour {
 	{
 		GameObject prototype = null;
 		Actor actor = null;
+		World world = World.Instance;
 
 		switch(sprite[0])
 		{
-			case 'H': prototype = protoActorHero; break;
-			case 'D': prototype = protoActorDog; break;
-			case '*': prototype = protoActorBullet; break;
+			case 'H': prototype = world.protos["actor-mega1"]; break;
+			case '~': prototype = world.protos["actor-man1"]; break;
+			case 'D': prototype = world.protos["actor-dog1"]; break;
+			case '*': prototype = world.protos["actor-bullet"]; break;
 			default: break;
 		}
 		if( prototype )
