@@ -73,50 +73,29 @@ public class LocalMan : MonoBehaviour {
 
 	string GetActorMessage(string[] chunks)
 	{
-		ActorData ad = new ActorData();
+		ActorBasicData abd = new ActorBasicData();
+		ActorQuickData aqd = new ActorQuickData();
+		
+		Pck.UnpackData(chunks, ref abd);
+		Pck.UnpackData(chunks, ref aqd);
+		
+		if( abd.uid < 0 )
+		{
+			abd.uid = nextUID++;
+			int ttl = 99;
+			Lookup(abd.visualString, out abd.hp, out abd.topSpeed, out abd.damage, out ttl);
+			aqd = new ActorQuickData(abd);
+			aqd.ttl = ttl;
+		}
+		if( aqd.ttl <= 0 )
+		{
+			aqd.hp = -1;
+		}
+
 		sb.Length = 0;
-		int.TryParse(chunks[(int)Pck.Ac.UID], out ad.uid);
-		int.TryParse(chunks[(int)Pck.Ac.OID], out ad.oid);
-		int.TryParse(chunks[(int)Pck.Ac.TEAM], out ad.team);
-		
-		int.TryParse(chunks[(int)Pck.Ac.TX], out ad.tx);
-		int.TryParse(chunks[(int)Pck.Ac.TY], out ad.ty);
-		int.TryParse(chunks[(int)Pck.Ac.RX], out ad.rx);
-		int.TryParse(chunks[(int)Pck.Ac.RY], out ad.ry);
-		int.TryParse(chunks[(int)Pck.Ac.FX], out ad.fx);
-		int.TryParse(chunks[(int)Pck.Ac.FY], out ad.fy);
-		
-		ad.spriteString = chunks[(int)Pck.Ac.SPRITE];
-		
-		if( ad.uid < 0 )
-		{
-			ad.uid = nextUID++;
-			Lookup(ad.spriteString, out ad.defaulthp, out ad.defaultSpeedLimit, out ad.damage, out ad.ttl);
-			ad.hp = ad.defaulthp;
-			ad.currentSpeedLimit = ad.defaultSpeedLimit;
-		}
-		else
-		{
-			int.TryParse(chunks[(int)Pck.Ac.HP], out ad.hp);
-			int.TryParse(chunks[(int)Pck.Ac.DEFAULTHP], out ad.defaulthp);
-			int.TryParse(chunks[(int)Pck.Ac.CURRENTSPEEDLIMIT], out ad.currentSpeedLimit);
-			int.TryParse(chunks[(int)Pck.Ac.DEFAULTSPEEDLIMIT], out ad.defaultSpeedLimit);
-			int.TryParse(chunks[(int)Pck.Ac.DAMAGE], out ad.damage);
-			int.TryParse(chunks[(int)Pck.Ac.TTL], out ad.ttl);
-			if( ad.ttl <= 0 )
-			{
-				ad.hp = -1;
-			}
-		}
-		string actionChunks = chunks[(int)Pck.Ac.ACTIONS];
-		string effectChunks = chunks[(int)Pck.Ac.EFFECTS];
-		
 		sb.Append("actormod|");
-		Pck.PackActorData(sb,ad);
-		sb.Append(actionChunks);
-		sb.Append('|');
-		sb.Append(effectChunks);
-		sb.Append('|');
+		Pck.PackData(sb, abd);
+		Pck.PackData(sb, aqd);
 		return sb.ToString();
 	}
 
@@ -193,14 +172,14 @@ public class LocalMan : MonoBehaviour {
 		}
 	}
 
-	public void Lookup(string sprite, out int defaulthp, out int defaultSpeedLimit, out int dmg, out int ttl)
+	public void Lookup(string sprite, out int hp, out int topSpeed, out int dmg, out int ttl)
 	{
 		switch(sprite[0])
 		{
-			case '*': RulesBullet.Lookup(out defaulthp, out defaultSpeedLimit, out dmg, out ttl); break;
-			case 'H': RulesHero.Lookup(out defaulthp, out defaultSpeedLimit, out dmg, out ttl); break;
-			case 'D': RulesDog.Lookup(out defaulthp, out defaultSpeedLimit, out dmg, out ttl); break;
-			default:  RulesDog.Lookup(out defaulthp, out defaultSpeedLimit, out dmg, out ttl); break;
+			case '*': RulesBullet.Lookup(out hp, out topSpeed, out dmg, out ttl); break;
+			case 'H': RulesHero.Lookup(out hp, out topSpeed, out dmg, out ttl); break;
+			case 'D': RulesDog.Lookup(out hp, out topSpeed, out dmg, out ttl); break;
+			default:  RulesDog.Lookup(out hp, out topSpeed, out dmg, out ttl); break;
 		}
 
 	}

@@ -78,45 +78,48 @@ public class Director : MonoBehaviour {
 
 	public void ModActor(string[] chunks)
 	{
-		int uid = Utils.IntParseFast(chunks[(int)Pck.Ac.UID]);
-		int oid = Utils.IntParseFast(chunks[(int)Pck.Ac.OID]);
-		int hp = Utils.IntParseFast(chunks[(int)Pck.Ac.HP]);
+		ActorBasicData abd = new ActorBasicData();
+		ActorQuickData aqd = new ActorQuickData();
+		
+		Pck.UnpackData(chunks, ref abd);
+		Pck.UnpackData(chunks, ref aqd);
+
 		Actor a = null;
 		
-		if( actorDict.ContainsKey(uid) )
+		if( actorDict.ContainsKey(abd.uid) )
 		{
-			a = actorDict[uid];
+			a = actorDict[abd.uid];
 
 			if( a != null && a.HP <= 0 )
 			{
-				actorDict[uid] = null;
+				actorDict[abd.uid] = null;
 				actorList.Remove(a);
 				Destroy(a.gameObject);
 			}
 
 			if( a != null )
 			{
-				if( oid != Boss.Instance.localOID )
+				if( abd.oid != Boss.Instance.localOID )
 				{
-					a.Mod(true, chunks);	
+					a.ModBase(true, abd);	
+					a.ModQuick(true, aqd);	
 				}
 				else
 				{
-					a.Mod(false, chunks);	
+					a.ModBase(false, abd);
+					a.ModQuick(false, aqd);	
 				}
 			}
 		}
-		else if( hp > 0 )
+		else if( aqd.hp > 0 )
 		{
-			int rx = Utils.IntParseFast(chunks[(int)Pck.Ac.RX]);
-			int ry = Utils.IntParseFast(chunks[(int)Pck.Ac.RY]);
-			string sprite = chunks[(int)Pck.Ac.SPRITE];
-			a = AddActor(rx,ry,sprite);
+			a = AddActor(aqd.rx,aqd.ry,abd.visualString);
 			if( a != null )
 			{
-				a.Mod(true, chunks);
-				a.Init(sprite);			
-				actorDict[uid] = a;
+				a.ModBase(true, abd);	
+				a.ModQuick(true, aqd);	
+				a.Init(abd.visualString);			
+				actorDict[abd.uid] = a;
 				actorList.Add(a);
 				Boss.Instance.ScanLocalActors();
 			}

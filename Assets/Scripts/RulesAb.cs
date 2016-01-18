@@ -40,7 +40,7 @@ public class DashAb : RulesAbility
 		Engine engine = actor.engine;
 		Vector3 delta = new Vector3(engine.facingVec.x, 0, engine.facingVec.y)*dashDistance;
 		engine.desiredPosition = engine.transform.position + delta;
-		actor.CurrentSpeedLimit = actor.DefaultSpeedLimit*8;
+		actor.TopSpeed = actor.BaseTopSpeed*8;
 		actor.Damage = 3;
 		engine.moveLock = true;
 		ga.SetLock(0.6f);
@@ -51,7 +51,7 @@ public class DashAb : RulesAbility
 		actor.RemEff('G');
 		actor.AddEff('R', 2.5f);
 		Engine engine = actor.engine;
-		actor.CurrentSpeedLimit = actor.DefaultSpeedLimit*3/4;
+		actor.TopSpeed = actor.BaseTopSpeed*3/4;
 		actor.Damage = 0;
 		engine.moveLock = false;
 		ga.SetLock(2.5f);
@@ -62,7 +62,7 @@ public class DashAb : RulesAbility
 	{
 		actor.RemEff('R');
 		Engine engine = actor.engine;
-		actor.CurrentSpeedLimit = actor.DefaultSpeedLimit;
+		actor.TopSpeed = actor.BaseTopSpeed;
 		actor.Damage = 1;
 		engine.moveLock = false;
 		ga.SetLock(2.0f);
@@ -83,25 +83,28 @@ public class ShootAb : RulesAbility {
 	}
 	public static void Activate(GameAbility ga, Actor actor)
 	{
-		actor.CurrentSpeedLimit = actor.DefaultSpeedLimit*1/4;
+		actor.TopSpeed = actor.BaseTopSpeed*1/4;
 		actor.Damage = 0;
 		ga.SetLock(0.30f);
 	}
 
 	public static void Recover(GameAbility ga, Actor actor)
 	{
-		ActorData ad = new ActorData(actor.Team == 1 ? "*R" : "*B");
-		ad.oid = actor.OID;
-		ad.team = actor.Team;
-		ad.fx = actor.FX;
-		ad.fy = actor.FY;
-		ad.rx = actor.RX + ad.fx*2;
-		ad.ry = actor.RY - ad.fy*2;
-		ad.tx = (int)Mathf.Round((ad.rx-5)/10f);
-		ad.ty = (int)Mathf.Round((ad.ry-5)/10f);
-		NetMan.Instance.SendReqActor(ad);
+		ActorBasicData abd = new ActorBasicData(actor.Team == 1 ? "*R" : "*B");
+		abd.oid = actor.OID;
+		abd.team = actor.Team;
+		int rx = actor.RX + actor.FX*2;
+		int ry = actor.RY - actor.FY*2;
+		abd.tx = (int)Mathf.Round((rx-5)/10f);
+		abd.ty = (int)Mathf.Round((ry-5)/10f);
+		ActorQuickData aqd = new ActorQuickData(abd);
+		aqd.fx = actor.FX;
+		aqd.fy = actor.FY;
+		aqd.rx = rx;
+		aqd.ry = ry;
+		NetMan.Instance.SendReqActor(abd, aqd);
 
-		actor.CurrentSpeedLimit = actor.DefaultSpeedLimit;
+		actor.TopSpeed = actor.BaseTopSpeed;
 		actor.Damage = 1;
 		ga.SetLock(0.7f);
 	}
@@ -130,14 +133,14 @@ public class PunchAb : RulesAbility {
 		Engine engine = actor.engine;
 		Vector3 delta = new Vector3(engine.facingVec.x, 0, engine.facingVec.y)*dashDistance;
 		engine.desiredPosition = engine.transform.position + delta;
-		actor.CurrentSpeedLimit = actor.DefaultSpeedLimit*4;
+		actor.TopSpeed = actor.BaseTopSpeed*4;
 		actor.Damage = 4;
 		ga.SetLock(0.30f);
 	}
 
 	public static void Recover(GameAbility ga, Actor actor)
 	{
-		actor.CurrentSpeedLimit = actor.DefaultSpeedLimit;
+		actor.TopSpeed = actor.BaseTopSpeed;
 		actor.Damage = 1;
 		ga.SetLock(0.7f);
 	}

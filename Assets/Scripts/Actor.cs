@@ -4,24 +4,27 @@ using System.Collections.Generic;
 
 public class Actor : MonoBehaviour {
 
-	public ActorData ad = new ActorData();
+	public ActorQuickData aqd = new ActorQuickData();
+	public ActorBasicData abd = new ActorBasicData();
 
-	public int UID { get { return ad.uid; } set { ad.uid = value; } }
-	public int OID { get { return ad.oid; } set { ad.oid = value; } }
-	public int Team { get { return ad.team; } set { ad.team = value; } }
-	public string SpriteString { get { return ad.spriteString; } set { ad.spriteString = value; } }
-	public int HP { get { return ad.hp; } set { ad.hp = value; } }
-	public int defaulthp { get { return ad.defaulthp; } set { ad.defaulthp = value; } }
-	public int TX { get { return ad.tx; } set { ad.tx = value; } }
-	public int TY { get { return ad.ty; } set { ad.ty = value; } }
-	public int RX { get { return ad.rx; } set { ad.rx = value; } }
-	public int RY { get { return ad.ry; } set { ad.ry = value; } }
-	public int FX { get { return ad.fx; } set { ad.fx = value; } }
-	public int FY { get { return ad.fy; } set { ad.fy = value; } }
-	public int CurrentSpeedLimit { get { return ad.currentSpeedLimit; } set { ad.currentSpeedLimit = value; } }
-	public int DefaultSpeedLimit { get { return ad.defaultSpeedLimit; } set { ad.defaultSpeedLimit = value; } }
-	public int Damage { get { return ad.damage; } set { ad.damage = value; } }
-	public int TTL { get { return ad.ttl; } set { ad.ttl = value; } }
+	public int UID { get { return abd.uid; } set { abd.uid = value; } }
+	public int OID { get { return abd.oid; } set { abd.oid = value; } }
+	public int Team { get { return abd.team; } set { abd.team = value; } }
+	public string VisualString { get { return abd.visualString; } set { abd.visualString = value; } }
+	public int HP { get { return aqd.hp; } set { aqd.hp = value; } }
+	public int BaseHP { get { return abd.hp; } set { abd.hp = value; } }
+	public int TX { get { return aqd.tx; } set { aqd.tx = value; } }
+	public int BaseTX { get { return abd.tx; } set { abd.tx = value; } }
+	public int TY { get { return aqd.ty; } set { aqd.ty = value; } }
+	public int BaseTY { get { return abd.ty; } set { abd.ty = value; } }
+	public int RX { get { return aqd.rx; } set { aqd.rx = value; } }
+	public int RY { get { return aqd.ry; } set { aqd.ry = value; } }
+	public int FX { get { return aqd.fx; } set { aqd.fx = value; } }
+	public int FY { get { return aqd.fy; } set { aqd.fy = value; } }
+	public int TopSpeed { get { return aqd.topSpeed; } set { aqd.topSpeed = value; } }
+	public int BaseTopSpeed { get { return abd.topSpeed; } set { abd.topSpeed = value; } }
+	public int Damage { get { return aqd.damage; } set { aqd.damage = value; } }
+	public int TTL { get { return aqd.ttl; } set { aqd.ttl = value; } }
 	
 
 	public bool localInput = false;
@@ -77,62 +80,32 @@ public class Actor : MonoBehaviour {
 			effects[i].EffectUpdate(deltaTime, this);
 		}
 	}
-	public void Mod(bool authoritative, string[] chunks)
+	public void ModBase(bool authoritative, ActorBasicData abd)
 	{
-		int uid = Utils.IntParseFast(chunks[(int)Pck.Ac.UID]);
-		int oid = Utils.IntParseFast(chunks[(int)Pck.Ac.OID]);
-		int team = Utils.IntParseFast(chunks[(int)Pck.Ac.TEAM]);
-		if( ad.uid != uid )
+		this.abd = abd;
+		if( this.actorBody )
 		{
-			ad.uid = uid;
+			this.actorBody.SetSprite(abd.visualString);
 		}
-		if( ad.oid != oid )
-		{
-			ad.oid = oid;
-		}
-		if( ad.team != team )
-		{
-			ad.team = team;
-		}
-		int hp = Utils.IntParseFast(chunks[(int)Pck.Ac.HP]);
-		int defaulthp = Utils.IntParseFast(chunks[(int)Pck.Ac.DEFAULTHP]);
-		if( ad.hp != hp || ad.defaulthp != defaulthp )
-		{
-			ad.hp = hp;
-			ad.defaulthp = defaulthp;
-		}
-		if( authoritative )
-		{
-			ad.tx = Utils.IntParseFast(chunks[(int)Pck.Ac.TX]);
-			ad.ty = Utils.IntParseFast(chunks[(int)Pck.Ac.TY]);
-			ad.rx = Utils.IntParseFast(chunks[(int)Pck.Ac.RX]);
-			ad.ry = Utils.IntParseFast(chunks[(int)Pck.Ac.RY]);
-			this.engine.desiredPosition = new Vector3(ad.rx-5, 0f, -ad.ry-5);
-			ad.spriteString = chunks[(int)Pck.Ac.SPRITE];
-			if( this.actorBody )
-			{
-				this.actorBody.SetSprite(ad.spriteString);
-			}
-			ad.currentSpeedLimit = Utils.IntParseFast(chunks[(int)Pck.Ac.CURRENTSPEEDLIMIT]);
-			ad.defaultSpeedLimit = Utils.IntParseFast(chunks[(int)Pck.Ac.DEFAULTSPEEDLIMIT]);
-			ad.fx = Utils.IntParseFast(chunks[(int)Pck.Ac.FX]);
-			ad.fy = Utils.IntParseFast(chunks[(int)Pck.Ac.FY]);
-			this.engine.SetFacing(ad.fx, ad.fy);
-			
-			ad.damage = Utils.IntParseFast(chunks[(int)Pck.Ac.DAMAGE]);
-			ad.ttl = Utils.IntParseFast(chunks[(int)Pck.Ac.TTL]);
-			this.ttlTimer = ad.ttl;
-		}
+	}
+
+	public void ModQuick(bool authoritative, ActorQuickData aqd)
+	{
+		this.aqd = aqd;
+		this.engine.desiredPosition = new Vector3(aqd.rx-5, 0f, -aqd.ry-5);
+		this.engine.SetFacing(aqd.fx, aqd.fy);
+		this.ttlTimer = aqd.ttl;
 		
 	}
 
 
 	public string SerializeActorData()
 	{
-		Pck.DynamicActorData(sb, ref ad, this);
+		Pck.RefreshActorQuickData(sb, ref aqd, this);
 		sb.Length = 0;
 		sb.Append("requestactor|");
-		Pck.PackActorData(sb,ad);
+		Pck.PackData(sb, abd);
+		Pck.PackData(sb, aqd);
 		sb.Append("\n");
 		return sb.ToString();
 	}
@@ -148,14 +121,14 @@ public class Actor : MonoBehaviour {
 
 	public void TakeDeath()
 	{
-		ad.hp = -1;
+		aqd.hp = -1;
 	}
 
 	public void TakeDamage(int val)
 	{
 		if( invulnerableTime < 0f )
 		{
-			ad.hp -= val;
+			aqd.hp -= val;
 			this.invulnerableTime = 1f;
 		}
 	}

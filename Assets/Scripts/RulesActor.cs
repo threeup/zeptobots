@@ -8,10 +8,10 @@ public class RulesActor
 
 public class RulesHero : RulesActor
 {
-	public static void Lookup(out int defaulthp, out int defaultSpeedLimit, out int dmg, out int ttl)
+	public static void Lookup(out int hp, out int topSpeed, out int dmg, out int ttl)
 	{
-		defaulthp = 10; 
-		defaultSpeedLimit = 18; 
+		hp = 10; 
+		topSpeed = 18; 
 		dmg = 1; 
 		ttl = 100000; 
 	}
@@ -19,10 +19,10 @@ public class RulesHero : RulesActor
 
 public class RulesBullet : RulesActor
 {
-	public static void Lookup(out int defaulthp, out int defaultSpeedLimit, out int dmg, out int ttl)
+	public static void Lookup(out int hp, out int topSpeed, out int dmg, out int ttl)
 	{
-		defaulthp = 1; 
-		defaultSpeedLimit = 150; 
+		hp = 1; 
+		topSpeed = 150; 
 		dmg = 10; 
 		ttl = 3; 
 	}
@@ -30,10 +30,10 @@ public class RulesBullet : RulesActor
 
 public class RulesDog : RulesActor
 {
-	public static void Lookup(out int defaulthp, out int defaultSpeedLimit, out int dmg, out int ttl)
+	public static void Lookup(out int hp, out int topSpeed, out int dmg, out int ttl)
 	{
-		defaulthp = 2; 
-		defaultSpeedLimit = 25; 
+		hp = 2; 
+		topSpeed = 25; 
 		dmg = 1; 
 		ttl = 1000; 
 	}

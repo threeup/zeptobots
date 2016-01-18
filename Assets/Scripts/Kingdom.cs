@@ -26,17 +26,14 @@ public class Kingdom : MonoBehaviour {
 		ownerOID = localOID;
 		ownerTeam = localIsRed ? 1 : 0;
 
-		ActorData ad = new ActorData(localIsRed ? "HR" : "HB");
-		ad.oid = localOID;
-		ad.team = ownerTeam;
-		ad.tx = tile.rtx;
-		ad.ty = tile.rty;
-		ad.rx = ad.tx*10+5;
-		ad.ry = ad.ty*10-5;
-		ad.fx = 0;
-		ad.fy = -1;
+		ActorBasicData abd = new ActorBasicData(localIsRed ? "HR" : "HB");
+		abd.oid = localOID;
+		abd.team = ownerTeam;
+		abd.tx = tile.rtx;
+		abd.ty = tile.rty;
+		ActorQuickData aqd = new ActorQuickData(abd);
 
-		NetMan.Instance.SendReqActor(ad);
+		NetMan.Instance.SendReqActor(abd, aqd);
 		string worldSprite = localIsRed ? "R" : "B";
 		NetMan.Instance.SendReqWorld(tile.sx,tile.sy,tile.ltx,tile.lty,worldSprite);
 	}
@@ -57,16 +54,13 @@ public class Kingdom : MonoBehaviour {
 			if( spawnTimer <= 0f)
 			{
 				spawnTimer = 20f;
-				ActorData ad = new ActorData(ownerTeam==1 ? "DR" : "DB");
-				ad.oid = ownerOID;
-				ad.team = ownerTeam;
-				ad.tx = tile.rtx;
-				ad.ty = tile.rty;
-				ad.rx = ad.tx*10+5;
-				ad.ry = ad.ty*10-5;
-				ad.fx = 0;
-				ad.fy = -1;
-				NetMan.Instance.SendReqActor(ad);
+				ActorBasicData abd = new ActorBasicData(ownerTeam==1 ? "DR" : "DB");
+				abd.oid = ownerOID;
+				abd.team = ownerTeam;
+				abd.tx = tile.rtx;
+				abd.ty = tile.rty;
+				ActorQuickData aqd = new ActorQuickData(abd);
+				NetMan.Instance.SendReqActor(abd,aqd);
 			}
 		}
 		if( conquerTimer > 0f )

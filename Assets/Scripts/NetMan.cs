@@ -97,15 +97,13 @@ public class NetMan : MonoBehaviour {
 		sb.Append("\n");
 		Send( sb.ToString() );
     }
-
-
-    public void SendReqActor(ActorData ad)
+    public void SendReqActor(ActorBasicData abd, ActorQuickData aqd)
     {
-
-		Pck.DynamicActorData(sb, ref ad, null);
+		Pck.RefreshActorQuickData(sb, ref aqd, null);
     	sb.Length = 0;
 		sb.Append("requestactor|");
-		Pck.PackActorData(sb, ad);
+		Pck.PackData(sb, abd);
+		Pck.PackData(sb, aqd);
 		sb.Append("\n");
 		Send( sb.ToString() );
     }

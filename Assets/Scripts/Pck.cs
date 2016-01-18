@@ -6,71 +6,126 @@ using WebSocketSharp;
 public class Pck : MonoBehaviour {
 
 
-	
-	public enum Ac
+	public enum ABase
 	{
-		UID = 1,
-		OID = 2,
-		TEAM = 3,
-		SPRITE = 4,
-		TX = 5,
-		TY = 6,
-		RX = 7,
-		RY = 8,
-		FX = 9,
-		FY = 10,
-		HP = 11,
-		DEFAULTHP = 12,
-		CURRENTSPEEDLIMIT = 13,
-		DEFAULTSPEEDLIMIT = 14,
-		DAMAGE = 15,
-		TTL = 16,
-		ACTIONS = 17,
-		EFFECTS = 18,
+		EMPTY,
+		UID,
+		OID,
+		TEAM,
+		VISUAL,
+		TX,
+		TY,
+		HP,
+		TOPSPEED,
+		DAMAGE,
+		COUNT,
+	}
+
+	
+	public enum AQuick
+	{
+		TX,
+		TY,
+		RX,
+		RY,
+		FX,
+		FY,
+		HP,
+		TOPSPEED,
+		DAMAGE,
+		TTL,
+		ACTIONS,
+		EFFECTS,
+		COUNT,
+	}
+
+	public static void UnpackData(string[] chunks, ref ActorBasicData abd)
+	{
+		int.TryParse(chunks[(int)ABase.UID], out abd.uid);
+		int.TryParse(chunks[(int)ABase.OID], out abd.oid);
+		int.TryParse(chunks[(int)ABase.TEAM], out abd.team);
+		abd.visualString = chunks[(int)ABase.VISUAL];
+		int.TryParse(chunks[(int)ABase.TX], out abd.tx);
+		int.TryParse(chunks[(int)ABase.TY], out abd.ty);
+		int.TryParse(chunks[(int)ABase.HP], out abd.hp);
+		int.TryParse(chunks[(int)ABase.TOPSPEED], out abd.topSpeed);
+		int.TryParse(chunks[(int)ABase.DAMAGE], out abd.damage);
 		
 	}
 
-	public static void PackActorData(System.Text.StringBuilder sb, ActorData ad)
+	public static void UnpackData(string[] chunks, ref ActorQuickData aqd)
 	{
-		sb.Append(ad.uid);
+		int offset = (int)ABase.COUNT;
+		int.TryParse(chunks[offset+(int)AQuick.TX], out aqd.tx);
+		int.TryParse(chunks[offset+(int)AQuick.TY], out aqd.ty);
+		int.TryParse(chunks[offset+(int)AQuick.RX], out aqd.rx);
+		int.TryParse(chunks[offset+(int)AQuick.RY], out aqd.ry);
+		int.TryParse(chunks[offset+(int)AQuick.FX], out aqd.fx);
+		int.TryParse(chunks[offset+(int)AQuick.FY], out aqd.fy);
+		int.TryParse(chunks[offset+(int)AQuick.HP], out aqd.hp);
+		int.TryParse(chunks[offset+(int)AQuick.TOPSPEED], out aqd.topSpeed);
+		int.TryParse(chunks[offset+(int)AQuick.DAMAGE], out aqd.damage);
+		int.TryParse(chunks[offset+(int)AQuick.TTL], out aqd.ttl);
+
+		aqd.actionString = chunks[offset+(int)AQuick.ACTIONS];
+		aqd.effectString = chunks[offset+(int)AQuick.EFFECTS];
+
+		
+	}
+
+
+	public static void PackData(System.Text.StringBuilder sb, ActorBasicData abd)
+	{
+		sb.Append(abd.uid);
 		sb.Append("|");
-		sb.Append(ad.oid);
+		sb.Append(abd.oid);
 		sb.Append("|");
-		sb.Append(ad.team);
+		sb.Append(abd.team);
 		sb.Append("|");
-		sb.Append(ad.spriteString); 
+		sb.Append(abd.visualString); 
 		sb.Append("|");
-		sb.Append(ad.tx);
+		sb.Append(abd.tx);
 		sb.Append("|");
-		sb.Append(ad.ty);
+		sb.Append(abd.ty);
 		sb.Append("|");
-		sb.Append(ad.rx);
+		sb.Append(abd.hp);
 		sb.Append("|");
-		sb.Append(ad.ry);
+		sb.Append(abd.topSpeed);
 		sb.Append("|");
-		sb.Append(ad.fx);
-		sb.Append("|");
-		sb.Append(ad.fy);
-		sb.Append("|");
-		sb.Append(ad.hp);
-		sb.Append("|");
-		sb.Append(ad.defaulthp);
-		sb.Append("|");
-		sb.Append(ad.currentSpeedLimit);
-		sb.Append("|");
-		sb.Append(ad.defaultSpeedLimit);
-		sb.Append("|");
-		sb.Append(ad.damage);
-		sb.Append("|");
-		sb.Append(ad.ttl);
-		sb.Append("|");
-		sb.Append(ad.actionString);
-		sb.Append("|");
-		sb.Append(ad.effectString);
+		sb.Append(abd.damage);
 		sb.Append("|");
 	}
 
-	public static void DynamicActorData(System.Text.StringBuilder sb, ref ActorData ad, Actor actor)
+
+	public static void PackData(System.Text.StringBuilder sb, ActorQuickData aqd)
+	{
+		sb.Append(aqd.tx);
+		sb.Append("|");
+		sb.Append(aqd.ty);
+		sb.Append("|");
+		sb.Append(aqd.rx);
+		sb.Append("|");
+		sb.Append(aqd.ry);
+		sb.Append("|");
+		sb.Append(aqd.fx);
+		sb.Append("|");
+		sb.Append(aqd.fy);
+		sb.Append("|");
+		sb.Append(aqd.hp);
+		sb.Append("|");
+		sb.Append(aqd.topSpeed);
+		sb.Append("|");
+		sb.Append(aqd.damage);
+		sb.Append("|");
+		sb.Append(aqd.ttl);
+		sb.Append("|");
+		sb.Append(aqd.actionString);
+		sb.Append("|");
+		sb.Append(aqd.effectString);
+		sb.Append("|");
+	}
+
+	public static void RefreshActorQuickData(System.Text.StringBuilder sb, ref ActorQuickData aqd, Actor actor)
 	{
 		
 		sb.Length = 0;
@@ -83,7 +138,7 @@ public class Pck : MonoBehaviour {
 				sb.Append(",");
 			}
 		}
-		ad.actionString = sb.ToString();
+		aqd.actionString = sb.ToString();
 		sb.Length = 0;
 		if( actor )
 		{
@@ -94,7 +149,7 @@ public class Pck : MonoBehaviour {
 				sb.Append(",");
 			}
 		}
-		ad.effectString = sb.ToString();
+		aqd.effectString = sb.ToString();
 		sb.Length = 0;
 	}
 
