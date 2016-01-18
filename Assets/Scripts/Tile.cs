@@ -58,8 +58,8 @@ public class Tile : MonoBehaviour {
 			contentList.RemoveAt(i);
 			Destroy(dead);
 		}
-		TileContents content = World.Instance.MakeTileContents(c, this.transform);
-		if( content != null )
+		List<TileContents> addedList = World.Instance.MakeTileContents(c, this.transform);
+		foreach(TileContents content in addedList)
 		{
 			contentList.Add(content);
 			tFlags |= content.tFlags;
@@ -106,7 +106,10 @@ public class Tile : MonoBehaviour {
 		if( desiredImageIndex != imageIndex )
 		{
 			imageIndex = desiredImageIndex;
-			spriteRend.sprite = tileMat.GetSprite(imageIndex);
+			if( spriteRend )
+			{
+				spriteRend.sprite = tileMat.GetSprite(imageIndex);
+			}
 		}
 	}
 

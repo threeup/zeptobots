@@ -85,13 +85,18 @@ public static class AutoBuilder {
 					}
 					if( src.name.StartsWith("terrain") )
 					{
+						go.transform.localScale = Vector3.one*10f;
 						go.AddComponent<Tile>();
 					}
 					if( src.name.StartsWith("prop") )
 					{
-						go.AddComponent<TileContents>();
+						TileContents tc = go.AddComponent<TileContents>();
+						if( src.name.Contains("house")  )
+						{
+							tc.tFlags |= Tile.TileFlags.KINGDOM;
+						}
 					}
-			    	UnityEngine.Object prefab = PrefabUtility.CreatePrefab("Assets/Resources/Prefabs/"+obj.name+".prefab", go, ReplacePrefabOptions.Default);
+			    	UnityEngine.Object prefab = PrefabUtility.CreatePrefab("Assets/Resources/Imported/"+obj.name+".prefab", go, ReplacePrefabOptions.Default);
 			    	Debug.Log("Created "+prefab);
 			    	GameObject.DestroyImmediate(go);
 			    }

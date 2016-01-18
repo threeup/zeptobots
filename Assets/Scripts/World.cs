@@ -24,20 +24,21 @@ public class World : MonoBehaviour {
 	void Start()
 	{
 		protos = new Dictionary<string, GameObject>();
-		ProtoVox("terrain-grass1");
-		ProtoVox("terrain-hill1");
-		ProtoVox("terrain-mountain1");
-		ProtoVox("prop-tree1");
-		ProtoVox("prop-tree2");
-		ProtoVox("prop-house1");
-		ProtoVox("prop-tower1");
-		ProtoVox("prop-barn1");
-		ProtoVox("actor-man1");
-		ProtoVox("actor-dog1");
-		ProtoVox("actor-mega1");
-		ProtoBlend("over-red");
-		ProtoBlend("over-blue");
-		ProtoBlend("over-gray");
+		ProtoImported("terrain-grass1");
+		ProtoImported("terrain-hill1");
+		ProtoImported("terrain-rock1");
+		ProtoImported("prop-tree1");
+		ProtoImported("prop-tree2");
+		ProtoImported("prop-house1");
+		ProtoImported("prop-tower1");
+		ProtoImported("prop-barn1");
+		ProtoImported("prop-mountain1");
+		ProtoImported("actor-man1");
+		ProtoImported("actor-dog1");
+		ProtoImported("actor-mega1");
+		ProtoDirect("over-red");
+		ProtoDirect("over-blue");
+		ProtoDirect("over-gray");
 		
 		foreach(Transform child in transform)
 		{
@@ -66,7 +67,7 @@ public class World : MonoBehaviour {
 	
 	}
 
-	void ProtoBlend(string str)
+	void ProtoDirect(string str)
 	{
 		GameObject go = Resources.Load("Prefabs/pr-"+str) as GameObject;
 		if( go == null )
@@ -77,9 +78,9 @@ public class World : MonoBehaviour {
 		protos.Add(str,go);
 	}
 
-	void ProtoVox(string str)
+	void ProtoImported(string str)
 	{
-		GameObject go = Resources.Load("Vox/"+str) as GameObject;
+		GameObject go = Resources.Load("Imported/"+str) as GameObject;
 		if( go == null )
 		{
 			Debug.Log("cant load "+str);
@@ -120,7 +121,8 @@ public class World : MonoBehaviour {
 		Tile tile = null;
 		switch(c)
 		{
-			default:  prototype = protos["terrain-grass1"];; break;
+			case 'W': prototype = protos["terrain-rock1"]; break;
+			default:  prototype = protos["terrain-grass1"]; break;
 		}
 		if( prototype )
 		{
@@ -137,10 +139,10 @@ public class World : MonoBehaviour {
 		return tile;
 	}
 
-	public TileContents MakeTileContents(char c, Transform root)
+	public List<TileContents> MakeTileContents(char c, Transform root)
 	{
 		List<GameObject> prototypes = new List<GameObject>();
-		TileContents contents = null;
+		List<TileContents> contentList = new List<TileContents>();
 		switch(c)
 		{
 			case 'A': prototypes.Add(protos["prop-tree1"]); break;
@@ -150,17 +152,19 @@ public class World : MonoBehaviour {
 			case 'R': prototypes.Add(protos["over-red"]); prototypes.Add(protos["prop-house1"]); break;
 			case 'S': prototypes.Add(protos["over-gray"]); prototypes.Add(protos["prop-house1"]); break;
 			case 'T': prototypes.Add(protos["prop-tree2"]); break;
-			case 'W': prototypes.Add(protos["terrain-mountain1"]); break;
+			case 'W': prototypes.Add(protos["prop-mountain1"]); break;
 			default:  break;
 		}
 		for( int i=0; i< prototypes.Count; ++i )
 		{
 			GameObject go = GameObject.Instantiate(prototypes[i], Vector3.zero, Quaternion.identity) as GameObject;
 			go.transform.SetParent(root,false);
+			TileContents contents = go.GetComponent<TileContents>();
+			contents.Setup();
+			contentList.Add(contents);
 			go.SetActive(true);
-			contents = go.GetComponent<TileContents>();
 		}
-		return contents;
+		return contentList;
 	}
 	
 	public Sector GetRandomSector()

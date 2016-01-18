@@ -520,53 +520,27 @@
 	"buffers":
 	[
 		{
-			"file": "Assets/Scripts/Editor/MeshImporter.cs",
+			"file": "//STRAWBERRY/Code/cppserver/example.html",
 			"settings":
 			{
-				"buffer_size": 291,
+				"buffer_size": 550,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "Assets/Scripts/Editor/AutoBuilder.cs",
+			"file": "//STRAWBERRY/Code/cppserver/gamesrv.cpp",
 			"settings":
 			{
-				"buffer_size": 5081,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/Scripts/World.cs",
-			"settings":
-			{
-				"buffer_size": 4183,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/C/Program Files/MagicaVoxel/export/actor-man1.mtl",
-			"settings":
-			{
-				"buffer_size": 134,
+				"buffer_size": 2208,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"contents": "Searching 38 files for \"PackActorData\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Actor.cs:\n  127  		sb.Length = 0;\n  128  		sb.Append(\"requestactor|\");\n  129: 		Pck.PackActorData(sb,ad,this);\n  130  		sb.Append(\"\\n\");\n  131  		adString = sb.ToString();\n\nI:\\w\\zeptobots\\Assets\\Scripts\\NetMan.cs:\n  104      	sb.Length = 0;\n  105  		sb.Append(\"requestactor|\");\n  106: 		Pck.PackActorData(sb, ad, null);\n  107  		sb.Append(\"\\n\");\n  108  		Send( sb.ToString() );\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Pck.cs:\n   29  	}\n   30  \n   31: 	public static void PackActorData(System.Text.StringBuilder sb, ActorData ad, Actor actor)\n   32  	{\n   33  		sb.Append(ad.uid);\n\n3 matches across 3 files\n\n\nSearching 38 files for \"GetActorMessage\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\LocalMan.cs:\n   56  		}\n   57  		HandleMessage(GetClientMessage());\n   58: 		//HandleMessage(GetActorMessage());\n   59  		isConnected = true;\n   60  		yield return null;\n   ..\n   72  \n   73  \n   74: 	string GetActorMessage(string[] chunks)\n   75  	{\n   76  		ActorData ad = new ActorData();\n   ..\n  178  		{\n  179  			case \"requestactor\":\n  180: 				HandleMessage(GetActorMessage(chunks));\n  181  				break;\n  182  			case \"requestworldmod\":\n\n3 matches in 1 file\n\n\nSearching 38 files for \"speedLimit\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Actor.cs:\n   17  	public int RX { get { return ad.rx; } set { ad.rx = value; } }\n   18  	public int RY { get { return ad.ry; } set { ad.ry = value; } }\n   19: 	public int SpeedLimit { get { return ad.speedLimit; } set { ad.speedLimit = value; } }\n   20  	public int Damage { get { return ad.damage; } set { ad.damage = value; } }\n   21  	public int TTL { get { return ad.ttl; } set { ad.ttl = value; } }\n   ..\n  109  				this.actorBody.SetSprite(ad.spriteString);\n  110  			}\n  111: 			ad.speedLimit = Utils.IntParseFast(chunks[(int)Pck.Ac.SPEEDLIMIT]);\n  112: 			this.engine.speedLimit = ad.speedLimit;\n  113  			ad.fx = Utils.IntParseFast(chunks[(int)Pck.Ac.FX]);\n  114  			ad.fy = Utils.IntParseFast(chunks[(int)Pck.Ac.FY]);\n\nI:\\w\\zeptobots\\Assets\\Scripts\\ActorData.cs:\n   17  	public int fx;\n   18  	public int fy;\n   19: 	public int speedLimit;\n   20  	public int damage;\n   21  	public int ttl;\n   ..\n   34  		fx = -1;\n   35  		fy = -1;\n   36: 		speedLimit = 1;\n   37  		damage = 1;\n   38  		ttl = -1;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Engine.cs:\n    4  public class Engine : MonoBehaviour {\n    5  \n    6: 	public int speedLimit = 30;\n    7  	private float currentStep = 0f;\n    8  	public float currentSpeed = 0f;\n    .\n   54  		if( dist > 0.1f )\n   55  		{	\n   56: 			float maxStep = speedLimit*deltaTime;\n   57  			if( dist > maxStep )\n   58  			{\n\nI:\\w\\zeptobots\\Assets\\Scripts\\LocalMan.cs:\n   92  		{\n   93  			ad.uid = nextUID++;\n   94: 			Lookup(ad.spriteString, out ad.hp, out ad.speedLimit, out ad.damage, out ad.ttl);\n   95  		}\n   96  		else\n   97  		{\n   98  			int.TryParse(chunks[(int)Pck.Ac.HP], out ad.hp);\n   99: 			int.TryParse(chunks[(int)Pck.Ac.SPEEDLIMIT], out ad.speedLimit);\n  100  			int.TryParse(chunks[(int)Pck.Ac.DAMAGE], out ad.damage);\n  101  			int.TryParse(chunks[(int)Pck.Ac.TTL], out ad.ttl);\n  ...\n  190  	}\n  191  \n  192: 	public void Lookup(string sprite, out int hp, out int speedlimit, out int dmg, out int ttl)\n  193  	{\n  194  		switch(sprite[0])\n  195  		{\n  196: 			case '*': RulesBullet.Lookup(out hp, out speedlimit, out dmg, out ttl); break;\n  197: 			case 'H': RulesHero.Lookup(out hp, out speedlimit, out dmg, out ttl); break;\n  198: 			case 'D': RulesDog.Lookup(out hp, out speedlimit, out dmg, out ttl); break;\n  199: 			default:  RulesDog.Lookup(out hp, out speedlimit, out dmg, out ttl); break;\n  200  		}\n  201  \n\nI:\\w\\zeptobots\\Assets\\Scripts\\Pck.cs:\n   21  		FX = 10,\n   22  		FY = 11,\n   23: 		SPEEDLIMIT = 12,\n   24  		DAMAGE = 13,\n   25  		TTL = 14,\n   ..\n   53  		sb.Append(ad.fy);\n   54  		sb.Append(\"|\");\n   55: 		sb.Append(ad.speedLimit);\n   56  		sb.Append(\"|\");\n   57  		sb.Append(ad.damage);\n\nI:\\w\\zeptobots\\Assets\\Scripts\\RulesAb.cs:\n   41  		Vector3 delta = new Vector3(engine.facingVec.x, 0, engine.facingVec.y)*dashDistance;\n   42  		engine.desiredPosition = engine.transform.position + delta;\n   43: 		engine.speedLimit = 240;\n   44  		actor.Damage = 3;\n   45  		engine.moveLock = true;\n   ..\n   52  		actor.AddEff('R', 2.5f);\n   53  		Engine engine = actor.engine;\n   54: 		engine.speedLimit = 20;\n   55  		actor.Damage = 0;\n   56  		engine.moveLock = false;\n   ..\n   63  		actor.RemEff('R');\n   64  		Engine engine = actor.engine;\n   65: 		engine.speedLimit = 30;\n   66  		actor.Damage = 1;\n   67  		engine.moveLock = false;\n   ..\n   85  	{\n   86  		Engine engine = actor.engine;\n   87: 		engine.speedLimit = 10;\n   88  		actor.Damage = 0;\n   89  		ga.SetLock(0.30f);\n   ..\n  104  		NetMan.Instance.SendReqActor(ad);\n  105  \n  106: 		engine.speedLimit = 30;\n  107  		actor.Damage = 1;\n  108  		ga.SetLock(0.7f);\n  ...\n  133  		Vector3 delta = new Vector3(engine.facingVec.x, 0, engine.facingVec.y)*dashDistance;\n  134  		engine.desiredPosition = engine.transform.position + delta;\n  135: 		engine.speedLimit = 120;\n  136  		actor.Damage = 4;\n  137  		ga.SetLock(0.30f);\n  ...\n  141  	{\n  142  		Engine engine = actor.engine;\n  143: 		engine.speedLimit = 30;\n  144  		actor.Damage = 1;\n  145  		ga.SetLock(0.7f);\n\nI:\\w\\zeptobots\\Assets\\Scripts\\RulesActor.cs:\n    9  public class RulesHero : RulesActor\n   10  {\n   11: 	public static void Lookup(out int hp, out int speedlimit, out int dmg, out int ttl)\n   12  	{\n   13  		hp = 10; \n   14: 		speedlimit = 30; \n   15  		dmg = 1; \n   16  		ttl = 100000; \n   ..\n   20  public class RulesBullet : RulesActor\n   21  {\n   22: 	public static void Lookup(out int hp, out int speedlimit, out int dmg, out int ttl)\n   23  	{\n   24  		hp = 1; \n   25: 		speedlimit = 150; \n   26  		dmg = 10; \n   27  		ttl = 3; \n   ..\n   31  public class RulesDog : RulesActor\n   32  {\n   33: 	public static void Lookup(out int hp, out int speedlimit, out int dmg, out int ttl)\n   34  	{\n   35  		hp = 2; \n   36: 		speedlimit = 25; \n   37  		dmg = 1; \n   38  		ttl = 1000; \n\n34 matches across 7 files\n\n\nSearching 38 files for \"PackActorExtra\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Actor.cs:\n  129  		sb.Append(\"requestactor|\");\n  130  		Pck.PackActorData(sb,ad);\n  131: 		Pck.PackActorExtra(sb,this);\n  132  		sb.Append(\"\\n\");\n  133  		adString = sb.ToString();\n\nI:\\w\\zeptobots\\Assets\\Scripts\\NetMan.cs:\n  105  		sb.Append(\"requestactor|\");\n  106  		Pck.PackActorData(sb, ad);\n  107: 		Pck.PackActorExtra(sb, null);\n  108  		sb.Append(\"\\n\");\n  109  		Send( sb.ToString() );\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Pck.cs:\n   65  	}\n   66  \n   67: 	public static void PackActorExtra(System.Text.StringBuilder sb, ActorData ad, Actor actor)\n   68  	{\n   69  		\n\n3 matches across 3 files\n\n\nSearching 38 files for \"adString\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Actor.cs:\n    5  public class Actor : MonoBehaviour {\n    6  \n    7: 	public string adString = \"-\";\n    8  	public ActorData ad = new ActorData();\n    9  \n   ..\n  131  		Pck.PackActorData(sb,ad);\n  132  		sb.Append(\"\\n\");\n  133: 		adString = sb.ToString();\n  134  	}\n  135  \n\nI:\\w\\zeptobots\\Assets\\Scripts\\Boss.cs:\n  107  			Actor actor = localActors[i];\n  108  			actor.SerializeActorData();\n  109: 			NetMan.Instance.Send( actor.adString );\n  110  		}\n  111  	}\n\n3 matches across 2 files\n\n\nSearching 38 files for \"children\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Sector.cs:\n  117  					if( (t.tFlags & Tile.TileFlags.KINGDOM) != 0 )\n  118  					{\n  119: 						Kingdom kd = t.GetComponentInChildren<Kingdom>();\n  120  						if( kd != null )\n  121  						{\n\nI:\\w\\zeptobots\\Assets\\Scripts\\UIFace.cs:\n   12  	public Text label;\n   13  	public Text content;\n   14: 	public UIFace[] children;\n   15  \n   16  	public void SetActive(bool val)\n\n2 matches across 2 files\n\n\nSearching 38 files for \".content\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Hud.cs:\n   69  		if( percVal == 0 )\n   70  		{\n   71: 			ab.content.text = \"\";\n   72  		}\n   73  		else\n   74  		{\n   75: 			ab.content.text = percVal.ToString();\n   76  		}\n   77  \n\nI:\\w\\zeptobots\\Assets\\Scripts\\MenuFactory.cs:\n   29  		go.transform.SetParent(root);\n   30  		UIFace uf = go.GetComponent<UIFace>();\n   31: 		uf.content.text = contents;\n   32  		RectTransform rt = go.GetComponent<RectTransform>();\n   33  		rt.localPosition = new Vector2(posX, posY);\n   ..\n   42  		UIFace uf = go.GetComponent<UIFace>();\n   43  		uf.label.text = label;\n   44: 		uf.content.text = contents;\n   45  		RectTransform rt = go.GetComponent<RectTransform>();\n   46  		rt.localPosition = new Vector2(posX, posY);\n\n4 matches across 2 files\n\n\nSearching 39 files for \"onclick\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Menu.cs:\n   41  \n   42  		connectButton = factory.AddFrontButton(root, -170f, 70f, \"Connect To Server\");\n   43: 		connectButton.btn.onClick.AddListener(delegate {this.GoConnect();});\n   44  		localButton = factory.AddFrontButton(root, 170f, 70f, \"Local Playground\");\n   45: 		localButton.btn.onClick.AddListener(delegate {this.GoLocal();});\n   46  		cycleButton = factory.AddFrontButton(root, -170f, -70f, \"Cycle Spawn\");\n   47: 		cycleButton.btn.onClick.AddListener(delegate {Boss.Instance.SelectRandomSpawn();});\n   48  		spawnButton = factory.AddFrontButton(root, 170f, -70f, \"Jump In!\");\n   49: 		spawnButton.btn.onClick.AddListener(delegate {this.GoSpawn();});\n   50  \n   51  		isInitialized = true;\n\n4 matches in 1 file\n\n\nSearching 39 files for \"AddPortrait\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Hud.cs:\n   32  		abilityB = factory.AddAbility(root, rightX-0f, bottomY, \"Space\", \"99\");\n   33  		\n   34: 		portrait = factory.AddPortrait(root, leftX, bottomY);\n   35  		portrait.fill.color = Color.magenta; \n   36  		\n\nI:\\w\\zeptobots\\Assets\\Scripts\\MenuFactory.cs:\n   74  		return uf;\n   75  	}\n   76: 	public UIFace AddPortrait(Transform root, float posX, float posY)\n   77  	{\n   78  		GameObject go = GameObject.Instantiate(portraitProto);\n\n2 matches across 2 files\n\n\nSearching 46 files for \"ProtoPrep\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\World.cs:\n   25  	{\n   26  		protos = new Dictionary<string, GameObject>();\n   27: 		ProtoPrep(\"terrain-grass1\");\n   28: 		ProtoPrep(\"terrain-hill1\");\n   29: 		ProtoPrep(\"terrain-mountain1\");\n   30: 		ProtoPrep(\"prop-tree1\");\n   31: 		ProtoPrep(\"prop-tree2\");\n   32: 		ProtoPrep(\"prop-house1\");\n   33: 		ProtoPrep(\"prop-tower1\");\n   34: 		ProtoPrep(\"prop-barn1\");\n   35: 		ProtoPrep(\"actor-man1\");\n   36: 		ProtoPrep(\"actor-dog1\");\n   37: 		ProtoPrep(\"actor-mega1\");\n   38: 		ProtoPrep(\"over-red\");\n   39: 		ProtoPrep(\"over-blue\");\n   40: 		ProtoPrep(\"over-gray\");\n   41  		\n   42  		foreach(Transform child in transform)\n   ..\n   67  	}\n   68  \n   69: 	void ProtoPrep(string str)\n   70  	{\n   71  		GameObject go = Resources.Load(\"Prefabs/pr-\"+str) as GameObject;\n\n15 matches in 1 file\n",
+			"file": "//STRAWBERRY/Depot/libwebsockets/test-server/test-server-http.c",
 			"settings":
 			{
-				"buffer_size": 10744,
-				"line_ending": "Windows",
-				"name": "Find Results",
-				"scratch": true
-			}
-		},
-		{
-			"file": "getvox.bat",
-			"settings":
-			{
-				"buffer_size": 554,
-				"line_ending": "Windows"
+				"buffer_size": 12094,
+				"line_ending": "Unix"
 			}
 		}
 	],
@@ -617,6 +591,20 @@
 	],
 	"file_history":
 	[
+		"//STRAWBERRY/Code/cppserver/normal.cpp",
+		"//STRAWBERRY/Code/cppserver/libwebsocket/libwebsockets.h",
+		"//STRAWBERRY/Depot/libwebsockets/test-server/test-server.c",
+		"//STRAWBERRY/Depot/simple-libwebsockets-example/client.c",
+		"//STRAWBERRY/Depot/libwebsockets/builddir/Makefile",
+		"//STRAWBERRY/Depot/libwebsockets/builddir/CMakeFiles/Makefile2",
+		"//STRAWBERRY/Depot/libwebsockets/lib/libwebsockets.h",
+		"/I/w/zeptobots/Assets/Scripts/Editor/MeshImporter.cs",
+		"/I/w/zeptobots/Assets/Scripts/Editor/AutoBuilder.cs",
+		"//STRAWBERRY/Code/cppserver/FindLibWebSockets.cmake",
+		"//STRAWBERRY/Code/cppserver/CMakeLists.txt",
+		"/I/w/zeptobots/Assets/Scripts/World.cs",
+		"/C/Program Files/MagicaVoxel/export/actor-man1.mtl",
+		"/I/w/zeptobots/getvox.bat",
 		"/I/w/ex/sugiImageEffects-master/Assets/sugiMaterial/Shader/BetterDiffuse.shader",
 		"/I/w/ex/VJ_CX-master/Assets/sugiVJ/Scripts/Misc/ShaderMainCameraPos.cs",
 		"/I/w/zeptobots/Assets/Scripts/Effect/ShaderMainCameraPos.cs",
@@ -661,7 +649,6 @@
 		"/I/w/zeptobots/Assets/Scripts/SpriterHero.cs",
 		"/I/w/zeptobots/server/actor.js",
 		"/I/w/zeptobots/targetweb/websocket.js",
-		"/I/w/zeptobots/Assets/Scripts/World.cs",
 		"/I/w/zeptobots/.gitignore",
 		"/I/w/zeptobots/Assets/.gitignore",
 		"/I/w/zeptobots/Assets/External/WebSocketBrowser.cs",
@@ -731,20 +718,7 @@
 		"/I/w/webtest/ws-srv/websocket/docs/WebSocketServer.md",
 		"/I/w/webtest/ws-srv/websocket/lib/WebSocketRequest.js",
 		"/I/w/webtest/ws-srv/s.js",
-		"/I/w/SocketTest/Server/beep.js",
-		"/I/w/webtest/Assets/README.txt",
-		"/I/w/SocketTest/Assets/Scripts/SocketIO/SocketIOComponent.cs",
-		"/I/w/webtest/Assets/test.cs",
-		"/I/w/webtest/ws-srv/server.js",
-		"/I/w/webtest/ws-srv/gameserver.js",
-		"/I/w/webtest/Assets/Scripts/NetworkPlayerManager.cs",
-		"/I/w/DiceRoll/Assets/Criteria.cs",
-		"/I/w/DiceRoll/Assets/Dice.cs",
-		"/I/w/DiceRoll/Assets/ScoreKeeper.cs",
-		"//STRAWBERRY/Code/kiloio/client/js/prep.js",
-		"//STRAWBERRY/Code/kiloio/client/js/app.js",
-		"//STRAWBERRY/Code/kiloio/client/js/KCamera.js",
-		"//STRAWBERRY/Code/kiloio/common/clientjs/KUserCli.js"
+		"/I/w/SocketTest/Server/beep.js"
 	],
 	"find":
 	{
@@ -781,6 +755,21 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"CONTEXT_PORT_NO_LISTEN",
+			"mimety",
+			"serve",
+			"close_",
+			"lws_close",
+			"session",
+			"sessiopn",
+			"lws_close",
+			"serve_http_fi",
+			"libwebsocket",
+			"_write(",
+			"_write",
+			"libwebsocket_callback_reasons",
+			"reasons",
+			"test",
 			"tree-normal",
 			"ground-normal",
 			"grass-normal",
@@ -893,22 +882,7 @@
 			"stringbu",
 			"960",
 			"width",
-			"disconnect",
-			".damage",
-			"endswith",
-			"MoveUpdate",
-			"localUpdate",
-			"addactor",
-			"localoid",
-			"isConnected",
-			"rx",
-			"requestactoradd",
-			"addActor",
-			"AddActor",
-			"addactor",
-			"AddActor",
-			"authorita",
-			"speedLimit"
+			"disconnect"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1056,485 +1030,95 @@
 			[
 				{
 					"buffer": 0,
-					"file": "Assets/Scripts/Editor/MeshImporter.cs",
+					"file": "//STRAWBERRY/Code/cppserver/example.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 291,
+						"buffer_size": 550,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								291,
-								291
+								550,
+								550
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "Assets/Scripts/Editor/AutoBuilder.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5081,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2769,
-								2769
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 732.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "Assets/Scripts/World.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4183,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3356,
-								3356
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 174.0,
-						"translation.y": 1945.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/C/Program Files/MagicaVoxel/export/actor-man1.mtl",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 134,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								134,
-								134
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 1,
-			"sheets":
-			[
-				{
-					"buffer": 4,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 10744,
-						"regions":
-						{
-							"match":
-							{
-								"flags": 112,
-								"regions":
-								[
-									[
-										154,
-										167
-									],
-									[
-										361,
-										374
-									],
-									[
-										532,
-										545
-									],
-									[
-										834,
-										849
-									],
-									[
-										948,
-										963
-									],
-									[
-										1105,
-										1120
-									],
-									[
-										1444,
-										1454
-									],
-									[
-										1473,
-										1483
-									],
-									[
-										1496,
-										1506
-									],
-									[
-										1762,
-										1772
-									],
-									[
-										1813,
-										1823
-									],
-									[
-										1849,
-										1859
-									],
-									[
-										1865,
-										1875
-									],
-									[
-										2111,
-										2121
-									],
-									[
-										2225,
-										2235
-									],
-									[
-										2395,
-										2405
-									],
-									[
-										2563,
-										2573
-									],
-									[
-										2765,
-										2775
-									],
-									[
-										2942,
-										2952
-									],
-									[
-										2962,
-										2972
-									],
-									[
-										3189,
-										3199
-									],
-									[
-										3326,
-										3336
-									],
-									[
-										3413,
-										3423
-									],
-									[
-										3499,
-										3509
-									],
-									[
-										3585,
-										3595
-									],
-									[
-										3726,
-										3736
-									],
-									[
-										3864,
-										3874
-									],
-									[
-										4155,
-										4165
-									],
-									[
-										4328,
-										4338
-									],
-									[
-										4495,
-										4505
-									],
-									[
-										4644,
-										4654
-									],
-									[
-										4789,
-										4799
-									],
-									[
-										5045,
-										5055
-									],
-									[
-										5189,
-										5199
-									],
-									[
-										5412,
-										5422
-									],
-									[
-										5488,
-										5498
-									],
-									[
-										5663,
-										5673
-									],
-									[
-										5738,
-										5748
-									],
-									[
-										5907,
-										5917
-									],
-									[
-										5982,
-										5992
-									],
-									[
-										6236,
-										6250
-									],
-									[
-										6450,
-										6464
-									],
-									[
-										6618,
-										6632
-									],
-									[
-										6887,
-										6895
-									],
-									[
-										7034,
-										7042
-									],
-									[
-										7234,
-										7242
-									],
-									[
-										7486,
-										7494
-									],
-									[
-										7674,
-										7682
-									],
-									[
-										7884,
-										7892
-									],
-									[
-										7952,
-										7960
-									],
-									[
-										8152,
-										8160
-									],
-									[
-										8390,
-										8398
-									],
-									[
-										8755,
-										8762
-									],
-									[
-										8915,
-										8922
-									],
-									[
-										9070,
-										9077
-									],
-									[
-										9240,
-										9247
-									],
-									[
-										9546,
-										9557
-									],
-									[
-										9737,
-										9748
-									],
-									[
-										10042,
-										10051
-									],
-									[
-										10080,
-										10089
-									],
-									[
-										10117,
-										10126
-									],
-									[
-										10158,
-										10167
-									],
-									[
-										10192,
-										10201
-									],
-									[
-										10226,
-										10235
-									],
-									[
-										10261,
-										10270
-									],
-									[
-										10296,
-										10305
-									],
-									[
-										10330,
-										10339
-									],
-									[
-										10364,
-										10373
-									],
-									[
-										10398,
-										10407
-									],
-									[
-										10433,
-										10442
-									],
-									[
-										10465,
-										10474
-									],
-									[
-										10498,
-										10507
-									],
-									[
-										10616,
-										10625
-									]
-								],
-								"scope": ""
-							}
-						},
-						"selection":
-						[
-							[
-								10621,
-								10621
-							]
-						],
-						"settings":
-						{
-							"detect_indentation": false,
-							"line_numbers": false,
-							"output_tag": 10,
-							"result_base_dir": "",
-							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
-							"result_line_regex": "^ +([0-9]+):",
-							"scroll_past_end": true,
-							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 6420.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "getvox.bat",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 554,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								554,
-								554
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Batch File/Batch File.tmLanguage"
+							"syntax": "Packages/HTML/HTML.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "//STRAWBERRY/Code/cppserver/gamesrv.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2208,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								377,
+								377
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 2,
+					"file": "//STRAWBERRY/Depot/libwebsockets/test-server/test-server-http.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 12094,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1677,
+								1677
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 272.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -1568,7 +1152,7 @@
 		"cols":
 		[
 			0.0,
-			0.580139372823,
+			0.512543554007,
 			1.0
 		],
 		"rows":
