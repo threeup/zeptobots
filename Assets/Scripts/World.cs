@@ -146,15 +146,20 @@ public class World : MonoBehaviour {
 		List<TileContents> contentList = new List<TileContents>();
 		switch(c)
 		{
-			case 'A': prototypes.Add(protos["prop-tree1"]); break;
-			case 'B': prototypes.Add(protos["over-blue"]); prototypes.Add(protos["prop-house1"]); break;
-			case 'C': prototypes.Add(protos["prop-tree2"]); break;
-			case 'D': prototypes.Add(protos["prop-tree2"]); break;
-			case 'R': prototypes.Add(protos["over-red"]); prototypes.Add(protos["prop-house1"]); break;
-			case 'S': prototypes.Add(protos["over-gray"]); prototypes.Add(protos["prop-house1"]); break;
-			case 'T': prototypes.Add(protos["prop-tree2"]); break;
-			case 'W': prototypes.Add(protos["prop-mountain1"]); break;
-			default:  break;
+			case 'A': 
+				prototypes.Add(protos["prop-tree1"]); break;
+			case 'C': 
+				prototypes.Add(protos["prop-tree2"]); break;
+			case 'D': 
+				prototypes.Add(protos["prop-tree2"]); break;
+			case 'S': 
+				prototypes.Add(protos["prop-house1"]); break;
+			case 'T': 
+				prototypes.Add(protos["prop-tree2"]); break;
+			case 'W': 
+				prototypes.Add(protos["prop-mountain1"]); break;
+			default:  
+				break;
 		}
 		for( int i=0; i< prototypes.Count; ++i )
 		{

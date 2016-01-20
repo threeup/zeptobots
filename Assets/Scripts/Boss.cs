@@ -96,7 +96,18 @@ public class Boss : MonoBehaviour {
 			Debug.Log("nowhere to spawn");
 			return;
 		}
-		selectedKingdom.RequestKingdom(localOID, localIsRed);
+		int spawnTeam = localIsRed ? 1 : 0;
+
+		RulesTile.DoConquerKingdom(selectedKingdom, localOID, spawnTeam);
+		
+		ActorBasicData abd = new ActorBasicData(localIsRed ? "HR" : "HB");
+		abd.oid = localOID;
+		abd.team = spawnTeam;
+		abd.tx = selectedKingdom.TX;
+		abd.ty = selectedKingdom.TY;
+		ActorQuickData aqd = new ActorQuickData(abd);
+		NetMan.Instance.SendReqActor(abd, aqd);
+
 		
 	}
 

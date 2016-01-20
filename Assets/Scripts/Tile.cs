@@ -51,6 +51,10 @@ public class Tile : MonoBehaviour {
 		{
 			return false;
 		}
+		if( cValue != ' ' )
+		{
+			Debug.Log("Change T "+cValue+" -> "+c);
+		}
 		this.cValue = c;
 		for(int i=contentList.Count-1; i>=0; --i)
 		{
@@ -62,6 +66,7 @@ public class Tile : MonoBehaviour {
 		foreach(TileContents content in addedList)
 		{
 			contentList.Add(content);
+			content.Setup();
 			tFlags |= content.tFlags;
 		}
 		return true;
@@ -266,7 +271,7 @@ public class Tile : MonoBehaviour {
 	{
 		for(int i=contentList.Count-1; i>=0; --i)
 		{
-			contentList[i].SendMessage("OnActorAdded",a, SendMessageOptions.DontRequireReceiver);
+			contentList[i].OnActorEnter(a);
 		}
 	}
 
@@ -274,7 +279,7 @@ public class Tile : MonoBehaviour {
 	{
 		for(int i=contentList.Count-1; i>=0; --i)
 		{
-			contentList[i].SendMessage("OnActorRemoved",a, SendMessageOptions.DontRequireReceiver);
+			contentList[i].OnActorExit(a);
 		}
 	}
 

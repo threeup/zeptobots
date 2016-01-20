@@ -105,10 +105,13 @@ public static class AutoBuilder {
 						}
 						if( src.name.StartsWith("prop") )
 						{
-							TileContents tc = go.AddComponent<TileContents>();
-							if( src.name.Contains("house")  )
+							if( src.name.Contains("house") )
 							{
-								tc.tFlags |= Tile.TileFlags.KINGDOM;
+								go.AddComponent<Kingdom>();
+							}
+							else
+							{
+								go.AddComponent<TileContents>();
 							}
 							Transform bodyT = go.transform.Find("default");
 							bodyT.gameObject.name = "propbody";

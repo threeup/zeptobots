@@ -2,102 +2,57 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Kingdom : MonoBehaviour {
+public class Kingdom : TileContents {
 
-	public int ownerOID = -1;
-	public int ownerTeam = -1;
-
-	public Tile tile;
-
-	private float spawnTimer = 5f;
 	private float conquerTimer = 5f;
 
-	private List<Actor> conquerList = new List<Actor>();
 
-
-	void Start()
+	public override void Setup()
 	{
-		tile = this.transform.parent.GetComponent<Tile>();
+		base.Setup();
+		tFlags |= Tile.TileFlags.KINGDOM;
+		IsAffected = RulesTile.CanConquerKingdom;
+		OnConquer = RulesTile.DoConquerKingdom;
 	}
 
-	public void RequestKingdom(int localOID, bool localIsRed)
+
+	
+
+	public override void Update()
 	{
+		base.Update();
+		float deltaTime = Time.deltaTime;
 
-		ownerOID = localOID;
-		ownerTeam = localIsRed ? 1 : 0;
-
-		ActorBasicData abd = new ActorBasicData(localIsRed ? "HR" : "HB");
-		abd.oid = localOID;
-		abd.team = ownerTeam;
-		abd.tx = tile.rtx;
-		abd.ty = tile.rty;
-		ActorQuickData aqd = new ActorQuickData(abd);
-
-		NetMan.Instance.SendReqActor(abd, aqd);
-		string worldSprite = localIsRed ? "R" : "B";
-		NetMan.Instance.SendReqWorld(tile.sx,tile.sy,tile.ltx,tile.lty,worldSprite);
+		ConquerUpdate(deltaTime);
 	}
 
-	public void ConquerKingdom(int localOID, int team)
+	void ConquerUpdate(float deltaTime)
 	{
-		ownerOID = localOID;
-		ownerTeam = team;
-		string worldSprite = ownerTeam == 1 ? "R" : "B";
-		NetMan.Instance.SendReqWorld(tile.sx,tile.sy,tile.ltx,tile.lty,worldSprite);
-	}
-
-	public void Update()
-	{
-		if( ownerOID > 0 )
-		{
-			spawnTimer -= Time.deltaTime;
-			if( spawnTimer <= 0f)
-			{
-				spawnTimer = 20f;
-				ActorBasicData abd = new ActorBasicData(ownerTeam==1 ? "DR" : "DB");
-				abd.oid = ownerOID;
-				abd.team = ownerTeam;
-				abd.tx = tile.rtx;
-				abd.ty = tile.rty;
-				ActorQuickData aqd = new ActorQuickData(abd);
-				NetMan.Instance.SendReqActor(abd,aqd);
-			}
-		}
 		if( conquerTimer > 0f )
 		{
-			conquerTimer -= Time.deltaTime;
+			conquerTimer -= deltaTime;
 			if( conquerTimer <= 0f )
 			{
 				conquerTimer = -1f;
-				if( conquerList.Count > 0 )
+				if( affectedList.Count > 0 )
 				{
-					Actor a = conquerList[0];
+					Actor a = affectedList[0];
 					if( ownerTeam != a.Team )
 					{
-						ConquerKingdom( a.OID, a.Team );
+						OnConquer(this, a.OID, a.Team );
+						RefreshAffected();
 					}
 				}
 			}
 		}
 	}
 
-	public void OnActorAdded(Actor a)
+	public override void OnAffectedChange()
 	{
-		conquerList.Add(a);
-		CheckSingle();
-	}
-	public void OnActorRemoved(Actor a)
-	{
-		conquerList.Remove(a);
-		CheckSingle();
-	}
-
-
-	void CheckSingle()
-	{
-		if( conquerList.Count == 1)
+		if( affectedList.Count == 1)
 		{
 			conquerTimer = 5f;
+			Debug.Log("Conquer Start"+this+" "+this.transform.position);
 		}
 		else
 		{
