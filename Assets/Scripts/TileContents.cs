@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class TileContents : MonoBehaviour {
+public class TileContents : ZeptoObject {
 
 	public int ownerOID = -2;
 	public int ownerTeam = -1;
@@ -63,13 +63,14 @@ public class TileContents : MonoBehaviour {
 		return true;
 	}
 
-	public void RefreshAffected()
+	public void FlushAffected()
 	{
 		affectedList.Clear();
 		for(int i=0; i<tile.occupyList.Count; ++i)
 		{
 			OnActorEnter(tile.occupyList[i]);
 		}	
+		OnAffectedChange();
 	}
 
 }

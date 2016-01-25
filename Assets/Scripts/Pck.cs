@@ -131,10 +131,10 @@ public class Pck : MonoBehaviour {
 		sb.Length = 0;
 		if( actor && actor.hero )
 		{
-			for(int i=0; i<actor.hero.actions.Length; ++i)
+			for(int i=0; i<actor.hero.abilities.Length; ++i)
 			{
-				sb.Append(actor.hero.actions[i].abName);
-				sb.Append(actor.hero.actions[i].abStateName);
+				sb.Append(actor.hero.abilities[i].abName);
+				sb.Append(actor.hero.abilities[i].abStateName);
 				sb.Append(",");
 			}
 		}

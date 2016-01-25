@@ -6,6 +6,7 @@ public class Engine : MonoBehaviour {
 	private float currentStep = 0f;
 	public float currentSpeed = 0f;
 
+	public Vector3 lastPosition = Vector3.zero;
 	public Vector3 desiredPosition = Vector3.zero;
 	public Vector2 moveVec = Vector2.zero;
 	public Vector2 facingVec = Vector2.zero;
@@ -30,11 +31,27 @@ public class Engine : MonoBehaviour {
 	}
 
 
+	public void SetDesiredPosition(Vector3 pos)
+	{
+		if(moveLock)
+		{
+			return;
+		}
+		this.desiredPosition = pos;
+	}
+
+	public void Halt()
+	{
+		this.transform.position = lastPosition;
+		this.desiredPosition = lastPosition;
+		EngineCollided();
+	}
+
 	public void MoveUpdate (float deltaTime, Vector2 inputVec) 
 	{
 		moveVec = inputVec;
 		
-		Vector3 originalPosition = this.transform.position;
+		lastPosition = this.transform.position;
 		if( !facingLock )
 		{
 			if(moveVec.x != 0 || moveVec.y != 0)
@@ -42,9 +59,9 @@ public class Engine : MonoBehaviour {
 				facingVec = moveVec;
 			}
 		}
-		if( !moveLock && actor.localInput )
+		if( actor.localInput )
 		{
-			this.desiredPosition = this.transform.position + new Vector3(moveVec.x, 0, moveVec.y)*1000f;
+			SetDesiredPosition( this.transform.position + new Vector3(moveVec.x, 0, moveVec.y)*1000f );
 		}
 
 		Vector3 diff = this.desiredPosition - this.transform.position;
@@ -101,17 +118,15 @@ public class Engine : MonoBehaviour {
 		}
 		if( collide )
 		{
-			this.transform.position = originalPosition;
-			this.desiredPosition = originalPosition;
+			Halt();
 			currentStep = 0f; 
-
-			EngineCollided();
 		}
 		actor.RX = (int)Mathf.Round(this.transform.position.x) + 5;
 		actor.RY = -(int)Mathf.Round(this.transform.position.z) - 5;
 		actor.FX = (int)Mathf.Clamp(facingVec.x*10000, -1,1);
 		actor.FY = (int)Mathf.Clamp(facingVec.y*10000, -1,1);
 		currentSpeed = currentStep/deltaTime;
+
 	}
 
 	public void SetFacing(int fx, int fy)

@@ -50,7 +50,7 @@ public class MenuFactory : MonoBehaviour {
 
 	public UIFace AddProgressWheel(Transform root, float posX, float posY)
 	{
-		GameObject go = GameObject.Instantiate(abilityProto);
+		GameObject go = GameObject.Instantiate(progressWheelProto);
 		go.transform.SetParent(root);
 		UIFace uf = go.GetComponent<UIFace>();
 		RectTransform rt = go.GetComponent<RectTransform>();

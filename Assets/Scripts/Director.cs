@@ -67,11 +67,6 @@ public class Director : MonoBehaviour {
 			GameObject go = GameObject.Instantiate(prototype, pos, prototype.transform.rotation) as GameObject;
 			go.SetActive(true);
 			actor = go.GetComponent<Actor>();
-			if( actor.hero )
-			{
-				actor.hero.actions = go.GetComponents<GameAbility>();
-			}
-			
 		}
 		return actor;
 	}
@@ -118,7 +113,10 @@ public class Director : MonoBehaviour {
 			{
 				a.ModBase(true, abd);	
 				a.ModQuick(true, aqd);	
-				a.Init(abd.visualString);			
+				a.Init();			
+				a.engine.Init();
+				if( a.hero ) { a.hero.Init(); }
+				if( a.creature ) { a.creature.Init(abd.visualString); }
 				actorDict[abd.uid] = a;
 				actorList.Add(a);
 				Boss.Instance.ScanLocalActors();

@@ -4,7 +4,10 @@ using System.Collections.Generic;
 
 public class Kingdom : TileContents {
 
-	private float conquerTimer = 5f;
+	private float conquerTimer = -1f;
+	private float conquerDuration = 2.5f;
+
+	private Actor conqueringActor = null;
 
 
 	public override void Setup()
@@ -40,7 +43,7 @@ public class Kingdom : TileContents {
 					if( ownerTeam != a.Team )
 					{
 						OnConquer(this, a.OID, a.Team );
-						RefreshAffected();
+						FlushAffected();
 					}
 				}
 			}
@@ -51,11 +54,20 @@ public class Kingdom : TileContents {
 	{
 		if( affectedList.Count == 1)
 		{
-			conquerTimer = 5f;
-			Debug.Log("Conquer Start"+this+" "+this.transform.position);
+			if( affectedList[0] != conqueringActor )
+			{
+				conqueringActor = affectedList[0];
+				conquerTimer = conquerDuration;
+				conqueringActor.AddEff('C', conquerDuration);
+			}
 		}
 		else
 		{
+			if( conqueringActor != null )
+			{
+				conqueringActor.RemEff('C');
+				conqueringActor = null;
+			}
 			conquerTimer = -1f;
 		}
 	}

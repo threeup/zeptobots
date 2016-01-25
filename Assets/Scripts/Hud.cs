@@ -85,5 +85,22 @@ public class Hud : MonoBehaviour {
 
 	}
 
+	public void UpdateHero(Hero h)
+	{
+		GameAbility[] abs = h.abilities;
+		for(int i=0; i<abs.Length; ++i)
+		{
+			GameAbility ab = abs[i];
+			this.SetButton(i, ab.CooldownPercent, ab.IsActive, ab.isPressed);
+		}
+
+		//GameEffect[] effs = h.actor.effects;
+		//for(int i=0; i<effs.Length; ++i)
+		{
+			//GameEffect eff = effs[i];
+		
+		}
+		
+	}
 
 }

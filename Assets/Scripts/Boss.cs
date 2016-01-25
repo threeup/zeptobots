@@ -180,11 +180,8 @@ public class Boss : MonoBehaviour {
 			{
 				selectedHero.inputB = true;
 			}
-			for(int i=0; i<2; ++i)
-			{
-				GameAbility ga = selectedHero.actions[i];
-				Hud.Instance.SetButton(i, ga.CooldownPercent, ga.IsActive, ga.isPressed);
-			}
+			Hud.Instance.UpdateHero(selectedHero);
+
 		}
 		sendUpdateTimer -= deltaTime;
 		if( sendUpdateTimer < 0f )

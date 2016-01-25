@@ -13,6 +13,7 @@ public class Sector : MonoBehaviour {
 	bool isPopulated = false;
 
 	public List<Kingdom> kingdoms = new List<Kingdom>();
+	public List<TileContents> contentsList = new List<TileContents>();
 	public Tile[,] tiles = new Tile[10,10];
 
 

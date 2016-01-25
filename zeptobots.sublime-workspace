@@ -524,14 +524,22 @@
 			"settings":
 			{
 				"buffer_size": 4813,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Assets/RenderReference/Material/mobileShader.mat",
+			"settings":
+			{
+				"buffer_size": 10560,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "Assets/Scripts/Director.cs",
+			"file": "Assets/Resources/Imported/terrain-rock1.prefab",
 			"settings":
 			{
-				"buffer_size": 2480,
+				"buffer_size": 19670,
 				"line_ending": "Unix"
 			}
 		},
@@ -544,21 +552,27 @@
 			}
 		},
 		{
-			"file": "Assets/Scripts/NetMan.cs",
+			"file": "Assets/Scripts/TileContents.cs",
 			"settings":
 			{
-				"buffer_size": 2170,
+				"buffer_size": 1409,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "Searching 46 files for \"SendReqActor\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Kingdom.cs:\n   37  		ad.fy = -1;\n   38  \n   39: 		NetMan.Instance.SendReqActor(ad);\n   40  		string worldSprite = localIsRed ? \"R\" : \"B\";\n   41  		NetMan.Instance.SendReqWorld(tile.sx,tile.sy,tile.ltx,tile.lty,worldSprite);\n   ..\n   67  				ad.fx = 0;\n   68  				ad.fy = -1;\n   69: 				NetMan.Instance.SendReqActor(ad);\n   70  			}\n   71  		}\n\nI:\\w\\zeptobots\\Assets\\Scripts\\NetMan.cs:\n  100  \n  101  \n  102:     public void SendReqActor(ActorQuickData aqd, ActorBaseData abd)\n  103      {\n  104  \n\nI:\\w\\zeptobots\\Assets\\Scripts\\RulesAb.cs:\n  100  		ad.tx = (int)Mathf.Round((ad.rx-5)/10f);\n  101  		ad.ty = (int)Mathf.Round((ad.ry-5)/10f);\n  102: 		NetMan.Instance.SendReqActor(ad);\n  103  \n  104  		actor.CurrentSpeedLimit = actor.DefaultSpeedLimit;\n\n4 matches across 3 files\n\n\nSearching 46 files for \"SendReqActor\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Kingdom.cs:\n   37  		ad.fy = -1;\n   38  \n   39: 		NetMan.Instance.SendReqActor(ad);\n   40  		string worldSprite = localIsRed ? \"R\" : \"B\";\n   41  		NetMan.Instance.SendReqWorld(tile.sx,tile.sy,tile.ltx,tile.lty,worldSprite);\n   ..\n   67  				ad.fx = 0;\n   68  				ad.fy = -1;\n   69: 				NetMan.Instance.SendReqActor(aqd,abd);\n   70  			}\n   71  		}\n\nI:\\w\\zeptobots\\Assets\\Scripts\\NetMan.cs:\n  100  \n  101  \n  102:     public void SendReqActor(ActorQuickData aqd, ActorBaseData abd)\n  103      {\n  104  \n\nI:\\w\\zeptobots\\Assets\\Scripts\\RulesAb.cs:\n  100  		ad.tx = (int)Mathf.Round((ad.rx-5)/10f);\n  101  		ad.ty = (int)Mathf.Round((ad.ry-5)/10f);\n  102: 		NetMan.Instance.SendReqActor(ad);\n  103  \n  104  		actor.CurrentSpeedLimit = actor.DefaultSpeedLimit;\n\n4 matches across 3 files\n\n\nSearching 46 files for \"SendReqActor\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Kingdom.cs:\n   33  		abd.ty = tile.rty;\n   34  \n   35: 		NetMan.Instance.SendReqActor(abd);\n   36  		string worldSprite = localIsRed ? \"R\" : \"B\";\n   37  		NetMan.Instance.SendReqWorld(tile.sx,tile.sy,tile.ltx,tile.lty,worldSprite);\n   ..\n   63  				ad.fx = 0;\n   64  				ad.fy = -1;\n   65: 				NetMan.Instance.SendReqActor(aqd,abd);\n   66  			}\n   67  		}\n\nI:\\w\\zeptobots\\Assets\\Scripts\\NetMan.cs:\n   99      }\n  100  \n  101:     public void SendReqActor(ActorBaseData abd)\n  102      {\n  103      	ActorQuickData aqd = new ActorQuickData(abd.hp);\n  ...\n  110  		aqd.fx = 0;\n  111  		aqd.fy = -1;\n  112: 		SendReqActor(aqd, abd);\n  113      }\n  114  \n  115:     public void SendReqActor(ActorQuickData aqd, ActorBaseData abd)\n  116      {\n  117  \n\nI:\\w\\zeptobots\\Assets\\Scripts\\RulesAb.cs:\n  100  		ad.tx = (int)Mathf.Round((ad.rx-5)/10f);\n  101  		ad.ty = (int)Mathf.Round((ad.ry-5)/10f);\n  102: 		NetMan.Instance.SendReqActor(ad);\n  103  \n  104  		actor.CurrentSpeedLimit = actor.DefaultSpeedLimit;\n\n6 matches across 3 files\n\n\nSearching 46 files for \"sendreqac\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Kingdom.cs:\n   33  		abd.ty = tile.rty;\n   34  \n   35: 		NetMan.Instance.SendReqActor(abd);\n   36  		string worldSprite = localIsRed ? \"R\" : \"B\";\n   37  		NetMan.Instance.SendReqWorld(tile.sx,tile.sy,tile.ltx,tile.lty,worldSprite);\n   ..\n   63  				ad.fx = 0;\n   64  				ad.fy = -1;\n   65: 				NetMan.Instance.SendReqActor(aqd,abd);\n   66  			}\n   67  		}\n\nI:\\w\\zeptobots\\Assets\\Scripts\\NetMan.cs:\n   98  		Send( sb.ToString() );\n   99      }\n  100:     public void SendReqActor(ActorQuickData aqd, ActorBaseData abd)\n  101      {\n  102  \n\nI:\\w\\zeptobots\\Assets\\Scripts\\RulesAb.cs:\n  100  		ad.tx = (int)Mathf.Round((ad.rx-5)/10f);\n  101  		ad.ty = (int)Mathf.Round((ad.ry-5)/10f);\n  102: 		NetMan.Instance.SendReqActor(abd);\n  103  \n  104  		actor.CurrentSpeedLimit = actor.DefaultSpeedLimit;\n\n4 matches across 3 files\n\n\nSearching 46 files for \"DynamicActorData\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Actor.cs:\n  130  	public string SerializeActorData()\n  131  	{\n  132: 		Pck.DynamicActorData(sb, ref ad, this);\n  133  		sb.Length = 0;\n  134  		sb.Append(\"requestactor|\");\n\nI:\\w\\zeptobots\\Assets\\Scripts\\NetMan.cs:\n  100      public void SendReqActor(ActorBaseData abd, ActorQuickData aqd)\n  101      {\n  102: 		Pck.RefreshDynamicActorData(sb, ref aqd, null);\n  103      	sb.Length = 0;\n  104  		sb.Append(\"requestactor|\");\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Pck.cs:\n   89  	}\n   90  \n   91: 	public static void RefreshDynamicActorData(System.Text.StringBuilder sb, ref ActorQuickData aqd, Actor actor)\n   92  	{\n   93  		\n\n3 matches across 3 files\n\n\nSearching 46 files for \"SerializeActorData\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Actor.cs:\n  128  \n  129  \n  130: 	public string SerializeActorData()\n  131  	{\n  132  		Pck.DynamicActorData(sb, ref ad, this);\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Boss.cs:\n  106  		{\n  107  			Actor actor = localActors[i];\n  108: 			NetMan.Instance.Send( actor.SerializeActorData() );\n  109  		}\n  110  	}\n\n2 matches across 2 files\n\n\nSearching 46 files for \"PackData\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Actor.cs:\n  133  		sb.Length = 0;\n  134  		sb.Append(\"requestactor|\");\n  135: 		Pck.PackData(sb, abd);\n  136: 		Pck.PackData(sb, aqd);\n  137  		sb.Append(\"\\n\");\n  138  		return sb.ToString();\n\nI:\\w\\zeptobots\\Assets\\Scripts\\LocalMan.cs:\n   77  		ActorQuickData aqd = new ActorQuickData();\n   78  		\n   79: 		Pck.UnpackData(chunks, ref abd);\n   80: 		Pck.UnpackData(chunks, ref aqd);\n   81  		\n   82  		if( abd.uid < 0 )\n   ..\n   95  		sb.Length = 0;\n   96  		sb.Append(\"actormod|\");\n   97: 		Pck.PackData(sb,ad);\n   98: 		Pck.PackData(sb,ad);\n   99  		sb.Append(actionChunks);\n  100  		sb.Append('|');\n\nI:\\w\\zeptobots\\Assets\\Scripts\\NetMan.cs:\n  103      	sb.Length = 0;\n  104  		sb.Append(\"requestactor|\");\n  105: 		Pck.PackData(sb, abd);\n  106: 		Pck.PackData(sb, aqd);\n  107  		sb.Append(\"\\n\");\n  108  		Send( sb.ToString() );\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Pck.cs:\n   39  	}\n   40  \n   41: 	public static void UnpackData(string[] chunks, ref ActorBasicData abd)\n   42  	{\n   43  		int.TryParse(chunks[(int)ABase.UID], out abd.uid);\n   ..\n   53  	}\n   54  \n   55: 	public static void UnpackData(string[] chunks, ref ActorQuickData aqd)\n   56  	{\n   57  		int.TryParse(chunks[(int)AQuick.TX], out aqd.tx);\n   ..\n   73  \n   74  \n   75: 	public static void PackData(System.Text.StringBuilder sb, ActorBasicData abd)\n   76  	{\n   77  		sb.Append(ad.uid);\n   ..\n   96  \n   97  \n   98: 	public static void PackData(System.Text.StringBuilder sb, ActorQuickData aqd)\n   99  	{\n  100  		sb.Append(ad.tx);\n\n12 matches across 4 files\n\n\nSearching 46 files for \"Lookup\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\LocalMan.cs:\n   84  			abd.uid = nextUID++;\n   85  			int ttl = 99;\n   86: 			Lookup(abd.visualString, out abd.hp, out abd.topSpeed, out abd.damage, out ttl);\n   87  			aqd = new ActorQuickData(abd);\n   88  			aqd.ttl = ttl;\n   ..\n  173  	}\n  174  \n  175: 	public void Lookup(string sprite, out int defaulthp, out int BaseTopSpeed, out int dmg, out int ttl)\n  176  	{\n  177  		switch(sprite[0])\n  178  		{\n  179: 			case '*': RulesBullet.Lookup(out defaulthp, out BaseTopSpeed, out dmg, out ttl); break;\n  180: 			case 'H': RulesHero.Lookup(out defaulthp, out BaseTopSpeed, out dmg, out ttl); break;\n  181: 			case 'D': RulesDog.Lookup(out defaulthp, out BaseTopSpeed, out dmg, out ttl); break;\n  182: 			default:  RulesDog.Lookup(out defaulthp, out BaseTopSpeed, out dmg, out ttl); break;\n  183  		}\n  184  \n\nI:\\w\\zeptobots\\Assets\\Scripts\\RulesActor.cs:\n    9  public class RulesHero : RulesActor\n   10  {\n   11: 	public static void Lookup(out int hp, out int topSpeed, out int dmg, out int ttl)\n   12  	{\n   13  		hp = 10; \n   ..\n   20  public class RulesBullet : RulesActor\n   21  {\n   22: 	public static void Lookup(out int hp, out int topSpeed, out int dmg, out int ttl)\n   23  	{\n   24  		hp = 1; \n   ..\n   31  public class RulesDog : RulesActor\n   32  {\n   33: 	public static void Lookup(out int hp, out int topSpeed, out int dmg, out int ttl)\n   34  	{\n   35  		hp = 2; \n\n9 matches across 2 files\n\n\nSearching 46 files for \"AQuick.TX\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Actor.cs:\n  110  		if( authoritative )\n  111  		{\n  112: 			aqd.tx = Utils.IntParseFast(chunks[(int)Pck.AQuick.TX]);\n  113  			aqd.ty = Utils.IntParseFast(chunks[(int)Pck.AQuick.TY]);\n  114  			aqd.rx = Utils.IntParseFast(chunks[(int)Pck.AQuick.RX]);\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Pck.cs:\n   55  	public static void UnpackData(string[] chunks, ref ActorQuickData aqd)\n   56  	{\n   57: 		int.TryParse(chunks[(int)AQuick.TX], out aqd.tx);\n   58  		int.TryParse(chunks[(int)AQuick.TY], out aqd.ty);\n   59  		int.TryParse(chunks[(int)AQuick.RX], out aqd.rx);\n\n2 matches across 2 files\n\n\nSearching 46 files for \"actormod\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Director.cs:\n   38  		switch(chunks[0])\n   39  		{\n   40: 			case \"actormod\":\n   41  				ModActor(chunks);\n   42  				break;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\LocalMan.cs:\n   94  \n   95  		sb.Length = 0;\n   96: 		sb.Append(\"actormod|\");\n   97  		Pck.PackData(sb, abd);\n   98  		Pck.PackData(sb, aqd);\n\n2 matches across 2 files\n\n\nSearching 46 files for \"AQuick\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Pck.cs:\n   23  \n   24  	\n   25: 	public enum AQuick\n   26  	{\n   27  		TX,\n   ..\n   57  	{\n   58  		int offset = (int)ABase.COUNT;\n   59: 		int.TryParse(chunks[offset+(int)AQuick.TX], out aqd.tx);\n   60: 		int.TryParse(chunks[offset+(int)AQuick.TY], out aqd.ty);\n   61: 		int.TryParse(chunks[offset+(int)AQuick.RX], out aqd.rx);\n   62: 		int.TryParse(chunks[offset+(int)AQuick.RY], out aqd.ry);\n   63: 		int.TryParse(chunks[offset+(int)AQuick.FX], out aqd.fx);\n   64: 		int.TryParse(chunks[offset+(int)AQuick.FY], out aqd.fy);\n   65: 		int.TryParse(chunks[offset+(int)AQuick.HP], out aqd.hp);\n   66: 		int.TryParse(chunks[offset+(int)AQuick.TOPSPEED], out aqd.topSpeed);\n   67: 		int.TryParse(chunks[offset+(int)AQuick.DAMAGE], out aqd.damage);\n   68: 		int.TryParse(chunks[offset+(int)AQuick.TTL], out aqd.ttl);\n   69  \n   70: 		aqd.actionString = chunks[offset+(int)AQuick.ACTIONS];\n   71: 		aqd.effectString = chunks[offset+(int)AQuick.EFFECTS];\n   72  \n   73  		\n\n13 matches in 1 file\n",
+			"file": "Assets/Scripts/Boss.cs",
 			"settings":
 			{
-				"buffer_size": 9967,
-				"line_ending": "Windows",
-				"name": "Find Results",
-				"scratch": true
+				"buffer_size": 3974,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Scripts/Tile.cs",
+			"settings":
+			{
+				"buffer_size": 8621,
+				"line_ending": "Unix"
 			}
 		},
 		{
@@ -570,10 +584,18 @@
 			}
 		},
 		{
-			"file": "Assets/Scripts/RulesActor.cs",
+			"file": "Assets/Scripts/Editor/AutoBuilder.cs",
 			"settings":
 			{
-				"buffer_size": 635,
+				"buffer_size": 7380,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Scripts/RulesTile.cs",
+			"settings":
+			{
+				"buffer_size": 759,
 				"line_ending": "Unix"
 			}
 		},
@@ -581,39 +603,41 @@
 			"file": "Assets/Scripts/Kingdom.cs",
 			"settings":
 			{
-				"buffer_size": 2117,
+				"buffer_size": 1022,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "Assets/Scripts/LocalMan.cs",
+			"file": "Assets/Scripts/World.cs",
 			"settings":
 			{
-				"buffer_size": 3667,
+				"buffer_size": 4273,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "Assets/Scripts/Pck.cs",
+			"contents": "Searching 47 files for \"RequestKingdom\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Boss.cs:\n   97  			return;\n   98  		}\n   99: 		selectedKingdom.RequestKingdom(localOID, localIsRed);\n  100  		\n  101  	}\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Kingdom.cs:\n   18  \n   19  \n   20: 	public void RequestKingdom(int localOID, bool localIsRed)\n   21  	{\n   22  		ownerOID = localOID;\n\n2 matches across 2 files\n\n\nSearching 47 files for \"Setup\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Boss.cs:\n   26  		switch(chunks[0])\n   27  		{\n   28: 			case \"setupclient\":\n   29  				if( Boss.Instance.localOID > 0 )\n   30  				{\n   31: 					Debug.LogError(\"Double setup\");\n   32  					return;\n   33  				}\n\nI:\\w\\zeptobots\\Assets\\Scripts\\HudCarousel.cs:\n   17  \n   18  	}\n   19: 	public void Setup(MenuFactory factory)\n   20  	{\n   21  		this.factory = factory;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Kingdom.cs:\n    8  \n    9  \n   10: 	public override void Setup()\n   11  	{\n   12: 		base.Setup();\n   13  		tFlags |= Tile.TileFlags.KINGDOM;\n   14  		IsAffected = RulesTile.CanConquerKingdom;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\LocalMan.cs:\n   45  \n   46  \n   47: 	public IEnumerator SetupRoutine()\n   48  	{\n   49: 		HandleMessage(GetClientSetup());\n   50  		for(int sy=0; sy<10;++sy)\n   51  		{\n   ..\n   61  	}\n   62  \n   63: 	string GetClientSetup()\n   64  	{\n   65: 		return \"setupclient|101|true\";\n   66  	}\n   67  \n\nI:\\w\\zeptobots\\Assets\\Scripts\\MenuFactory.cs:\n   90  		GameObject go =  GameObject.Instantiate(carouselProto);\n   91  		HudCarousel hc = go.GetComponent<HudCarousel>();\n   92: 		hc.Setup(this);\n   93  		go.transform.SetParent(root);\n   94  		UIFace uf = go.GetComponent<UIFace>();\n\nI:\\w\\zeptobots\\Assets\\Scripts\\NetMan.cs:\n   48  		if( isLocal )\n   49  		{\n   50: 			StartCoroutine(LocalMan.Instance.SetupRoutine());\n   51  		}\n   52  		else\n   53  		{\n   54: 			StartCoroutine(ServerMan.Instance.SetupRoutine());\n   55  		}\n   56  	}\n\nI:\\w\\zeptobots\\Assets\\Scripts\\ServerMan.cs:\n   35  \n   36  \n   37: 	public IEnumerator SetupRoutine()\n   38  	{\n   39  		nm = NetMan.Instance;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\TileContents.cs:\n   25  	protected ConquerDelegate OnConquer;\n   26  \n   27: 	public virtual void Setup()\n   28  	{\n   29  		tile = this.transform.parent.GetComponent<Tile>();\n\nI:\\w\\zeptobots\\Assets\\Scripts\\World.cs:\n  162  			go.transform.SetParent(root,false);\n  163  			TileContents contents = go.GetComponent<TileContents>();\n  164: 			contents.Setup();\n  165  			contentList.Add(contents);\n  166  			go.SetActive(true);\n\n15 matches across 9 files\n\n\nSearching 47 files for \"ownerTeam\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Kingdom.cs:\n   38  				{\n   39  					Actor a = affectedList[0];\n   40: 					if( ownerTeam != a.Team )\n   41  					{\n   42  						OnConquer(this, a.OID, a.Team );\n\nI:\\w\\zeptobots\\Assets\\Scripts\\RulesTile.cs:\n   16  			return false;\n   17  		}\n   18: 		if( tc.ownerTeam < 0 )\n   19  		{\n   20: 			Debug.Log(\"checkownerTeam\"+tc.ownerTeam);\n   21  			return true;\n   22  		}\n   23: 		Debug.Log(\"Compare\"+a.Team+\",\"+tc.ownerTeam);\n   24: 		return a.Team != tc.ownerTeam;\n   25  	} \n   26  \n   ..\n   28  	{\n   29  		tc.ownerOID = oid;\n   30: 		tc.ownerTeam = team;\n   31  		Tile t = tc.tile;\n   32  		string worldSprite = team == 1 ? \"R\" : \"B\";\n   33  		NetMan.Instance.SendReqWorld(t.sx,t.sy,t.ltx,t.lty,worldSprite);\n   34  		Debug.Log(\"Conquered\"+tc+\" \"+t.transform.position+\"  to \"+oid+\",\"+team);\n   35: 		Debug.Log(\"ownerTeam\"+tc.ownerTeam);\n   36  		return true;\n   37  	}\n\nI:\\w\\zeptobots\\Assets\\Scripts\\TileContents.cs:\n    6  \n    7  	public int ownerOID = -1;\n    8: 	public int ownerTeam = -1;\n    9  \n   10  	public int TX { get { return tile.rtx; } }\n\n10 matches across 3 files\n\n\nSearching 47 files for \"SetContents\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Sector.cs:\n   82  				}\n   83  				Tile t = tiles[ltx,lty];\n   84: 				result |= t.SetContents(c);\n   85  			}\n   86  		}\n   ..\n  112  					t.gameObject.transform.parent = this.transform;\n  113  					t.Init(ltx,lty,rtx,rty,sx,sy);\n  114: 					t.SetContents(c);\n  115  					tiles[ltx,lty] = t;\n  116  \n\nI:\\w\\zeptobots\\Assets\\Scripts\\Tile.cs:\n   46  	}\n   47  \n   48: 	public bool SetContents(char c)\n   49  	{\n   50  		if(this.cValue == c)\n\n3 matches across 2 files\n\n\nSearching 47 files for \"SetContents\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Sector.cs:\n   82  				}\n   83  				Tile t = tiles[ltx,lty];\n   84: 				result |= t.SetContents(c);\n   85  			}\n   86  		}\n   ..\n  112  					t.gameObject.transform.parent = this.transform;\n  113  					t.Init(ltx,lty,rtx,rty,sx,sy);\n  114: 					t.SetContents(c);\n  115  					tiles[ltx,lty] = t;\n  116  \n\nI:\\w\\zeptobots\\Assets\\Scripts\\Tile.cs:\n   46  	}\n   47  \n   48: 	public bool SetContents(char c)\n   49  	{\n   50  		if(this.cValue == c)\n\n3 matches across 2 files\n\n\nSearching 47 files for \"'R'\"\n\nI:\\w\\zeptobots\\Assets\\Scripts\\Actor.cs:\n  145  				{\n  146  					case 'G': GlowEff.Assign(ge, effName); break;\n  147: 					case 'R': RockEff.Assign(ge, effName); break;\n  148  					default: break;\n  149  				}\n\nI:\\w\\zeptobots\\Assets\\Scripts\\ActorBody.cs:\n   35  	{\n   36  		spriteString = s;\n   37: 		if( spriteString[1] == 'R')\n   38  		{\n   39  			defaultColor = Color.red;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\GameAbility.cs:\n  128  				break;\n  129  			case AbilityState.RECOVERING: \n  130: 				abStateName = 'R';\n  131  				Recover(this, actor);\n  132  				break;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\RulesAb.cs:\n   50  	{\n   51  		actor.RemEff('G');\n   52: 		actor.AddEff('R', 2.5f);\n   53  		Engine engine = actor.engine;\n   54  		actor.TopSpeed = actor.BaseTopSpeed*3/4;\n   ..\n   61  	public static void Cooldown(GameAbility ga, Actor actor)\n   62  	{\n   63: 		actor.RemEff('R');\n   64  		Engine engine = actor.engine;\n   65  		actor.TopSpeed = actor.BaseTopSpeed;\n\nI:\\w\\zeptobots\\Assets\\Scripts\\SpriterHero.cs:\n   79  		{\n   80  			case SpriteSet.LEFT: 	charArr[1] = 'l'; sr.sprite = runLeft[idx]; break;\n   81: 			case SpriteSet.RIGHT: 	charArr[1] = 'r'; sr.sprite = runRight[idx]; break;\n   82  			case SpriteSet.UP: 		charArr[1] = 'u'; sr.sprite = runUp[idx]; break;\n   83  			case SpriteSet.DOWN: 	charArr[1] = 'd'; sr.sprite = runDown[idx]; break;\n   ..\n   94  		{\n   95  			case 'l': lastSet = SpriteSet.LEFT; 	sr.sprite = runLeft[idx]; break;\n   96: 			case 'r': lastSet = SpriteSet.RIGHT; 	sr.sprite = runRight[idx]; break;\n   97  			case 'u': lastSet = SpriteSet.UP; 		sr.sprite = runUp[idx]; break;\n   98  			case 'd': lastSet = SpriteSet.DOWN; 	sr.sprite = runDown[idx]; break;\n\n7 matches across 5 files\n",
 			"settings":
 			{
-				"buffer_size": 3465,
+				"buffer_size": 6489,
+				"line_ending": "Windows",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "Assets/Scripts/Sector.cs",
+			"settings":
+			{
+				"buffer_size": 3272,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "Assets/Scripts/ActorData.cs",
+			"file": "Assets/Scripts/Menu.cs",
 			"settings":
 			{
-				"buffer_size": 1427,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/Scripts/TileContents.cs",
-			"settings":
-			{
-				"buffer_size": 329,
+				"buffer_size": 3369,
 				"line_ending": "Unix"
 			}
 		}
@@ -665,20 +689,23 @@
 	],
 	"file_history":
 	[
-		"/I/w/zeptobots/Assets/Scripts/Editor/AutoBuilder.cs",
-		"/I/w/zeptobots/Assets/Scripts/LocalMan.cs",
 		"/I/w/zeptobots/Assets/Scripts/Pck.cs",
-		"/I/w/zeptobots/Assets/Scripts/RulesActor.cs",
+		"/I/w/zeptobots/Assets/Scripts/Tile.cs",
+		"/I/w/zeptobots/Assets/Scripts/Kingdom.cs",
+		"/I/w/zeptobots/Assets/Scripts/LocalMan.cs",
 		"/I/w/zeptobots/Assets/Scripts/RulesAb.cs",
 		"/I/w/zeptobots/Assets/Scripts/Actor.cs",
-		"/I/w/zeptobots/Assets/Scripts/World.cs",
-		"/I/w/zeptobots/Assets/Scripts/Director.cs",
 		"/I/w/zeptobots/Assets/Scripts/ActorData.cs",
+		"/I/w/zeptobots/Assets/Scripts/TileContents.cs",
+		"/I/w/zeptobots/Assets/Scripts/Director.cs",
 		"/I/w/zeptobots/Assets/Scripts/Engine.cs",
+		"/I/w/zeptobots/Assets/Scripts/NetMan.cs",
+		"/I/w/zeptobots/Assets/Scripts/RulesActor.cs",
+		"/I/w/zeptobots/Assets/Scripts/Editor/AutoBuilder.cs",
+		"/I/w/zeptobots/Assets/Scripts/World.cs",
 		"/I/w/zeptobots/Assets/Scripts/RulesEff.cs",
 		"/I/w/zeptobots/server/sector.js",
 		"/I/w/zeptobots/Assets/Scripts/Sector.cs",
-		"/I/w/zeptobots/Assets/Scripts/Tile.cs",
 		"//STRAWBERRY/Depot/libwebsockets/test-server/test-server-http.c",
 		"//STRAWBERRY/Code/cppserver/example.html",
 		"//STRAWBERRY/Code/cppserver/gamesrv.cpp",
@@ -714,9 +741,7 @@
 		"/I/w/zeptobots/Assets/Scripts/UIFace.cs",
 		"/I/w/ex/VJ_CX-master/Assets/sugiVJ/Scripts/Misc/ShaderGlobalProps.cs",
 		"/I/w/ex/VJ_CX-master/Assets/sugiVJ/Scripts/Particle/VertToPosTex.cs",
-		"/I/w/zeptobots/Assets/Scripts/NetMan.cs",
 		"/I/w/zeptobots/Assets/Scripts/MenuFactory.cs",
-		"/I/w/zeptobots/Assets/Scripts/Kingdom.cs",
 		"/C/large/tv/5-ji kara 9-ji made/5-ji kara 9-ji made ep08 (848x480 x264).srt",
 		"/I/w/zeptobots/Assets/Scripts/Hero.cs",
 		"/I/w/zeptobots/Assets/Scripts/GameEffect.cs",
@@ -738,7 +763,6 @@
 		"/I/w/zeptobots/targetweb/index.html",
 		"/I/w/zeptobots/targetweb/dev.html",
 		"/I/w/zeptobots/server/s.js",
-		"/I/w/zeptobots/Assets/Scripts/TileContents.cs",
 		"/I/w/zeptobots/Assets/Scripts/Utils.cs",
 		"/I/w/zeptobots/Assets/Scripts/CamControl.cs",
 		"/I/w/zeptobots/Assets/Scripts/HealthBar.cs",
@@ -829,6 +853,18 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"'R'",
+			"SetContents",
+			"ownerTeam",
+			"Setup",
+			"IsAffected",
+			"();\n",
+			"RequestKingdom",
+			"IsAffected",
+			"CheckActorDelegate",
+			"tc",
+			"affectedlist",
+			"OnActorAdded",
 			"AQuick",
 			"ModActor",
 			"actormod",
@@ -944,19 +980,7 @@
 			"SetButton",
 			"locktime = ",
 			"Init",
-			"effname",
-			"ActionState",
-			"ActionEvent",
-			"GameAction",
-			"ActionUpdate",
-			"GameAction",
-			"GetTileImageIndex",
-			"backg",
-			"blue",
-			"red",
-			"selectedh",
-			"abil",
-			"randomsp"
+			"effname"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1118,8 +1142,8 @@
 						"selection":
 						[
 							[
-								3065,
-								3065
+								116,
+								116
 							]
 						],
 						"settings":
@@ -1128,43 +1152,70 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1262.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 13,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "Assets/Scripts/Director.cs",
+					"file": "Assets/RenderReference/Material/mobileShader.mat",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2480,
+						"buffer_size": 10560,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1867,
-								1867
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 1382.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 17,
 					"type": "text"
 				},
 				{
 					"buffer": 2,
+					"file": "Assets/Resources/Imported/terrain-rock1.prefab",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 19670,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 16,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
 					"file": "Assets/Scripts/Engine.cs",
 					"semi_transient": false,
 					"settings":
@@ -1176,8 +1227,67 @@
 						"selection":
 						[
 							[
-								1141,
-								1141
+								1652,
+								1653
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1020.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 15,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "Assets/Scripts/TileContents.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1409,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								399,
+								399
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/C#/C#.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 45.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "Assets/Scripts/Boss.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3974,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								425,
+								425
 							]
 						],
 						"settings":
@@ -1186,328 +1296,43 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 532.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "Assets/Scripts/NetMan.cs",
+					"buffer": 6,
+					"file": "Assets/Scripts/Tile.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2170,
+						"buffer_size": 8621,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1757,
-								1757
+								1463,
+								1463
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C#/C#.tmLanguage"
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1162.0,
+						"translation.y": 782.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 9967,
-						"regions":
-						{
-							"match":
-							{
-								"flags": 112,
-								"regions":
-								[
-									[
-										135,
-										147
-									],
-									[
-										371,
-										383
-									],
-									[
-										493,
-										505
-									],
-									[
-										734,
-										746
-									],
-									[
-										983,
-										995
-									],
-									[
-										1219,
-										1231
-									],
-									[
-										1346,
-										1358
-									],
-									[
-										1587,
-										1599
-									],
-									[
-										1843,
-										1855
-									],
-									[
-										2080,
-										2092
-									],
-									[
-										2212,
-										2224
-									],
-									[
-										2376,
-										2388
-									],
-									[
-										2444,
-										2456
-									],
-									[
-										2685,
-										2697
-									],
-									[
-										2938,
-										2947
-									],
-									[
-										3175,
-										3184
-									],
-									[
-										3331,
-										3340
-									],
-									[
-										3572,
-										3581
-									],
-									[
-										3836,
-										3852
-									],
-									[
-										4083,
-										4099
-									],
-									[
-										4275,
-										4291
-									],
-									[
-										4530,
-										4548
-									],
-									[
-										4739,
-										4757
-									],
-									[
-										4961,
-										4969
-									],
-									[
-										4993,
-										5001
-									],
-									[
-										5190,
-										5198
-									],
-									[
-										5232,
-										5240
-									],
-									[
-										5372,
-										5380
-									],
-									[
-										5402,
-										5410
-									],
-									[
-										5597,
-										5605
-									],
-									[
-										5629,
-										5637
-									],
-									[
-										5792,
-										5800
-									],
-									[
-										5965,
-										5973
-									],
-									[
-										6133,
-										6141
-									],
-									[
-										6279,
-										6287
-									],
-									[
-										6545,
-										6551
-									],
-									[
-										6736,
-										6742
-									],
-									[
-										6905,
-										6911
-									],
-									[
-										7001,
-										7007
-									],
-									[
-										7096,
-										7102
-									],
-									[
-										7191,
-										7197
-									],
-									[
-										7401,
-										7407
-									],
-									[
-										7580,
-										7586
-									],
-									[
-										7755,
-										7761
-									],
-									[
-										8044,
-										8053
-									],
-									[
-										8353,
-										8362
-									],
-									[
-										8656,
-										8664
-									],
-									[
-										8810,
-										8818
-									],
-									[
-										9023,
-										9029
-									],
-									[
-										9150,
-										9156
-									],
-									[
-										9216,
-										9222
-									],
-									[
-										9282,
-										9288
-									],
-									[
-										9348,
-										9354
-									],
-									[
-										9414,
-										9420
-									],
-									[
-										9480,
-										9486
-									],
-									[
-										9546,
-										9552
-									],
-									[
-										9612,
-										9618
-									],
-									[
-										9690,
-										9696
-									],
-									[
-										9764,
-										9770
-									],
-									[
-										9846,
-										9852
-									],
-									[
-										9910,
-										9916
-									]
-								],
-								"scope": ""
-							}
-						},
-						"selection":
-						[
-							[
-								8915,
-								8915
-							]
-						],
-						"settings":
-						{
-							"detect_indentation": false,
-							"line_numbers": false,
-							"output_tag": 11,
-							"result_base_dir": "",
-							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
-							"result_line_regex": "^ +([0-9]+):",
-							"scroll_past_end": true,
-							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 5100.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
+					"buffer": 7,
 					"file": "Assets/Scripts/RulesAb.cs",
 					"semi_transient": false,
 					"settings":
@@ -1519,8 +1344,8 @@
 						"selection":
 						[
 							[
-								2083,
-								2083
+								2656,
+								2656
 							]
 						],
 						"settings":
@@ -1530,19 +1355,113 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1072.0,
+						"translation.y": 1710.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "Assets/Scripts/Editor/AutoBuilder.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7380,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4579,
+								4579
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1772.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 14,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 9,
+					"file": "Assets/Scripts/RulesTile.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 759,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								738,
+								738
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 5.0,
+						"translation.y": 67.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "Assets/Scripts/Engine.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2614,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1848,
+								1848
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1050.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 11,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "Assets/Scripts/RulesActor.cs",
+					"buffer": 10,
+					"file": "Assets/Scripts/Kingdom.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 635,
+						"buffer_size": 1022,
 						"regions":
 						{
 						},
@@ -1559,208 +1478,345 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 67.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 10,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "Assets/Scripts/Kingdom.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2117,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								738,
-								750
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 247.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "Assets/Scripts/LocalMan.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3667,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1914,
-								1914
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 975.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
-				{
-					"buffer": 9,
-					"file": "Assets/Scripts/Pck.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3465,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1310,
-								1316
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 495.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "Assets/Scripts/LocalMan.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3667,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1835,
-								1835
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1065.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "Assets/Scripts/RulesAb.cs",
+					"buffer": 6,
+					"file": "Assets/Scripts/Tile.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3362,
+						"buffer_size": 8621,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1204,
-								1234
+								328,
+								328
 							]
 						],
 						"settings":
 						{
-							"history_list_is_closing": true,
 							"syntax": "Packages/C#/C#.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 630.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 12,
-					"type": "text"
-				},
-				{
-					"buffer": 0,
-					"file": "Assets/Scripts/Actor.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4813,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2800,
-								2800
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": -0.0,
-						"translation.y": 947.0,
+						"translation.y": 135.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
-					"file": "Assets/Scripts/ActorData.cs",
+					"buffer": 11,
+					"file": "Assets/Scripts/World.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1427,
+						"buffer_size": 4273,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								397,
-								397
+								3110,
+								3110
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2070.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6489,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										134,
+										148
+									],
+									[
+										271,
+										285
+									],
+									[
+										510,
+										515
+									],
+									[
+										616,
+										621
+									],
+									[
+										743,
+										748
+									],
+									[
+										901,
+										906
+									],
+									[
+										933,
+										938
+									],
+									[
+										1123,
+										1128
+									],
+									[
+										1180,
+										1185
+									],
+									[
+										1284,
+										1289
+									],
+									[
+										1319,
+										1324
+									],
+									[
+										1542,
+										1547
+									],
+									[
+										1761,
+										1766
+									],
+									[
+										1858,
+										1863
+									],
+									[
+										1984,
+										1989
+									],
+									[
+										2169,
+										2174
+									],
+									[
+										2420,
+										2425
+									],
+									[
+										2671,
+										2680
+									],
+									[
+										2849,
+										2858
+									],
+									[
+										2902,
+										2911
+									],
+									[
+										2916,
+										2925
+									],
+									[
+										3005,
+										3014
+									],
+									[
+										3046,
+										3055
+									],
+									[
+										3132,
+										3141
+									],
+									[
+										3406,
+										3415
+									],
+									[
+										3420,
+										3429
+									],
+									[
+										3573,
+										3582
+									],
+									[
+										3828,
+										3839
+									],
+									[
+										3990,
+										4001
+									],
+									[
+										4124,
+										4135
+									],
+									[
+										4363,
+										4374
+									],
+									[
+										4525,
+										4536
+									],
+									[
+										4659,
+										4670
+									],
+									[
+										4905,
+										4908
+									],
+									[
+										5101,
+										5104
+									],
+									[
+										5284,
+										5287
+									],
+									[
+										5443,
+										5446
+									],
+									[
+										5647,
+										5650
+									],
+									[
+										5925,
+										5928
+									],
+									[
+										6239,
+										6242
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								4718,
+								4718
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"line_numbers": false,
+							"output_tag": 6,
+							"result_base_dir": "",
+							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 2609.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "Assets/Scripts/Sector.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3272,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1519,
+								1519
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1215.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "Assets/Scripts/Boss.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3974,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1814,
+								1814
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1221.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "Assets/Scripts/Menu.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3369,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								645,
+								645
 							]
 						],
 						"settings":
@@ -1769,38 +1825,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": -0.0,
-						"translation.y": 90.0,
+						"translation.y": 857.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 11,
-					"file": "Assets/Scripts/TileContents.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 329,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								329,
-								329
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 14,
+					"stack_index": 10,
 					"type": "text"
 				}
 			]
@@ -1870,6 +1898,58 @@
 		"selected_items":
 		[
 			[
+				"bos",
+				"Assets\\Scripts\\Boss.cs"
+			],
+			[
+				"tilec",
+				"Assets\\Scripts\\TileContents.cs"
+			],
+			[
+				"wo",
+				"Assets\\Scripts\\World.cs"
+			],
+			[
+				"menu",
+				"Assets\\Scripts\\Menu.cs"
+			],
+			[
+				"eng",
+				"Assets\\Scripts\\Engine.cs"
+			],
+			[
+				"ti",
+				"Assets\\Scripts\\Tile.cs"
+			],
+			[
+				"kingd",
+				"Assets\\Scripts\\Kingdom.cs"
+			],
+			[
+				"ac",
+				"Assets\\Scripts\\Actor.cs"
+			],
+			[
+				"rulsa",
+				"Assets\\Scripts\\RulesAb.cs"
+			],
+			[
+				"rules",
+				"Assets\\Scripts\\RulesActor.cs"
+			],
+			[
+				"autob",
+				"Assets\\Scripts\\Editor\\AutoBuilder.cs"
+			],
+			[
+				"motor",
+				"Assets\\Resources\\Imported\\terrain-rock1.prefab"
+			],
+			[
+				"mo",
+				"Assets\\RenderReference\\Material\\mobileShader.mat"
+			],
+			[
 				"loc",
 				"Assets\\Scripts\\LocalMan.cs"
 			],
@@ -1888,10 +1968,6 @@
 			[
 				"rul",
 				"Assets\\Scripts\\RulesAb.cs"
-			],
-			[
-				"ac",
-				"Assets\\Scripts\\Actor.cs"
 			],
 			[
 				"en",
@@ -1918,10 +1994,6 @@
 				"Assets\\Scripts\\Pck.cs"
 			],
 			[
-				"autob",
-				"Assets\\Scripts\\Editor\\AutoBuilder.cs"
-			],
-			[
 				"rulesf",
 				"Assets\\Scripts\\RulesEff.cs"
 			],
@@ -1946,10 +2018,6 @@
 				"Assets\\Scripts\\Director.cs"
 			],
 			[
-				"tilec",
-				"Assets\\Scripts\\TileContents.cs"
-			],
-			[
 				"se",
 				"Assets\\Scripts\\Sector.cs"
 			],
@@ -1960,10 +2028,6 @@
 			[
 				"til",
 				"Assets\\Scripts\\Tile.cs"
-			],
-			[
-				"wo",
-				"Assets\\Scripts\\World.cs"
 			],
 			[
 				"actorb",
@@ -1984,10 +2048,6 @@
 			[
 				"uif",
 				"Assets\\Scripts\\UIFace.cs"
-			],
-			[
-				"eng",
-				"Assets\\Scripts\\Engine.cs"
 			],
 			[
 				"rule",
@@ -2030,10 +2090,6 @@
 				"Assets\\Scripts\\Ab.cs"
 			],
 			[
-				"ti",
-				"Assets\\Scripts\\Tile.cs"
-			],
-			[
 				"cre",
 				"Assets\\Scripts\\Creature.cs"
 			],
@@ -2054,10 +2110,6 @@
 				"Assets\\Scripts\\Hero.cs"
 			],
 			[
-				"menu",
-				"Assets\\Scripts\\Menu.cs"
-			],
-			[
 				"men",
 				"Assets\\Scripts\\MenuFactory.cs"
 			],
@@ -2072,10 +2124,6 @@
 			[
 				"action",
 				"Assets\\Scripts\\GameAction.cs"
-			],
-			[
-				"bos",
-				"Assets\\Scripts\\Boss.cs"
 			],
 			[
 				"m",
@@ -2148,10 +2196,6 @@
 			[
 				"actor.cs",
 				"Assets\\Scripts\\Actor.cs"
-			],
-			[
-				"kingd",
-				"Assets\\Scripts\\Kingdom.cs"
 			],
 			[
 				"camco",
@@ -2364,22 +2408,6 @@
 			[
 				"veh",
 				"Code\\Game\\VehicleActor.cs"
-			],
-			[
-				"va",
-				"Code\\Game\\Vars.cs"
-			],
-			[
-				"co",
-				"Code\\Constants.cs"
-			],
-			[
-				"v",
-				"Code\\Game\\Vars.cs"
-			],
-			[
-				"we",
-				"Code\\Game\\Weapon.cs"
 			]
 		],
 		"width": 0.0
@@ -2406,7 +2434,7 @@
 		],
 		"width": 604.0
 	},
-	"selected_group": 0,
+	"selected_group": 1,
 	"settings":
 	{
 	},

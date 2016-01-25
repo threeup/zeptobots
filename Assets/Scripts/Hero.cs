@@ -4,7 +4,7 @@ using System.Collections;
 public class Hero : MonoBehaviour {
 
 	public Actor actor = null;
-	public GameAbility[] actions;
+	public GameAbility[] abilities;
 
 	public Vector2 inputVec = Vector2.zero;
 	public bool inputA = false;
@@ -12,11 +12,11 @@ public class Hero : MonoBehaviour {
 
 	public void Init()
 	{
-		actions = new GameAbility[2];
-		actions[0] = this.gameObject.AddComponent<GameAbility>();
-		actions[1] = this.gameObject.AddComponent<GameAbility>();
-		ShootAb.Assign(actions[0]);
-		DashAb.Assign(actions[1]);
+		abilities = new GameAbility[2];
+		abilities[0] = this.gameObject.AddComponent<GameAbility>();
+		abilities[1] = this.gameObject.AddComponent<GameAbility>();
+		ShootAb.Assign(abilities[0]);
+		DashAb.Assign(abilities[1]);
 
 		
 	}
@@ -27,15 +27,15 @@ public class Hero : MonoBehaviour {
 	{
 		float deltaTime = Time.deltaTime;
 		Engine engine = actor.engine;
-		ActorBody actorBody = actor.actorBody;
+		Body body = actor.body;
 		engine.MoveUpdate(deltaTime, inputVec);
 		
-		actions[0].ActionUpdate(deltaTime, actor, inputA);
-		actions[1].ActionUpdate(deltaTime, actor, inputB);
+		abilities[0].ActionUpdate(deltaTime, actor, inputA);
+		abilities[1].ActionUpdate(deltaTime, actor, inputB);
 
-		if( actorBody && actorBody.localUpdate )
+		if( body && body.localUpdate )
 		{
-			actorBody.BodyUpdate(deltaTime, engine.facingVec, engine.currentSpeed, actions[0].isPressed, actions[1].isPressed);
+			body.BodyUpdate(deltaTime, engine.facingVec, engine.currentSpeed, abilities[0].isPressed, abilities[1].isPressed);
 		}
 	}
 

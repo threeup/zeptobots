@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BipedBody : ActorBody {
+public class BipedBody : Body {
 
 
 	public Transform larm;

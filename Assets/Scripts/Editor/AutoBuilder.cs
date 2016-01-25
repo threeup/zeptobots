@@ -94,7 +94,7 @@ public static class AutoBuilder {
 							hb.transform.parent = go.transform;
 							Transform bodyT = go.transform.Find("default");
 							bodyT.gameObject.name = "actorbody";
-							a.actorBody = bodyT.gameObject.AddComponent<ActorBody>();
+							a.body = bodyT.gameObject.AddComponent<Body>();
 						}
 						if( src.name.StartsWith("terrain") )
 						{
@@ -144,7 +144,7 @@ public static class AutoBuilder {
 							Actor a = go.GetComponent<Actor>();
 							Transform bodyT = go.transform.Find("default");
 							bodyT.gameObject.name = "actorbody";
-							a.actorBody = bodyT.gameObject.AddComponent<ActorBody>();
+							a.body = bodyT.gameObject.AddComponent<Body>();
 						}
 						if( src.name.StartsWith("terrain") )
 						{

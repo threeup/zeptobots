@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Actor : MonoBehaviour {
+public class Actor : ZeptoObject {
 
 	public ActorQuickData aqd = new ActorQuickData();
 	public ActorBasicData abd = new ActorBasicData();
@@ -29,13 +29,8 @@ public class Actor : MonoBehaviour {
 
 	public bool localInput = false;
 
-	public Engine engine = null;
-	public Hero hero = null;
-	public ActorBody actorBody = null;
-	public Creature creature = null;
-	public HealthBar healthBar = null;
-	public List<char> effectNames = new List<char>();
-	public GameEffect[] effects;
+	public ZeptoObject zo;
+
 
 	private System.Text.StringBuilder sb = new System.Text.StringBuilder();
 
@@ -43,21 +38,7 @@ public class Actor : MonoBehaviour {
 	private float invulnerableTime = -1f;
 	public float ttlTimer = -1f;
 
-	public void Init(string sprite)
-	{
-		effects = new GameEffect[2];
-		effects[0] = this.gameObject.AddComponent<GameEffect>();
-		effects[1] = this.gameObject.AddComponent<GameEffect>();
-		engine.Init();
-		if( hero )
-		{
-			hero.Init();
-		}
-		if( creature )
-		{
-			creature.Init(sprite);
-		}
-	}
+
 
 	public void Update()
 	{
@@ -83,16 +64,19 @@ public class Actor : MonoBehaviour {
 	public void ModBase(bool authoritative, ActorBasicData abd)
 	{
 		this.abd = abd;
-		if( this.actorBody )
+		if( this.body )
 		{
-			this.actorBody.SetSprite(abd.visualString);
+			this.body.SetSprite(abd.visualString);
 		}
 	}
 
 	public void ModQuick(bool authoritative, ActorQuickData aqd)
 	{
 		this.aqd = aqd;
-		this.engine.desiredPosition = new Vector3(aqd.rx-5, 0f, -aqd.ry-5);
+		if( authoritative )
+		{
+			this.engine.desiredPosition = new Vector3(aqd.rx-5, 0f, -aqd.ry-5);
+		}
 		this.engine.SetFacing(aqd.fx, aqd.fy);
 		this.ttlTimer = aqd.ttl;
 		
@@ -113,9 +97,9 @@ public class Actor : MonoBehaviour {
 	public void SetLocal(bool val)
 	{
 		localInput = val;
-		if( this.actorBody )
+		if( this.body )
 		{
-			this.actorBody.localUpdate = val;
+			this.body.localUpdate = val;
 		}
 	}
 
@@ -131,77 +115,6 @@ public class Actor : MonoBehaviour {
 			aqd.hp -= val;
 			this.invulnerableTime = 1f;
 		}
-	}
-
-	public void AddEff(char effName, float duration)
-	{
-		if( !effectNames.Contains(effName) )
-		{
-			GameEffect ge = GetVacantEffect();
-			if( ge != null )
-			{
-				effectNames.Add(effName);
-				switch(effName)
-				{
-					case 'G': GlowEff.Assign(ge, effName); break;
-					case 'R': RockEff.Assign(ge, effName); break;
-					default: break;
-				}
-				ge.SetPause(false);
-				ge.SetDuration(duration);
-				ge.Advance(this);
-			}
-		}
-	}
-
-	public void PauseEff(char effName)
-	{
-		if( effectNames.Contains(effName) )
-		{
-			GameEffect ge = GetNamedEffect(effName);
-			if( ge != null )
-			{
-				ge.SetPause(true);
-			}
-		}
-	}
-
-	public void RemEff(char effName)
-	{
-		if( effectNames.Contains(effName) )
-		{
-			GameEffect ge = GetNamedEffect(effName);
-			if( ge != null )
-			{
-				ge.Interrupt(this);
-			}
-			effectNames.Remove(effName);
-		}
-	}
-
-	public GameEffect GetVacantEffect()
-	{
-		for(int i=0; i<effects.Length; ++i)
-		{
-			if(!effects[i].IsActive )
-			{
-				return effects[i];
-			}
-		}
-		return null;
-	}
-
-	public GameEffect GetNamedEffect(char effName)
-	{
-		for(int i=0; i<effects.Length; ++i)
-		{
-			//if(string.Compare(effects[i].effName, effName) == 0)
-			if(effects[i].effName == effName)
-			{
-				return effects[i];
-			}
-		}
-		return null;
 	}
 
 

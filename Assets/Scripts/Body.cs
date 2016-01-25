@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ActorBody : MonoBehaviour {
+public class Body : MonoBehaviour {
 
 	public Material flatMaterial;
 	public Material tintedMaterial;

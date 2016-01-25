@@ -12,6 +12,8 @@ public class RulesAbility
 
 public class DashAb : RulesAbility
 {
+	static float maxChargeDuration = 2f;
+	static float dashDuration = 0.7f;
 
 	public static void Assign(GameAbility ga)
 	{
@@ -29,21 +31,23 @@ public class DashAb : RulesAbility
 	}
 	public static void Charge(GameAbility ga, Actor actor)
 	{
-		actor.AddEff('G', 2.6f);
-		ga.SetLock(2.0f);
+		actor.AddEff('G', maxChargeDuration+dashDuration);
+		actor.TopSpeed = actor.BaseTopSpeed*3/4;
+		ga.SetLock(maxChargeDuration);
 	}
 
 	public static void Activate(GameAbility ga, Actor actor)
 	{
 		actor.PauseEff('G');
-		float dashDistance = 40f;
+
+		float dashDistance = actor.BaseTopSpeed*5*dashDuration;
 		Engine engine = actor.engine;
 		Vector3 delta = new Vector3(engine.facingVec.x, 0, engine.facingVec.y)*dashDistance;
-		engine.desiredPosition = engine.transform.position + delta;
-		actor.TopSpeed = actor.BaseTopSpeed*8;
+		engine.SetDesiredPosition(engine.transform.position + delta);
+		actor.TopSpeed = actor.BaseTopSpeed*5;
 		actor.Damage = 3;
 		engine.moveLock = true;
-		ga.SetLock(0.6f);
+		ga.SetLock(dashDuration);
 	}
 
 	public static void Recover(GameAbility ga, Actor actor)
@@ -132,7 +136,7 @@ public class PunchAb : RulesAbility {
 		float dashDistance = 10f;
 		Engine engine = actor.engine;
 		Vector3 delta = new Vector3(engine.facingVec.x, 0, engine.facingVec.y)*dashDistance;
-		engine.desiredPosition = engine.transform.position + delta;
+		engine.SetDesiredPosition(engine.transform.position + delta);
 		actor.TopSpeed = actor.BaseTopSpeed*4;
 		actor.Damage = 4;
 		ga.SetLock(0.30f);
